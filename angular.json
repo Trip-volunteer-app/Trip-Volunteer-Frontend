@@ -1,0 +1,124 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "Trip_Volunteer": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/trip-volunteer",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css",
+              "src/assets/Home/css/animate.css",	
+              "src/assets/Home/css/owl.carousel.min.css",
+              "src/assets/Home/css/owl.theme.default.min.css",
+              "src/assets/Home/css/magnific-popup.css",
+              "src/assets/Home/css/bootstrap-datepicker.css",
+              "src/assets/Home/css/jquery.timepicker.css",
+              "src/assets/Home/css/flaticon.css",
+              "src/assets/Home/css/style.css"
+            ],
+            "scripts": [
+              "src/assets/Home/js/jquery.min.js",
+              "src/assets/Home/js/jquery-migrate-3.0.1.min.js",
+              "src/assets/Home/js/popper.min.js",
+              "src/assets/Home/js/bootstrap.min.js",
+              "src/assets/Home/js/jquery.easing.1.3.js",
+              "src/assets/Home/js/jquery.waypoints.min.js",
+              "src/assets/Home/js/jquery.stellar.min.js",
+              "src/assets/Home/js/owl.carousel.min.js",
+              "src/assets/Home/js/jquery.magnific-popup.min.js",
+              "src/assets/Home/js/jquery.animateNumber.min.js",
+              "src/assets/Home/js/bootstrap-datepicker.js",
+              "src/assets/Home/js/scrollax.min.js",
+              "src/assets/Home/js/google-map.js",
+              "src/assets/Home/js/main.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "Trip_Volunteer:build:production"
+            },
+            "development": {
+              "browserTarget": "Trip_Volunteer:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "Trip_Volunteer:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "tsconfig.spec.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "318a5f27-21e2-4f9c-aa36-0c0c5dce7f16"
+  }
+}
