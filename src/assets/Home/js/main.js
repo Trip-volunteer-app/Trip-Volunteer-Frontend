@@ -1,4 +1,3 @@
-console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
 (function($) {
 
 	"use strict";
@@ -12,7 +11,7 @@ console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
     scrollProperty: 'scroll'
   });
 
-
+  $(document).ready(function() {
 	var fullHeight = function() {
 
 		$('.js-fullheight').css('height', $(window).height());
@@ -22,7 +21,7 @@ console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
 
 	};
 	fullHeight();
-
+  });
 	// loader
 	var loader = function() {
 		setTimeout(function() { 
@@ -35,7 +34,7 @@ console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
 
 	// Scrollax
    $.Scrollax();
-
+   $(document).ready(function() {
 	var carousel = function() {
 		$('.carousel-testimony').owlCarousel({
 			center: true,
@@ -80,7 +79,7 @@ console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
 
 	};
 	carousel();
-
+   });
 	$('nav .dropdown').hover(function(){
 		var $this = $(this);
 		// 	 timer;
@@ -166,9 +165,7 @@ console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
 		}
 	};
 
-	$(document).ready(function() {
-		console.log("hhhhhhhhhhhhhhhhhhhhhh");
-	
+	$(document).ready(function() {	
 		var counter = function() {
 			$('#section-counter, .hero-wrap, .ftco-counter').waypoint(function(direction) {
 				if (direction === 'down' && !$(this.element).hasClass('ftco-animated')) {

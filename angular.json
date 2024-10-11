@@ -25,7 +25,6 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
               "src/assets/Home/css/style.css",
               "src/assets/Home/css/flaticon.css",
               "src/assets/Home/css/jquery.timepicker.css",
