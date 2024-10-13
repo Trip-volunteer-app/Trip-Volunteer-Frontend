@@ -5979,7 +5979,9 @@ button.bg-dark:focus {
   -webkit-box-align: start !important;
   -ms-flex-align: start !important;
   align-items: flex-start !important; }
-
+.js-fullheight{
+  height: 450px;
+}
 .align-items-end {
   -webkit-box-align: end !important;
   -ms-flex-align: end !important;
@@ -6901,15 +6903,11 @@ button.bg-dark:focus {
 
 .pt-2,
 .py-2 {
-  padding-top: 0.5rem !important; }
+  padding-top: 0.25rem !important; }
 
 .pr-2,
 .px-2 {
   padding-right: 0.5rem !important; }
-
-.pb-2,
-.py-2 {
-  padding-bottom: 0.5rem !important; }
 
 .pl-2,
 .px-2 {
@@ -6958,7 +6956,7 @@ button.bg-dark:focus {
 
 .pt-5,
 .py-5 {
-  padding-top: 3rem !important; }
+  padding-top: 2.4rem !important; }
 
 .pr-5,
 .px-5 {
@@ -7151,9 +7149,6 @@ button.bg-dark:focus {
   .mr-sm-4,
   .mx-sm-4 {
     margin-right: 1.5rem !important; }
-  .mb-sm-4,
-  .my-sm-4 {
-    margin-bottom: 1.5rem !important; }
   .ml-sm-4,
   .mx-sm-4 {
     margin-left: 1.5rem !important; }
@@ -7203,13 +7198,10 @@ button.bg-dark:focus {
     padding: 0.5rem !important; }
   .pt-sm-2,
   .py-sm-2 {
-    padding-top: 0.5rem !important; }
+    padding-top: 0.25rem !important; }
   .pr-sm-2,
   .px-sm-2 {
     padding-right: 0.5rem !important; }
-  .pb-sm-2,
-  .py-sm-2 {
-    padding-bottom: 0.5rem !important; }
   .pl-sm-2,
   .px-sm-2 {
     padding-left: 0.5rem !important; }
@@ -7243,9 +7235,6 @@ button.bg-dark:focus {
     padding-left: 1.5rem !important; }
   .p-sm-5 {
     padding: 3rem !important; }
-  .pt-sm-5,
-  .py-sm-5 {
-    padding-top: 3rem !important; }
   .pr-sm-5,
   .px-sm-5 {
     padding-right: 3rem !important; }
@@ -7457,13 +7446,10 @@ button.bg-dark:focus {
     padding: 0.5rem !important; }
   .pt-md-2,
   .py-md-2 {
-    padding-top: 0.5rem !important; }
+    padding-top: 0.25rem !important; }
   .pr-md-2,
   .px-md-2 {
     padding-right: 0.5rem !important; }
-  .pb-md-2,
-  .py-md-2 {
-    padding-bottom: 0.5rem !important; }
   .pl-md-2,
   .px-md-2 {
     padding-left: 0.5rem !important; }
@@ -7497,9 +7483,6 @@ button.bg-dark:focus {
     padding-left: 1.5rem !important; }
   .p-md-5 {
     padding: 3rem !important; }
-  .pt-md-5,
-  .py-md-5 {
-    padding-top: 3rem !important; }
   .pr-md-5,
   .px-md-5 {
     padding-right: 3rem !important; }
@@ -7711,13 +7694,10 @@ button.bg-dark:focus {
     padding: 0.5rem !important; }
   .pt-lg-2,
   .py-lg-2 {
-    padding-top: 0.5rem !important; }
+    padding-top: 0.25rem !important; }
   .pr-lg-2,
   .px-lg-2 {
     padding-right: 0.5rem !important; }
-  .pb-lg-2,
-  .py-lg-2 {
-    padding-bottom: 0.5rem !important; }
   .pl-lg-2,
   .px-lg-2 {
     padding-left: 0.5rem !important; }
@@ -7751,9 +7731,6 @@ button.bg-dark:focus {
     padding-left: 1.5rem !important; }
   .p-lg-5 {
     padding: 3rem !important; }
-  .pt-lg-5,
-  .py-lg-5 {
-    padding-top: 3rem !important; }
   .pr-lg-5,
   .px-lg-5 {
     padding-right: 3rem !important; }
@@ -7965,13 +7942,10 @@ button.bg-dark:focus {
     padding: 0.5rem !important; }
   .pt-xl-2,
   .py-xl-2 {
-    padding-top: 0.5rem !important; }
+    padding-top: 0.25rem !important; }
   .pr-xl-2,
   .px-xl-2 {
     padding-right: 0.5rem !important; }
-  .pb-xl-2,
-  .py-xl-2 {
-    padding-bottom: 0.5rem !important; }
   .pl-xl-2,
   .px-xl-2 {
     padding-left: 0.5rem !important; }
@@ -8005,9 +7979,6 @@ button.bg-dark:focus {
     padding-left: 1.5rem !important; }
   .p-xl-5 {
     padding: 3rem !important; }
-  .pt-xl-5,
-  .py-xl-5 {
-    padding-top: 3rem !important; }
   .pr-xl-5,
   .px-xl-5 {
     padding-right: 3rem !important; }
@@ -8385,7 +8356,7 @@ h1, h2, h3, h4, h5,
   z-index: 3; }
   @media (max-width: 991.98px) {
     .ftco-navbar-light {
-      background: #000000 !important;
+      background: #2e2e2e !important;
       position: relative;
       top: 0;
       padding-top: 0;
@@ -8496,7 +8467,7 @@ h1, h2, h3, h4, h5,
     left: 0;
     top: 0;
     margin-top: -130px;
-    background: #fff !important;
+    background: #2e2e2e !important;
     -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1); }
     @media (max-width: 991.98px) {
@@ -8540,7 +8511,7 @@ h1, h2, h3, h4, h5,
     .ftco-navbar-light.scrolled .nav-link {
       padding-top: 1rem !important;
       padding-bottom: 1rem !important;
-      color: #000000 !important; }
+      color: #f4e1c3 !important; }
       .ftco-navbar-light.scrolled .nav-link.active {
         color: #f15d30 !important; }
     .ftco-navbar-light.scrolled.awake {
@@ -8553,7 +8524,7 @@ h1, h2, h3, h4, h5,
       -o-transition: .3s all ease-out;
       transition: .3s all ease-out; }
     .ftco-navbar-light.scrolled .navbar-brand {
-      color: #000000;
+      color: #f4e1c3;
       padding-top: 1rem;
       padding-bottom: 1rem; }
 
@@ -8572,7 +8543,6 @@ h1, h2, h3, h4, h5,
 
 .hero-wrap {
   width: 100%;
-  height: 100%;
   position: inherit;
   background-size: cover;
   background-repeat: no-repeat;
@@ -8588,7 +8558,9 @@ h1, h2, h3, h4, h5,
     opacity: .3;
     background: #000000; }
   .hero-wrap.hero-wrap-2 .overlay {
-    width: 100%; }
+    width: 100%;
+    height:450px;
+   }
 
 .slider-text {
   position: relative; }
@@ -9243,7 +9215,7 @@ textarea.form-control {
 
 .ftco-footer {
   font-size: 16px;
-  padding: 7em 0;
+  padding: 1em 0;
   z-index: 0;
   border-top: 1px solid rgba(0, 0, 0, 0.05); }
   .ftco-footer .ftco-footer-logo {
@@ -9251,14 +9223,14 @@ textarea.form-control {
     letter-spacing: .1em; }
   .ftco-footer .ftco-footer-widget h2 {
     font-weight: normal;
-    color: #000000;
-    margin-bottom: 40px;
+    color: #f4e1c3;
+    margin-bottom: 15px;
     font-size: 18px;
     font-weight: 600; }
   .ftco-footer .ftco-footer-widget ul li a {
-    color: rgba(0, 0, 0, 0.5); }
+    color: #f4e1c3; }
     .ftco-footer .ftco-footer-widget ul li a span {
-      color: rgba(0, 0, 0, 0.1); }
+      color: #f4e1c3; }
   .ftco-footer .ftco-footer-widget .btn-primary {
     background: #fff !important;
     border: 2px solid #fff !important; }
@@ -9266,16 +9238,19 @@ textarea.form-control {
       background: #fff;
       border: 2px solid #fff !important; }
   .ftco-footer p {
-    color: rgba(0, 0, 0, 0.5); }
+    color: #f4e1c3 }
   .ftco-footer a {
-    color: rgba(0, 0, 0, 0.5); }
+    color: #f4e1c3; }
     .ftco-footer a:hover {
       color: #f15d30; }
   .ftco-footer .ftco-heading-2 {
     font-size: 17px;
     font-weight: 400;
-    color: #000000; }
+    color: #f15d30; }
 
+    .ftco-footer .ftco-footer-widget ul li span {
+      color: #f4e1c3;
+  }
 .ftco-footer-social li {
   list-style: none;
   margin: 0 10px 0 0;
