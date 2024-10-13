@@ -1,1 +1,45 @@
-<p>register works!</p>
+<section class="container forms">
+    <div class="form register">
+      <div class="form-content">
+        <header>Signup</header>
+        <!-- Use ngSubmit for form submission -->
+        <form (ngSubmit)="onSubmit()">
+          <div class="field input-field">
+            <input type="email" placeholder="Email" name="email" [(ngModel)]="email" required>
+          </div>
+          <div class="field input-field">
+            <input type="password" placeholder="Create Password" name="password" [(ngModel)]="password" required>
+          </div>
+          <div class="field input-field">
+            <input type="password" placeholder="Confirm Password" name="confirmPassword" [(ngModel)]="confirmPassword" required>
+          </div>
+          <div class="form-link">
+            <div class="field remember-me-field">
+              <input type="checkbox" id="rememberMe" [(ngModel)]="rememberMe" style="height: min-content;"/>
+              <label for="rememberMe">Remember me</label>
+            </div>
+          </div>
+          <div class="field button-field">
+            <button type="submit">Signup</button>
+          </div>
+        </form>
+        <div class="form-link">
+          <span>Already have an account? <a routerLink="/security/login" class="link">Login</a></span>
+        </div>
+      </div>
+      <div class="line"></div>
+      <div class="media-options">
+        <a href="#" class="field facebook">
+          <i class='bx bxl-facebook facebook-icon'></i>
+          <span>Login with Facebook</span>
+        </a>
+      </div>
+      <div class="media-options">
+        <a href="#" class="field google">
+          <img src="../../../assets/Auth/images/google.png" alt="" class="google-img">
+          <span>Login with Google</span>
+        </a>
+      </div>
+    </div>
+  </section>
+  

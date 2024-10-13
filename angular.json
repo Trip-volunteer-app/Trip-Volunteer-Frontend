@@ -47,7 +47,8 @@
               "src/assets/Home/js/jquery.animateNumber.min.js",
               "src/assets/Home/js/bootstrap.min.js",
               "src/assets/Home/js/popper.min.js",
-              "src/assets/Home/js/main.js"
+              "src/assets/Home/js/main.js",
+              "src/assets/Auth/js/script.js"
             ]
           },
           "configurations": {

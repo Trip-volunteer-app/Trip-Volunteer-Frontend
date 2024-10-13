@@ -1,3 +1,4 @@
+console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
 (function($) {
 
 	"use strict";
@@ -10,7 +11,6 @@
     hideDistantElements: false,
     scrollProperty: 'scroll'
   });
-
 //   $(document).ready(function() {
 // 	var fullHeight = function() {
 
@@ -249,4 +249,3 @@
 
 
 })(jQuery);
-
