@@ -9,13 +9,15 @@ import { ContactComponent } from './contact/contact.component';
 import { SharedModule } from './shared/shared.module';
 import{FormsModule}from'@angular/forms';
 import { TripsComponent } from './trips/trips.component';
+import { AboutusComponent } from './aboutus/aboutus.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ContactComponent,
-    TripsComponent
+    TripsComponent,
+    AboutusComponent
   ],
   imports: [
     BrowserModule,
