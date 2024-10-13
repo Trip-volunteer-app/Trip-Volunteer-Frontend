@@ -25,23 +25,17 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
-              "src/assets/Home/css/animate.css",	
-              "src/assets/Home/css/owl.carousel.min.css",
-              "src/assets/Home/css/owl.theme.default.min.css",
-              "src/assets/Home/css/magnific-popup.css",
-              "src/assets/Home/css/bootstrap-datepicker.css",
-              "src/assets/Home/css/jquery.timepicker.css",
+              "src/assets/Home/css/style.css",
               "src/assets/Home/css/flaticon.css",
-              "src/assets/Home/css/style.css"
+              "src/assets/Home/css/jquery.timepicker.css",
+              "src/assets/Home/css/bootstrap-datepicker.css",
+              "src/assets/Home/css/magnific-popup.css",
+              "src/assets/Home/css/owl.theme.default.min.css",
+              "src/assets/Home/css/owl.carousel.min.css",
+              "src/assets/Home/css/animate.css"
             ],
-            
             "scripts": [
-
-            
-
-             "src/assets/Home/js/jquery.min.js",
-
+              "src/assets/Home/js/jquery.min.js",
               "src/assets/Home/js/scrollax.min.js",
               "src/assets/Home/js/jquery.easing.1.3.js",
               "src/assets/Home/js/jquery-migrate-3.0.1.min.js",
@@ -55,9 +49,6 @@
               "src/assets/Home/js/popper.min.js",
               "src/assets/Home/js/main.js",
               "src/assets/Auth/js/script.js"
-
-            
-
             ]
           },
           "configurations": {
