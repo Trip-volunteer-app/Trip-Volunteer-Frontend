@@ -5979,9 +5979,9 @@ button.bg-dark:focus {
   -webkit-box-align: start !important;
   -ms-flex-align: start !important;
   align-items: flex-start !important; }
-.js-fullheight{
+/* .js-fullheight{
   height: 450px;
-}
+} */
 .align-items-end {
   -webkit-box-align: end !important;
   -ms-flex-align: end !important;
@@ -8559,7 +8559,6 @@ h1, h2, h3, h4, h5,
     background: #000000; }
   .hero-wrap.hero-wrap-2 .overlay {
     width: 100%;
-    height:450px;
    }
 
 .slider-text {
