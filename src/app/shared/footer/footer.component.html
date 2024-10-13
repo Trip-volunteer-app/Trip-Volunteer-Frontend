@@ -42,14 +42,12 @@
             <div class="col-md pt-5 border-left">
                 <div class="ftco-footer-widget pt-md-5 mb-4">
                     <h2 class="ftco-heading-2">Have a Questions?</h2>
-                    <div class="list-unstyled">
+                    <div class="list-unstyled" *ngFor="let obj of contact.WebsiteInfo">
                         <ul>
-                            <li><span class="icon fa fa-map-marker"></span><span class="text">203 Fake St. Mountain
-                                    View, San Francisco, California, USA</span></li>
-                            <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+2 392 3929
-                                        210</span></a></li>
+                            <li><span class="icon fa fa-map-marker"></span><span class="text">{{obj.adress}}</span></li>
+                            <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">{{obj.phone_Number}}</span></a></li>
                             <li><a href="#"><span class="icon fa fa-paper-plane"></span><span
-                                        class="text">info@yourdomain.com</span></a></li>
+                                        class="text">{{obj.email}}</span></a></li>
                         </ul>
                     </div>
                 </div>
