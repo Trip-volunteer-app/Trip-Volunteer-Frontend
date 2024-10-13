@@ -35,21 +35,22 @@
               "src/assets/Home/css/flaticon.css",
               "src/assets/Home/css/style.css"
             ],
+            
             "scripts": [
               "src/assets/Home/js/jquery.min.js",
-              "src/assets/Home/js/jquery-migrate-3.0.1.min.js",
-              "src/assets/Home/js/popper.min.js",
-              "src/assets/Home/js/bootstrap.min.js",
+              "src/assets/Home/js/scrollax.min.js",
               "src/assets/Home/js/jquery.easing.1.3.js",
-              "src/assets/Home/js/jquery.waypoints.min.js",
+              "src/assets/Home/js/jquery-migrate-3.0.1.min.js",
               "src/assets/Home/js/jquery.stellar.min.js",
+              "src/assets/Home/js/jquery.waypoints.min.js",
               "src/assets/Home/js/owl.carousel.min.js",
               "src/assets/Home/js/jquery.magnific-popup.min.js",
-              "src/assets/Home/js/jquery.animateNumber.min.js",
               "src/assets/Home/js/bootstrap-datepicker.js",
-              "src/assets/Home/js/scrollax.min.js",
-              "src/assets/Home/js/google-map.js",
-              "src/assets/Home/js/main.js"
+              "src/assets/Home/js/jquery.animateNumber.min.js",
+              "src/assets/Home/js/bootstrap.min.js",
+              "src/assets/Home/js/popper.min.js",
+              "src/assets/Home/js/main.js",
+              "src/assets/Auth/js/script.js"
             ]
           },
           "configurations": {
