@@ -1,19 +1,26 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { StyleService } from '../Services/style.service';
+import { HomeService } from '../Services/home.service';
+
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit, AfterViewInit {
-  constructor(
+
+export class HomeComponent implements OnInit , AfterViewInit {
+
+  constructor(   
+    public home: HomeService,
     private styleService: StyleService,
     private cdr: ChangeDetectorRef
   ) {}
 
+
   ngOnInit(): void {
     this.styleService.applyFullHeight(); // Apply full height initially
+    this.home.GetAllAboutUsElements();
   }
 
   ngAfterViewInit(): void {
