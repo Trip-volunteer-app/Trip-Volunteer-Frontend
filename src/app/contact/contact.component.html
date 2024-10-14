@@ -15,17 +15,16 @@
       style="background-image: url('assets/Home/images/chero12.jpeg');">
       <div class="overlay"></div>
       <div class="container">
-        <div *ngFor="let obj of contact.contactElements">
-          <div class="row no-gutters slider-text align-items-end justify-content-center js-fullheight">
-            <div class="col-md-9 pb-5 text-center">
-              <p class="breadcrumbs">
-                <span class="mr-2">
-                  <a href="index.html">Home <i class="fa fa-chevron-right"></i></a>
+        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
+          <div class="col-md-9 pb-5 ftco-animate text-center">
+            <ng-container *ngFor="let obj of contact.contactElements">
+              <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home
+                    <i class="fa fa-chevron-right"></i></a>
                 </span>
                 <span>Contact us <i class="fa fa-chevron-right"></i></span>
               </p>
               <h1 class="mb-0 bread">{{ obj.header }}</h1>
-            </div>
+            </ng-container>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class HomeService {
-   constructor(private http:HttpClient) { }
+   constructor(public http:HttpClient) { }
    AboutUsElements:any=[];
    GetAllAboutUsElements(){
   //  debugger;
