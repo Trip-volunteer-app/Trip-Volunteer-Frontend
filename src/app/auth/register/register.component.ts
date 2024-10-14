@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-register',
@@ -10,13 +10,11 @@ export class RegisterComponent implements OnInit {
   email: string = '';
   password: string = '';
   confirmPassword: string = '';
-  rememberMe: boolean = true;
+  rememberMe: boolean = true; // Initialized to true
 
   constructor() {}
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   onSubmit(): void {
     if (this.rememberMe) {
@@ -29,10 +27,9 @@ export class RegisterComponent implements OnInit {
       localStorage.removeItem('email');
       localStorage.removeItem('password');
       localStorage.removeItem('rememberMe');
-      alert("You dont click on Remember me !")
+      alert("You don't click on Remember me!");
     }
-
-    // You can now perform the form submission or any other logic here
-    console.log('Form submitted with:', { email: this.email, password: this.password });
+    alert('Register successfully');
+    console.log('Form submitted with:', { email: this.email, password: this.password, rememberMe: this.rememberMe });
   }
 }
