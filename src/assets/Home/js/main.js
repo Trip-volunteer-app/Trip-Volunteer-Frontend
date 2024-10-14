@@ -11,18 +11,17 @@ console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
     hideDistantElements: false,
     scrollProperty: 'scroll'
   });
+//   $(document).ready(function() {
+// 	var fullHeight = function() {
 
-  $(document).ready(function() {
-	var fullHeight = function() {
+// 		$('.js-fullheight').css('height', $(window).height());
+// 		$(window).resize(function(){
+// 			$('.js-fullheight').css('height', $(window).height());
+// 		});
 
-		$('.js-fullheight').css('height', $(window).height());
-		$(window).resize(function(){
-			$('.js-fullheight').css('height', $(window).height());
-		});
-
-	};
-	fullHeight();
-  });
+// 	};
+// 	fullHeight();
+//   });
 	// loader
 	var loader = function() {
 		setTimeout(function() { 
@@ -166,9 +165,7 @@ console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
 		}
 	};
 
-	$(document).ready(function() {
-		console.log("hhhhhhhhhhhhhhhhhhhhhh");
-	
+	$(document).ready(function() {	
 		var counter = function() {
 			$('#section-counter, .hero-wrap, .ftco-counter').waypoint(function(direction) {
 				if (direction === 'down' && !$(this.element).hasClass('ftco-animated')) {

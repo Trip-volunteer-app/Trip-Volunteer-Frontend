@@ -1,23 +1,26 @@
 import { Component, OnInit, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
-import { HomeService } from '../Services/home.service';
+import { ContactusService } from '../Services/contactus.service';
 import { StyleService } from '../Services/style.service';
+
 @Component({
-  selector: 'app-aboutus',
-  templateUrl: './aboutus.component.html',
-  styleUrls: ['./aboutus.component.css']
+  selector: 'app-contact',
+  templateUrl: './contact.component.html',
+  styleUrls: ['./contact.component.css']
 })
-export class AboutusComponent implements OnInit, AfterViewChecked {
+export class ContactComponent  implements OnInit, AfterViewChecked {
   private isViewInitialized = false;
+
   constructor(
-    public home: HomeService,
+    public contact: ContactusService,
     private styleService: StyleService,
     private cdr: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.home.GetAllAboutUsElements();
-
-
+    // Fetch data when component initializes
+    this.contact.getAllContactElements();
+    this.contact.getWebsiteInfo();
+    
     this.isViewInitialized = true;
     this.styleService.applyFullHeight(); // Apply height initially
   }
