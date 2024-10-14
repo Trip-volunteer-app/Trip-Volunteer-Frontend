@@ -12,10 +12,6 @@ import { HomeService } from '../Services/home.service';
 export class HomeComponent implements OnInit , AfterViewInit {
 
   constructor(   
-<<<<<<< HEAD
-
-=======
->>>>>>> 35575aa606e0a6d69aa059e4bb5e1502a520767d
     public home: HomeService,
     private styleService: StyleService,
     private cdr: ChangeDetectorRef
@@ -25,12 +21,7 @@ export class HomeComponent implements OnInit , AfterViewInit {
   ngOnInit(): void {
     this.styleService.applyFullHeight(); // Apply full height initially
     this.home.GetAllAboutUsElements();
-<<<<<<< HEAD
 
-    this.isViewInitialized = true;
-    this.styleService.applyFullHeight(); // Apply height initially
-=======
->>>>>>> 35575aa606e0a6d69aa059e4bb5e1502a520767d
   }
 
   ngAfterViewInit(): void {
