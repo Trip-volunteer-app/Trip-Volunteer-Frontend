@@ -1,8 +1,25 @@
 <section class="container forms">
+    <!-- Display Forgot Password Dialog above the Login Form -->
+    <div *ngIf="showForgotPasswordDialog" class="forgot-password-dialog">
+        <p style="color: black;">Forgot Password Form</p>
+        <br>
+        <div class="example-container">
+            <mat-form-field>
+                <input type="email" matInput name="email" placeholder="Enter Your Email" >
+            </mat-form-field>
+        </div>
+        <div class="dialog-actions">
+            <button (click)="closeForgotPasswordDialog()">Cancel</button>
+            <button>Save</button>
+        </div>
+    </div>
+
     <div class="form login">
         <div class="form-content">
-            <header>Login</header>
-            <form (ngSubmit)="onLogin()">
+            <header>Login
+                <a routerLink="/home" class="close-button">x</a>
+            </header>
+            <form (ngSubmit)="onSubmit()">
                 <div class="field input-field">
                     <input type="email" placeholder="Email" [(ngModel)]="email" name="email" required>
                 </div>
@@ -10,9 +27,15 @@
                     <input type="password" placeholder="Password" class="password" [(ngModel)]="password" name="password" required>
                     <i class='bx bx-hide eye-icon'></i>
                 </div>
+
+                <section class="example-section">
+                    <mat-checkbox class="example-margin" id="rememberMe" [(ngModel)]="rememberMe" name="rememberMe">Remember me</mat-checkbox>
+                </section>
+
                 <div class="form-link">
-                    <a href="#" class="forgot-pass">Forgot password?</a>
+                    <a href="#" class="forgot-pass" (click)="openForgotPasswordDialog(); $event.preventDefault()">Forgot password?</a>
                 </div>
+
                 <div class="field button-field">
                     <button type="submit">Login</button>
                 </div>
