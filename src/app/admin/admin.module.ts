@@ -13,7 +13,8 @@ import { ManagepagesComponent } from './managepages/managepages.component';
     DashboardComponent,
     SidebarComponent,
     HeaderComponent,
-    ManagepagesComponent
+    ManagepagesComponent,
+    
   ],
   imports: [
     CommonModule,

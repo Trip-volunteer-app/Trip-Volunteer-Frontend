@@ -10,6 +10,8 @@ import{FormsModule}from'@angular/forms';
 import { TripsComponent } from './trips/trips.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SharedModule,
     HttpClientModule,
     FormsModule,
-    BrowserAnimationsModule  
+    BrowserAnimationsModule ,
+    MatDialogModule  ,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

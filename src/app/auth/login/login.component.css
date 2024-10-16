@@ -1,27 +1,56 @@
 /* Google Fonts - Poppins */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-body{
-    background-color: #e9ecef !important;
+@import url('https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css');
 
-}
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-
 }
-.container{
-    height: 100vh;
+
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    max-height: 100%;  
+    max-width: 100%;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #e9ecef;
+    background-color: #e9ecef; 
     column-gap: 30px;
 }
-.form{
+.close-button {
     position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;           
+    height: 30px;          
+    line-height: 30px;   
+    border-radius: 50%;  
+    background-color: #f0f0f0;  
+    text-align: center;     
+    font-size: 16px;       
+    color: #333;           
+    text-decoration: none;  
+    cursor: pointer;
+    border: 1px solid #ccc; 
+  }
+  
+  .close-button:hover {
+    background-color: #ff4c4c;  
+    color: white;               
+    border-color: #ff4c4c;      
+  }
+
+.form {
+    position: relative;
     max-width: 430px;
     width: 100%;
     padding: 30px;
@@ -131,11 +160,20 @@ form{
     align-items: center;
     justify-content: center;
 }
-a.facebook{
-    color: #fff;
-    background-color: #4267b2;
+a.facebook {
+    border: 1px solid #CACACA;
+    padding: 16px 0; /* Increased vertical padding */
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-left: 00px;
+    width: 100px; /* Increase the width as needed */
+    max-width: 100%;
 }
-a.facebook .facebook-icon{
+
+a.facebook .facebook-icon {
     height: 28px;
     width: 28px;
     color: #0171d3;
@@ -145,7 +183,11 @@ a.facebook .facebook-icon{
     align-items: center;
     justify-content: center;
     background-color: #fff;
+    margin-left: 0px; /* Space between icon and content */
+    margin-right: 100px; 
+
 }
+
 .facebook-icon,
 img.google-img{
     position: absolute;
@@ -167,6 +209,47 @@ a.google span{
     color: #232836;
 }
 
+
+.example-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+  }
+
+ 
+  
+  .forgot-password-dialog {
+    border: 3px solid #ddd;
+    position: absolute;
+    top: 150px; /* Adjust the distance from the top as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 400px;
+    height: 300px;
+  }
+  
+  .forgot-password-dialog mat-form-field {
+    width: 100%;
+  }
+  
+  .forgot-password-dialog .dialog-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .forgot-password-dialog .dialog-actions button {
+    margin-left: 10px;
+  }
+
+  
+  
 @media screen and (max-width: 400px) {
     .form{
         padding: 20px 10px;

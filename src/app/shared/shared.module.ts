@@ -4,10 +4,14 @@ import { HttpClientModule } from '@angular/common/http'
 import { NavbarComponent } from './navbar/navbar.component';
 import { SharedRoutingModule } from './shared-routing.module';
 import { FooterComponent } from './footer/footer.component';
-
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatDialogModule} from '@angular/material/dialog';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';  // Import this for reactive forms
 
 @NgModule({
   declarations: [
@@ -20,14 +24,25 @@ import { MatIconModule } from '@angular/material/icon';
     HttpClientModule,
     MatTableModule,
     MatButtonModule,
-    MatIconModule],
+    MatIconModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatInputModule,
+    MatFormFieldModule,
+    ReactiveFormsModule
+  ],
   exports: [
     FooterComponent,
     NavbarComponent,
     HttpClientModule,
     MatTableModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatInputModule,
+    MatFormFieldModule,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }
