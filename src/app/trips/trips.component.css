@@ -1,0 +1,5 @@
+.block-27 a.disabled {
+    pointer-events: none; /* Prevent clicks */
+    color: gray; /* Change color to indicate disabled state */
+    cursor: default; /* Change cursor style */
+  }

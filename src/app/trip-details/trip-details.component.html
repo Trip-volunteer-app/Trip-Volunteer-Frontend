@@ -1,0 +1,141 @@
+<app-navbar></app-navbar>
+<section class="hero-wrap hero-wrap-2 " style="background-image: url('assets/Home/images/chero12.jpeg');height: 300px; background-size: cover; background-position: center;">
+    <div class="overlay" style="height: 300px;"></div>
+    <div class="container" style="height: 300px;">
+      <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
+        <div class="col-md-9 ftco-animate pb-5 text-center" >
+          <p class="breadcrumbs"><span class="mr-2"><a routerLink="/Trips">Trips <i
+                  class="fa fa-chevron-right"></i></a></span> <span>Trip Details <i class="fa fa-chevron-right"></i></span>
+          </p>
+          <h1 class="mb-0 bread">Trip Details</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+<mat-card class="image-slider-container">
+  <div class="example-button-row">
+    <button mat-raised-button style="background-color: #ff5722; color: white;">Booking</button>
+  
+    <button mat-icon-button 
+            [color]="isFavorite ? 'warn' : 'default'" 
+            (click)="toggleFavorite()"
+            aria-label="Icon button with a heart icon">
+      <mat-icon style="font-size: 26px;">{{ isFavorite ? 'favorite' : 'favorite_border' }}</mat-icon>
+    </button>
+  </div>
+  
+    <mat-card-content>
+      <div class="slider">
+        <div class="slide" *ngFor="let image of images; let i = index" [class.active]="i === currentSlide">
+          <img [src]="image.src" [alt]="image.alt" />
+        </div>
+      
+      <div class="controls">
+        <button mat-icon-button (click)="prevSlide()">
+          &lt; 
+        </button>
+        <button mat-icon-button (click)="nextSlide()">
+          &gt;
+        </button>
+      </div>
+    </div>
+      <div class="card-body">
+        <mat-tab-group animationDuration="1ms" [color]="'warn'" >
+          <mat-tab class="tab" label="Details" >
+            <ng-template matTabContent>
+              <div class="trip-details-container">
+                <h2 class="trip-title">The Tombs of the Companions in Mu'tah (Karak)</h2>
+                
+                <p class="trip-location-duration">
+                  <span class="trip-location"><mat-icon class="colored-icon">location_on</mat-icon> Al Karak, Jordan</span> | 
+                  <span class="trip-duration"><mat-icon class="colored-icon">today</mat-icon> 5 days</span>
+                </p>
+                
+                <p class="trip-date">
+                  <strong>From:</strong> 20/5/2025 &nbsp; <strong>To:</strong> 25/5/2025
+                </p>
+                
+                <p class="trip-type">
+                  <mat-icon class="colored-icon">explore</mat-icon> Tourist Trip
+                </p>
+                
+                <p class="trip-price">
+                  <mat-icon class="colored-icon">attach_money</mat-icon> 300$
+                </p>
+                
+                <p class="trip-booking">
+                  <mat-icon class="colored-icon">event_seat</mat-icon> Remaining <strong>5</strong> seats
+                </p>
+                
+                <div class="trip-services">
+                  <p><mat-icon class="colored-icon">room_service</mat-icon> <strong>Services:</strong></p>
+                  <ul>
+                    <li>Service 1: Guided tour</li>
+                    <li>Service 2: Meals included</li>
+                    <li>Service 3: Transportation</li>
+                  </ul>
+                </div>
+                
+                <p class="trip-description">
+                  This site contains the graves of several companions of Prophet Muhammad who died in the Battle of Mu'tah, a historic Islamic battle.
+                </p>
+
+              </div>
+            </ng-template>
+          </mat-tab>
+          
+          <mat-tab class="tab" label="Review" >
+            <ng-template matTabContent>
+              <div class="review-section">
+                <div class="review-card" *ngFor="let review of reviews; let i = index" [hidden]="i >= 10">
+                  <div class="review-header">
+                    <img class="review-avatar" [src]="review.avatarUrl" alt="{{ review.name }}" />
+                    <div class="review-info">
+                      <p class="review-name">{{ review.name }}</p>
+                      <div class="review-stars">
+                        <mat-icon *ngFor="let star of [1,2,3,4,5]" [class.filled]="star <= review.rating">star</mat-icon>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="review-feedback">{{ review.feedback }}</p>
+                </div>
+              
+                <div class="show-more">
+                  <a href="#" (click)="showMoreReviews()">View more reviews</a>
+                </div>
+              </div>
+            </ng-template>
+          </mat-tab>
+          
+          <mat-tab class="tab" label="Similar Trips">
+            <ng-template matTabContent>
+              <div class="Similar-trips">
+                <mat-table [dataSource]="previousTrips" class="mat-elevation-z8">
+                  <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let trip"> 
+                      <a href="#" (click)="goToTripDetails(trip.id)">{{ trip.name }}</a>
+                    </mat-cell>
+                  </ng-container>
+          
+                  <ng-container matColumnDef="location">
+                    <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                    <mat-cell *matCellDef="let trip"> {{ trip.location }} </mat-cell>
+                  </ng-container>
+          
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+              </div>
+            </ng-template>
+          </mat-tab>
+          
+        </mat-tab-group>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
+  <app-footer></app-footer>
+  
