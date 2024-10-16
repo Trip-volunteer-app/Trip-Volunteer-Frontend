@@ -7,9 +7,10 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
 import { SharedModule } from './shared/shared.module';
-import{FormsModule}from'@angular/forms';
 import { TripsComponent } from './trips/trips.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
+import { TripDetailsComponent } from './trip-details/trip-details.component';
+
 
 @NgModule({
   declarations: [
@@ -17,14 +18,15 @@ import { AboutusComponent } from './aboutus/aboutus.component';
     HomeComponent,
     ContactComponent,
     TripsComponent,
-    AboutusComponent
+    AboutusComponent,
+    TripDetailsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     SharedModule,
     HttpClientModule,
-    FormsModule  
+   
   ],
   providers: [],
   bootstrap: [AppComponent]

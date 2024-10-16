@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { AuthModule } from './auth/auth.module';
 import { TripsComponent } from './trips/trips.component';
+import { TripDetailsComponent } from './trip-details/trip-details.component';
 const routes: Routes = [
   {
     path: "contactus",
@@ -23,7 +24,14 @@ const routes: Routes = [
     path:'security',
     loadChildren:()=>AuthModule
   }
-  ,{path:'Trips',component:TripsComponent}
+  ,{
+    path:'Trips',
+    component:TripsComponent
+  },
+  {
+    path:"tripDetails",
+    component:TripDetailsComponent
+  }
 ];
 
 @NgModule({
