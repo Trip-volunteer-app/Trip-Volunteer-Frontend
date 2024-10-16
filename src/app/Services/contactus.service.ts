@@ -9,21 +9,22 @@ export class ContactusService {
   constructor(public http: HttpClient) { }
   contactElements: any = [];
   WebsiteInfo: any = [];
+  contactElementsKeys: any = [];
+  WebsiteInfoKeys: any = [];
 
   getAllContactElements() {
     this.http.get('https://localhost:7004/api/ContactusElement').subscribe(res => {
       this.contactElements = res;
-      console.log(this.contactElements); // Ensure data is coming through
-
+      this.contactElementsKeys = Object.keys(this.contactElements[0]);
     }, err => {
       console.log(err.message);
     })
   }
+
   getWebsiteInfo() {
     this.http.get('https://localhost:7004/api/WebsiteInformation/GetAllwebsite_information').subscribe(res => {
       this.WebsiteInfo = res;
-      console.log(this.WebsiteInfo); // Ensure data is coming through
-
+      this.WebsiteInfoKeys = Object.keys(this.WebsiteInfo[0]);
     }, err => {
       console.log(err.message);
     })

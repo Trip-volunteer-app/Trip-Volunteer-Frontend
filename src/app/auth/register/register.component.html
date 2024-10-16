@@ -1,45 +1,95 @@
 <section class="container forms">
-    <div class="form register">
-      <div class="form-content">
-        <header>Signup</header>
-        <!-- Use ngSubmit for form submission -->
-        <form (ngSubmit)="onSubmit()">
+  <div class="form register">
+    <div class="form-content">
+      <header>Signup
+        <a routerLink="/home" class="close-button">x</a>
+      </header>
+   
+      <form [formGroup]="registerForms">
+        <div class="field-group">
           <div class="field input-field">
-            <input type="email" placeholder="Email" name="email" [(ngModel)]="email" required>
+            <input type="text" placeholder="First Name" name="FIRST_NAME" formControlName="FIRST_NAME" >
+            <span *ngIf="registerForms.controls['FIRST_NAME'].hasError('required')" style="color: red;" >First Name is Required</span>
           </div>
           <div class="field input-field">
-            <input type="password" placeholder="Create Password" name="password" [(ngModel)]="password" required>
+            <input type="text" placeholder="Last Name" name="LAST_NAME" formControlName="LAST_NAME" >
+            <span *ngIf="registerForms.controls['LAST_NAME'].hasError('required')" style="color: red;" >Lase Name is Required</span>
+
           </div>
-          <div class="field input-field">
-            <input type="password" placeholder="Confirm Password" name="confirmPassword" [(ngModel)]="confirmPassword" required>
-          </div>
-          <div class="form-link">
-            <div class="field remember-me-field">
-              <input type="checkbox" id="rememberMe" [(ngModel)]="rememberMe" name="rememberMe" style="height: min-content;">
-              <label for="rememberMe">Remember me</label>
-            </div>
-          </div>
-          <div class="field button-field">
-            <button type="submit">Signup</button>
-          </div>
-        </form>
-        <div class="form-link">
-          <span>Already have an account? <a routerLink="/security/login" class="link">Login</a></span>
         </div>
-      </div>
-      <div class="line"></div>
-      <div class="media-options">
-        <a href="#" class="field facebook">
-          <i class='bx bxl-facebook facebook-icon'></i>
-          <span>Login with Facebook</span>
-        </a>
-      </div>
-      <div class="media-options">
-        <a href="#" class="field google">
-          <img src="../../../assets/Auth/images/google.png" alt="" class="google-img">
-          <span>Login with Google</span>
-        </a>
+
+        <div class="field-group">
+          <div class="field input-field">
+            <input type="email" placeholder="Email" name="EMAIL" formControlName="EMAIL"  >
+            <span *ngIf="registerForms.controls['EMAIL'].hasError('required')" style="color: red;" >Email is Required</span>
+            <span *ngIf="registerForms.controls['EMAIL'].hasError('email')" style="color: red;" >enter a valid email address</span>
+          </div>
+
+
+          <div class="field input-field">
+            <input type="text" placeholder="PhoneNumber" name="PhoneNumber"  >
+          </div>
+
+        </div>
+
+        <div class="field-group image-field-group">
+          <div class="field input-field" style="border: 1px solid #ccc; padding: 8px; border-radius: 4px;">
+            <input type="file" id="image" name="Image"   style="border: none; background: transparent; padding: 5px;">
+            <span id="file-name">Click to choose your Image</span> 
+          </div>
+        </div>
+        
+        <div class="field-group">
+          <div class="field input-field">
+            <input type="text" placeholder="Address" name="Address"  >
+          </div>
+          <div class="field input-field">
+            <input type="date" placeholder="BirthDate" name="BirthDate"  >
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field input-field">
+            <input type="password" placeholder="Create Password" name="PASSWORD"  formControlName="PASSWORD" >
+            <span *ngIf="registerForms.controls['PASSWORD'].hasError('required')" style="color: red;" >password is Required</span>
+            <span *ngIf="registerForms.controls['PASSWORD'].hasError('minlength')" style="color: red;" >min Length of password is 8</span>
+            <span *ngIf="registerForms.controls['REPASSWORD'].hasError('MissMatch')" style="color: red;" >Repeate Password must be match with password</span>
+
+          </div>
+          <div class="field input-field">
+            <input type="password" placeholder="Confirm Password" name="REPASSWORD"  formControlName="REPASSWORD">
+            <span *ngIf="registerForms.controls['REPASSWORD'].hasError('MissMatch')" style="color: red;" >Repeate Password must be match with password</span>
+
+          </div>
+        </div>
+
+        <div class="field button-field">
+          <button type="button" [disabled]="!registerForms.valid" (click)="Submit()">Signup</button>
+        </div>
+      </form>
+
+      <div class="form-link">
+        <span>Already have an account? <a routerLink="/security/login" class="link">Login</a></span>
       </div>
     </div>
-  </section>
-  
+
+    <div class="line"></div>
+    
+    <div class="field-group" >
+        <div class="media-options" style="width: 250px;max-width: 100%;">
+          <a href="#" class="field facebook">
+            <i class='bx bxl-facebook facebook-icon'></i>
+            <span>Login with Facebook</span>
+          </a>
+        </div>
+
+        <div class="media-options" style="width: 250px;max-width: 100%;">
+          <a href="#" class="field google">
+            <img src="../../../assets/Auth/images/google.png" alt="" class="google-img">
+            <span>Login with Google</span>
+          </a>
+        </div>
+    </div>
+
+  </div>
+</section>
