@@ -23,6 +23,7 @@
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.3.3",
     "@types/jquery": "^3.5.31",
+    
     "bootstrap-datepicker": "^1.10.0",
     "jquery": "^3.7.1",
     "magnific-popup": "^1.2.0",
@@ -32,7 +33,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.0.1",
-   "@angular/cli": "~16.0.1",
+    "@angular/cli": "~16.0.1",
     "@angular/compiler-cli": "^16.0.0",
     "@angular/localize": "^16.0.0",
     "@types/jasmine": "~4.3.0",
@@ -43,5 +44,9 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
     "typescript": "~5.0.2"
-  }
+  },
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC"
 }

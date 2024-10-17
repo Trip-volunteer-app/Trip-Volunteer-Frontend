@@ -10,21 +10,16 @@ export class AuthService {
 
 
   Register(registerData: any) {
-    // const userInfo = {
-      
-    //   FIRSTNAME: registerData.FIRST_NAME,
-    //   LASTNAME: registerData.LAST_NAME,
-    //   EMAIL: registerData.EMAIL,
-    //   PASSWORD:registerData.PASSWORD,
-    //   REPASSWORD:registerData.REPASSWORD,
-    // };
+    // debugger;
+    console.log('Auth-registerData:'+registerData)
 
-    return this.http.post('https://localhost:7004/api/UserLogin/Registers', registerData).subscribe(
+     this.http.post('https://localhost:7004/api/UserLogin/Registers', registerData).subscribe(
       (resp) => {
         console.log(resp);
         console.log("User registered successfully");
       },
       (err) => {
+        console.log('Auth Error Data'+registerData);
         console.log('Error registering user', err);
       }
     );
