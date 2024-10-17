@@ -5,8 +5,6 @@ import { HomeComponent } from './home/home.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { AuthModule } from './auth/auth.module';
 import { TripsComponent } from './trips/trips.component';
-import { DashboardComponent } from './admin/dashboard/dashboard.component';
-import { ManagepagesComponent } from './admin/managepages/managepages.component';
 
 import { AdminModule } from './admin/admin.module';
 const routes: Routes = [
@@ -31,12 +29,6 @@ const routes: Routes = [
   }, {
     path: 'admin',
     loadChildren: () => AdminModule
-  }, {
-    path: 'dashboard',
-    component: DashboardComponent
-  }, {
-    path:'manage',
-    component:ManagepagesComponent
   }
 ];
 

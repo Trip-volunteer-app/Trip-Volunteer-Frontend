@@ -29,4 +29,19 @@ export class ContactusService {
       console.log(err.message);
     })
   }
+
+  deleteContactUsElements(id:number){
+    this.http.delete('https://localhost:7004/api/ContactusElement/DeleteContactusElement/'+ id).subscribe(response=>{
+      console.log('deleted')},
+    err=>{
+      console.log('errer');
+    })
+  }
+  deleteWebsiteInfo(id:number){
+    this.http.delete('https://localhost:7004/api/WebsiteInformation/Deletewebsite_information/'+id).subscribe(response=>{
+      console.log('deleted')},
+    err=>{
+      console.log('errer');
+    })
+  }
 }
