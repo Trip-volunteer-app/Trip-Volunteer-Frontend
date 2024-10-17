@@ -35,7 +35,7 @@ const routes: Routes = [
   ,{
     path:'Trips',
     component:TripsComponent
-  },
+  }, 
   {
     path:"tripDetails",
     component:TripDetailsComponent

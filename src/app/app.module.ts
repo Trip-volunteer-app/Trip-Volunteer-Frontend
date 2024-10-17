@@ -12,8 +12,8 @@ import { TripDetailsComponent } from './trip-details/trip-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
-
-
+ 
+ 
 @NgModule({
   declarations: [
     AppComponent,
