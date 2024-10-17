@@ -1,0 +1,242 @@
+
+.image-slider-container {
+    max-width: 1000px;
+    margin: auto;
+    position: relative;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border-radius: 15px; 
+
+  }
+  
+  .slider {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+  }
+  
+  .slide {
+    min-width: 100%;
+    transition: transform 0.5s ease-in-out;
+    opacity: 0;
+    display: none;
+  }
+  
+  .slide.active {
+    display: block;
+    opacity: 1;
+  }
+  
+  img {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+    border-radius: 15px;
+  }
+  
+  .controls {
+    position: absolute;
+    top: 50%; 
+    left: 0;
+    right: 0;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%); 
+    z-index: 1; 
+  }
+  .controls button {
+    color: white;
+    font-size: 30px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+  }
+  .controls button:focus {
+    outline: none; 
+    border: none; 
+  }
+
+  .card-body {
+    padding: 20px; 
+    border-radius: 15px; 
+    color: black; 
+    margin-top: 20px; 
+    display: block; 
+  }
+  .trip-details-container {
+    padding: 16px;
+  }
+  
+  .trip-title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .trip-location-duration {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  
+  .trip-location,
+  .trip-duration,
+  .trip-date,
+  .trip-type,
+  .trip-price,
+  .trip-booking {
+    margin: 4px 0;
+  }
+  
+  .trip-services ul {
+    list-style-type: none;
+    padding-left: 16px;
+  }
+  
+  .trip-services ul li {
+    margin-bottom: 4px;
+  }
+  
+  .trip-description {
+    margin-top: 16px;
+    font-size: 14px;
+    color: #555;
+  }
+  .review-section {
+    padding: 16px;
+  }
+  
+  .review-card {
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .review-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .review-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+  }
+  
+  .review-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .review-name {
+    font-weight: bold;
+  }
+  
+  .review-stars {
+    display: flex;
+  }
+  
+  .review-stars mat-icon {
+    font-size: 20px;
+    color: #ddd;
+  }
+  
+  .review-stars mat-icon.filled {
+    color: #FFD700; 
+  }
+  
+  .review-feedback {
+    margin-top: 8px;
+    color: #555;
+  }
+  
+  .show-more {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .show-more a {
+    color: #ff5722;
+    text-decoration: none;
+  }
+  
+  .show-more a:hover {
+    text-decoration: underline;
+  }
+
+  .colored-icon {
+    color: #ff5722; 
+  }
+ 
+  
+  .trip-location .colored-icon,
+  .trip-duration .colored-icon,
+  .trip-type .colored-icon,
+  .trip-price .colored-icon,
+  .trip-booking .colored-icon,
+  .trip-services .colored-icon {
+    color: #ff5722;
+  }
+  
+  .mat-table {
+    width: 100%;
+    overflow: auto;
+  }
+  
+  .mat-header-cell {
+    background-color: #f1f1f1;
+    font-weight: bold;
+  }
+  
+  .mat-cell a {
+    text-decoration: none;
+    color: #007bff; 
+  }
+  
+  .mat-cell a:hover {
+    text-decoration: underline;
+  }
+  .example-button-row {
+    display: flex;                
+    justify-content: flex-end;    
+    align-items: center;         
+    gap: 10px;                    
+  }
+  
+  .example-button-row button {
+    &:nth-child(2) {
+      background-color: white;
+
+  
+      &:hover {
+        background-color: rgba(255, 255, 255, 0); 
+        color: #ff5722;                
+      }
+  
+      &:focus {
+        outline: none; 
+      }
+    }
+  
+    &:first-child { 
+     padding: 25px;
+    }
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-right: 15px;
+    font-size: larger;
+  }
+ 
+  /* ::ng-deep .mat-mdc-tab .mdc-tab__text-label,
+  ::ng-deep .mat-mdc-tab-link .mdc-tab__text-label{
+    color: #fd450d !important;
+   
+  } */

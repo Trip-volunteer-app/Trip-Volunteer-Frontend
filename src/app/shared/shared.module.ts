@@ -4,6 +4,10 @@ import { HttpClientModule } from '@angular/common/http'
 import { NavbarComponent } from './navbar/navbar.component';
 import { SharedRoutingModule } from './shared-routing.module';
 import { FooterComponent } from './footer/footer.component';
+import{FormsModule}from'@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,6 +15,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+
 import { ReactiveFormsModule } from '@angular/forms';  // Import this for reactive forms
 
 @NgModule({
@@ -35,6 +40,10 @@ import { ReactiveFormsModule } from '@angular/forms';  // Import this for reacti
     FooterComponent,
     NavbarComponent,
     HttpClientModule,
+    MatCardModule,
+    FormsModule,
+    MatTabsModule,
+    BrowserAnimationsModule,
     MatTableModule,
     MatButtonModule,
     MatIconModule,
@@ -42,7 +51,7 @@ import { ReactiveFormsModule } from '@angular/forms';  // Import this for reacti
     MatDialogModule,
     MatInputModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class SharedModule { }
