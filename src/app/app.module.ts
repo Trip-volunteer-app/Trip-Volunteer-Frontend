@@ -15,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TripsCardComponent } from './trips-card/trips-card.component';
 
 
+ 
 @NgModule({
   declarations: [
     AppComponent,

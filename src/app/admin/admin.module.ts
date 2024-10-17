@@ -6,14 +6,18 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
 import { SharedModule } from '../shared/shared.module';
-import { ManagepagesComponent } from './managepages/managepages.component';
+import { ManagecontactComponent } from './managecontact/managecontact.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { ServiceComponent } from './service/service.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     SidebarComponent,
     HeaderComponent,
-    ManagepagesComponent,
+    ManagecontactComponent,
+    CategoriesComponent,
+    ServiceComponent,
     
   ],
   imports: [

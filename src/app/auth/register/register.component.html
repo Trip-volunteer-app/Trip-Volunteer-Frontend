@@ -14,22 +14,18 @@
           <div class="field input-field">
             <input type="text" placeholder="Last Name" name="LAST_NAME" formControlName="LAST_NAME" >
             <span *ngIf="registerForms.controls['LAST_NAME'].hasError('required')" style="color: red;" >Lase Name is Required</span>
-
           </div>
         </div>
 
-        <div class="field-group">
+        <div class="field-group"> 
           <div class="field input-field">
             <input type="email" placeholder="Email" name="EMAIL" formControlName="EMAIL"  >
             <span *ngIf="registerForms.controls['EMAIL'].hasError('required')" style="color: red;" >Email is Required</span>
             <span *ngIf="registerForms.controls['EMAIL'].hasError('email')" style="color: red;" >enter a valid email address</span>
           </div>
-
-
           <div class="field input-field">
             <input type="text" placeholder="PhoneNumber" name="PhoneNumber"  >
           </div>
-
         </div>
 
         <div class="field-group image-field-group">
@@ -66,6 +62,7 @@
         <div class="field button-field">
           <button type="button" [disabled]="!registerForms.valid" (click)="Submit()">Signup</button>
         </div>
+        
       </form>
 
       <div class="form-link">
