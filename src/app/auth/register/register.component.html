@@ -18,7 +18,7 @@
           </div>
         </div>
 
-        <div class="field-group">
+        <div class="field-group"> 
           <div class="field input-field">
             <input type="email" placeholder="Email" name="EMAIL" formControlName="EMAIL"  >
             <span *ngIf="registerForms.controls['EMAIL'].hasError('required')" style="color: red;" >Email is Required</span>
@@ -66,6 +66,7 @@
         <div class="field button-field">
           <button type="button" [disabled]="!registerForms.valid" (click)="Submit()">Signup</button>
         </div>
+        
       </form>
 
       <div class="form-link">

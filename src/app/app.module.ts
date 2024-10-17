@@ -12,7 +12,8 @@ import { AboutusComponent } from './aboutus/aboutus.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,6 +21,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ContactComponent,
     TripsComponent,
     AboutusComponent
+    
+    
   ],
   imports: [
     BrowserModule,
@@ -29,9 +32,27 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     BrowserAnimationsModule ,
     MatDialogModule  ,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
+    
+    
   ],
-  providers: [],
+  providers: [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '947293798017-kqgorh6ss138fl5r03qg1h8qvugrgstn.apps.googleusercontent.com' // Replace with your Google client ID
+            )
+          }
+        ]
+      } as SocialAuthServiceConfig,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
