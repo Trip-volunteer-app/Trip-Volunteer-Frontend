@@ -32,12 +32,6 @@ const routes: Routes = [
   }, {
     path: 'admin',
     loadChildren: () => AdminModule
-  }, {
-    path: 'dashboard',
-    component: DashboardComponent
-  }, {
-    path:'manage',
-    component:ManagepagesComponent
   }
 
   ,{

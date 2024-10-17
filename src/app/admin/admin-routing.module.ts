@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ManagepagesComponent } from './managepages/managepages.component';
+import { ManagecontactComponent } from './managecontact/managecontact.component';
 
 const routes: Routes = [
   {
@@ -9,7 +9,7 @@ const routes: Routes = [
     component:DashboardComponent
   }, {
     path:'manage',
-    component:ManagepagesComponent
+    component:ManagecontactComponent
   }
 ];
 
