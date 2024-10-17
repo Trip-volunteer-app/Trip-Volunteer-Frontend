@@ -1,5 +1,7 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef, Input } from '@angular/core';
 import { StyleService } from '../Services/style.service';
+import { TripsService } from '../Services/trips.service';
+
 @Component({
   selector: 'app-trip-details',
   templateUrl: './trip-details.component.html',
@@ -8,9 +10,10 @@ import { StyleService } from '../Services/style.service';
 export class TripDetailsComponent implements OnInit, AfterViewInit {
   constructor(
     private styleService: StyleService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    public trip:TripsService
   ) {}
-  
+
   ngOnInit(): void {
     this.styleService.applyFullHeight(); // Apply full height initially
   }
@@ -49,7 +52,13 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
     this.currentSlide = (this.currentSlide - 1 + this.images.length) % this.images.length;
   }
 
-
+  getDaysDifference(startDate: string, endDate: string): number {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const differenceInTime = end.getTime() - start.getTime();
+    const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+    return differenceInDays;
+  }
   reviews = [
     {
       avatarUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/1200px-User_icon_2.svg.png',

@@ -12,7 +12,9 @@ import { TripDetailsComponent } from './trip-details/trip-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
- 
+import { TripsCardComponent } from './trips-card/trips-card.component';
+
+
  
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ContactComponent,
     TripsComponent,
     AboutusComponent,
-    TripDetailsComponent
+    TripDetailsComponent,
+    TripsCardComponent
   ],
   imports: [
     BrowserModule,
