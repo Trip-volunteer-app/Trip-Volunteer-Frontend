@@ -26,8 +26,10 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/assets/Admin/public/demo/chartist.css",
               "src/assets/Admin/public/demo/chartist-plugin-tooltip.css",
+
               "src/assets/Home/css/style.css",
               "src/assets/Home/css/flaticon.css",
               "src/assets/Home/css/jquery.timepicker.css",

@@ -6,30 +6,39 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
 import { SharedModule } from './shared/shared.module';
-import{FormsModule}from'@angular/forms';
 import { TripsComponent } from './trips/trips.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
+import { TripDetailsComponent } from './trip-details/trip-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
+<<<<<<< HEAD
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
+=======
+
+
+>>>>>>> 20cd1a9a0f37371b3908da906ae399468cd16566
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ContactComponent,
     TripsComponent,
+<<<<<<< HEAD
     AboutusComponent
     
     
+=======
+    AboutusComponent,
+    TripDetailsComponent
+>>>>>>> 20cd1a9a0f37371b3908da906ae399468cd16566
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     SharedModule,
     HttpClientModule,
-    FormsModule,
     BrowserAnimationsModule ,
     MatDialogModule  ,
     ReactiveFormsModule,
