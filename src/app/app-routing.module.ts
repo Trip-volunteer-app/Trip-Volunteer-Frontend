@@ -6,7 +6,6 @@ import { AboutusComponent } from './aboutus/aboutus.component';
 import { AuthModule } from './auth/auth.module';
 import { TripsComponent } from './trips/trips.component';
 import { TripDetailsComponent } from './trip-details/trip-details.component';
-import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { AdminModule } from './admin/admin.module';
 
 const routes: Routes = [
