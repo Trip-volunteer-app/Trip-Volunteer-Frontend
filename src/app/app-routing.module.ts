@@ -15,11 +15,12 @@ const routes: Routes = [
     path: "contactus",
     component: ContactComponent
   }, {
-    path: "",
-    component: HomeComponent
-  }, {
     path: "home",
     component: HomeComponent
+  }, { 
+    path: '',
+     redirectTo: 'home',
+      pathMatch: 'full' 
   }, {
     path: 'Aboutus',
     component: AboutusComponent

@@ -92,19 +92,7 @@
     <div class="container">
       <div class="row"> 
         <div *ngFor="let obj of getPaginatedTrips()" class="col-md-4">
-          <div class="project-wrap">
-            <a href="#" class="img" style="background-image: url(../../assets/Home/images/petra.jpeg);">
-              <span class="price">{{obj.trip_Price}}/person</span>
-            </a>
-            <div class="text p-4">
-              <span class="days">{{ getDaysDifference(obj.start_Date, obj.end_Date) }} Days Tour</span>
-              <h6 style="color: black;">{{obj.trip_Name}}</h6>
-              <p class="location"><span class="fa fa-map-marker"></span> {{obj.destination_Location}}</p>
-              <ul>
-                <li><a [routerLink]="['/tripDetails', obj.trip_Id]" class="nav-link"><span class="flaticon-sun-umbrella"></span>Read more</a></li>
-              </ul>
-            </div>
-          </div>
+      <app-trips-card [tripObj]="obj" (openDetails)="showDetails()"></app-trips-card>
         </div>
       </div>
   
