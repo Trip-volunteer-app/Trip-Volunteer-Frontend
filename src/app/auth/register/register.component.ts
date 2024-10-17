@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';  // Import this for reactive forms
 import { AuthService } from 'src/app/Services/auth.service';
-import { SocialAuthService, SocialUser } from 'angularx-social-login';
-import { GoogleLoginProvider } from 'angularx-social-login';
+// import { SocialAuthService, SocialUser } from 'angularx-social-login';
+// import { GoogleLoginProvider } from 'angularx-social-login';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
