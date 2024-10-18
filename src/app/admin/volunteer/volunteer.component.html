@@ -57,6 +57,8 @@
                                 <th> {{obj.status}}</th>
                                 <td> 
                                     <button (click)="openDeleteDialog(obj.volunteer_Id)" style="background-color: rgb(247, 88, 88);">Delete</button> 
+                                    <button (click)="openEditDailog(obj)" style="background-color: rgb(247, 88, 88);">Edit States</button> 
+
                                 </td>  
                             <!-- </div>   -->
                           </tr>                                                 
@@ -95,4 +97,72 @@
   </div>
 </ng-template>
 
-
+<!-- Edit Volunteer -->
+<ng-template #callEditDailog>
+  <h2 mat-dialog-title>Update Volunteer</h2>
+  <mat-dialog-content class="mat-typography">
+    <form [formGroup]="Volunteer">
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Login ID</mat-label>
+          <input type="text" matInput formControlName="login_Id" [ngModel]="pData.login_Id" (click)="disableField($event)">
+        </mat-form-field>
+      </div>     
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Trip ID</mat-label>
+          <input type="text" matInput formControlName="trip_Id" [ngModel]="pData.trip_Id" (click)="disableField($event)">
+        </mat-form-field>
+      </div>     
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Role ID</mat-label>
+          <input type="text" matInput formControlName="volunteer_Role_Id" [ngModel]="pData.volunteer_Role_Id" (click)="disableField($event)">
+        </mat-form-field>
+      </div>  
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Experience</mat-label>
+          <input type="text" matInput formControlName="experience" [ngModel]="pData.experience" (click)="disableField($event)">
+        </mat-form-field>
+      </div>
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Phone Number</mat-label>
+          <input type="text" matInput formControlName="phone_Number" [ngModel]="pData.phone_Number" (click)="disableField($event)">
+        </mat-form-field>
+      </div>
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input type="text" matInput formControlName="email" [ngModel]="pData.email" (click)="disableField($event)">
+        </mat-form-field>
+      </div>
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Date Applied</mat-label>
+          <input type="text" matInput formControlName="date_Applied" [ngModel]="pData.date_Applied" (click)="disableField($event)">
+        </mat-form-field>
+      </div>
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Notes</mat-label>
+          <input type="text" matInput formControlName="notes" [ngModel]="pData.notes" (click)="disableField($event)">
+        </mat-form-field>
+      </div>
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status" [(ngModel)]="pData.status">
+            <mat-option *ngFor="let status of statusList" [value]="status">{{status}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="save2()">Save</button>
+  </mat-dialog-actions>
+</ng-template>
