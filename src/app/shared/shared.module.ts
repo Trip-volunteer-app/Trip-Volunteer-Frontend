@@ -15,7 +15,7 @@ import { MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
-import { ReactiveFormsModule } from '@angular/forms';  // Import this for reactive forms
+import { ReactiveFormsModule } from '@angular/forms'; 
 
 @NgModule({
   declarations: [
@@ -23,7 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';  // Import this for reacti
     NavbarComponent
   ],
   imports: [
-    CommonModule,  // Keep CommonModule here
+    CommonModule,  
     SharedRoutingModule,
     HttpClientModule,
     MatTableModule,
