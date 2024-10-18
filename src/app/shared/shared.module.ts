@@ -14,16 +14,17 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-
 import { ReactiveFormsModule } from '@angular/forms'; 
+
+
 
 @NgModule({
   declarations: [
     FooterComponent,
     NavbarComponent
   ],
-  imports: [
-    CommonModule,  
+  imports: 
+    CommonModule,
     SharedRoutingModule,
     HttpClientModule,
     MatTableModule,

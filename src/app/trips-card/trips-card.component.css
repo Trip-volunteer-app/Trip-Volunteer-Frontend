@@ -1,0 +1,37 @@
+.title{
+    color: rgb(49, 41, 41);
+    font-size: 13px;
+    font-weight: bold;
+}
+.read-more-wrapper {
+    list-style: none; 
+    padding: 0;
+    margin: 0;
+    text-align: right; 
+  }
+  
+  .read-more-link {
+    text-decoration: none; 
+    display: inline-flex;
+    align-items: center; 
+    transition: color 0.3s ease; 
+  }
+  
+  .read-more-link i {
+    font-size: 12px;
+    margin-left: 3px; 
+  }
+  
+  .read-more-link:hover {
+    color: #ff5722; 
+    transform: translateX(2px); 
+    transition: transform 0.3s ease;
+  }
+  
+  .read-more-link:hover i {
+    color: #ff5722;
+    transform: translateX(2px); 
+    transition: transform 0.3s ease;
+    
+  }
+  

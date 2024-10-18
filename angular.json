@@ -40,7 +40,8 @@
               "src/assets/Home/css/magnific-popup.css",
               "src/assets/Home/css/owl.theme.default.min.css",
               "src/assets/Home/css/owl.carousel.min.css",
-              "src/assets/Home/css/animate.css"
+              "src/assets/Home/css/animate.css",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css"
             ],
             "scripts": [
               "src/assets/Admin2/vendors/js/vendor.bundle.base.js",

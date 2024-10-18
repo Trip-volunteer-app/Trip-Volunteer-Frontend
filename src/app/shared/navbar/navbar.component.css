@@ -1,0 +1,4 @@
+.navbar-nav .nav-item .nav-link.active {
+    color: #F15D30 !important; 
+    font-size: large; 
+}

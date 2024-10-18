@@ -9,7 +9,9 @@ export class TripsService {
 
   constructor(public http:HttpClient) { }
   Trips:any=[];
-  tripDetails:any={}
+  tripDetails:any={};
+  selectedTrip:any;
+
   getALLTrips(){
     this.http.get("https://localhost:7004/api/Trips/GetAllTripInformation/").subscribe(res=>{
       this.Trips=res;
