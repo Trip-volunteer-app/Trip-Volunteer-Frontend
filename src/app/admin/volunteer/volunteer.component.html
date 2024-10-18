@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <body>
+    <div class="container-scroller">
+      <!-- partial:../../partials/_sidebar.html -->
+      <app-header></app-header>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:../../partials/_navbar.html -->
+       
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+           
+            <div class="row">
+              
+              
+              <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Volunteer Table</h4>
+                    <br><br>                 
+                    <div class="table-responsive">
+                      <table class="table table-dark">
+                        <thead>
+                          <tr>
+                            <th> # </th>
+                            <th> Volunteer Name </th>
+                            <th> login Id </th>
+                            <th> Trip Id </th>
+                            <th> Role Id</th>
+                            <th> Experience </th>
+                            <th> Phone Number </th>
+                            <th> Email </th>
+                            <th> Notes </th>
+                            <th> Emergency Contact </th>
+                            <th> Date Applied </th>
+                            <th> Status </th>
+                            <th> Operations </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let obj of admin.Volunteer">
+                            <!-- <div *ngFor="let obj of admin.Volunteer"> -->
+                                <th> # </th>
+                                <th> {{obj.volunteer_Id}} </th>
+                                <th> {{obj.login_Id}} </th>
+                                <th> {{obj.trip_Id}} </th>
+                                <th> {{obj.volunteer_Role_Id}} </th>
+                                <th> {{obj.experience}} </th>
+                                <th> {{obj.phone_Number}} </th>
+                                <th> {{obj.email}} </th>
+                                <th> {{obj.notes}}</th>
+                                <th> {{obj.emergency_Contact}} </th>
+                                <th> {{obj.date_Applied}}</th>
+                                <th> {{obj.status}}</th>
+                                <td> 
+                                    <button (click)="openDeleteDialog(obj.volunteer_Id)" style="background-color: rgb(247, 88, 88);">Delete</button> 
+                                </td>  
+                            <!-- </div>   -->
+                          </tr>                                                 
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+           
+            </div>
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:../../partials/_footer.html -->
+          
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    
+  </body>
+</html>
+
+
+
+
+<!-- Delete Volunteer Role -->
+<ng-template #callDeleteDailog>
+    <h1 mat-dialog-title>Delete Volunteer</h1>
+  <div mat-dialog-content>Are you sure you went to delete this item ?</div>
+  <div mat-dialog-actions>
+      <button mat-button mat-dialog-close="yes">Yes</button>
+    <button mat-button mat-dialog-close="no">No</button>
+  </div>
+</ng-template>
+
+
