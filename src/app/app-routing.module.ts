@@ -31,12 +31,7 @@ const routes: Routes = [
   }, {
     path: 'admin',
     loadChildren: () => AdminModule
-  }
-
-  ,{
-    path:'Trips',
-    component:TripsComponent
-  }, 
+  },
   {
     path:"tripDetails",
     component:TripDetailsComponent

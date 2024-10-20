@@ -24,6 +24,7 @@
               "src/favicon.ico",
               "src/assets"
             ],
+
             "styles": [
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "@angular/material/prebuilt-themes/indigo-pink.css",
@@ -42,7 +43,6 @@
               "src/assets/Home/css/owl.theme.default.min.css",
               "src/assets/Home/css/owl.carousel.min.css",
               "src/assets/Home/css/animate.css"
-              
             ],
             "scripts": [
               "src/assets/Admin2/vendors/js/vendor.bundle.base.js",

@@ -84,8 +84,8 @@ window.location.reload();
 
 
 updateServices(body:any){
-this.http.put('https://localhost:7004/api/categories/UpdateService',body).subscribe((resp)=>{
-  console.log('the Service Updated');  
+this.http.put('https://localhost:7004/api/Service/UpdateService',body).subscribe((resp)=>{
+  console.log('Updated');  
 },err=>{
   console.log('error');
 })}
@@ -282,11 +282,101 @@ window.location.reload();
 updateTripVolunteerRole(body:any){
 this.http.put('https://localhost:7004/api/ITripVolunteerrole/UPDATEtrip_volunteerRoles',body).subscribe((resp)=>{
   console.log('the Trip Volunteer Role Updated');  
+
 },err=>{
   console.log('error');
 })}
 
 
+//Trip
+
+
+Trip:any=[]; 
+TripById:any={};
+
+GetAllTrips(){ 
+ this.http.get('https://localhost:7004/api/Trips/GetAllTripInformation').subscribe(result=>{
+this.Trip =result ;  
+},err=>{
+      console.log(err.message);     
+})}
+
+GetTripById(id:number){
+  this.http.get('https://localhost:7004/api/Trips/GetTripById/'+ id).subscribe(result=>{
+    this.TripById =result ;  
+    },err=>{
+          console.log(err.message);     
+    })
+}
+CreateTrip(body:any){
+this.http.post('https://localhost:7004/api/Trips/CreateTrip',body).subscribe((resp)=>{
+  console.log('the Trip Added');
+  window.location.reload();
+},err=>{
+  console.log('Error');
+  window.location.reload();
+})
+}
+
+
+DeleteTrip(id:number){
+this.http.delete('https://localhost:7004/api/Trips/DeleteTrip/'+id).subscribe(resp=>{
+  console.log('the Trip deleted');
+  window.location.reload();
+},err=>{
+  console.log('Error');   
+  window.location.reload();
+})
+} 
+
+
+UpdateTrip(body:any){
+this.http.put('https://localhost:7004/api/Trips/UpdateTrip',body).subscribe((resp)=>{
+  console.log('Updated');  
+},err=>{
+  console.log('error');
+})}
+
+
+//Trip Images
+TripImage:any=[]; 
+
+GetTripImageByTripId(id:number){ 
+  this.http.get('https://localhost:7004/api/TripImage/GetTripImageByTripId/'+ id).subscribe(result=>{
+ this.TripImage =result ;  
+ },err=>{
+       console.log(err.message);     
+ })}
+
+CreateTripImage(body:any){
+this.http.post('https://localhost:7004/api/TripImage/CreateTripImage',body).subscribe((resp)=>{
+  console.log('the Trip Image Added');
+  window.location.reload();
+},err=>{
+  console.log('Error');
+  window.location.reload();
+})
+}
+
+
+DeleteTripImage(id:number){
+this.http.delete('https://localhost:7004/api/TripImage/DeleteTripImage/'+id).subscribe(resp=>{
+  console.log('the Trip Image deleted');
+  window.location.reload();
+},err=>{
+  console.log('Error',err.message);   
+})
+} 
+
+
+updateTripImage(body:any){
+this.http.put('https://localhost:7004/api/TripImage/UpdateTripImage',body).subscribe((resp)=>{
+  console.log('Updated');  
+  window.location.reload();
+},err=>{
+  console.log('error');
+  window.location.reload();
+})}
 
 
 }
