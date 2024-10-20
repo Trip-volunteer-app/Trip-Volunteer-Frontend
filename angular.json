@@ -24,7 +24,8 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [
+            "styles": [              
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/assets/Admin2/vendors/mdi/css/materialdesignicons.min.css",
               "src/assets/Admin2/vendors/css/vendor.bundle.base.css",
@@ -40,8 +41,7 @@
               "src/assets/Home/css/magnific-popup.css",
               "src/assets/Home/css/owl.theme.default.min.css",
               "src/assets/Home/css/owl.carousel.min.css",
-              "src/assets/Home/css/animate.css",
-              "node_modules/bootstrap-icons/font/bootstrap-icons.css"
+              "src/assets/Home/css/animate.css"
             ],
             "scripts": [
               "src/assets/Admin2/vendors/js/vendor.bundle.base.js",
