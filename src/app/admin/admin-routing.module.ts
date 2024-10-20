@@ -7,6 +7,11 @@ import { ServiceComponent } from './service/service.component';
 import { TripImagesComponent } from './trip-images/trip-images.component';
 import { TripsComponent } from './trips/trips.component';
 import { ManageTripsComponent } from './manage-trips/manage-trips.component';
+import { VolunteerRoleComponent } from './volunteer-role/volunteer-role.component';
+import { VolunteerComponent } from './volunteer/volunteer.component';
+import { TripVolunteerRoleComponent } from './trip-volunteer-role/trip-volunteer-role.component';
+import { TripServiceComponent } from './trip-service/trip-service.component';
+import { ReviewComponent } from './review/review.component';
 
 const routes: Routes = [
   {
@@ -36,7 +41,28 @@ const routes: Routes = [
   {
     path:'TripsInformation',
     component:TripsComponent
+  },
+  {
+    path:'ManageVolunteerRole',
+    component:VolunteerRoleComponent
+  },
+  {
+    path:'ManageVolunteer',
+    component:VolunteerComponent
+  },
+  {
+    path:'ManageTripVolunteerRole',
+    component:TripVolunteerRoleComponent
+  },
+  {
+    path:'ManageTripService',
+    component:TripServiceComponent
+  },
+  {
+    path:'ManageReview',
+    component:ReviewComponent
   }
+
   
 ];
 

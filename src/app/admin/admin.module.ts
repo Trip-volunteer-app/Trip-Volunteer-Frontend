@@ -11,6 +11,11 @@ import { ServiceComponent } from './service/service.component';
 import { TripImagesComponent } from './trip-images/trip-images.component';
 import { TripsComponent } from './trips/trips.component';
 import { ManageTripsComponent } from './manage-trips/manage-trips.component';
+import { VolunteerRoleComponent } from './volunteer-role/volunteer-role.component';
+import { VolunteerComponent } from './volunteer/volunteer.component';
+import { TripVolunteerRoleComponent } from './trip-volunteer-role/trip-volunteer-role.component';
+import { TripServiceComponent } from './trip-service/trip-service.component';
+import { ReviewComponent } from './review/review.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +27,12 @@ import { ManageTripsComponent } from './manage-trips/manage-trips.component';
     TripImagesComponent,
     TripsComponent,
     ManageTripsComponent,
-    
+    VolunteerRoleComponent,
+    VolunteerComponent,
+    TripVolunteerRoleComponent,
+    TripServiceComponent,
+    ReviewComponent
+        
   ],
   imports: [
     CommonModule,

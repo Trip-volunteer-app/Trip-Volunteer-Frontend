@@ -14,14 +14,18 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms'; 
+import { MatSelectModule } from '@angular/material/select';
+
+
 
 @NgModule({
   declarations: [
     FooterComponent,
     NavbarComponent
   ],
-  imports: [
+  imports: 
+[
     CommonModule,
     SharedRoutingModule,
     HttpClientModule,
@@ -32,7 +36,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     MatInputModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSelectModule
   ],
   exports: [
     FooterComponent,
@@ -49,6 +54,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    MatSelectModule
   ]
 })
 export class SharedModule { }
