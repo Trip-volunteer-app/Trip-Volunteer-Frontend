@@ -16,7 +16,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms'; 
 import { MatSelectModule } from '@angular/material/select';
-
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -37,8 +37,15 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatSelectModule
-  ],
+    MatSelectModule,
+    FormsModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    })
+    
+    ],
   exports: [
     FooterComponent,
     NavbarComponent,

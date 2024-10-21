@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 import { MatDialog,MatDialogRef } from '@angular/material/dialog';
+import { FormControl, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/Services/auth.service';
+import {ToastrService} from 'ngx-toastr';
+
 
 
 
@@ -19,7 +23,7 @@ export class LoginComponent implements OnInit {
   showForgotPasswordDialog: boolean = false; // New variable to control dialog visibility
 
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, public auth:AuthService,private toastr:ToastrService) {}
 
   onSubmit(): void {
     if (this.rememberMe) {
@@ -32,9 +36,9 @@ export class LoginComponent implements OnInit {
       localStorage.removeItem('email');
       localStorage.removeItem('password');
       localStorage.removeItem('rememberMe');
-      alert("You don't click on Remember me!");
+      // alert("You don't click on Remember me!");
     }
-    alert('Login successfully');
+    // alert('Login successfully');
     console.log('Form submitted with:', { email: this.email, password: this.password, rememberMe: this.rememberMe });
   }
 
@@ -51,8 +55,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
-
-    
   openForgotPasswordDialog() {
     this.showForgotPasswordDialog = true; // Show the dialog
   }
@@ -60,6 +62,22 @@ export class LoginComponent implements OnInit {
   closeForgotPasswordDialog() {
     this.showForgotPasswordDialog = false; // Hide the dialog
   }
+
+  Email: FormControl = new FormControl('ex@example.com',[Validators.required,Validators.email]);
+  Password: FormControl = new FormControl('********',[Validators.required,Validators.minLength(8)]);
+
+  login(){
+     if (this.Email.valid && this.Password.valid) {
+    const emailValue = this.Email.value;
+    const passwordValue = this.Password.value;
+    this.auth.login(emailValue, passwordValue);
+    console.log("emailpassword",emailValue,passwordValue)
+  } else {
+    // Handle form validation errors
+    this.toastr.error('Please enter valid email and password');
+  }
+  }
+
 
   // openForgotPasswordDialog() {
   //   this.dialog.open(ForgotPasswordComponent, {

@@ -28,7 +28,10 @@ export class ManageTripsComponent implements OnInit{
       }
     });
   }
+  back(){
+    this.router.navigate(['admin/TripsInformation']);
 
+  }
  
   openImages(tripId:number){
     this.router.navigate(['admin/ManageImages/', tripId]);

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { AdminRoutingModule } from './admin-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './header/header.component';
@@ -16,6 +15,10 @@ import { VolunteerComponent } from './volunteer/volunteer.component';
 import { TripVolunteerRoleComponent } from './trip-volunteer-role/trip-volunteer-role.component';
 import { TripServiceComponent } from './trip-service/trip-service.component';
 import { ReviewComponent } from './review/review.component';
+import { CreateTripComponent } from './create-trip/create-trip.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import {MatListModule} from '@angular/material/list';
+
 
 @NgModule({
   declarations: [
@@ -31,12 +34,16 @@ import { ReviewComponent } from './review/review.component';
     VolunteerComponent,
     TripVolunteerRoleComponent,
     TripServiceComponent,
-    ReviewComponent
+    ReviewComponent,
+    CreateTripComponent,
+    
         
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
+    MatStepperModule,
+    MatListModule,
     SharedModule
   ]
 })

@@ -3,6 +3,8 @@ import { AdminService } from 'src/app/Services/admin.service';
 import {MatDialog} from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-trip-images',
@@ -15,7 +17,7 @@ export class TripImagesComponent implements OnInit{
   @ViewChild('callEditDailog') EditDailog !:TemplateRef<any>;  
   tripId!: number;
 
-  constructor(public admin:AdminService,public dialog: MatDialog, private route: ActivatedRoute)
+  constructor(public admin:AdminService,public dialog: MatDialog, private route: ActivatedRoute,private router:Router)
   {}
 
   ngOnInit(): void {
@@ -36,7 +38,14 @@ export class TripImagesComponent implements OnInit{
 
   })
 
-
+  uploadImage(file:any){
+    if(file.length==0)
+      return;
+    let fileToUpload=<File>file[0];
+    const formData = new FormData();
+    formData.append('file',fileToUpload,fileToUpload.name)
+    this.admin.uploadTripImage(formData);
+  }
   openCreateDialog(id:number) {
     this.TripImage.controls['trip_Id'].setValue(id)
 
@@ -45,9 +54,16 @@ export class TripImagesComponent implements OnInit{
 
 
   save(){
+    
   this.admin.CreateTripImage(this.TripImage.value)
   }
+  return(){
+    this.router.navigate(['admin/TripsInformation']);
+  }
+  back(id:number){
+    this.router.navigate(['admin/ManageTrips/', id]);
 
+  }
   openDeleteDialog(id:number){
     console.log(id)
   const dialogRef=  this.dialog.open(this.DeleteDailog).afterClosed().subscribe((result)=>{
@@ -68,7 +84,7 @@ export class TripImagesComponent implements OnInit{
 
 
   })
-  pData:any={};
+  pData:any;
   openEditDailog(obj:any){
     this.pData=obj; 
     console.log(this.pData);
