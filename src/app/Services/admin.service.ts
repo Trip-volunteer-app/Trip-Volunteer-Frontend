@@ -340,7 +340,7 @@ this.http.put('https://localhost:7004/api/Trips/UpdateTrip',body).subscribe((res
 
 //Trip Images
 TripImage:any=[]; 
-
+displayImage:any;
 GetTripImageByTripId(id:number){ 
   this.http.get('https://localhost:7004/api/TripImage/GetTripImageByTripId/'+ id).subscribe(result=>{
  this.TripImage =result ;  
@@ -349,6 +349,7 @@ GetTripImageByTripId(id:number){
  })}
 
 CreateTripImage(body:any){
+  body.image_Name=this.displayImage;
 this.http.post('https://localhost:7004/api/TripImage/CreateTripImage',body).subscribe((resp)=>{
   console.log('the Trip Image Added');
   window.location.reload();
@@ -370,13 +371,22 @@ this.http.delete('https://localhost:7004/api/TripImage/DeleteTripImage/'+id).sub
 
 
 updateTripImage(body:any){
+  body.image_Name=this.displayImage;
 this.http.put('https://localhost:7004/api/TripImage/UpdateTripImage',body).subscribe((resp)=>{
   console.log('Updated');  
   window.location.reload();
 },err=>{
   console.log('error');
-  window.location.reload();
 })}
+
+uploadTripImage(file:FormData){
+this.http.post('https://localhost:7004/api/TripImage/uploadImage',file).subscribe((res:any)=>{
+this.displayImage=res.image_Name;
+},err=>{
+  console.log('error');
+})
+
+}
 
 
 }
