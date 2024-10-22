@@ -15724,8 +15724,7 @@
     overflow: auto; }
   
   .container-scroller {
-    overflow: hidden; 
-  }
+    overflow: hidden; }
   
   pre {
     background: #e8eff4;
@@ -21132,19 +21131,9 @@
     width: 100%;
     -webkit-flex-grow: 1;
     flex-grow: 1; }
-
-   
-    .table-scrollable {
-      height: 75vh;          
-      overflow-y: auto;                
-    }
-    
-    .description-col {
-      max-width: 200px;       /* تحديد الحد الأقصى لعرض العمود */
-      white-space: nowrap;    /* منع النص من الانتقال إلى السطر التالي */
-      overflow: hidden;       /* إخفاء النص الزائد */
-      text-overflow: ellipsis; /* إضافة "..." في حالة تجاوز النص العرض المحدد */
-    }
-    
+  
   /*# sourceMappingURL=maps/style.css.map */
+  .full-width {
+    width: 100%;
+  }
   

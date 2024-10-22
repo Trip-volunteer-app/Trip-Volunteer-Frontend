@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
- <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../../assets/Home/images/chero12.jpeg');">
+ <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../../assets/Images/{{home.selectedAboutus.image1}}');">
   <div class="overlay"></div>
   <div class="container">
     <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
@@ -15,10 +15,10 @@
   <div class="container">
     <div class="row d-flex">
       <div class="col-md-6 order-md-last heading-section pl-md-5 ftco-animate d-flex align-items-center">
-       <div class="w-100" *ngFor="let obj of home.AboutUsElements">
-        <span class="subheading">{{obj.text1}}</span>
-        <h2 class="mb-4" style="font-size: large;">{{obj.text2}}</h2>
-        <p>{{obj.text3}}</p>
+       <div class="w-100">
+        <span class="subheading">{{home.selectedAboutus.text1}}</span>
+        <h2 class="mb-4" style="font-size: large;">{{home.selectedAboutus.text2}}</h2>
+        <p>{{home.selectedAboutus.text3}}</p>
         <p><a href="#" class="btn btn-primary py-3 px-4">Search Destination</a></p>
       </div>
     </div>
@@ -92,10 +92,10 @@
     <div class="col-md-6 pl-md-5 py-5">
       <div class="row justify-content-start pb-3">
         <div class="col-md-12 heading-section ftco-animate">
-          <ng-container *ngFor="let obj of home.AboutUsElements">
-         <span class="subheading">{{obj.text5}}</span>
-         <h2 class="mb-4">{{obj.text6}}</h2>
-         <p>{{obj.text7}}</p>
+          <ng-container>
+         <span class="subheading">{{home.selectedAboutus.text5}}</span>
+         <h2 class="mb-4">{{home.selectedAboutus.text6}}</h2>
+         <p>{{home.selectedAboutus.text7}}</p>
          <p><a href="#" class="btn btn-primary">Book Your Destination</a></p>
         </ng-container>
        </div>

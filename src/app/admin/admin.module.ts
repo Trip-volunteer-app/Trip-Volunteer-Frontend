@@ -7,6 +7,8 @@ import { SharedModule } from '../shared/shared.module';
 import { ManagecontactComponent } from './managecontact/managecontact.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { ServiceComponent } from './service/service.component';
+import { ManageWebsiteInfoComponent } from './manage-website-info/manage-website-info.component';
+import { ManageaboutComponent } from './manageabout/manageabout.component';
 import { TripImagesComponent } from './trip-images/trip-images.component';
 import { TripsComponent } from './trips/trips.component';
 import { ManageTripsComponent } from './manage-trips/manage-trips.component';
@@ -29,6 +31,8 @@ import {MatListModule} from '@angular/material/list';
     ManagecontactComponent,
     CategoriesComponent,
     ServiceComponent,
+    ManageWebsiteInfoComponent,
+    ManageaboutComponent,
     TripImagesComponent,
     TripsComponent,
     ManageTripsComponent,
@@ -39,10 +43,7 @@ import {MatListModule} from '@angular/material/list';
     ReviewComponent,
     AnuualReportComponent,
     MonthlyReportComponent,
-    CreateTripComponent
-
-    
-        
+    CreateTripComponent        
   ],
   imports: [
     CommonModule,

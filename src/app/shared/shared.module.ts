@@ -4,19 +4,22 @@ import { HttpClientModule } from '@angular/common/http'
 import { NavbarComponent } from './navbar/navbar.component';
 import { SharedRoutingModule } from './shared-routing.module';
 import { FooterComponent } from './footer/footer.component';
-import{FormsModule}from'@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import { MatDialogModule} from '@angular/material/dialog';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import { ReactiveFormsModule } from '@angular/forms'; 
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { ToastrModule } from 'ngx-toastr';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -24,8 +27,7 @@ import { ToastrModule } from 'ngx-toastr';
     FooterComponent,
     NavbarComponent
   ],
-  imports: 
-[
+  imports: [
     CommonModule,
     SharedRoutingModule,
     HttpClientModule,
@@ -44,9 +46,7 @@ import { ToastrModule } from 'ngx-toastr';
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     })
-    
-    ],
-
+  ],
   exports: [
     FooterComponent,
     NavbarComponent,
@@ -62,8 +62,10 @@ import { ToastrModule } from 'ngx-toastr';
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    MatGridListModule,
+    MatRadioModule,
+    MatTooltipModule,
     MatSelectModule
-   
-  ]
+    ]
 })
 export class SharedModule { }
