@@ -18,17 +18,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { FilterPipe } from '../pipes/filter.pipe';
-
-
 
 
 @NgModule({
   declarations: [
     FooterComponent,
-    NavbarComponent,
-    FilterPipe
-  ],
+    NavbarComponent
+    ],
   imports: [
     CommonModule,
     SharedRoutingModule,
@@ -59,8 +55,7 @@ import { FilterPipe } from '../pipes/filter.pipe';
     ReactiveFormsModule,
     MatGridListModule,
     MatRadioModule,
-    MatTooltipModule,
-    FilterPipe
-  ]
+    MatTooltipModule
+    ]
 })
 export class SharedModule { }
