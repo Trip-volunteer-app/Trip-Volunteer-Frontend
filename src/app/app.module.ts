@@ -14,6 +14,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TripsCardComponent } from './trips-card/trips-card.component';
 import { TokenInterceptor } from 'src/interceptor/token.interceptor';
+import { NgChartsModule } from 'ng2-charts';
 
 
  
@@ -34,7 +35,8 @@ import { TokenInterceptor } from 'src/interceptor/token.interceptor';
     HttpClientModule,
     BrowserAnimationsModule ,
     MatDialogModule  ,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgChartsModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
