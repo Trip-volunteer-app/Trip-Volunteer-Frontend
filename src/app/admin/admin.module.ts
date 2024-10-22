@@ -15,6 +15,8 @@ import { VolunteerComponent } from './volunteer/volunteer.component';
 import { TripVolunteerRoleComponent } from './trip-volunteer-role/trip-volunteer-role.component';
 import { TripServiceComponent } from './trip-service/trip-service.component';
 import { ReviewComponent } from './review/review.component';
+import { AnuualReportComponent } from './anuual-report/anuual-report.component';
+import { MonthlyReportComponent } from './monthly-report/monthly-report.component';
 import { CreateTripComponent } from './create-trip/create-trip.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import {MatListModule} from '@angular/material/list';
@@ -35,7 +37,10 @@ import {MatListModule} from '@angular/material/list';
     TripVolunteerRoleComponent,
     TripServiceComponent,
     ReviewComponent,
-    CreateTripComponent,
+    AnuualReportComponent,
+    MonthlyReportComponent
+    CreateTripComponent
+
     
         
   ],

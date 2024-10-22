@@ -46,6 +46,7 @@ import { ToastrModule } from 'ngx-toastr';
     })
     
     ],
+
   exports: [
     FooterComponent,
     NavbarComponent,
@@ -62,6 +63,7 @@ import { ToastrModule } from 'ngx-toastr';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatSelectModule
+   
   ]
 })
 export class SharedModule { }

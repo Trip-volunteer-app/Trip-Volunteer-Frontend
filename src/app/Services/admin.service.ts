@@ -1,11 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';  // Import Observable
+import { Observable } from 'rxjs';  
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
+
+
+  
+public pieChartLabels: string[] = ['Accepted', 'Pending', 'Rejected'];
+public pieChartData: number[] = [];
+public pieChartType = 'pie';
+
 
   constructor(public http:HttpClient) { }
 
@@ -231,7 +238,7 @@ this.Review =result ;
 })}
 
 
-DeleteReview(id:number){
+DeleteReview(id:number){ 
 this.http.delete('https://localhost:7004/api/Review/DeleteReview'+id).subscribe(resp=>{
   console.log('the Review deleted');
 },err=>{
@@ -387,6 +394,90 @@ this.displayImage=res.image_Name;
 })
 
 }
+
+
+
+//Static Number
+
+NumberOfRegisteredUsers(): Observable<number> {
+  return this.http.get<number>('https://localhost:7004/api/Users/trips/NumberOfRegisteredUsers');
+}
+
+NumberOfTrips(): Observable<number> {
+  return this.http.get<number>('https://localhost:7004/api/Trips/trips/GetNumberOfTrips');
+}
+
+
+NumberOfFinishedTrips(): Observable<number> {
+  return this.http.get<number>('https://localhost:7004/api/Trips/trips/NumberOfFinishedTrips');
+}
+
+
+
+TripsWithMaxReservations:any=[]; 
+GetAllTripsWithMaxReservations(){ 
+ this.http.get('https://localhost:7004/api/Trips/TripsWithMaxReservations').subscribe(result=>{
+this.TripsWithMaxReservations =result ;  
+},err=>{
+      console.log(err.message);     
+})}
+
+
+TotalNumberOfVolunteer(): Observable<number> {
+  return this.http.get<number>('https://localhost:7004/api/Volunteers/TotalNumberOfVolunteer');
+}
+
+
+TotalNumberOfPayments(): Observable<number> {
+  return this.http.get<number>('https://localhost:7004/api/Payment/TotalNumberOfPayments');
+}
+
+
+
+
+
+
+//Reports
+//Monthly Report
+MonthlyReport:any=[]; 
+GetAllMonthlyReport(){ 
+ this.http.get('https://localhost:7004/api/MonthlyReport/MonthlyReport').subscribe(result=>{
+this.MonthlyReport =result ;  
+console.log(result);
+},err=>{
+      console.log(err.message);     
+})}
+
+
+
+//Anuual Report
+AnuualReport:any=[]; 
+GetAllAnuualReport(){ 
+ this.http.get('https://localhost:7004/api/Annual/AnnualReport').subscribe(result=>{
+this.AnuualReport =result ;  
+},err=>{
+      console.log(err.message);     
+})}
+
+
+
+
+
+
+
+//Charts
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
