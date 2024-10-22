@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { TripsComponent } from './trips/trips.component';
 import { TripDetailsComponent } from './trip-details/trip-details.component';
 import { AdminModule } from './admin/admin.module';
+import { authorizationGuard } from './authorization/authorization.guard';
 
 const routes: Routes = [
   {
@@ -30,7 +31,8 @@ const routes: Routes = [
     component: TripsComponent
   }, {
     path: 'admin',
-    loadChildren: () => AdminModule
+    loadChildren: () => AdminModule,
+    // canActivate:[authorizationGuard]
   },
   {
     path:"tripDetails",
