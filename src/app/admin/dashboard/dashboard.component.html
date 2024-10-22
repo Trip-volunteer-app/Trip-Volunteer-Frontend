@@ -31,8 +31,8 @@
                     <div class="row">
                       <div class="col-9">
                         <div class="d-flex align-items-center align-self-start">
-                          <h3 class="mb-0">$12.34</h3>
-                          <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
+                          <h3 class="mb-0" style="color: white;">{{NumberOfRegisteredUsers}}</h3>
+                          <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> -->
                         </div>
                       </div>
                       <div class="col-3">
@@ -41,7 +41,7 @@
                         </div>
                       </div>
                     </div>
-                    <h6 class="text-muted font-weight-normal">Potential growth</h6>
+                    <h6 class="text-muted font-weight-normal"># Register User</h6>
                   </div>
                 </div>
               </div>
@@ -51,8 +51,8 @@
                     <div class="row">
                       <div class="col-9">
                         <div class="d-flex align-items-center align-self-start">
-                          <h3 class="mb-0">$17.34</h3>
-                          <p class="text-success ml-2 mb-0 font-weight-medium">+11%</p>
+                          <h3 class="mb-0" style="color: white;">{{NumberOfTrips}}</h3>
+                          <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+11%</p> -->
                         </div>
                       </div>
                       <div class="col-3">
@@ -61,7 +61,7 @@
                         </div>
                       </div>
                     </div>
-                    <h6 class="text-muted font-weight-normal">Revenue current</h6>
+                    <h6 class="text-muted font-weight-normal"># Trip</h6>
                   </div>
                 </div>
               </div>
@@ -71,17 +71,17 @@
                     <div class="row">
                       <div class="col-9">
                         <div class="d-flex align-items-center align-self-start">
-                          <h3 class="mb-0">$12.34</h3>
-                          <p class="text-danger ml-2 mb-0 font-weight-medium">-2.4%</p>
+                          <h3 class="mb-0" style="color: white;">{{TotalNumberOfVolunteer}}</h3>
+                          <!-- <p class="text-danger ml-2 mb-0 font-weight-medium">-2.4%</p> -->
                         </div>
                       </div>
                       <div class="col-3">
-                        <div class="icon icon-box-danger">
-                          <span class="mdi mdi-arrow-bottom-left icon-item"></span>
+                        <div class="icon icon-box-success">
+                          <span class="mdi mdi-arrow-top-right icon-item"></span>
                         </div>
                       </div>
                     </div>
-                    <h6 class="text-muted font-weight-normal">Daily Income</h6>
+                    <h6 class="text-muted font-weight-normal"># Total Volunteers</h6>
                   </div>
                 </div>
               </div>
@@ -91,8 +91,8 @@
                     <div class="row">
                       <div class="col-9">
                         <div class="d-flex align-items-center align-self-start">
-                          <h3 class="mb-0">$31.53</h3>
-                          <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
+                          <h3 class="mb-0" style="color: white;">{{TotalNumberOfPayments}}</h3>
+                          <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> -->
                         </div>
                       </div>
                       <div class="col-3">
@@ -101,7 +101,7 @@
                         </div>
                       </div>
                     </div>
-                    <h6 class="text-muted font-weight-normal">Expense current</h6>
+                    <h6 class="text-muted font-weight-normal"># Beneficiaries Serviced</h6>
                   </div>
                 </div>
               </div>
@@ -133,107 +133,55 @@
                   </div>
                 </div>
               </div>
+             
               <div class="col-md-8 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex flex-row justify-content-between">
-                      <h4 class="card-title mb-1">Open Projects</h4>
-                      <p class="text-muted mb-1">Your data status</p>
-                    </div>
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="preview-list">
-                          <div class="preview-item border-bottom">
-                            <div class="preview-thumbnail">
-                              <div class="preview-icon bg-primary">
-                                <i class="mdi mdi-file-document"></i>
-                              </div>
-                            </div>
-                            <div class="preview-item-content d-sm-flex flex-grow">
-                              <div class="flex-grow">
-                                <h6 class="preview-subject">Admin dashboard design</h6>
-                                <p class="text-muted mb-0">Broadcast web app mockup</p>
-                              </div>
-                              <div class="mr-auto text-sm-right pt-2 pt-sm-0">
-                                <p class="text-muted">15 minutes ago</p>
-                                <p class="text-muted mb-0">30 tasks, 5 issues </p>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="preview-item border-bottom">
-                            <div class="preview-thumbnail">
-                              <div class="preview-icon bg-success">
-                                <i class="mdi mdi-cloud-download"></i>
-                              </div>
-                            </div>
-                            <div class="preview-item-content d-sm-flex flex-grow">
-                              <div class="flex-grow">
-                                <h6 class="preview-subject">Wordpress Development</h6>
-                                <p class="text-muted mb-0">Upload new design</p>
-                              </div>
-                              <div class="mr-auto text-sm-right pt-2 pt-sm-0">
-                                <p class="text-muted">1 hour ago</p>
-                                <p class="text-muted mb-0">23 tasks, 5 issues </p>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="preview-item border-bottom">
-                            <div class="preview-thumbnail">
-                              <div class="preview-icon bg-info">
-                                <i class="mdi mdi-clock"></i>
-                              </div>
-                            </div>
-                            <div class="preview-item-content d-sm-flex flex-grow">
-                              <div class="flex-grow">
-                                <h6 class="preview-subject">Project meeting</h6>
-                                <p class="text-muted mb-0">New project discussion</p>
-                              </div>
-                              <div class="mr-auto text-sm-right pt-2 pt-sm-0">
-                                <p class="text-muted">35 minutes ago</p>
-                                <p class="text-muted mb-0">15 tasks, 2 issues</p>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="preview-item border-bottom">
-                            <div class="preview-thumbnail">
-                              <div class="preview-icon bg-danger">
-                                <i class="mdi mdi-email-open"></i>
-                              </div>
-                            </div>
-                            <div class="preview-item-content d-sm-flex flex-grow">
-                              <div class="flex-grow">
-                                <h6 class="preview-subject">Broadcast Mail</h6>
-                                <p class="text-muted mb-0">Sent release details to team</p>
-                              </div>
-                              <div class="mr-auto text-sm-right pt-2 pt-sm-0">
-                                <p class="text-muted">55 minutes ago</p>
-                                <p class="text-muted mb-0">35 tasks, 7 issues </p>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="preview-item">
-                            <div class="preview-thumbnail">
-                              <div class="preview-icon bg-warning">
-                                <i class="mdi mdi-chart-pie"></i>
-                              </div>
-                            </div>
-                            <div class="preview-item-content d-sm-flex flex-grow">
-                              <div class="flex-grow">
-                                <h6 class="preview-subject">UI Design</h6>
-                                <p class="text-muted mb-0">New application planning</p>
-                              </div>
-                              <div class="mr-auto text-sm-right pt-2 pt-sm-0">
-                                <p class="text-muted">50 minutes ago</p>
-                                <p class="text-muted mb-0">27 tasks, 4 issues </p>
-                              </div>
-                            </div>
-                          </div>
+                <div class="card" style="color: white;">
+                    <div class="card-body">
+                        <div class="d-flex flex-row justify-content-between">
+                            <h4 class="text-muted mb-1">Trip Name</h4>
+                            <p class="text-muted mb-1"># Max Reservations of User</p>
                         </div>
-                      </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Add scrollable area with inline scrollbar styles -->
+                                <div class="preview-list" style="max-height: 300px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #000 #333;">
+                                    <style>
+                                        .preview-list::-webkit-scrollbar {
+                                            width: 8px; /* width of the scrollbar */
+                                        }
+            
+                                        .preview-list::-webkit-scrollbar-track {
+                                            background: #333; /* background of the scrollbar track */
+                                        }
+            
+                                        .preview-list::-webkit-scrollbar-thumb {
+                                            background: #000; /* color of the scrollbar thumb */
+                                            border-radius: 10px; /* rounded corners for the thumb */
+                                        }
+            
+                                        .preview-list::-webkit-scrollbar-thumb:hover {
+                                            background: #555; /* color of the thumb on hover */
+                                        }
+                                    </style>
+                                    <br>
+                                    <div class="preview-item-content d-sm-flex flex-grow" *ngFor="let obj of admin.TripsWithMaxReservations">
+                                        <div class="flex-grow">
+                                            <h6 class="preview-subject">{{obj.trip_Name}}</h6>
+                                        </div>
+                                        <div class="mr-auto text-sm-right pt-2 pt-sm-0" style="padding-right: 20px;">
+                                            <p class="text-muted">{{obj.max_Number_Of_Users}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
+            </div>
+            
+              
+
+
             </div>
             <div class="row">
               <div class="col-sm-4 grid-margin">
@@ -662,23 +610,21 @@
                 </div>
               </div>
             </div>
-          </div>
-          <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
-          <footer class="footer">
-            <div class="d-sm-flex justify-content-center justify-content-sm-between">
-              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
-              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin templates</a> from Bootstrapdash.com</span>
-            </div>
-          </footer>
-          <!-- partial -->
+          
+          </div>                
         </div>
-        <!-- main-panel ends -->
-      </div>
-      <!-- page-body-wrapper ends -->
+      </div>   
     </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
+
+
+
+
+
+
+
+
+
+
   </body>
 </html>
 

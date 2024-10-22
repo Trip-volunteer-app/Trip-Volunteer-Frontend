@@ -1,0 +1,16 @@
+<div class="project-wrap">
+    <a href="#" class="img" style="background-image: url(../../assets/Home/images/petra.jpeg);">
+      <span class="price">${{tripObj.trip_Price}}/person</span>
+    </a>
+    <div class="text p-4"> 
+        <span class="days">{{ getDaysDifference(tripObj.start_Date, tripObj.end_Date) }} Days Tour</span>
+        <h5 class="title">{{tripObj.trip_Name}}</h5>
+        <p class="location"><span class="fa fa-map-marker"></span> {{tripObj.destination_Location}}</p>
+        <ul class="read-more-wrapper">
+          <li><a (click)="goToDetails()" class="read-more-link">Read more
+              <i class="bi bi-chevron-right"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+  </div>

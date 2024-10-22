@@ -45,15 +45,15 @@
           <mat-tab class="tab" label="Details" >
             <ng-template matTabContent>
               <div class="trip-details-container">
-                <h2 class="trip-title">The Tombs of the Companions in Mu'tah (Karak)</h2>
+                <h2 class="trip-title">{{trip.selectedTrip.trip_Name}}</h2>
                 
                 <p class="trip-location-duration">
-                  <span class="trip-location"><mat-icon class="colored-icon">location_on</mat-icon> Al Karak, Jordan</span> | 
-                  <span class="trip-duration"><mat-icon class="colored-icon">today</mat-icon> 5 days</span>
+                  <span class="trip-location"><mat-icon class="colored-icon">location_on</mat-icon>{{trip.selectedTrip.destination_Location}}</span> | 
+                  <span class="trip-duration"><mat-icon class="colored-icon">today</mat-icon> {{getDaysDifference(trip.selectedTrip.start_Date, trip.selectedTrip.end_Date)}} days</span>
                 </p>
                 
                 <p class="trip-date">
-                  <strong>From:</strong> 20/5/2025 &nbsp; <strong>To:</strong> 25/5/2025
+                  <strong>From:</strong> {{trip.selectedTrip.start_Date }} &nbsp; <strong>To:</strong> {{trip.selectedTrip.end_Date}}
                 </p>
                 
                 <p class="trip-type">
@@ -61,7 +61,7 @@
                 </p>
                 
                 <p class="trip-price">
-                  <mat-icon class="colored-icon">attach_money</mat-icon> 300$
+                  <mat-icon class="colored-icon">attach_money</mat-icon> {{trip.selectedTrip.trip_Price}}
                 </p>
                 
                 <p class="trip-booking">
@@ -71,14 +71,14 @@
                 <div class="trip-services">
                   <p><mat-icon class="colored-icon">room_service</mat-icon> <strong>Services:</strong></p>
                   <ul>
-                    <li>Service 1: Guided tour</li>
+                    <li>Service 1: Transportation</li>
                     <li>Service 2: Meals included</li>
                     <li>Service 3: Transportation</li>
                   </ul>
                 </div>
                 
                 <p class="trip-description">
-                  This site contains the graves of several companions of Prophet Muhammad who died in the Battle of Mu'tah, a historic Islamic battle.
+                  {{trip.selectedTrip.description}}
                 </p>
 
               </div>

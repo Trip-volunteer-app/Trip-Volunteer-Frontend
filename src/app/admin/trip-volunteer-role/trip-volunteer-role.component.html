@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <div class="container-scroller">
+      <app-header></app-header>
+      <div class="container-fluid page-body-wrapper">  
+        <div class="main-panel">
+          <div class="content-wrapper">          
+            <div class="row">    
+              <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Trip Volunteer Role Table</h4>
+                    <button (click)="openCreateDialog()" style="background-color: rgb(63, 211, 63); color: white;">Add Trip Volunteer Role</button>
+                    <br><br>                 
+                    <div class="table-responsive">
+                      <table class="table table-dark">
+                        <thead>
+                          <tr>
+                            <th> # </th>
+                            <th> Trip Id </th>
+                            <th> Volunteer Role Id </th>
+                            <th> Operations </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let obj of admin.TripVolunteerRole">
+                            <td>{{obj.trip_Volunteerroles_Id}}</td>
+                            <td>{{obj.trip_Id}}</td>
+                            <td>{{obj.volunteer_Role_Id}}</td>
+                            <td> 
+                                <button (click)="openEditDailog(obj)" style="background-color: rgb(50, 50, 207); color: white;">Edit</button>
+                                <button (click)="openDeleteDialog(obj.trip_Volunteerroles_Id)" style="background-color: rgb(199, 51, 51); color: white;">Delete</button>                      
+                            </td>                          
+                          </tr>                                                 
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+
+
+
+
+<!-- Create Trip Volunteer Role -->
+<ng-template #callCreateDailog>
+<mat-dialog-content class="mat-typography" >
+  <h1>Trip Volunteer Role Categories</h1>
+  <form [formGroup]="TripVolunteerRole">
+    <div class="example-container">
+        <mat-form-field>
+          <mat-label>trip_Id</mat-label>
+          <input type="text" matInput  formControlName="trip_Id">
+          <!-- <mat-error *ngIf="TripVolunteerRole.controls['coursename'].hasError('required')">Course name is required</mat-error> -->
+        </mat-form-field>
+      </div>
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>volunteer_Role_Id</mat-label>
+          <input type="text" matInput  formControlName="volunteer_Role_Id">
+          <!-- <mat-error *ngIf="TripVolunteerRole.controls['coursename'].hasError('required')">Course name is required</mat-error> -->
+        </mat-form-field>
+      </div>
+</form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="save()">Create</button>
+</mat-dialog-actions>
+</ng-template>
+
+
+
+
+
+
+<!-- Delete Trip Volunteer Role -->
+<ng-template #callDeleteDailog>
+    <h1 mat-dialog-title>Delete Trip Volunteer Role</h1>
+  <div mat-dialog-content>Are you sure you went to delete this item ?</div>
+  <div mat-dialog-actions>
+      <button mat-button mat-dialog-close="yes">Yes</button>
+    <button mat-button mat-dialog-close="no">No</button>
+  </div>
+</ng-template>
+
+
+
+
+<!-- Edit Trip Volunteer Role -->
+<ng-template #callEditDailog>
+    <h2 mat-dialog-title>Update Course</h2>
+    <mat-dialog-content class="mat-typography">
+    <form [formGroup]="TripVolunteerRole2">  
+          <div class="example-container">
+            <mat-form-field>
+              <mat-label>trip_Id</mat-label>
+              <input type="text" matInput  formControlName="trip_Id" [(ngModel)]="pData.trip_Id">
+            </mat-form-field>
+          </div>  
+          <div class="example-container">
+            <mat-form-field>
+              <mat-label>volunteer_Role_Id</mat-label>
+              <input type="text" matInput  formControlName="volunteer_Role_Id" [(ngModel)]="pData.volunteer_Role_Id">
+            </mat-form-field>
+          </div>    
+    </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="save2()">Save</button>
+    </mat-dialog-actions>
+  </ng-template>

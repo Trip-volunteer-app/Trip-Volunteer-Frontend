@@ -20,7 +20,7 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Categories Table</h4>
-                    <button (click)="openCreateDialog()" style="background-color: rgb(100, 250, 100);">Add Categories</button>
+                    <button (click)="openCreateDialog()" style="background-color: rgb(63, 211, 63); color: white;">Add Categories</button>
                     <br><br>                 
                     <div class="table-responsive">
                       <table class="table table-dark">
@@ -36,8 +36,8 @@
                             <td> {{obj.category_Id}} </td>
                             <td> {{obj.category_Name}} </td>
                             <td> 
-                                <button (click)="openEditDailog(obj)" style="background-color: rgb(92, 92, 245);">Edit</button>
-                                <button (click)="openDeleteDialog(obj.category_Id)" style="background-color: rgb(247, 88, 88);">Delete</button> 
+                                <button (click)="openEditDailog(obj)" style="background-color: rgb(50, 50, 207); color: white;">Edit</button>
+                                <button (click)="openDeleteDialog(obj.category_Id)" style="background-color: rgb(199, 51, 51); color: white;">Delete</button> 
                             </td>                          
                           </tr>                                                 
                         </tbody>

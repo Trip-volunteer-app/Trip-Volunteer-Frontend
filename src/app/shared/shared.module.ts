@@ -17,6 +17,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { ToastrModule } from 'ngx-toastr';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 
@@ -24,7 +26,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   declarations: [
     FooterComponent,
     NavbarComponent
-    ],
+  ],
   imports: [
     CommonModule,
     SharedRoutingModule,
@@ -36,7 +38,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatDialogModule,
     MatInputModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSelectModule,
+    FormsModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    })
   ],
   exports: [
     FooterComponent,
@@ -55,7 +64,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ReactiveFormsModule,
     MatGridListModule,
     MatRadioModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSelectModule
     ]
 })
 export class SharedModule { }

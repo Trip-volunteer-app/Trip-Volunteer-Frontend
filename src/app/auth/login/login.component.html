@@ -21,11 +21,17 @@
             </header>
             <form (ngSubmit)="onSubmit()">
                 <div class="field input-field">
-                    <input type="email" placeholder="Email" [(ngModel)]="email" name="email" required>
+                    <input type="email" placeholder="Email" [(ngModel)]="email" name="email" [formControl]="Email">
+                    <span class="text-danger"
+                    *ngIf="Email.hasError('email')">Please enter a valid email address</span>
+                    
+                    <span class="text-danger"*ngIf="Email.hasError('required')">Email is required</span>
                 </div>
                 <div class="field input-field">
-                    <input type="password" placeholder="Password" class="password" [(ngModel)]="password" name="password" required>
+                    <input type="password" placeholder="Password" class="password" [(ngModel)]="password" name="password" [formControl]="Password">
                     <i class='bx bx-hide eye-icon'></i>
+                    <span class="text-danger" *ngIf="Password.hasError('minLength')">Please enter a stronger password</span>
+                    <span class="text-danger"*ngIf="Password.hasError('required')">Password is required</span>
                 </div>
 
                 <section class="example-section">
@@ -37,7 +43,7 @@
                 </div>
 
                 <div class="field button-field">
-                    <button type="submit">Login</button>
+                    <button type="submit" (click)="login()">Login</button>
                 </div>
             </form>
             <div class="form-link">

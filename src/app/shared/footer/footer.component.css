@@ -1,0 +1,18 @@
+.ftco-heading-2 {
+font-family: Arial, Helvetica, sans-serif;
+}
+.p{
+    font-family: Arial, Helvetica, sans-serif;
+}
+.ftco-footer .list-unstyled a.active {
+    color: #F15D30 !important; 
+}
+
+.ftco-footer .list-unstyled a {
+    color: #EAD8BB; 
+    transition: color 0.3s ease;
+}
+
+.ftco-footer .list-unstyled a:hover {
+    color: #F15D30; 
+}
