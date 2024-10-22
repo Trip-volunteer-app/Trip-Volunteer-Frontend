@@ -27,5 +27,6 @@ export class TripsComponent implements OnInit{
     this.router.navigate(['admin/ManageTrips/', tripId]);
 
   }
+  
 
 }
