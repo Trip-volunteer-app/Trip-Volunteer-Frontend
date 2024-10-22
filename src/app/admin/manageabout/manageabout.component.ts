@@ -22,15 +22,13 @@ export class ManageaboutComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
 
-    // Fetch contact data during initialization
     this.about.GetAllAboutUsElements();
     this.about.GetSelectedAboutus();
-    await this.about.GetSelectedAboutus(); // Wait for this call to complete
+    await this.about.GetSelectedAboutus(); 
 
-    // Now, safely access the selected element ID
     if (this.about.selectedAboutus) {
       this.selectedElementId = this.about.selectedAboutus.aboutus_Page_Id;
-      console.log(this.selectedElementId); // Should print the correct ID
+      console.log(this.selectedElementId);
     } else {
       console.error('No selected element found');
     }
@@ -105,7 +103,6 @@ export class ManageaboutComponent implements OnInit {
   }
 
   uploadImage(file: any, apiPath: string, imageNum: string) {
-    console.log('byyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyye')
     console.log(file.length === 0);
     if (file.length === 0) return;
     let fileToUpload = <File>file[0];
@@ -115,12 +112,10 @@ export class ManageaboutComponent implements OnInit {
   }
   
   uploadImage1(file: any) {
-    console.log('heeeeeeeeeeeeeeeeeeeeeeeeeloooooooooooooooooooooo')
     this.uploadImage(file, 'uploadImage1', 'image1');
   }
   
   uploadImage2(file: any) {
-    console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii')
     this.uploadImage(file, 'uploadImage2', 'image2');
   }
   
