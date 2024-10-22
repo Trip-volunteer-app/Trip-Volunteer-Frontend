@@ -38,6 +38,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatSelectModule
+    
   ],
   exports: [
     FooterComponent,
@@ -55,6 +56,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatSelectModule
+   
   ]
 })
 export class SharedModule { }

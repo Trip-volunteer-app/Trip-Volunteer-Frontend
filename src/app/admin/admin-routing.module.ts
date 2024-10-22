@@ -9,6 +9,8 @@ import { VolunteerComponent } from './volunteer/volunteer.component';
 import { TripVolunteerRoleComponent } from './trip-volunteer-role/trip-volunteer-role.component';
 import { TripServiceComponent } from './trip-service/trip-service.component';
 import { ReviewComponent } from './review/review.component';
+import { AnuualReportComponent } from './anuual-report/anuual-report.component';
+import { MonthlyReportComponent } from './monthly-report/monthly-report.component';
 
 const routes: Routes = [
   {
@@ -46,6 +48,14 @@ const routes: Routes = [
   {
     path:'ManageReview',
     component:ReviewComponent
+  },
+  {
+    path:'ManageAnuualReport',
+    component:AnuualReportComponent
+  },
+  {
+    path:'ManageMonthlyReport',
+    component:MonthlyReportComponent
   }
 
   
