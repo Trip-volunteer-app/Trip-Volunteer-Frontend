@@ -4,6 +4,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ManagecontactComponent } from './managecontact/managecontact.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { ServiceComponent } from './service/service.component';
+import { ManageWebsiteInfoComponent } from './manage-website-info/manage-website-info.component';
+import { ManageaboutComponent } from './manageabout/manageabout.component';
 import { TripImagesComponent } from './trip-images/trip-images.component';
 import { TripsComponent } from './trips/trips.component';
 import { ManageTripsComponent } from './manage-trips/manage-trips.component';
@@ -23,7 +25,7 @@ const routes: Routes = [
     component:DashboardComponent
   }, 
   {
-    path:'manage',
+    path:'ManageContact',
     component:ManagecontactComponent
   },
   {
@@ -35,6 +37,13 @@ const routes: Routes = [
     component:ServiceComponent
   },
   {
+    path:'ManageWebsiteInfo',
+    component:ManageWebsiteInfoComponent
+  },
+  {
+    path:'ManageAbout',
+    component:ManageaboutComponent
+  },{
     path:'ManageImages/:tripId',
     component:TripImagesComponent
   },

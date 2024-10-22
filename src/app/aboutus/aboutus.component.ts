@@ -16,7 +16,7 @@ export class AboutusComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     // Fetch contact data during initialization
-    this.home.GetAllAboutUsElements();
+    this.home.GetSelectedAboutus();
     this.styleService.applyFullHeight(); // Apply full height initially
   }
   ngAfterViewInit(): void {

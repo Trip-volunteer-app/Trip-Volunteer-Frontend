@@ -10,13 +10,9 @@ import { TripsComponent } from './trips/trips.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { TripDetailsComponent } from './trip-details/trip-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule } from '@angular/material/dialog';
-import { ReactiveFormsModule } from '@angular/forms';
 import { TripsCardComponent } from './trips-card/trips-card.component';
 import { TokenInterceptor } from 'src/interceptor/token.interceptor';
 import { NgChartsModule } from 'ng2-charts';
-
-
  
 @NgModule({
   declarations: [
@@ -28,16 +24,15 @@ import { NgChartsModule } from 'ng2-charts';
     TripDetailsComponent,
     TripsCardComponent
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
     SharedModule,
-    HttpClientModule,
     BrowserAnimationsModule ,
-    MatDialogModule  ,
-    ReactiveFormsModule,
     NgChartsModule
   ],
+  
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass:TokenInterceptor,
