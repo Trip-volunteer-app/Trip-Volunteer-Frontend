@@ -4,61 +4,76 @@
       <header>Signup
         <a routerLink="/home" class="close-button">x</a>
       </header>
-   
+
       <form [formGroup]="registerForms">
         <div class="field-group">
           <div class="field input-field">
-            <input type="text" placeholder="First Name" name="FIRST_NAME" formControlName="FIRST_NAME" >
-            <span *ngIf="registerForms.controls['FIRST_NAME'].hasError('required')" style="color: red;" >First Name is Required</span>
+            <input type="text" placeholder="First Name" name="FIRST_NAME" formControlName="FIRST_NAME">
+            <span 
+              *ngIf="registerForms.controls['FIRST_NAME'].touched" 
+              [style.color]="registerForms.controls['FIRST_NAME'].valid ? 'green' : 'red'">
+              {{ registerForms.controls['FIRST_NAME'].valid ? 'First Name is Valid' : 'First Name is Required' }}
+            </span>
           </div>
           <div class="field input-field">
-            <input type="text" placeholder="Last Name" name="LAST_NAME" formControlName="LAST_NAME" >
-            <span *ngIf="registerForms.controls['LAST_NAME'].hasError('required')" style="color: red;" >Lase Name is Required</span>
-          </div>
-        </div>
-
-        <div class="field-group"> 
-          <div class="field input-field">
-            <input type="email" placeholder="Email" name="EMAIL" formControlName="EMAIL"  >
-            <span *ngIf="registerForms.controls['EMAIL'].hasError('required')" style="color: red;" >Email is Required</span>
-            <span *ngIf="registerForms.controls['EMAIL'].hasError('email')" style="color: red;" >enter a valid email address</span>
-          </div>
-          <div class="field input-field">
-            <input type="text" placeholder="PhoneNumber" name="PhoneNumber"  >
-          </div>
-        </div>
-
-        <div class="field-group image-field-group">
-          <div class="field input-field" style="border: 1px solid #ccc; padding: 8px; border-radius: 4px;">
-            <input type="file" id="image" name="Image"   style="border: none; background: transparent; padding: 5px;">
-            <span id="file-name">Click to choose your Image</span> 
-          </div>
-        </div>
-        
-        <div class="field-group">
-          <div class="field input-field">
-            <input type="text" placeholder="Address" name="Address"  >
-          </div>
-          <div class="field input-field">
-            <input type="date" placeholder="BirthDate" name="BirthDate"  >
+            <input type="text" placeholder="Last Name" name="LAST_NAME" formControlName="LAST_NAME">
+            <span 
+              *ngIf="registerForms.controls['LAST_NAME'].touched" 
+              [style.color]="registerForms.controls['LAST_NAME'].valid ? 'green' : 'red'">
+              {{ registerForms.controls['LAST_NAME'].valid ? 'Last Name is Valid' : 'Last Name is Required' }}
+            </span>
           </div>
         </div>
 
         <div class="field-group">
           <div class="field input-field">
-            <input type="password" placeholder="Create Password" name="PASSWORD"  formControlName="PASSWORD" >
-            <span *ngIf="registerForms.controls['PASSWORD'].hasError('required')" style="color: red;" >password is Required</span>
-            <span *ngIf="registerForms.controls['PASSWORD'].hasError('minlength')" style="color: red;" >min Length of password is 8</span>
-            <span *ngIf="registerForms.controls['REPASSWORD'].hasError('MissMatch')" style="color: red;" >Repeate Password must be match with password</span>
-
+            <input type="email" placeholder="Email" name="EMAIL" formControlName="EMAIL">
+            <span *ngIf="registerForms.controls['EMAIL'].touched">
+              <span *ngIf="registerForms.controls['EMAIL'].hasError('required')" style="color: red;">Email is Required</span>
+              <span *ngIf="registerForms.controls['EMAIL'].hasError('email')" style="color: red;">Enter a valid email address</span>
+            </span>
           </div>
           <div class="field input-field">
-            <input type="password" placeholder="Confirm Password" name="REPASSWORD"  formControlName="REPASSWORD">
-            <span *ngIf="registerForms.controls['REPASSWORD'].hasError('MissMatch')" style="color: red;" >Repeate Password must be match with password</span>
-
+            <input type="text" placeholder="Phone Number" name="PhoneNumber" formControlName="PhoneNumber">
+            <span 
+              *ngIf="registerForms.controls['PhoneNumber'].touched" 
+              [style.color]="registerForms.controls['PhoneNumber'].valid ? 'green' : 'red'">
+              {{ registerForms.controls['PhoneNumber'].valid ? 'Phone Number is Valid' : 'Input a valid Phone Number' }}
+            </span>
           </div>
         </div>
 
+        <div class="field-group">
+          <div class="field input-field">
+            <input type="text" placeholder="Address" name="Address" formControlName="Address">
+            <span 
+              *ngIf="registerForms.controls['Address'].touched" 
+              [style.color]="registerForms.controls['Address'].valid ? 'green' : 'red'">
+              {{ registerForms.controls['Address'].valid ? 'Address is Valid' : 'Address is Required' }}
+            </span>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field input-field">
+            <input type="password" placeholder="Create Password" name="PASSWORD" formControlName="PASSWORD" >
+            <span *ngIf="registerForms.controls['PASSWORD'].touched">
+              <span *ngIf="registerForms.controls['PASSWORD'].hasError('required')" style="color: red;">Password is Required</span>
+              <span *ngIf="registerForms.controls['PASSWORD'].hasError('minlength')" style="color: red;">Minimum Length of Password is 8</span>
+              <span *ngIf="registerForms.controls['PASSWORD'].hasError('pattern')" style="color: red;">Password must contain at least one uppercase letter</span>
+              <span *ngIf="registerForms.controls['PASSWORD'].hasError('noSpecialChar')" style="color: red;">Password must contain at least one special character such as (@, #, &).</span>
+              <span *ngIf="registerForms.controls['PASSWORD'].hasError('MissMatch')" style="color: red;">Password must match with Repeated Password</span>
+
+            </span>
+          </div>
+          <div class="field input-field">
+            <input type="password" placeholder="Confirm Password" name="REPASSWORD" formControlName="REPASSWORD">
+            <span *ngIf="registerForms.controls['REPASSWORD'].touched">
+              <span *ngIf="registerForms.controls['REPASSWORD'].hasError('MissMatch')" style="color: red;">Repeated Password must match with Password</span>
+            </span>
+          </div>
+        </div>
+<br><br>
         <div class="field button-field">
           <button type="button" [disabled]="!registerForms.valid" (click)="Submit()">Signup</button>
         </div>
@@ -71,21 +86,21 @@
     </div>
 
     <div class="line"></div>
-    
-    <div class="field-group" >
-        <div class="media-options" style="width: 250px;max-width: 100%;">
-          <a href="#" class="field facebook">
-            <i class='bx bxl-facebook facebook-icon'></i>
-            <span>Login with Facebook</span>
-          </a>
-        </div>
 
-        <div class="media-options" style="width: 250px;max-width: 100%;">
-          <a href="#" class="field google">
-            <img src="../../../assets/Auth/images/google.png" alt="" class="google-img">
-            <span>Login with Google</span>
-          </a>
-        </div>
+    <div class="field-group">
+      <div class="media-options" style="width: 250px;max-width: 100%;">
+        <a href="#" class="field facebook">
+          <i class='bx bxl-facebook facebook-icon'></i>
+          <span>Login with Facebook</span>
+        </a>
+      </div>
+
+      <div class="media-options" style="width: 250px;max-width: 100%;">
+        <a href="#" class="field google">
+          <img src="../../../assets/Auth/images/google.png" alt="" class="google-img">
+          <span>Login with Google</span>
+        </a>
+      </div>
     </div>
 
   </div>

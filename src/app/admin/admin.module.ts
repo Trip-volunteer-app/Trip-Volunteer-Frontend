@@ -39,7 +39,7 @@ import {MatListModule} from '@angular/material/list';
     ReviewComponent,
     AnuualReportComponent,
     MonthlyReportComponent,
-    CreateTripComponent,
+    CreateTripComponent
 
     
         
