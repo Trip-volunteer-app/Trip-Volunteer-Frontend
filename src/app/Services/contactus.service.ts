@@ -134,6 +134,7 @@ export class ContactusService {
       }
     );
   }
+
   UpdateContact(body:any){
     body.image1 = this.imageStorage['image1'];
     body.hero_Img = this.imageStorage['hero_Img'];
@@ -149,5 +150,16 @@ export class ContactusService {
     );
   }
 
-
+  UpdateWebsiteInfo(body:any){
+    this.http.put(
+      'https://localhost:7004/api/WebsiteInformation/UPDATEwebsite_information',body
+    ).subscribe(
+      response => {
+        console.log('Updated successfully');
+      },
+      err => {
+        console.error('Error occurred', err);
+      }
+    );
+  }
 }
