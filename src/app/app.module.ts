@@ -22,7 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     TripsComponent,
     AboutusComponent,
     TripDetailsComponent
-  ],
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,

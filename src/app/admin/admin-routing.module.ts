@@ -4,6 +4,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ManagecontactComponent } from './managecontact/managecontact.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { ServiceComponent } from './service/service.component';
+import { ManageWebsiteInfoComponent } from './manage-website-info/manage-website-info.component';
+import { ManageaboutComponent } from './manageabout/manageabout.component';
 
 const routes: Routes = [
   {
@@ -11,7 +13,7 @@ const routes: Routes = [
     component:DashboardComponent
   }, 
   {
-    path:'manage',
+    path:'ManageContact',
     component:ManagecontactComponent
   },
   {
@@ -21,6 +23,14 @@ const routes: Routes = [
   {
     path:'ManageServices',
     component:ServiceComponent
+  },
+  {
+    path:'managewebsiteinfo',
+    component:ManageWebsiteInfoComponent
+  },
+  {
+    path:'ManageAbout',
+    component:ManageaboutComponent
   }
   
 ];

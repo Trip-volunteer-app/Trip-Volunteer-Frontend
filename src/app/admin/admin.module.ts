@@ -9,6 +9,8 @@ import { SharedModule } from '../shared/shared.module';
 import { ManagecontactComponent } from './managecontact/managecontact.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { ServiceComponent } from './service/service.component';
+import { ManageWebsiteInfoComponent } from './manage-website-info/manage-website-info.component';
+import { ManageaboutComponent } from './manageabout/manageabout.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { ServiceComponent } from './service/service.component';
     ManagecontactComponent,
     CategoriesComponent,
     ServiceComponent,
+    ManageWebsiteInfoComponent,
+    ManageaboutComponent,
     
   ],
   imports: [
