@@ -248,6 +248,80 @@ a.google span{
     margin-left: 10px;
   }
 
+
+
+
+
+
+
+  .verification-dialog {
+    border: 5px solid black;
+    position: absolute;
+    top: 150px; /* Adjust the distance from the top as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 400px;
+    height: 300px;
+  }
+  
+  .verification-dialog mat-form-field {
+    width: 100%;
+  }
+  
+  .verification-dialog .dialog-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .verification-dialog .dialog-actions button {
+    margin-left: 10px;
+  }
+
+  
+  
+  
+
+
+
+
+
+
+  
+  .new-password-dialog {
+    border: 5px solid black;
+    position: absolute;
+    top: 150px; /* Adjust the distance from the top as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 400px;
+    height: 300px;
+  }
+  
+  .new-password-dialog mat-form-field {
+    width: 100%;
+  }
+  
+  .new-password-dialog .dialog-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .new-password-dialog .dialog-actions button {
+    margin-left: 10px;
+  }
+
   
   
   
