@@ -1,6 +1,6 @@
 <section class="container forms">
-    <!-- Display Forgot Password Dialog above the Login Form -->
-    <div *ngIf="showForgotPasswordDialog" class="forgot-password-dialog">
+
+    <!-- <div *ngIf="showForgotPasswordDialog" class="forgot-password-dialog">
         <p style="color: black;"><b>Forgot Password Form</b></p>
         <br>
         <div class="example-container">
@@ -13,6 +13,74 @@
             <button>Save</button>
         </div>
     </div>
+ -->
+
+
+
+
+
+      <!-- <div *ngIf="showForgotPasswordDialog" class="forgot-password-dialog">
+        <p style="color: black;"><b>Forgot Password Form</b></p>
+        <br>
+        <div class="example-container">
+          <mat-form-field>
+            <input type="email" matInput name="email" [(ngModel)]="email" placeholder="Enter Your Email">
+          </mat-form-field>
+        </div>
+        <div class="dialog-actions">
+          <button (click)="closeForgotPasswordDialog()">Cancel</button>
+          <button (click)="submitForgotPassword()">Send Email</button>
+        </div>
+      </div> -->
+
+
+
+  
+<!-- Forgot Password Dialog -->
+<div *ngIf="showForgotPasswordDialog" class="forgot-password-dialog">
+    <p style="color: black;"><b>Forgot Password Form</b></p>
+    <div class="example-container">
+      <mat-form-field>
+        <input type="email" matInput name="email" [(ngModel)]="email" placeholder="Enter Your Email">
+      </mat-form-field>
+    </div>
+    <div class="dialog-actions">
+      <button (click)="closeForgotPasswordDialog()">Cancel</button>
+      <button (click)="submitForgotPassword()">Send Email</button>
+    </div>
+  </div>
+  
+  <!-- Verification Code Dialog -->
+  <div *ngIf="showVerificationDialog" class="verification-dialog">
+    <p style="color: black;"><b>Enter the Verification Code</b></p>
+    <div class="example-container">
+      <mat-form-field>
+        <input type="text" matInput name="code" [(ngModel)]="verificationCode" placeholder="Enter 6-digit Code">
+      </mat-form-field>
+    </div>
+    <div class="dialog-actions">
+      <button (click)="submitVerificationCode()">Verify Code</button>
+    </div>
+  </div>
+  
+<!-- New Password Dialog -->
+<div *ngIf="showNewPasswordDialog" class="new-password-dialog">
+  <p style="color: black;"><b>Create New Password</b></p>
+  <div class="example-container">
+    <mat-form-field>
+      <input type="password" matInput name="newPassword" [(ngModel)]="newPassword" placeholder="Enter New Password">
+    </mat-form-field>
+    <mat-form-field>
+      <input type="password" matInput name="confirmNewPassword" [(ngModel)]="confirmNewPassword" placeholder="Confirm New Password">
+    </mat-form-field>
+  </div>
+  <div class="dialog-actions">
+    <button (click)="resetPassword()">Reset Password</button>
+  </div>
+</div>
+
+  
+      
 
     <div class="form login">
         <div class="form-content">

@@ -53,7 +53,7 @@
                                 <th> {{obj.email}} </th>
                                 <th> {{obj.notes}}</th>
                                 <th> {{obj.emergency_Contact}} </th>
-                                <th> {{obj.date_Applied}}</th>
+                                <th> {{obj.date_Applied |date}}</th>
                                 <th> {{obj.status}}</th>
                                 <td> 
                                     <button (click)="openDeleteDialog(obj.volunteer_Id)" style="background-color: rgb(247, 88, 88);">Delete</button> 
