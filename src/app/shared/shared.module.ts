@@ -65,7 +65,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatGridListModule,
     MatRadioModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
     ]
 })
 export class SharedModule { }
