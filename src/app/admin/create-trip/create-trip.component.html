@@ -1,41 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<mat-stepper [linear]="isLinear" #stepper>
-  <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>choose category</ng-template>
-      <mat-selection-list #shoes style="width: 500px;">
-        <mat-list-option *ngFor="let shoe of typesOfShoes">
-          {{shoe}}
-        </mat-list-option>
-      </mat-selection-list>
-      
-      <p>
-        Options selected: {{shoes.selectedOptions.selected.length}}
-      </p>
-      <div>
-        <button mat-button matStepperNext>Next</button>
+<body>
+  <div class="container-scroller">
+
+    <app-header></app-header>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:../../partials/_navbar.html -->
+
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper" >
+          
+          <div class="custom-stepper">
+          <mat-stepper #stepper >
+            <mat-step [stepControl]="firstFormGroup">
+              <form [formGroup]="firstFormGroup">
+                <ng-template matStepLabel>Choose Category</ng-template>
+                <mat-radio-group formControlName="categoryControl" (change)="onCategoryChange($event)">
+                  <div *ngFor="let obj of admin.Categories" class="radio-option">
+                    <mat-radio-button [value]="obj.category_Id" class="custom-radio">
+                      {{ obj.category_Name }}
+                    </mat-radio-button>
+                  </div>
+                </mat-radio-group>
+                <div class="button-container">
+                  <button mat-button matStepperNext [disabled]="firstFormGroup.invalid">Next</button>
+                </div>
+              </form>
+            </mat-step>
+
+            <mat-step>
+              <ng-template matStepLabel>Image</ng-template>
+              <form [formGroup]="TripImage">
+                <div class="example-container">
+
+                  <input type="file" #file formControlName="image_Name" (change)="uploadImage(file.files)">
+
+                </div>
+              </form>
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext [disabled]="!TripImage.valid">Next</button>
+              </div>
+            </mat-step>
+
+            <mat-step [stepControl]="secondFormGroup" label="Fill out your trip details">
+              <form [formGroup]="secondFormGroup">
+                <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="space-between start" class="form-container">
+                  <div fxFlex="50">
+                    <mat-form-field appearance="fill" class="full-width">
+                      <mat-label>Trip Name</mat-label>
+                      <input matInput formControlName="Trip_Name" required>
+                      <mat-error
+                        *ngIf="secondFormGroup.get('Trip_Name')?.invalid && secondFormGroup.get('Trip_Name')?.touched">
+                        Trip Name is required.
+                      </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="full-width">
+                      <mat-label>Price</mat-label>
+                      <input matInput formControlName="Trip_Price" type="number" required>
+                      <mat-error
+                        *ngIf="secondFormGroup.get('Trip_Price')?.invalid && secondFormGroup.get('Trip_Price')?.touched">
+                        Price must be a positive number.
+                      </mat-error>
+                    </mat-form-field>
+
+
+                    <mat-form-field appearance="fill" class="full-width">
+                      <mat-label>Number of Users</mat-label>
+                      <input matInput formControlName="Max_Number_Of_Volunteers" type="number" required>
+                      <mat-error
+                        *ngIf="secondFormGroup.get('Max_Number_Of_Volunteers')?.invalid && secondFormGroup.get('Max_Number_Of_Volunteers')?.touched">
+                        Number of Users is required.
+                      </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="full-width">
+                      <mat-label>Description</mat-label>
+                      <textarea matInput formControlName="description" required></textarea>
+                      <mat-error
+                        *ngIf="secondFormGroup.get('description')?.invalid && secondFormGroup.get('description')?.touched">
+                        Description is required.
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div fxFlex="50">
+                    <mat-form-field appearance="fill" class="full-width">
+                      <mat-label>Start Date</mat-label>
+                      <input matInput formControlName="Start_Date" type="date" required>
+                      <mat-error
+                        *ngIf="secondFormGroup.get('Start_Date')?.invalid && secondFormGroup.get('Start_Date')?.touched">
+                        Start Date is required.
+                      </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="full-width">
+                      <mat-label>End Date</mat-label>
+                      <input matInput formControlName="End_Date" type="date" required>
+                      <mat-error
+                        *ngIf="secondFormGroup.get('End_Date')?.invalid && secondFormGroup.get('End_Date')?.touched">
+                        End Date is required.
+                      </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="full-width">
+                      <mat-label>Number of Volunteers</mat-label>
+                      <input matInput formControlName="Max_Number_Of_Users" type="number" required>
+                      <mat-error
+                        *ngIf="secondFormGroup.get('Max_Number_Of_Users')?.invalid && secondFormGroup.get('Max_Number_Of_Users')?.touched">
+                        Number of Volunteers is required.
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div>
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-button matStepperNext [disabled]="!secondFormGroup.valid"
+                    (click)="onSubmit()">Create</button>
+                </div>
+              </form>
+            </mat-step>
+
+
+            <mat-step >
+              <ng-template matStepLabel>Done</ng-template>
+              <p>You are now done.Trip Created</p>
+              <div>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+              </div>
+            </mat-step>
+          </mat-stepper>
+        </div>
+          <div class="btn2">
+            <button mat-button (click)="back()"  style="color: black; border-radius: 20px;">Back</button>
+            </div>
+        
+
+        </div>
       </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
-    <form [formGroup]="secondFormGroup">
-      <mat-form-field>
-        <mat-label>Address</mat-label>
-        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-               required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    <p>You are now done.</p>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
+      <!-- content-wrapper ends -->
+      <!-- partial:../../partials/_footer.html -->
+
+      <!-- partial -->
     </div>
-  </mat-step>
-</mat-stepper>
+    <!-- main-panel ends -->
+  </div>
+
+</body>
+
+</html>

@@ -21131,6 +21131,21 @@
     width: 100%;
     -webkit-flex-grow: 1;
     flex-grow: 1; }
-  
+
+    .trip-image {
+      width: 150px !important;
+      height: 100px !important;
+      object-fit: cover !important; 
+      border-radius: 10px !important ;
+    }
+    .btn2{
+      margin-top: 20px;
+      display: flex;
+       justify-content: center; 
+       gap: 10px;
+    }
+    .btn2 button:hover{
+      color:rgb(0,193,83) !important;
+    }
   /*# sourceMappingURL=maps/style.css.map */
   

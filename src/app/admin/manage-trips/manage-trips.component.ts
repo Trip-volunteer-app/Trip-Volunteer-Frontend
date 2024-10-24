@@ -70,7 +70,18 @@ export class ManageTripsComponent implements OnInit{
     this.pData=obj; 
     this.UpdateTrips.controls['trip_Id'].setValue(this.pData.trip_Id)
     this.UpdateTrips.controls['category_Id'].setValue(this.pData.category_Id)
-    this.UpdateTrips.controls['trip_Location_Id'].setValue(this.pData.trip_Location_Id)
+    this.UpdateTrips.controls['trip_Location_Id'].setValue(this.pData.trip_Location_Id);
+    if (this.pData.end_Date) {
+      this.pData.end_Date = new Date(this.pData.end_Date).toISOString().split('T')[0];
+    }
+    if (this.pData.start_Date) {
+      this.pData.start_Date = new Date(this.pData.start_Date).toISOString().split('T')[0];
+    }
+
+    this.UpdateTrips.controls['end_Date'].setValue(this.pData.end_Date);
+    this.UpdateTrips.controls['start_Date'].setValue(this.pData.start_Date);
+
+    
     this.dialog.open(this.EditDailog)
   }
 
