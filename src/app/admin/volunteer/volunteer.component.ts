@@ -48,7 +48,8 @@ export class VolunteerComponent implements OnInit{
     notes:new FormControl('',Validators.required),
     emergency_Contact:new FormControl('',Validators.required),
     date_Applied:new FormControl('',Validators.required),
-    status:new FormControl('',Validators.required)
+    status:new FormControl('',Validators.required),
+    email:new FormControl('',Validators.required)
   })
 
 
@@ -94,7 +95,7 @@ export class VolunteerComponent implements OnInit{
       console.log("Error sending email", error);
     });
   }
-  
+   
   
   
 

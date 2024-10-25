@@ -11,7 +11,7 @@ export class AuthService {
 
   constructor(public http:HttpClient,private router:Router,private toastr:ToastrService) { }
 
- 
+  
 
   Register(registerData: any) {
     const params = new HttpParams()
