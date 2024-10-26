@@ -21131,6 +21131,14 @@
     width: 100%;
     -webkit-flex-grow: 1;
     flex-grow: 1; }
-  
+    .btn2{
+      margin-top: 20px;
+      display: flex;
+       justify-content: flex-end; 
+       gap: 10px;
+    }
+    .btn2 button:hover{
+      color:rgb(0,193,83) !important;
+    }
   /*# sourceMappingURL=maps/style.css.map */
   

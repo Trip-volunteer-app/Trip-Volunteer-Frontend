@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,AfterViewInit  } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,6 +7,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+  
+  isCollapsed = false;
+  isCollapse = false;
+  isCollaps = false;
+
+
 
   constructor(private router:Router){}
   logout(){
@@ -14,4 +20,5 @@ export class HeaderComponent {
     localStorage.clear();
 
   }
+
 }

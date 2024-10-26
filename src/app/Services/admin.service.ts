@@ -141,7 +141,7 @@ this.http.put('https://localhost:7004/api/VolunteerRoles/UpdateVolunteerRole',bo
   console.log('error');
 })}
 
-
+ 
 
 
 
@@ -300,7 +300,6 @@ this.http.put('https://localhost:7004/api/ITripVolunteerrole/UPDATEtrip_voluntee
 
 Trip:any=[]; 
 TripById:any={};
-
 GetAllTrips(){ 
  this.http.get('https://localhost:7004/api/Trips/GetAllTripInformation').subscribe(result=>{
 this.Trip =result ;  
@@ -316,6 +315,7 @@ GetTripById(id:number){
     })
 }
 CreateTrip(body:any){
+  body.image_Name=this.displayImage;
 this.http.post('https://localhost:7004/api/Trips/CreateTrip',body).subscribe((resp)=>{
   console.log('the Trip Added');
   window.location.reload();
@@ -343,6 +343,7 @@ this.http.put('https://localhost:7004/api/Trips/UpdateTrip',body).subscribe((res
 },err=>{
   console.log('error');
 })}
+
 
 
 //Trip Images

@@ -57,14 +57,28 @@
         <div class="field-group">
           <div class="field input-field">
             <input type="password" placeholder="Create Password" name="PASSWORD" formControlName="PASSWORD" >
-            <span *ngIf="registerForms.controls['PASSWORD'].touched">
-              <span *ngIf="registerForms.controls['PASSWORD'].hasError('required')" style="color: red;">Password is Required</span>
-              <span *ngIf="registerForms.controls['PASSWORD'].hasError('minlength')" style="color: red;">Minimum Length of Password is 8</span>
-              <span *ngIf="registerForms.controls['PASSWORD'].hasError('pattern')" style="color: red;">Password must contain at least one uppercase letter</span>
-              <span *ngIf="registerForms.controls['PASSWORD'].hasError('noSpecialChar')" style="color: red;">Password must contain at least one special character such as (@, #, &).</span>
-              <span *ngIf="registerForms.controls['PASSWORD'].hasError('MissMatch')" style="color: red;">Password must match with Repeated Password</span>
 
+            <span *ngIf="registerForms.controls['PASSWORD'].touched">
+
+              <span *ngIf="registerForms.controls['PASSWORD'].errors?.['pattern']" style="color: red;">
+                PASSWORD  must contain at least one uppercase letter and special character such as ( #, & ).
+              </span>
+            
+              <span *ngIf="registerForms.controls['PASSWORD'].errors?.['minLength']" style="color: red;">
+                Minimum Length of Password is 8
+              </span>
+            
             </span>
+            
+<br><br><br><br><br><br><br><br><br><br>
+          <!-- 
+            <span *ngIf="registerForms.controls['PASSWORD'].touched" [style.color]="registerForms.controls['PASSWORD'].valid ? 'green' : 'red'">            
+              {{ registerForms.controls['PASSWORD'].valid ? '' : 'PASSWORD is Required' }}
+              {{ registerForms.controls['PASSWORD'].valid ? 'Length of password is done' : 'Minimum Length of Password is 8' }}
+              {{ registerForms.controls['PASSWORD'].valid ? 'contain upper letter' : 'Password must contain at least one uppercase letter' }}
+              {{ registerForms.controls['PASSWORD'].valid ? 'contain special charachter' : 'Password must contain at least one special character such as ( #, &).' }}          
+            </span> -->
+ 
           </div>
           <div class="field input-field">
             <input type="password" placeholder="Confirm Password" name="REPASSWORD" formControlName="REPASSWORD">
