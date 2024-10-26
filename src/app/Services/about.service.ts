@@ -40,10 +40,13 @@ export class AboutService {
   }
 
   CreateAboutUsElements(body: any) {
+    body.hero_image = this.imageStorage['hero_image'];
     body.image1 = this.imageStorage['image1'];
     body.image2 = this.imageStorage['image2'];
     body.image3 = this.imageStorage['image3'];
     body.image4 = this.imageStorage['image4'];
+    body.image5 = this.imageStorage['image5'];
+    body.image6 = this.imageStorage['image6'];
   
     console.log('Final Body:', body);
     this.http.post('https://localhost:7004/api/AboutUs/CreateAboutUsElements/', body).subscribe(
@@ -74,10 +77,15 @@ export class AboutService {
   }
 
   UpdateAbout(body:any){
+    body.hero_image = this.imageStorage['hero_image'];
     body.image1 = this.imageStorage['image1'];
     body.image2 = this.imageStorage['image2'];
     body.image3 = this.imageStorage['image3'];
     body.image4 = this.imageStorage['image4'];
+    body.image5 = this.imageStorage['image5'];
+    body.image6 = this.imageStorage['image6'];
+    body.feedback_background = this.imageStorage['feedback_background'];
+
     this.http.put(
       'https://localhost:7004/api/AboutUs/UpdateAboutUsElements',body
     ).subscribe(
