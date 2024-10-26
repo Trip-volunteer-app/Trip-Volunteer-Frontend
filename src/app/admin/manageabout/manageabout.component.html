@@ -21,61 +21,211 @@
                                         About Us</button>
                                     <br><br>
                                     <div class="table-responsive">
-                                        <table class="table table-dark table-hover table-bordered table-stripped">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Image 1</th>
-                                                    <th>Image 2</th>
-                                                    <th>Image 3</th>
-                                                    <th>Image 4</th>
-                                                    <th>Text 1</th>
-                                                    <th>Text 2</th>
-                                                    <th>Text 3</th>
-                                                    <th>Text 4</th>
-                                                    <th>Text 5</th>
-                                                    <th>Text 6</th>
-                                                    <th>Select</th>
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let obj of about.AboutUsElements">
-                                                    <td>{{ obj.aboutus_Page_Id }}</td>
-                                                    <td><img src="../../../assets/Images/{{ obj.image1 }}"
-                                                            alt="Image 1"></td>
-                                                    <td><img src="../../../assets/Images/{{ obj.image2 }}"
-                                                            alt="Image 2"></td>
-                                                    <td><img src="../../../assets/Images/{{ obj.image3 }}"
-                                                            alt="Image 3"></td>
-                                                    <td><img src="../../../assets/Images/{{ obj.image4 }}"
-                                                            alt="Image 4"></td>
-                                                    <td>{{ obj.text1 }}</td>
-                                                    <td>{{ obj.text2 }}</td>
-                                                    <td mat-raised-button matTooltip="{{ obj.text3 }}"
-                                                        matTooltipClass="custom-tooltip"
-                                                        aria-label="Button that shows a tooltip">
-                                                        {{ obj.text3 | slice:0:30 }}...
-                                                    </td>
-                                                    <td>{{ obj.text4 }}</td>
-                                                    <td>{{ obj.text5 }}</td>
-                                                    <td>{{ obj.text6 }}</td>
-                                                    <td>
-                                                        <mat-radio-group [(ngModel)]="selectedElementId"
-                                                            (change)="onElementSelect(obj.aboutus_Page_Id)">
-                                                            <mat-radio-button
-                                                                [value]="obj.aboutus_Page_Id"></mat-radio-button>
-                                                        </mat-radio-group>
-                                                    </td>
-                                                    <td>
-                                                        <button (click)="openEditDailog(obj)"
-                                                            class="btn btn-primary">Edit</button>
-                                                        <button (click)="openDeleteDialog(obj.aboutus_Page_Id)"
-                                                            class="btn btn-danger">Delete</button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                        <mat-tab-group>
+                                            <mat-tab label="Page Header">
+                                                <table
+                                                    class="table table-white table-hover table-bordered table-striped"
+                                                    style="overflow: auto; position: relative; height: 400px;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th
+                                                                style="position: sticky; top: 0; left: 0; background: #f0f0f0; z-index: 10;">
+                                                                #</th>
+                                                            <th
+                                                                style="position: sticky; top: 0; left: 33px; background: #f0f0f0; z-index: 10;">
+                                                                Select</th>
+                                                            <th>Hero Image</th>
+                                                            <th>Title</th>
+                                                            <th>Header</th>
+                                                            <th
+                                                                style="position: sticky; top: 0; right: 0; background: #f0f0f0; z-index: 1;">
+                                                                Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let obj of about.AboutUsElements">
+                                                            <td
+                                                                style="position: sticky; left: 0; background: #f0f0f0; z-index: 10;">
+                                                                {{ obj.aboutus_Page_Id }}</td>
+                                                            <td
+                                                                style="position: sticky; left: 33px; background: #f0f0f0; z-index: 10;">
+                                                                <mat-radio-group [(ngModel)]="selectedElementId"
+                                                                    (change)="onElementSelect(obj.aboutus_Page_Id)">
+                                                                    <mat-radio-button
+                                                                        [value]="obj.aboutus_Page_Id"></mat-radio-button>
+                                                                </mat-radio-group>
+                                                            </td>
+                                                            <td><img src="../../../assets/Images/{{ obj.hero_image }}"
+                                                                    alt="Hero Image"></td>
+                                                            <td>{{ obj.title }}</td>
+                                                            <td>{{ obj.header }}</td>
+                                                            <td
+                                                                style="position: sticky; right: 0; background: #f0f0f0; z-index: 0;">
+                                                                <button (click)="openEditDailog(obj)"
+                                                                    class="btn btn-primary">Edit</button>
+                                                                <button (click)="openDeleteDialog(obj.aboutus_Page_Id)"
+                                                                    class="btn btn-danger">Delete</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </mat-tab>
+                                            <mat-tab label="Features">
+                                                <table
+                                                    class="table table-white table-hover table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th
+                                                                style="position: sticky; top: 0; left: 0; background: #f0f0f0; z-index: 11;">
+                                                                #</th>
+                                                            <th
+                                                                style="position: sticky; top: 0; left: 33px; background: #f0f0f0; z-index: 11;">
+                                                                Select</th>
+                                                            <th>Image 1</th>
+                                                            <th>Image 2</th>
+                                                            <th>Image 3</th>
+                                                            <th>Image 4</th>
+                                                            <th>Feature 1 Header</th>
+                                                            <th>Feature 1</th>
+                                                            <th>Feature 2 Header</th>
+                                                            <th>Feature 2</th>
+                                                            <th>Feature 3 Header</th>
+                                                            <th>Feature 3</th>
+                                                            <th>Feature 4 Header</th>
+                                                            <th>Feature 4</th>
+                                                            <th>Header 2</th>
+                                                            <th>Title 2</th>
+                                                            <th>About Us</th>
+                                                            <th
+                                                                style="position: sticky; right: 0; top: 0; background: #f0f0f0;">
+                                                                Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let obj of about.AboutUsElements">
+                                                            <td
+                                                                style="position: sticky; left: 0; background: #f0f0f0; z-index: 10;">
+                                                                {{ obj.aboutus_Page_Id }}</td>
+                                                            <td
+                                                                style="position: sticky; left: 33px; background: #f0f0f0; z-index: 10;">
+                                                                <mat-radio-group [(ngModel)]="selectedElementId"
+                                                                    (change)="onElementSelect(obj.aboutus_Page_Id)">
+                                                                    <mat-radio-button
+                                                                        [value]="obj.aboutus_Page_Id"></mat-radio-button>
+                                                                </mat-radio-group>
+                                                            </td>
+                                                            <td><img src="../../../assets/Images/{{ obj.image1 }}"
+                                                                    alt="Image 1"></td>
+                                                            <td><img src="../../../assets/Images/{{ obj.image2 }}"
+                                                                    alt="Image 2"></td>
+                                                            <td><img src="../../../assets/Images/{{ obj.image3 }}"
+                                                                    alt="Image 3"></td>
+                                                            <td><img src="../../../assets/Images/{{ obj.image4 }}"
+                                                                    alt="Image 4"></td>
+                                                            <td>{{ obj.feature1_header }}</td>
+                                                            <td mat-raised-button matTooltip="{{ obj.feature1 }}"
+                                                                matTooltipClass="custom-tooltip"
+                                                                aria-label="Button that shows a tooltip">
+                                                                {{ obj.feature1 | slice:0:30 }}...
+                                                            </td>
+                                                            <td>{{ obj.feature2_header }}</td>
+                                                            <td mat-raised-button matTooltip="{{ obj.feature2 }}"
+                                                                matTooltipClass="custom-tooltip"
+                                                                aria-label="Button that shows a tooltip">
+                                                                {{ obj.feature2 | slice:0:30 }}...
+                                                            </td>
+                                                            <td>{{ obj.feature3_header }}</td>
+                                                            <td mat-raised-button matTooltip="{{ obj.feature3 }}"
+                                                                matTooltipClass="custom-tooltip"
+                                                                aria-label="Button that shows a tooltip">
+                                                                {{ obj.feature3 | slice:0:30 }}...
+                                                            </td>
+                                                            <td>{{ obj.feature4_header }}</td>
+                                                            <td mat-raised-button matTooltip="{{ obj.feature4 }}"
+                                                                matTooltipClass="custom-tooltip"
+                                                                aria-label="Button that shows a tooltip">
+                                                                {{ obj.feature4 | slice:0:30 }}...
+                                                            </td>
+                                                            <td>{{ obj.header2 }}</td>
+                                                            <td>{{ obj.title2 }}</td>
+                                                            <td mat-raised-button matTooltip="{{ obj.aboutus }}"
+                                                                matTooltipClass="custom-tooltip"
+                                                                aria-label="Button that shows a tooltip">
+                                                                {{ obj.aboutus | slice:0:30 }}...
+                                                            </td>
+                                                            <td
+                                                                style="position: sticky; right: 0; background: #f0f0f0;">
+                                                                <button (click)="openEditDailog(obj)"
+                                                                    class="btn btn-primary">Edit</button>
+                                                                <button (click)="openDeleteDialog(obj.aboutus_Page_Id)"
+                                                                    class="btn btn-danger">Delete</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </mat-tab>
+                                            <mat-tab label="About & Feedback">
+                                                <table
+                                                    class="table table-white table-hover table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th
+                                                                style="position: sticky; left: 0; background: #f0f0f0; z-index: 10;">
+                                                                #</th>
+                                                            <th
+                                                                style="position: sticky; left: 33px; background: #f0f0f0; z-index: 10;">
+                                                                Select</th>
+                                                            <th>Image 5</th>
+                                                            <th>Image 6</th>
+                                                            <th>Header 3</th>
+                                                            <th>Text 1</th>
+                                                            <th>Feedback Title</th>
+                                                            <th>Feedback Header</th>
+                                                            <th>Feedback Background</th>
+                                                            <th
+                                                                style="position: sticky; right: 0; background: #f0f0f0;">
+                                                                Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let obj of about.AboutUsElements">
+                                                            <td
+                                                                style="position: sticky; left: 0; background: #f0f0f0; z-index: 10;">
+                                                                {{ obj.aboutus_Page_Id }}</td>
+                                                            <td
+                                                                style="position: sticky; left: 33px; background: #f0f0f0; z-index: 10;">
+                                                                <mat-radio-group [(ngModel)]="selectedElementId"
+                                                                    (change)="onElementSelect(obj.aboutus_Page_Id)">
+                                                                    <mat-radio-button
+                                                                        [value]="obj.aboutus_Page_Id"></mat-radio-button>
+                                                                </mat-radio-group>
+                                                            </td>
+                                                            <td><img src="../../../assets/Images/{{ obj.image5 }}"
+                                                                    alt="Image 5"></td>
+                                                            <td><img src="../../../assets/Images/{{ obj.image6 }}"
+                                                                    alt="Image 6"></td>
+                                                            <td>{{ obj.header3 }}</td>
+                                                            <td mat-raised-button matTooltip="{{ obj.text1 }}"
+                                                                matTooltipClass="custom-tooltip"
+                                                                aria-label="Button that shows a tooltip">
+                                                                {{ obj.text1 | slice:0:30 }}...
+                                                            </td>
+                                                            <td>{{ obj.feedbackTitle }}</td>
+                                                            <td>{{ obj.feedbackHeader }}</td>
+                                                            <td><img src="../../../assets/Images/{{ obj.feedback_background }}"
+                                                                alt="feedback background"></td>
+                                                            <td
+                                                                style="position: sticky; right: 0; background: #f0f0f0;">
+                                                                <button (click)="openEditDailog(obj)"
+                                                                    class="btn btn-primary">Edit</button>
+                                                                <button (click)="openDeleteDialog(obj.aboutus_Page_Id)"
+                                                                    class="btn btn-danger">Delete</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </mat-tab>
+                                        </mat-tab-group>
                                     </div>
                                 </div>
                             </div>
@@ -86,6 +236,7 @@
         </div>
     </div>
 </body>
+
 </html>
 
 
@@ -94,40 +245,114 @@
     <mat-dialog-content class="mat-typography">
         <h3>Create About Us</h3>
         <form [formGroup]="CreateAbout" style="padding: 30px;">
-            <mat-label>Image 1</mat-label>
-            <input type="file" #file placeholder="Image 1" formControlName="image1" (change)="uploadImage1(file.files)">
-            <mat-label>Image 2</mat-label>
-            <input type="file" #file2 placeholder="Image 2" formControlName="image2" (change)="uploadImage2(file2.files)">
-            <mat-label>Image 3</mat-label>
-            <input type="file" #file3 placeholder="Image 3" formControlName="image3" (change)="uploadImage3(file3.files)">
-            <mat-label>Image 4</mat-label>
-            <input type="file" #file4 placeholder="Image 4" formControlName="image4" (change)="uploadImage4(file4.files)">
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Text 1</mat-label>
-                <input type="text" matInput placeholder="Text 1" formControlName="text1">
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Text 2</mat-label>
-                <input type="text" matInput placeholder="Text 2" formControlName="text2">
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Text 3</mat-label>
-                <input type="text" matInput placeholder="Text 3" formControlName="text3">
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Text 4</mat-label>
-                <input type="text" matInput placeholder="Text 4" formControlName="text5">
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Text 5</mat-label>
-                <input type="text" matInput placeholder="Text 5" formControlName="text6">
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Text 6</mat-label>
-                <input type="text" matInput placeholder="Text 6" formControlName="text7">
-            </mat-form-field>
+            <mat-tab-group>
+                <!-- Header Tab -->
+                <mat-tab label="Header">
+                    <div class="form-section">
+                        <div class="form-row">
+                            <label for="hero_image">Hero Image</label>
+                            <input type="file" id="hero_image" #fileHero formControlName="hero_image"
+                                (change)="uploadHeroImage(fileHero.files)" />
+                        </div>
+
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Title</mat-label>
+                            <input type="text" matInput formControlName="title" />
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Header</mat-label>
+                            <input type="text" matInput formControlName="header" />
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Text 1</mat-label>
+                            <input type="text" matInput formControlName="text1" />
+                        </mat-form-field>
+                    </div>
+                </mat-tab>
+
+                <!-- Features Tab -->
+                <mat-tab label="Features">
+                    <div class="form-section">
+                        <div class="form-row">
+                            <label for="image1">Image 1</label>
+                            <input type="file" id="image1" #file1 formControlName="image1"
+                                (change)="uploadImage1(file1.files)" />
+                        </div>
+                        <div class="form-row">
+                            <label for="image2">Image 2</label>
+                            <input type="file" id="image2" #file2 formControlName="image2"
+                                (change)="uploadImage2(file2.files)" />
+                        </div>
+                        <div class="form-row">
+                            <label for="image3">Image 3</label>
+                            <input type="file" id="image3" #file3 formControlName="image3"
+                                (change)="uploadImage3(file3.files)" />
+                        </div>
+                        <div class="form-row">
+                            <label for="image4">Image 4</label>
+                            <input type="file" id="image4" #file4 formControlName="image4"
+                                (change)="uploadImage4(file4.files)" />
+                        </div>
+                        <div class="form-field"
+                            *ngFor="let feature of ['feature1', 'feature2', 'feature3', 'feature4']">
+                            <mat-form-field appearance="fill" class="full-width">
+                                <mat-label>{{ feature | titlecase }} Header</mat-label>
+                                <input type="text" matInput [formControlName]="feature + '_header'" />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill" class="full-width">
+                                <mat-label>{{ feature | titlecase }}</mat-label>
+                                <input type="text" matInput [formControlName]="feature" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-tab>
+
+                <!-- Feedback & About Tab -->
+                <mat-tab label="Feedback & About">
+                    <div class="form-section">
+                        <div class="form-row">
+                            <label for="image5">Image 5</label>
+                            <input type="file" id="image5" #file5 formControlName="image5"
+                                (change)="uploadImage5(file5.files)" />
+                        </div>
+                        <div class="form-row" style="margin-left: 40px;">
+
+                            <label style="display: block;" for="image6">Image 6</label>
+
+
+                            <input type="file" id="image6" #file6 formControlName="image6"
+                                (change)="uploadImage6(file6.files)" />
+
+                        </div>
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Header 3</mat-label>
+                            <input type="text" matInput formControlName="header3" />
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Feedback Title</mat-label>
+                            <input type="text" matInput formControlName="feedbackTitle" />
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Feedback Header</mat-label>
+                            <input type="text" matInput formControlName="feedbackHeader" />
+                        </mat-form-field>
+
+                        <div class="form-row">
+                            <label for="feedback_background">Feedback Background</label>
+                            <input type="file" id="feedback_background" #file7 formControlName="feedback_background"
+                                (change)="uploadImage7(file7.files)" />
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
         </form>
     </mat-dialog-content>
+
     <mat-dialog-actions align="end">
         <button mat-button mat-dialog-close>Cancel</button>
         <button mat-button mat-dialog-close cdkFocusInitial (click)="save()">Create</button>
@@ -135,43 +360,126 @@
 </ng-template>
 
 
+
+
+
+
 <!-- update -->
 <ng-template #callUpdateDailog>
     <mat-dialog-content class="mat-typography">
-        <h3>Create About Us</h3>
+        <h3>Update Element</h3>
         <form [formGroup]="UpdateAbout" style="padding: 30px;">
-            <mat-label>Image 1</mat-label>
-            <input type="file" #file placeholder="Image 1" formControlName="image1" (change)="uploadImage1(file.files)">
-            <mat-label>Image 2</mat-label>
-            <input type="file" #file2 placeholder="Image 2" formControlName="image2" (change)="uploadImage2(file2.files)">
-            <mat-label>Image 3</mat-label>
-            <input type="file" #file3 placeholder="Image 3" formControlName="image3" (change)="uploadImage3(file3.files)">
-            <mat-label>Image 4</mat-label>
-            <input type="file" #file4 placeholder="Image 4" formControlName="image4" (change)="uploadImage4(file4.files)">
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Text 1</mat-label>
-                <input type="text" matInput placeholder="Text 1" formControlName="text1" [(ngModel)]="pData.text1">
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Text 2</mat-label>
-                <input type="text" matInput placeholder="Text 2" formControlName="text2" [(ngModel)]="pData.text2">
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Text 3</mat-label>
-                <input type="text" matInput placeholder="Text 3" formControlName="text3" [(ngModel)]="pData.text3">
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Text 4</mat-label>
-                <input type="text" matInput placeholder="Text 4" formControlName="text5" [(ngModel)]="pData.text5">
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Text 5</mat-label>
-                <input type="text" matInput placeholder="Text 5" formControlName="text6" [(ngModel)]="pData.text6">
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Text 6</mat-label>
-                <input type="text" matInput placeholder="Text 6" formControlName="text7" [(ngModel)]="pData.text7">
-            </mat-form-field>
+            <mat-tab-group>
+
+                <!-- Images Tab -->
+                <mat-tab label="Header">
+                    <div class="form-section">
+                        <mat-label>Hero Image</mat-label>
+                        <input type="file" #fileHero formControlName="hero_image"
+                            (change)="uploadHeroImage(fileHero.files)" />
+
+                        <div class="form-field">
+                            <mat-form-field appearance="fill" class="full-width">
+                                <mat-label>Title</mat-label>
+                                <input type="text" matInput formControlName="title" [(ngModel)]="pData.title" />
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-field">
+                            <mat-form-field appearance="fill" class="full-width">
+                                <mat-label>Header</mat-label>
+                                <input type="text" matInput formControlName="header" [(ngModel)]="pData.header" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-tab>
+
+                <!-- Headers & Titles Tab -->
+                <mat-tab label="Features">
+                    <div class="form-section">
+                        <mat-label>Image 1</mat-label>
+                        <input type="file" #file1 formControlName="image1" (change)="uploadImage1(file1.files)" />
+
+                        <mat-label>Image 2</mat-label>
+                        <input type="file" #file2 formControlName="image2" (change)="uploadImage2(file2.files)" />
+
+                        <mat-label>Image 3</mat-label>
+                        <input type="file" #file3 formControlName="image3" (change)="uploadImage3(file3.files)" />
+
+                        <mat-label>Image 4</mat-label>
+                        <input type="file" #file4 formControlName="image4" (change)="uploadImage4(file4.files)" />
+
+                        <div class="form-field"
+                            *ngFor="let feature of ['feature1', 'feature2', 'feature3', 'feature4']">
+                            <mat-form-field appearance="fill" class="full-width">
+                                <mat-label>{{ feature | titlecase }} Header</mat-label>
+                                <input type="text" matInput formControlName="{{ feature }}_header"
+                                    [(ngModel)]="pData[feature + '_header']" />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill" class="full-width">
+                                <mat-label>{{ feature | titlecase }}</mat-label>
+                                <input type="text" matInput formControlName="{{ feature }}"
+                                    [(ngModel)]="pData[feature]" />
+                            </mat-form-field>
+                        </div>
+
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Header 2</mat-label>
+                            <input type="text" matInput formControlName="header2" [(ngModel)]="pData.header2" />
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Title 2</mat-label>
+                            <input type="text" matInput formControlName="title2" [(ngModel)]="pData.title2" />
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>About Us</mat-label>
+                            <textarea matInput formControlName="aboutus" [(ngModel)]="pData.aboutus"></textarea>
+                        </mat-form-field>
+                    </div>
+                </mat-tab>
+
+                <!-- Feedback Tab -->
+                <mat-tab label="Feedback & About">
+                    <div class="form-section">
+                        <mat-label>Image 5</mat-label>
+                        <input type="file" #file5 formControlName="image5" (change)="uploadImage5(file5.files)" />
+
+                        <mat-label>Image 6</mat-label>
+                        <input type="file" #file6 formControlName="image6" (change)="uploadImage6(file6.files)" />
+
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Header 3</mat-label>
+                            <input type="text" matInput formControlName="header3" [(ngModel)]="pData.header3" />
+                        </mat-form-field>
+                        <div class="form-field">
+                            <mat-form-field appearance="fill" class="full-width">
+                                <mat-label>Text 1</mat-label>
+                                <input type="text" matInput formControlName="text1" [(ngModel)]="pData.text1" />
+                            </mat-form-field>
+                        </div>
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Feedback Title</mat-label>
+                            <input type="text" matInput formControlName="feedbackTitle"
+                                [(ngModel)]="pData.feedbackTitle" />
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Feedback Header</mat-label>
+                            <input type="text" matInput formControlName="feedbackHeader"
+                                [(ngModel)]="pData.feedbackHeader" />
+                        </mat-form-field>
+
+                        <div class="form-row">
+                            <label for="feedback_background">Feedback Background</label>
+                            <input type="file" id="feedback_background" #file7 formControlName="feedback_background"
+                                (change)="uploadImage7(file7.files)" />
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
         </form>
     </mat-dialog-content>
     <mat-dialog-actions align="end">

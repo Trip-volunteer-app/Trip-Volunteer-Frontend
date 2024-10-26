@@ -20,6 +20,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { ToastrModule } from 'ngx-toastr';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -46,7 +48,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     })
-  ],
+    ],
   exports: [
     FooterComponent,
     NavbarComponent,
@@ -66,6 +68,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatRadioModule,
     MatTooltipModule,
     MatSelectModule,
+    MatExpansionModule,
+    MatPaginatorModule
     ]
 })
 export class SharedModule { }
