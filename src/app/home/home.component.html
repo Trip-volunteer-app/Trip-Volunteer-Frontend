@@ -184,66 +184,60 @@
 
 
     <section class="ftco-section services-section">
-
-          <section class="ftco-section services-section">
-            <div class="container">
-              <div class="row d-flex">
-                <div class="col-md-6 order-md-last heading-section pl-md-5 ftco-animate d-flex align-items-center">
-
-                 <div class="w-100" *ngFor="let obj of home.AboutUsElements">
-                  <span class="subheading">{{obj.text1}}</span>
-                  <h2 class="mb-4" style="font-size: large;">{{obj.text2}}</h2>
-                  <p>{{obj.text3}}</p>
-
-                  <p><a href="#" class="btn btn-primary py-3 px-4">Search Destination</a></p>
-                </div>
-              </div>
-              <div class="col-md-6">
-               <div class="row">
-                <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
-                  <div class="services services-1 color-1 d-block img" style="background-image: url(../../assets/Home/images/petra.jpg);">
-                    <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-paragliding"></span></div>
-                    <div class="media-body">
-                      <h3 class="heading mb-3">Activities</h3>
-                      <p>Encompass a variety of experiences, from outdoor adventures to cultural explorations.</p>
-                    </div>
-                  </div>      
-                </div>
-                <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
-                  <div class="services services-1 color-2 d-block img" style="background-image: url(../../assets/Home/images/natural.jpg);">
-                    <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-route"></span></div>
-                    <div class="media-body">
-                      <h3 class="heading mb-3">Travel Arrangements</h3>
-                      <p>Include booking , accommodations, transportation, and activities to ensure a smooth and enjoyable trip.</p>
-                    </div>
-                  </div>    
-                </div>
-                <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
-                  <div class="services services-1 color-3 d-block img" style="background-image: url(../../assets/Home/images/guied.jpg);">
-                    <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-tour-guide"></span></div>
-                    <div class="media-body">
-                      <h3 class="heading mb-3">Private Guide</h3>
-                      <p>Offers personalized tours, providing expert insights and a tailored experience to enhance your journey.</p>
-                    </div>
-                  </div>      
-                </div>
-                <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
-                  <div class="services services-1 color-4 d-block img" style="background-image: url(../../assets/Home/images/map.jpg);">
-                    <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-map"></span></div>
-                    <div class="media-body">
-                      <h3 class="heading mb-3">Location Manager</h3>
-                      <p>Coordinates logistics and ensures smooth operations at filming or event sites.</p>
-                    </div>
-                  </div>      
-                </div>
-              </div>
-            </div>
+      <div class="container">
+        <div class="row d-flex">
+          <div class="col-md-6 order-md-last heading-section pl-md-5 ftco-animate d-flex align-items-center">
+           <div class="w-100">
+            <span class="subheading">{{home.selectedAboutus.header2}}</span>
+            <h2 class="mb-4" style="font-size: large;">{{home.selectedAboutus.title2}}</h2>
+            <p>{{home.selectedAboutus.aboutus}}</p>
+            <p><a href="#" class="btn btn-primary py-3 px-4">Search Destination</a></p>
           </div>
+        </div>
+        <div class="col-md-6">
+         <div class="row">
+          <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
+            <div class="services services-1 color-1 d-block img" style="background-image: url(../../assets/Images/{{home.selectedAboutus.image1}});">
+              <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-paragliding"></span></div>
+              <div class="media-body">
+                <h3 class="heading mb-3">{{home.selectedAboutus.feature1_header}}</h3>
+                <p>{{home.selectedAboutus.feature1}}</p>
+              </div>
+            </div>      
           </div>
-          </section>
-          
-
+          <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
+            <div class="services services-1 color-2 d-block img" style="background-image: url(../../assets/Images/{{home.selectedAboutus.image2}});">
+              <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-route"></span></div>
+              <div class="media-body">
+                <h3 class="heading mb-3">{{home.selectedAboutus.feature2_header}}</h3>
+                <p>{{home.selectedAboutus.feature2}}</p>
+              </div>
+            </div>    
+          </div>
+          <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
+            <div class="services services-1 color-3 d-block img" style="background-image: url(../../assets/Images/{{home.selectedAboutus.image3}});">
+              <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-tour-guide"></span></div>
+              <div class="media-body">
+                <h3 class="heading mb-3">{{home.selectedAboutus.feature3_header}}</h3>
+                <p>{{home.selectedAboutus.feature3}}</p>
+              </div>
+            </div>      
+          </div>
+          <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
+            <div class="services services-1 color-4 d-block img" style="background-image: url(../../assets/Images/{{home.selectedAboutus.image4}});">
+              <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-map"></span></div>
+              <div class="media-body">
+                <h3 class="heading mb-3">{{home.selectedAboutus.feature4_header}}</h3>
+                <p>{{home.selectedAboutus.feature4}}</p>
+              </div>
+            </div>      
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
     </section>
+          
 
     <section class=" img ftco-select-destination" style="background-image: url(assets/Home/images/bg_3.jpg);">
         <div class="container">
@@ -317,6 +311,12 @@
 
       <section class="ftco-section">
         <div class="container">
+          <div class="row justify-content-center pb-4">
+            <div class="col-md-12 heading-section text-center ftco-animate">
+              <span class="subheading">Destination</span>
+              <h2 class="mb-4">Tour Destination</h2>
+            </div>
+          </div>
           <div class="row">
             <div class="col-md-4 ftco-animate">
               <div class="project-wrap">
@@ -484,40 +484,37 @@
       
 
 
-    <section class="ftco-section ftco-about img" style="background-image: url(assets/Home/images/bg_4.jpg);">
+      <section class="ftco-section ftco-about img"style="background-image: url(../../assets/Images/{{home.selectedAboutus.image6}});">
         <div class="overlay"></div>
         <div class="container py-md-5">
-            <div class="row py-md-5">
-                <div class="col-md d-flex align-items-center justify-content-center">
-                    <a href="https://vimeo.com/45830194"
-                        class="icon-video popup-vimeo d-flex align-items-center justify-content-center mb-4">
-                        <span class="fa fa-play"></span>
-                    </a>
-                </div>
-            </div>
+         <div class="row py-md-5">
+          <div class="col-md d-flex align-items-center justify-content-center">
+           <a href="https://vimeo.com/45830194" class="icon-video popup-vimeo d-flex align-items-center justify-content-center mb-4">
+            <span class="fa fa-play"></span>
+          </a>
         </div>
-    </section>
-
-    <section class="ftco-section ftco-about ftco-no-pt img">
+       </div>
+       </div>
+       </section>
+       
+       <section class="ftco-section ftco-about ftco-no-pt img">
         <div class="container">
-
          <div class="row d-flex">
           <div class="col-md-12 about-intro">
            <div class="row">
             <div class="col-md-6 d-flex align-items-stretch">
-             <div class="img d-flex w-100 align-items-center justify-content-center" style="background-image:url(../../assets/Home/images/About2.jpg);">
+             <div class="img d-flex w-100 align-items-center justify-content-center" style="background-image: url(../../assets/Images/{{home.selectedAboutus.image5}});">
              </div>
            </div>
            <div class="col-md-6 pl-md-5 py-5">
              <div class="row justify-content-start pb-3">
                <div class="col-md-12 heading-section ftco-animate">
-                <ng-container *ngFor="let obj of home.AboutUsElements">
-                  <span class="subheading">{{obj.text5}}</span>
-                  <h2 class="mb-4">{{obj.text6}}</h2>
-                  <p>{{obj.text7}}</p>
-                  <p><a href="#" class="btn btn-primary">Book Your Destination</a></p>
-                 </ng-container>
-
+                 <ng-container>
+                <span class="subheading">{{home.selectedAboutus.title}}</span>
+                <h2 class="mb-4">{{home.selectedAboutus.header3}}</h2>
+                <p>{{home.selectedAboutus.text1}}</p>
+                <p><a href="#" class="btn btn-primary">Book Your Destination</a></p>
+               </ng-container>
               </div>
             </div>
           </div>
@@ -527,14 +524,13 @@
        </div>
        </section>
        
-
-    <section class="ftco-section testimony-section bg-bottom" style="background-image: url(../../assets/Home/images/bg_1.jpg);">
+       <section class="ftco-section testimony-section bg-bottom" style="background-image: url(../../assets/Home/images/{{home.selectedAboutus.feedback_background}});">
         <div class="overlay"></div>
         <div class="container">
          <div class="row justify-content-center pb-4">
            <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-            <span class="subheading">Testimonial</span>
-            <h2 class="mb-4">Tourist Feedback</h2>
+            <span class="subheading">{{home.selectedAboutus.feedbackTitle}}</span>
+            <h2 class="mb-4">{{home.selectedAboutus.feedbackHeader}}</h2>
           </div>
         </div>
         <div class="row ftco-animate">
