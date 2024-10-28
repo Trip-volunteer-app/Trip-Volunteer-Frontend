@@ -17,6 +17,7 @@ import { ReviewComponent } from './review/review.component';
 import { AnuualReportComponent } from './anuual-report/anuual-report.component';
 import { MonthlyReportComponent } from './monthly-report/monthly-report.component';
 import { CreateTripComponent } from './create-trip/create-trip.component';
+import { UsersComponent } from './users/users.component';
 
 
 const routes: Routes = [
@@ -86,6 +87,10 @@ const routes: Routes = [
   {
     path:'ManageMonthlyReport',
     component:MonthlyReportComponent
+  },
+  {
+    path:'AllUsers',
+    component:UsersComponent
   }
 
   

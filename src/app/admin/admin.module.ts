@@ -22,6 +22,7 @@ import { MonthlyReportComponent } from './monthly-report/monthly-report.componen
 import { CreateTripComponent } from './create-trip/create-trip.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import {MatListModule} from '@angular/material/list';
+import { UsersComponent } from './users/users.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import {MatListModule} from '@angular/material/list';
     ReviewComponent,
     AnuualReportComponent,
     MonthlyReportComponent,
-    CreateTripComponent        
+    CreateTripComponent,
+    UsersComponent        
   ],
   imports: [
     CommonModule,
