@@ -11399,7 +11399,7 @@
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
-    background-color: #191c24;
+    background-color: #ffff;
     background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0.25rem; }
@@ -16577,7 +16577,7 @@
       .card .card-body + .card-body {
         padding-top: 1rem; }
     .card .card-title {
-      color: #ffffff;
+      color: #000000;
       margin-bottom: 1.125rem;
       text-transform: capitalize; }
     .card .card-subtitle {
@@ -17901,6 +17901,7 @@
       .table td img,
       .jsgrid .jsgrid-table td img {
         width: 80px;
+        height: 80px;
         border-radius: 6%; }
       .table th .badge, .jsgrid .jsgrid-table th .badge,
       .table td .badge,
@@ -21125,68 +21126,122 @@
         width: 100%; } }
   
   .content-wrapper {
-    background: #000000;
+    background: #f8f9fa;
     padding: 1.875rem 1.75rem;
     width: 100%;
     -webkit-flex-grow: 1;
     flex-grow: 1; }
   
 /* General Table Styles */
-.table-dark {
-    width: 100%; /* Full width */
-    border-collapse: collapse;
-    table-layout: auto;
-    max-height: 500px; /* Set max height to enable scrolling */
-    overflow-y: auto; /* Allow vertical scrolling */
+.table-white {
+  width: 100%; /* Full width */
+  border-collapse: collapse;
+  table-layout: auto;
+  max-height: 500px; /* Set max height to enable scrolling */
+  overflow-y: auto; /* Allow vertical scrolling */
+  background-color: #ffffff; /* White background for the table */
+  border: none; /* Remove any default borders around the table */
 }
 
 /* Sticky Header Styles */
-.table-dark thead th {
-    position: sticky;
-    top: 0; /* Stick to the top of the container */
-    background-color: #343a40; /* Dark background for the header */
-    color: #fff;
-    font-weight: bold;
-    z-index: 2; /* Ensure header stays on top */
-    padding: 12px 8px;
-    border-bottom: 2px solid #444; /* Slightly darker border for separation */
-    text-align: center;
+.table-white thead th {
+  position: sticky;
+  top: 0; /* Stick to the top of the container */
+  background-color: #f0f0f0; /* Light gray background for the header */
+  color: #333; /* Dark gray text color for contrast */
+  font-weight: bold;
+  z-index: 2; /* Ensure header stays on top */
+  padding: 12px 8px;
+  border-bottom: 2px solid #ddd; /* Light gray border for separation */
+  border-left: 2px solid #d6d6d6;
+  text-align: center;
+  border-right: none; /* Remove right border from headers */
+}
+
+/* Remove Border from Left Side of Sticky Columns */
+.table-white thead th:first-child,
+.table-white tbody td:first-child {
+  border-left: none; /* Remove left border for first column */
 }
 
 /* Table Cell Styles */
-.table-dark td {
-    word-wrap: break-word;
-    white-space: normal;
-    vertical-align: middle;
-    padding: 5px 5px;
-    text-align: center;
+.table-white td {
+  word-wrap: break-word;
+  white-space: normal;
+  vertical-align: middle;
+  padding: 5px 5px;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0; /* Light gray border for each cell */
+  border-right: 1px solid #e0e0e0; /* Light gray vertical border */
+}
+
+/* Striped Row Styles */
+.table-white tbody tr:nth-child(odd) {
+  background-color: #f9f9f9; /* Light gray for odd rows */
+}
+
+.table-white tbody tr:nth-child(even) {
+  background-color: #ffffff; /* White for even rows */
 }
 
 /* Row Hover Effect */
-.table-dark tbody tr:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Lighten on hover */
-    transition: background-color 0.3s;
+.table-white tbody tr:hover {
+  background-color: rgba(200, 200, 200, 0.3); /* Lighten on hover */
+  transition: background-color 0.3s;
 }
 
 /* Image Styling */
-.table-dark img {
-    max-width: 250px;
-    height: auto;
-    border-radius: 0px;
-    margin: 0 auto;
-    display: block;
+.table-white img {
+  max-width: 250px;
+  height: auto;
+  border-radius: 0px;
+  margin: 0 auto;
+  display: block;
 }
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
-    .table-dark td,
-    .table-dark th {
-        font-size: 12px;
-        padding: 8px;
-    }
+  .table-white td,
+  .table-white th {
+    font-size: 12px;
+    padding: 8px;
+  }
 
-    .table-dark img {
-        max-width: 100px;
-    }
+  .table-white img {
+    max-width: 100px;
+  }
+}
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Space between inputs */
 }
 
+.form-field {
+  display: block;
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.form-section {
+  margin-bottom: 20px;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.form-row label {
+  width: 150px;
+  font-weight: bold;
+}
+
+.form-row input[type="file"] {
+  flex-grow: 1;
+  margin-left: 10px;
+}

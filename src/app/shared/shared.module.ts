@@ -21,6 +21,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { ToastrModule } from 'ngx-toastr';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgChartsModule } from 'ng2-charts';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 
 @NgModule({
@@ -48,6 +51,7 @@ import { NgChartsModule } from 'ng2-charts';
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     })
+
     
     // SocialLoginModule
   ],
@@ -65,6 +69,9 @@ import { NgChartsModule } from 'ng2-charts';
   //     } as SocialAuthServiceConfig,
   //   },
   // ],
+
+  // ],
+
   exports: [
     FooterComponent,
     NavbarComponent,
@@ -84,6 +91,8 @@ import { NgChartsModule } from 'ng2-charts';
     MatRadioModule,
     MatTooltipModule,
     MatSelectModule,
+    MatExpansionModule,
+    MatPaginatorModule
     ]
 })
 export class SharedModule { }
