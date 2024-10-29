@@ -14,6 +14,7 @@ import { TripsCardComponent } from './trips-card/trips-card.component';
 import { TokenInterceptor } from 'src/interceptor/token.interceptor';
 import {SocialLoginModule,SocialAuthServiceConfig,GoogleLoginProvider} from '@abacritt/angularx-social-login';
 import { UserProfileComponent } from './Profile/user-profile/user-profile.component';
+import { UserTripsComponent } from './UserProfile/user-trips/user-trips.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { UserProfileComponent } from './Profile/user-profile/user-profile.compon
     AboutusComponent,
     TripDetailsComponent,
     TripsCardComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    UserTripsComponent
   ],
 
   imports: [

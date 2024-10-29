@@ -56,6 +56,10 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['userProfile']);
   }
 
+  UserTrips():void
+  {
+    this.router.navigate(['UserTrips']);
+  }
 
   logout(): void {
     localStorage.clear();
