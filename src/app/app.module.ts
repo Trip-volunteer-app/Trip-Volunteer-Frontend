@@ -10,7 +10,6 @@ import { TripsComponent } from './trips/trips.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { TripDetailsComponent } from './trip-details/trip-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TripsCardComponent } from './trips-card/trips-card.component';
 import { TokenInterceptor } from 'src/interceptor/token.interceptor';
 import {SocialLoginModule,SocialAuthServiceConfig,GoogleLoginProvider} from '@abacritt/angularx-social-login';
 import { UserProfileComponent } from './Profile/user-profile/user-profile.component';
@@ -25,7 +24,6 @@ import { UserTripsComponent } from './UserProfile/user-trips/user-trips.componen
     TripsComponent,
     AboutusComponent,
     TripDetailsComponent,
-    TripsCardComponent,
     UserProfileComponent,
     UserTripsComponent
   ],

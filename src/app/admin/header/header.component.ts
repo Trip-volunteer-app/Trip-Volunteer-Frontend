@@ -7,6 +7,7 @@ import { AdminService } from 'src/app/Services/admin.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
+
 export class HeaderComponent implements OnInit {
   
   isLoggedIn: boolean = false;
@@ -15,11 +16,10 @@ export class HeaderComponent implements OnInit {
   last_Name :string | null = null
   userImage: string | null = null;
 
-
-  
   isCollapsed = false;
   isCollapse = false;
   isCollaps = false;
+
 
   constructor(private router:Router,private admin:AdminService){}
 
@@ -60,6 +60,14 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['userProfile']);
   }
 
+
+
+  menu = true;
+
+
+  toggleSidebar() {
+    this.menu = !this.menu;
+}
 
   logout(){
     this.router.navigate(['security/login']);
