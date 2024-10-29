@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators,FormGroup,FormBuilder } from '@angular/forms';
 import { AuthService } from 'src/app/Services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
 import {  Router } from '@angular/router';
+import {SocialAuthService,GoogleLoginProvider,SocialUser} from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,15 @@ import {  Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+
+  loginForm!: FormGroup;
+
+  socialUser!: SocialUser;
+
+  isLoggedin?: boolean;
+
+
 
   email: string = '';
   password: string = '';
@@ -35,10 +45,27 @@ export class LoginComponent implements OnInit {
     public auth: AuthService,
     private toastr: ToastrService,
     private http: HttpClient,
-    private rout:Router
+    private rout:Router,
+    private formBuilder: FormBuilder,
+
+    private socialAuthService: SocialAuthService
   ) {}
 
   ngOnInit(): void {
+
+    this.loginForm = this.formBuilder.group({email: ['', Validators.required],password: ['', Validators.required],});
+
+    this.socialAuthService.authState.subscribe((user) => {
+
+      this.socialUser = user;
+
+      this.isLoggedin = user != null;
+
+      console.log(this.socialUser);
+
+    });
+
+
     const storedEmail = localStorage.getItem('email');
     const storedPassword = localStorage.getItem('password');
     if (storedEmail) this.email = storedEmail;
@@ -66,17 +93,19 @@ export class LoginComponent implements OnInit {
     this.showForgotPasswordDialog = false;
   }
 
+
   submitForgotPassword() {
     if (this.email) {
       this.http.post('https://localhost:7004/api/PasswordReset/send-reset-email', { email: this.email })
-        .subscribe(response => {
+        .subscribe((response: any) => {  
           console.log('Email sent successfully');
           console.log(this.email);
-          localStorage.setItem('Email',this.email);
-          this.generatedCode = this.generateVerificationCode(); // Generate and store verification code
-          console.log('Verification code:', this.generatedCode); // Log for testing; remove in production
-          this.showForgotPasswordDialog = false; // Close the dialog
-          this.showVerificationDialog = true; // Open the verification dialog
+          localStorage.setItem('Email', this.email);
+  
+          this.generatedCode = response.verificationCode;
+          console.log('Verification code:', this.generatedCode); 
+          this.showForgotPasswordDialog = false; 
+          this.showVerificationDialog = true; 
         }, error => {
           console.error('Error sending email', error);
           this.toastr.error('Error sending email. Please try again.');
@@ -84,9 +113,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  generateVerificationCode(): string {
-    return Math.floor(100000 + Math.random() * 900000).toString();
-  }
+  
 
   submitVerificationCode() {
     if (this.verificationCode === this.generatedCode) {
@@ -100,28 +127,22 @@ export class LoginComponent implements OnInit {
 
 
   resetPassword() {
-    // Ensure that both password fields match
+  
     if (this.newPassword !== this.confirmNewPassword) {
       alert("Passwords do not match!");
       return;
     }
   
-    // Retrieve the email from localStorage
     const emailFromLocal = localStorage.getItem('Email');
   
-    // Check if email is not null
     if (!emailFromLocal) {
       alert("No email found in local storage. Please log in again.");
       return;
     }
   
-    // Use the email inputted by the user to update the password
     this.auth.updatePassword(emailFromLocal, this.newPassword).subscribe(response => {
-      // alert("Password updated successfully!");
-      // this.rout.navigate(['security/login']);
       window.location.reload();
       this.toastr.success('Password updated successfully! Login please ');
-      // Optionally, close the dialog or navigate to another view
     }, error => {
       console.error("Error updating password:", error);
       alert("Failed to update password. Please try again.");
@@ -146,4 +167,20 @@ export class LoginComponent implements OnInit {
       this.toastr.error('Please enter valid email and password');
     }
   }
+
+
+  loginWithGoogle(): void {
+
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+
+  }
+
+  logOut(): void {
+
+    this.socialAuthService.signOut();
+
+  }
 }
+
+
+
