@@ -21135,15 +21135,24 @@
 
    
     .table-scrollable {
-      height: 75vh;          
-      overflow-y: auto;                
+      height: 65vh;          
     }
     
     .description-col {
-      max-width: 200px;       /* تحديد الحد الأقصى لعرض العمود */
-      white-space: nowrap;    /* منع النص من الانتقال إلى السطر التالي */
-      overflow: hidden;       /* إخفاء النص الزائد */
-      text-overflow: ellipsis; /* إضافة "..." في حالة تجاوز النص العرض المحدد */
+      max-width: 150px;     
+      white-space: nowrap;    
+      overflow: hidden;       
+    }
+    .button-group {
+      display: flex;
+      gap: 5px; 
+    }
+    
+    .action-button {
+      color: inherit;
+      font-size: 20px !important;
+      padding: 5px; 
+      min-width: auto;
     }
     
   /*# sourceMappingURL=maps/style.css.map */

@@ -42,14 +42,7 @@ export class DashboardComponent implements OnInit {
     );
 
 
-    this.admin.NumberOfFinishedTrips().subscribe(
-      (resp: number) => {
-        this.NumberOfFinishedTrips = resp; 
-      },
-      err => {
-        console.error('Error fetching the number of finished Trips:', err);
-      }
-    );
+
 
   
     console.log(this.admin.GetAllTripsWithMaxReservations());

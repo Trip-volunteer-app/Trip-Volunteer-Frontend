@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators,AbstractControl  } from '@angular/forms';
 import { AuthService } from 'src/app/Services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +11,17 @@ import { AuthService } from 'src/app/Services/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private router: Router, public auth: AuthService) {}
+  constructor(private router: Router, public auth: AuthService, private toastr: ToastrService) {}
+
+  // registerForms: FormGroup = new FormGroup({
+  //   FIRST_NAME: new FormControl('', [Validators.required]),
+  //   LAST_NAME: new FormControl('', [Validators.required]),
+  //   EMAIL: new FormControl('', [Validators.required, Validators.email]),
+  //   Address: new FormControl('', [Validators.required]),
+  //   PhoneNumber: new FormControl('', [Validators.required, Validators.pattern(/^\d{10}$/)]), 
+  //   PASSWORD: new FormControl('', [Validators.required, Validators.minLength(8),Validators.pattern(/^[a-zA-Z0-9_-]*$/)]),
+  //   REPASSWORD: new FormControl('')
+  // });
 
   registerForms: FormGroup = new FormGroup({
     FIRST_NAME: new FormControl('', [Validators.required]),
@@ -18,11 +29,22 @@ export class RegisterComponent implements OnInit {
     EMAIL: new FormControl('', [Validators.required, Validators.email]),
     Address: new FormControl('', [Validators.required]),
     PhoneNumber: new FormControl('', [Validators.required, Validators.pattern(/^\d{10}$/)]), 
-    PASSWORD: new FormControl('', [Validators.required, Validators.minLength(8),Validators.pattern(/(?=.*[A-Z])/)]),
+    PASSWORD: new FormControl('', [Validators.required, Validators.minLength(8),Validators.pattern(/^(?=.*[a-zA-Z0-9])(?=.*[!@#$%^&*_-]).*$/)]),
     REPASSWORD: new FormControl('')
   });
-
-
+  
+  // Custom function to check for uppercase letter
+  // hasUppercase(control: AbstractControl): boolean {
+  //   const password = control.value;
+  //   return /[A-Z]/.test(password);
+  // }
+  
+  // Custom function to check for special characters
+  // hasSpecialCharacter(control: AbstractControl): boolean {
+  //   const password = control.value;
+  //   return /[#&@~$]/.test(password); // Modify the special characters as per your needs
+  // }
+  
 
   ngOnInit(): void {
     // Call matchError when passwords change
@@ -30,9 +52,9 @@ export class RegisterComponent implements OnInit {
       this.matchError();
     });
 
-    this.registerForms.controls['PASSWORD'].valueChanges.subscribe(() => {
-      this.validatePassword();
-    });
+    // this.registerForms.controls['PASSWORD'].valueChanges.subscribe(() => {
+    //   this.validatePassword();
+    // });
 
 
     this.registerForms.controls['REPASSWORD'].valueChanges.subscribe(() => {
@@ -54,22 +76,23 @@ export class RegisterComponent implements OnInit {
   }
 
  
-  validatePassword() {
-    const password = this.registerForms.controls['PASSWORD'].value;
-    const hasSpecialChar = /[!@#$%^&*]/.test(password);
+  // validatePassword() {
+  //   const password = this.registerForms.controls['PASSWORD'].value;
+  //   const hasSpecialChar = /[!@#$%^&*]/.test(password);
     
 
-    if (!hasSpecialChar) {
-      this.registerForms.controls['PASSWORD'].setErrors({ noSpecialChar: true });
-    } else {
-      this.registerForms.controls['PASSWORD'].setErrors(null);
-    }
-  }
+  //   if (!hasSpecialChar) {
+  //     this.registerForms.controls['PASSWORD'].setErrors({ noSpecialChar: true });
+  //   } else {
+  //     this.registerForms.controls['PASSWORD'].setErrors(null);
+  //   }
+  // } 
 
   Submit() {
     if (this.registerForms.valid) {
       this.auth.Register(this.registerForms.value);
       console.log('valid form', this.registerForms.value);
+
     } else {
       console.log('Form is invalid!');
     }

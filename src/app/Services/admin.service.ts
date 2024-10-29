@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';  
+
 
 @Injectable({
   providedIn: 'root'
@@ -141,7 +142,7 @@ this.http.put('https://localhost:7004/api/VolunteerRoles/UpdateVolunteerRole',bo
   console.log('error');
 })}
 
-
+ 
 
 
 
@@ -295,12 +296,23 @@ this.http.put('https://localhost:7004/api/ITripVolunteerrole/UPDATEtrip_voluntee
 })}
 
 
+
+
+
+//All Users Informations
+AllUsers:any=[]; 
+GetAllUsersData(){ 
+ this.http.get('https://localhost:7004/api/UserLogin/GetAllUserInformation').subscribe(result=>{
+this.AllUsers =result ;  
+},err=>{
+      console.log(err.message);     
+})}
+
+
+
 //Trip
-
-
 Trip:any=[]; 
 TripById:any={};
-
 GetAllTrips(){ 
  this.http.get('https://localhost:7004/api/Trips/GetAllTripInformation').subscribe(result=>{
 this.Trip =result ;  
@@ -316,6 +328,7 @@ GetTripById(id:number){
     })
 }
 CreateTrip(body:any){
+  body.image_Name=this.displayImage;
 this.http.post('https://localhost:7004/api/Trips/CreateTrip',body).subscribe((resp)=>{
   console.log('the Trip Added');
   window.location.reload();
@@ -343,6 +356,7 @@ this.http.put('https://localhost:7004/api/Trips/UpdateTrip',body).subscribe((res
 },err=>{
   console.log('error');
 })}
+
 
 
 //Trip Images
@@ -462,22 +476,61 @@ this.AnuualReport =result ;
 
 
 
-
-
-
 //Charts
+// GetAllAnuualReport2(): Observable<any[]> {
+//   return this.http.get<any[]>('https://localhost:7004/api/Annual/AnnualReport');
+// }
 
 
 
 
 
+//UserData
+getUserData(email: string): Observable<any> {
+  return this.http.get(`https://localhost:7004/api/UserLogin/GetUserinfoByEmail?email=${email}`);
+}
 
 
 
+// updateUserData(updatedData: any): Observable<any> {
+//   return this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', updatedData);
+// }
 
 
+updateUserData(updatedData: any) {
+  const params = new HttpParams()
+    .set('email', updatedData.email)
+    // .set('password', updatedData.password)
+    // .set('repassword', updatedData.repassword)
+    // .set('role_Id', updatedData.role_Id)
+    // .set('user_Id', updatedData.user_Id)
+    .set('first_name', updatedData.first_name)
+    .set('last_Name', updatedData.last_Name)
+    .set('image_Path', updatedData.image_Path) 
+    .set('address', updatedData.address) 
+    .set('phone_Number', updatedData.phone_Number)
+    // .set('login_Id', updatedData.login_Id) 
+    .set('birth_Date', updatedData.birth_Date);
 
-
+  this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
+    .subscribe(
+      result => {
+        console.log("User data updated successfully", result);
+      },
+      error => {
+        console.error("Error updating user data", error.message);     
+      }
+    );
+}
 
 
 }
+
+
+
+
+
+
+
+
+

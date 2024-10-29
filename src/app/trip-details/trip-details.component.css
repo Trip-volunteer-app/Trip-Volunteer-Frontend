@@ -234,7 +234,14 @@
     margin-right: 15px;
     font-size: larger;
   }
- 
+  .Dbutton {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .close-button {
+    margin-left: auto;
+  }
   /* ::ng-deep .mat-mdc-tab .mdc-tab__text-label,
   ::ng-deep .mat-mdc-tab-link .mdc-tab__text-label{
     color: #fd450d !important;

@@ -8,6 +8,9 @@ import { TripsComponent } from './trips/trips.component';
 import { TripDetailsComponent } from './trip-details/trip-details.component';
 import { AdminModule } from './admin/admin.module';
 import { authorizationGuard } from './authorization/authorization.guard';
+import { UsersComponent } from './admin/users/users.component';
+import { UserProfileComponent } from './Profile/user-profile/user-profile.component';
+import { UserTripsComponent } from './UserProfile/user-trips/user-trips.component';
 
 const routes: Routes = [
   {
@@ -35,8 +38,16 @@ const routes: Routes = [
     // canActivate:[authorizationGuard]
   },
   {
-    path:"tripDetails",
+    path:"tripDetails/:tripId",
     component:TripDetailsComponent
+  },
+  {
+    path:"userProfile",
+    component:UserProfileComponent
+  },
+  {
+    path:"UserTrips",
+    component:UserTripsComponent
   }
 
 ];
