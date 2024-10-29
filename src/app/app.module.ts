@@ -10,7 +10,6 @@ import { TripsComponent } from './trips/trips.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { TripDetailsComponent } from './trip-details/trip-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TripsCardComponent } from './trips-card/trips-card.component';
 import { TokenInterceptor } from 'src/interceptor/token.interceptor';
 import { NgChartsModule } from 'ng2-charts';
  
@@ -22,7 +21,6 @@ import { NgChartsModule } from 'ng2-charts';
     TripsComponent,
     AboutusComponent,
     TripDetailsComponent,
-    TripsCardComponent
   ],
 
   imports: [

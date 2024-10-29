@@ -21139,20 +21139,20 @@
     }
     
     .description-col {
-      max-width: 150px;       /* تحديد الحد الأقصى لعرض العمود */
-      white-space: nowrap;    /* منع النص من الانتقال إلى السطر التالي */
-      overflow: hidden;       /* إخفاء النص الزائد */
+      max-width: 150px;     
+      white-space: nowrap;    
+      overflow: hidden;       
     }
     .button-group {
       display: flex;
-      gap: 5px; /* Adjust the spacing between buttons */
+      gap: 5px; 
     }
     
     .action-button {
       color: inherit;
       font-size: 20px !important;
-      padding: 5px; /* Reduce padding for tighter layout */
-      min-width: auto; /* Prevents the button from stretching */
+      padding: 5px; 
+      min-width: auto;
     }
     
   /*# sourceMappingURL=maps/style.css.map */

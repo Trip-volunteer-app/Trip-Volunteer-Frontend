@@ -1,6 +1,11 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef, Input,ViewChild,TemplateRef } from '@angular/core';
 import { StyleService } from '../Services/style.service';
-import { TripsService } from '../Services/trips.service';
+import { HomeService } from '../Services/home.service';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-trip-details',
@@ -11,11 +16,25 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
   constructor(
     private styleService: StyleService,
     private cdr: ChangeDetectorRef,
-    public trip:TripsService
+    public home:HomeService,
+    private route: ActivatedRoute,
+    private router:Router,public dialog: MatDialog
   ) {}
+  @ViewChild('callBookingDailog') BookingDailog !:TemplateRef<any>;  
+  @ViewChild('callAuthDailog') AuthDailog !:TemplateRef<any>;  
+
+  tripId!: number;
 
   ngOnInit(): void {
-    this.styleService.applyFullHeight(); // Apply full height initially
+    this.styleService.applyFullHeight(); 
+
+    this.route.paramMap.subscribe(params => {
+      this.tripId = +params.get('tripId')!;
+      console.log("TripId:", this.tripId);
+      if (this.tripId) {
+        this.home.getTripById(this.tripId);
+      }
+    });
   }
 
   ngAfterViewInit(): void {
@@ -36,20 +55,15 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
   toggleFavorite() {
     this.isFavorite = !this.isFavorite; // Toggle the favorite state
   }
-  images = [
-    { src: 'https://flowtraveljo.com/wp-content/uploads/2023/04/Ajloun-Castle.jpeg', alt: 'Image 1' },
-    { src: 'https://nebotours.com/wp-content/uploads/2021/12/sites-ajloun.jpg', alt: 'Image 2' },
-    { src: 'https://enjoy-jordan.com/wp-content/uploads/2024/05/ajloun-arabiaweather-3-4-2024-jtb-1024x680.webp', alt: 'Image 3' },
-    { src: 'https://atlastours.net/wp-content/uploads/2022/06/ajloun_castle-1.jpg', alt: 'Image 4' }
-  ];
+
   currentSlide = 0;
 
   nextSlide() {
-    this.currentSlide = (this.currentSlide + 1) % this.images.length;
+    this.currentSlide = (this.currentSlide + 1) % this.home.tripDetails.images.length;
   }
 
   prevSlide() {
-    this.currentSlide = (this.currentSlide - 1 + this.images.length) % this.images.length;
+    this.currentSlide = (this.currentSlide - 1 + this.home.tripDetails.images.length) % this.home.tripDetails.images.length;
   }
 
   getDaysDifference(startDate: string, endDate: string): number {
@@ -59,6 +73,51 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
     const differenceInDays = differenceInTime / (1000 * 3600 * 24);
     return differenceInDays;
   }
+
+  BookingTrip:FormGroup = new FormGroup({
+    trip_Id:new FormControl('',Validators.required),
+    login_Id:new FormControl('',Validators.required),
+    total_Amount:new FormControl('',Validators.required),
+    numberOfUser:new FormControl('',Validators.required),
+    note:new FormControl('',Validators.required),
+
+  })
+
+
+  pData:any={};
+  userId: number | null = Number(localStorage.getItem("loginid")) || null;
+  selectedServices: number[] = [];
+  
+  openBookingDailog(obj:any){
+     if(this.userId != null){ 
+
+    this.pData=obj; 
+    this.BookingTrip.controls['trip_Id'].setValue(this.pData.trip_Id)
+    this.BookingTrip.controls['login_Id'].setValue(this.userId)
+    if (this.pData.end_Date) {
+      this.pData.end_Date = new Date(this.pData.end_Date).toISOString().split('T')[0];
+    }
+    if (this.pData.start_Date) {
+      this.pData.start_Date = new Date(this.pData.start_Date).toISOString().split('T')[0];
+    }
+    this.dialog.open(this.BookingDailog)
+   }else{
+    this.dialog.open(this.AuthDailog); 
+
+   }
+  }
+  goLogin(){
+    this.router.navigate(['security/login']);
+  }
+  goRegiter(){
+    this.router.navigate(['security/register']);
+  }
+  Booking(){
+    
+  }
+
+
+
   reviews = [
     {
       avatarUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/1200px-User_icon_2.svg.png',

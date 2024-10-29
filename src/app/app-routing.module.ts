@@ -35,7 +35,7 @@ const routes: Routes = [
     // canActivate:[authorizationGuard]
   },
   {
-    path:"tripDetails",
+    path:"tripDetails/:tripId",
     component:TripDetailsComponent
   }
 
