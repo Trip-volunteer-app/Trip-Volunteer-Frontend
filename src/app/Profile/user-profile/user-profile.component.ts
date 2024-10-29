@@ -121,6 +121,18 @@ export class UserProfileComponent implements OnInit {
     }
   }
   
+  isPasswordFormVisible: boolean = false; // Controls visibility of the form
+  oldPassword: string = '';
+  newPassword: string = '';
+  confirmPassword: string = '';
+
+  togglePasswordForm() {
+    this.isPasswordFormVisible = !this.isPasswordFormVisible;
+  }
+
+  YourTripsAndFavorites(): void {
+    this.router.navigate(['UserTrips']);
+  }
 
   logout(): void {
     localStorage.clear();
