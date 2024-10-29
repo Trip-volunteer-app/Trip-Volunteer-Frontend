@@ -37,12 +37,14 @@ import { UserTripsComponent } from './UserProfile/user-trips/user-trips.componen
     SocialLoginModule
   ],
   
-  providers: [{
+  providers:
+  [
+    {
     provide: HTTP_INTERCEPTORS,
     useClass:TokenInterceptor,
     multi:true
-  },
-  {
+    },
+    {
     provide: 'SocialAuthServiceConfig',
     useValue: {
       autoLogin: false,
@@ -58,8 +60,8 @@ import { UserTripsComponent } from './UserProfile/user-trips/user-trips.componen
         console.error(err);
       },
     } as SocialAuthServiceConfig,
-      },
-],
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
