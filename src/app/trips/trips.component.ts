@@ -1,8 +1,8 @@
-import { TripsService } from 'src/app/Services/trips.service';
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { StyleService } from '../Services/style.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { HomeService } from '../Services/home.service';
 
 
 @Component({
@@ -17,7 +17,7 @@ export class TripsComponent implements OnInit, AfterViewInit {
   constructor(
     private styleService: StyleService,
     private cdr: ChangeDetectorRef,
-    public Trip:TripsService,
+    public Trip:HomeService,
     private router:Router,
     private route: ActivatedRoute
   ) {}
@@ -26,6 +26,7 @@ export class TripsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.styleService.applyFullHeight(); // Apply full height initially
     this.Trip.getALLTrips();
+    console.log("ddd",this.Trip.Trips)
   }
 
   getDaysDifference(startDate: string, endDate: string): number {
@@ -36,7 +37,7 @@ export class TripsComponent implements OnInit, AfterViewInit {
     return differenceInDays;
   }
   currentPage: number = 1;
-  cardsPerPage: number = 9;
+  cardsPerPage: number = 12;
 
   get totalPages(): number {
     return Math.ceil(this.Trip.Trips.length / this.cardsPerPage);
@@ -53,8 +54,8 @@ export class TripsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  showDetails(){
-    this.router.navigate(['tripDetails']);
+  showDetails(tripId:number){
+    this.router.navigate(['tripDetails/',tripId]);
   }
   ngAfterViewInit(): void {
     // Initialize various styles and functionalities after view initialization

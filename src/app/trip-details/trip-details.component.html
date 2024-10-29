@@ -15,7 +15,8 @@
  
 <mat-card class="image-slider-container">
   <div class="example-button-row">
-    <button mat-raised-button style="background-color: #ff5722; color: white;">Booking</button>
+
+    <button mat-raised-button (click)="openBookingDailog(home.tripDetails)" style="background-color: #ff5722; color: white;">Booking</button>
   
     <button mat-icon-button 
             [color]="isFavorite ? 'warn' : 'default'" 
@@ -27,11 +28,11 @@
   
     <mat-card-content>
       <div class="slider">
-        <div class="slide" *ngFor="let image of images; let i = index" [class.active]="i === currentSlide">
-          <img [src]="image.src" [alt]="image.alt" />
+        <div class="slide" *ngFor="let image of home.tripDetails.images; let i = index" [class.active]="i === currentSlide">
+          <img src="../../assets/images/{{image.image_Name}}" alt="TripImage" />
         </div>
       
-      <div class="controls">
+      <div class="controls" *ngIf="home.tripDetails.images.length > 1">
         <button mat-icon-button (click)="prevSlide()">
           &lt; 
         </button>
@@ -45,40 +46,38 @@
           <mat-tab class="tab" label="Details" >
             <ng-template matTabContent>
               <div class="trip-details-container">
-                <h2 class="trip-title">{{trip.selectedTrip.trip_Name}}</h2>
+                <h2 class="trip-title">{{home.tripDetails.trip_Name}}</h2>
                 
                 <p class="trip-location-duration">
-                  <span class="trip-location"><mat-icon class="colored-icon">location_on</mat-icon>{{trip.selectedTrip.destination_Location}}</span> | 
-                  <span class="trip-duration"><mat-icon class="colored-icon">today</mat-icon> {{getDaysDifference(trip.selectedTrip.start_Date, trip.selectedTrip.end_Date)}} days</span>
+                  <span class="trip-location"><i class="bi bi-geo-alt colored-icon"></i>{{home.tripDetails.destination_Location}}</span> | 
+                  <span class="trip-duration"><i class="bi bi-calendar colored-icon"></i> {{getDaysDifference(home.tripDetails.start_Date , home.tripDetails.end_Date)}} days</span>
                 </p>
                 
                 <p class="trip-date">
-                  <strong>From:</strong> {{trip.selectedTrip.start_Date }} &nbsp; <strong>To:</strong> {{trip.selectedTrip.end_Date}}
+                  <strong>From:</strong> {{home.tripDetails.start_Date |date:'mediumDate' }} &nbsp; <strong>To:</strong> {{home.tripDetails.end_Date |date:'mediumDate'}}
                 </p>
                 
                 <p class="trip-type">
-                  <mat-icon class="colored-icon">explore</mat-icon> Tourist Trip
+                  <i class="bi bi-compass colored-icon"></i> Tourist Trip
                 </p>
                 
                 <p class="trip-price">
-                  <mat-icon class="colored-icon">attach_money</mat-icon> {{trip.selectedTrip.trip_Price}}
+                  <i class="bi bi-currency-dollar colored-icon"></i> {{home.tripDetails.trip_Price}}
                 </p>
                 
                 <p class="trip-booking">
-                  <mat-icon class="colored-icon">event_seat</mat-icon> Remaining <strong>5</strong> seats
+                  <i class="bi bi-person colored-icon"></i> Remaining <strong>5</strong> seats
                 </p>
                 
                 <div class="trip-services">
-                  <p><mat-icon class="colored-icon">room_service</mat-icon> <strong>Services:</strong></p>
+                  <p><i class="bi bi-bell colored-icon"></i> <strong>Services:</strong></p>
                   <ul>
-                    <li>Service 1: Transportation</li>
-                    <li>Service 2: Meals included</li>
-                    <li>Service 3: Transportation</li>
+                    <li *ngFor="let service of home.tripDetails.services; let i = index">Service {{i + 1}} : {{service.service_Name}} _ {{service.service_Cost}}$</li>
                   </ul>
                 </div>
                 
                 <p class="trip-description">
-                  {{trip.selectedTrip.description}}
+                  {{home.tripDetails.description}}
                 </p>
 
               </div>
@@ -138,4 +137,65 @@
   </mat-card>
 
   <app-footer></app-footer>
+  
+  <ng-template #callAuthDailog>
+    <div class="Dbutton">
+    <button mat-button  mat-dialog-close="no" class="close-button">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content>Please Login/Register to booking trip</div>
+  <div mat-dialog-actions>
+      <button mat-button mat-dialog-close="no" (click)="goLogin()">Login</button>
+    <button mat-button mat-dialog-close="no" (click)="goRegiter()">Register</button>
+  </div>
+</ng-template>
+
+  <!-- Edit Trip -->
+  <ng-template #callBookingDailog>
+    <h2 mat-dialog-title>Booking Trip</h2>
+    <mat-dialog-content class="mat-typography">
+      <form [formGroup]="BookingTrip">
+        <div class="example-container" fxLayout="column" fxLayoutGap="20px">
+  
+          <!-- Row 1 -->
+          <div fxLayout="row" fxLayoutGap="20px">
+            <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;">
+              <mat-label>Number of Reservations</mat-label>
+              <input type="number" matInput formControlName="numberOfUser">
+            </mat-form-field>
+  
+            <mat-form-field appearance="fill" style="width: 300px !important;">
+              <mat-label>Total Amount</mat-label>
+              <input type="number" matInput formControlName="total_Amount" [(ngModel)]="pData.trip_Price" readonly>
+            </mat-form-field>
+          </div>
+  
+          <!-- Row 3 - Checkboxes for Services -->
+          <div fxLayout="column" fxLayoutGap="20px">
+            <mat-label>Select Services</mat-label>
+            <div *ngFor="let service of home.tripDetails.services">
+              <mat-checkbox [(ngModel)]="service.selected">
+                {{ service.service_Name }}
+              </mat-checkbox>
+            </div>
+          </div>
+  
+          <!-- Row 4 - Textarea (alone) -->
+          <div fxLayout="row">
+            <mat-form-field appearance="fill" style="width: 620px !important; height: 200px;">
+              <mat-label>Note</mat-label>
+              <textarea matInput formControlName="note"></textarea>
+            </mat-form-field>
+          </div>
+  
+        </div>
+      </form>
+    </mat-dialog-content>
+  
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="Booking()" style="color: rgb(0,193,83);">Booking</button>
+    </mat-dialog-actions>
+  </ng-template>
   

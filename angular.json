@@ -26,6 +26,8 @@
             ],
 
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/ngx-toastr/toastr.css",
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/assets/Admin2/vendors/mdi/css/materialdesignicons.min.css",
@@ -34,8 +36,6 @@
               "src/assets/Admin2/vendors/flag-icon-css/css/flag-icon.min.css",
               "src/assets/Admin2/vendors/owl-carousel-2/owl.carousel.min.css",
               "src/assets/Admin2/vendors/owl-carousel-2/owl.theme.default.min.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/ngx-toastr/toastr.css",
               "src/assets/Home/css/style.css",
               "src/assets/Home/css/flaticon.css",
               "src/assets/Home/css/jquery.timepicker.css",

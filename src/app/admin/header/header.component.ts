@@ -7,14 +7,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  
+    constructor(private router:Router){}
+
   isCollapsed = false;
   isCollapse = false;
   isCollaps = false;
 
+  menu = true;
 
 
-  constructor(private router:Router){}
+  toggleSidebar() {
+    this.menu = !this.menu;
+}
   logout(){
     this.router.navigate(['security/login']);
     localStorage.clear();
