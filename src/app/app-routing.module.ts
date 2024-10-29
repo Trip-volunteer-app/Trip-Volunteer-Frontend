@@ -44,6 +44,7 @@ const routes: Routes = [
   {
     path:"userProfile",
     component:UserProfileComponent
+
   },
   {
     path:"UserTrips",

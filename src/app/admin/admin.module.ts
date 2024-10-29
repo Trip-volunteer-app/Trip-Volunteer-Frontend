@@ -22,6 +22,9 @@ import { MonthlyReportComponent } from './monthly-report/monthly-report.componen
 import { CreateTripComponent } from './create-trip/create-trip.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import {MatListModule} from '@angular/material/list';
+import { MapsComponent } from './maps/maps.component';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { ManagehomepageComponent } from './managehomepage/managehomepage.component'; // Import this
 import { UsersComponent } from './users/users.component';
 
 
@@ -45,6 +48,8 @@ import { UsersComponent } from './users/users.component';
     AnuualReportComponent,
     MonthlyReportComponent,
     CreateTripComponent,
+    MapsComponent,
+    ManagehomepageComponent,        
     UsersComponent        
   ],
   imports: [
@@ -52,7 +57,8 @@ import { UsersComponent } from './users/users.component';
     AdminRoutingModule,
     MatStepperModule,
     MatListModule,
-    SharedModule
+    SharedModule,
+    GoogleMapsModule
   ]
 })
 export class AdminModule { }
