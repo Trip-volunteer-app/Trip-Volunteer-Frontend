@@ -7,11 +7,13 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { LocationService } from '../../Services/location.service';
 import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs';
+
 @Component({
   selector: 'app-create-trip',
   templateUrl: './create-trip.component.html',
   styleUrls: ['./create-trip.component.css']
 })
+
 export class CreateTripComponent implements OnInit {
   @ViewChild('departureInput') departureInput!: ElementRef; // Reference to input field
   @ViewChild('destinationInput') destinationInput!: ElementRef; // Reference to input field
@@ -35,13 +37,13 @@ export class CreateTripComponent implements OnInit {
     constructor(public admin: AdminService,private router:Router,
       public location: LocationService, private http: HttpClient) {}
 
-
       ngOnInit(): void {
     this.admin.getAllCategories();
   }
 
   firstFormGroup : FormGroup = new FormGroup({ 
     categoryControl: new FormControl ('', Validators.required), // Form control for category selection
+
   });
   
   secondFormGroup: FormGroup = new FormGroup({ // Fixed the initialization of secondFormGroup
@@ -63,6 +65,7 @@ export class CreateTripComponent implements OnInit {
     destination_Longitude: new FormControl ('', Validators.required),
   });
 
+
   selectedCategoryId: number | null = null;
 
   onCategoryChange(event: any): void {
@@ -82,6 +85,7 @@ export class CreateTripComponent implements OnInit {
   TripImage:FormGroup = new FormGroup({
     image_Name:new FormControl('',Validators.required),
   })
+
 
   uploadImage(file:any){
     if(file.length==0)
@@ -198,5 +202,5 @@ export class CreateTripComponent implements OnInit {
     if (destination) {
       this.getGeocodeInfo(destination, 'destination'); // Call the API with the current input value
     }
-  }
+}
 }

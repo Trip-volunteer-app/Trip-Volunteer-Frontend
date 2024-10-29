@@ -7,7 +7,6 @@ import { RegisterComponent } from './register/register.component';
 
 import { FormsModule } from '@angular/forms';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 import { MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
@@ -17,8 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     LoginComponent,
-    RegisterComponent,
-    ForgotPasswordComponent
+    RegisterComponent
   ],
   imports: [
     CommonModule,

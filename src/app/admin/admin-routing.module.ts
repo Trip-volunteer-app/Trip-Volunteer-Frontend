@@ -17,6 +17,9 @@ import { ReviewComponent } from './review/review.component';
 import { AnuualReportComponent } from './anuual-report/anuual-report.component';
 import { MonthlyReportComponent } from './monthly-report/monthly-report.component';
 import { CreateTripComponent } from './create-trip/create-trip.component';
+import { MapsComponent } from './maps/maps.component';
+import { ManagehomepageComponent } from './managehomepage/managehomepage.component';
+import { UsersComponent } from './users/users.component';
 
 
 const routes: Routes = [
@@ -44,6 +47,10 @@ const routes: Routes = [
     path:'ManageAbout',
     component:ManageaboutComponent
   },{
+    path:'ManageHome',
+    component:ManagehomepageComponent
+  },
+  {
     path:'ManageImages/:tripId',
     component:TripImagesComponent
   },
@@ -86,6 +93,13 @@ const routes: Routes = [
   {
     path:'ManageMonthlyReport',
     component:MonthlyReportComponent
+  },
+  {
+    path:'Map',
+    component:MapsComponent
+  },{
+    path:'AllUsers',
+    component:UsersComponent
   }
 
   

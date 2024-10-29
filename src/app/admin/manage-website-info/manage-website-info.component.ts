@@ -12,7 +12,7 @@ export class ManageWebsiteInfoComponent implements OnInit {
   selectedElementId: number | null = null; // Initialize selected element ID
 
   @ViewChild('callDeleteDialog') deleteDialog !: TemplateRef<any>;
-  @ViewChild('callCreateDailog') createDialog !: TemplateRef<any>;
+  @ViewChild('callCreateDialog') createDialog !: TemplateRef<any>;
   @ViewChild('callUpdateDialog') updateDialog !: TemplateRef<any>;
 
   constructor(
@@ -20,19 +20,34 @@ export class ManageWebsiteInfoComponent implements OnInit {
     public dialog: MatDialog,
   ) { }
 
-  ngOnInit(): void {
-
-    // Fetch contact data during initialization
+  async ngOnInit(): Promise<void> {
     this.contact.getWebsiteInfo();
+    await this.contact.GetSelectedWebsiteInfo();
+    if (this.contact.selectedWebsiteInfo) {
+      this.selectedElementId = this.contact.selectedWebsiteInfo.website_Id;
+      console.log(this.selectedElementId);
+    } else {
+      console.error('No selected element found');
+    }
   }
+
   CreateWebsiteInfo: FormGroup = new FormGroup({
-    email: new FormControl('', Validators.required),
-    phone_Number: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    phone_Number: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]),
     adress: new FormControl('', Validators.required),
-    website_Link: new FormControl('', Validators.required),
-    open_Time: new FormControl('', Validators.required),
-    closing_Time: new FormControl('', Validators.required)
+    website_Link: new FormControl(''),
+    open_Time: new FormControl(''),
+    closing_Time: new FormControl(''),
   });
+
+  openCreateDialog() {
+    this.dialog.open(this.createDialog)
+  }
+
+  save() {
+    this.contact.createWebsiteInfo(this.CreateWebsiteInfo.value)
+    console.log(this.CreateWebsiteInfo.value);
+  }
 
   openDeleteDialog(id: number) {
     console.log(id);
@@ -46,32 +61,25 @@ export class ManageWebsiteInfoComponent implements OnInit {
     }
     );
   }
-  openCreateDialog() {
-    this.dialog.open(this.createDialog)
-  }
-  save() {
-    this.contact.createWebsiteInfo(this.CreateWebsiteInfo.value)
-    console.log(this.CreateWebsiteInfo.value);
 
-  }
   onElementSelect(id: number) {
     this.selectedElementId = id;
     this.contact.UpdateSelectedWebsiteInfo(id);
   }
-    UpdateWebsiteInfo: FormGroup = new FormGroup({
-      website_Id: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required),
-      phone_Number: new FormControl('', Validators.required),
-      adress: new FormControl('', Validators.required),
-      website_Link: new FormControl('', Validators.required),
-      open_Time: new FormControl('', Validators.required),
-      closing_Time: new FormControl('', Validators.required)
-    });
+
+  UpdateWebsiteInfo: FormGroup = new FormGroup({
+    website_Id: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    phone_Number: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]),
+    adress: new FormControl('', Validators.required),
+    website_Link: new FormControl(''),
+    open_Time: new FormControl(''),
+    closing_Time: new FormControl(''),
+  });
 
   pData: any = {};
   openEditDialog(obj: any) {
     this.pData = obj;
-
     this.UpdateWebsiteInfo.controls['website_Id'].setValue(this.pData.website_Id)
     this.dialog.open(this.updateDialog)
   }

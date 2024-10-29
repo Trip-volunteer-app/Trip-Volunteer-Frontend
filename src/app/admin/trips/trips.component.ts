@@ -21,6 +21,19 @@ export class TripsComponent implements OnInit{
     this.admin.GetAllTrips();
     console.log(this.admin)
   }
+  
+  openDeleteDialog(id:number){
+    console.log(id)
+  const dialogRef=  this.dialog.open(this.DeleteDailog).afterClosed().subscribe((result)=>{
+    if(result != undefined){
+      if(result == 'yes')
+        this.admin.DeleteTrip(id);
+      else if(result == 'no')
+        console.log('Thank you ');
+        
+    }
+  })
+  }
 
  
   ManageTrip(tripId:number){
@@ -28,5 +41,8 @@ export class TripsComponent implements OnInit{
 
   }
   
+  goTo(){
+    this.router.navigate(['admin/CreateTrip']);
 
+  }
 }

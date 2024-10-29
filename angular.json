@@ -47,6 +47,7 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/@popperjs/core/dist/umd/popper.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "src/assets/Admin2/vendors/js/vendor.bundle.base.js",
               "src/assets/Admin2/vendors/chart.js/Chart.min.js",
@@ -74,6 +75,7 @@
               "src/assets/Home/js/popper.min.js",
               "src/assets/Home/js/main.js",
               "src/assets/Auth/js/script.js"
+
             ]
           },
           "configurations": {
