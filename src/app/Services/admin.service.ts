@@ -598,6 +598,30 @@ DeleteTestimonial(id:number){
       console.log('error');
     })}
 
+
+
+  GetVolunteerUserInfoByTripId:any={};
+  GetVolunteerUserInfoByTripId1(trip_Id:number){
+    this.http.get('https://localhost:7004/api/Trips/GetVolunteerUserInfoByTripId/'+trip_Id).subscribe(result=>{
+      this.GetVolunteerUserInfoByTripId =result ;  
+      console.log(result);
+      },err=>{
+            console.log('errrrrrrrrrrrrror',err.message);     
+      })
+  }
+
+
+  GetUserPaymentsForTrip:any={};
+  GetUserPaymentsForTrip1(trip_Id:number){
+    this.http.get('https://localhost:7004/api/Trips/GetUserPaymentsForTrip/'+trip_Id).subscribe(result=>{
+      this.GetUserPaymentsForTrip =result ;  
+      console.log(result);
+      },err=>{
+            console.log('errrrrrrrrrrrrror',err.message);     
+      })
+  }
+
+
 }
 
 

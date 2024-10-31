@@ -28,6 +28,7 @@ import { ManagehomepageComponent } from './managehomepage/managehomepage.compone
 import { UsersComponent } from './users/users.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ManageTestimonialComponent } from './manage-testimonial/manage-testimonial.component';
+import { ViewUsersForTripsComponent } from './view-users-for-trips/view-users-for-trips.component';
 
 
 @NgModule({
@@ -54,7 +55,7 @@ import { ManageTestimonialComponent } from './manage-testimonial/manage-testimon
     ManagehomepageComponent,        
     UsersComponent,
     ProfileComponent,  
-    ManageTestimonialComponent        
+    ManageTestimonialComponent, ViewUsersForTripsComponent        
   ],
   imports: [
     CommonModule,
