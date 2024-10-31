@@ -43,7 +43,7 @@ export class NavbarComponent implements OnInit {
     this.admin.getUserData(email).subscribe(data => {
       if (data && data.length > 0) {
         const user: any = data[0];
-        console.log(user);
+        // console.log(user);
         this.userImage = user.imageUrl; 
         this.first_Name = user.first_Name;
         this.last_Name=user.last_Name;

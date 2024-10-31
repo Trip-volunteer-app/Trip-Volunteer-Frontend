@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';  
-
+import {ToastrService} from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ public pieChartData: number[] = [];
 public pieChartType = 'pie';
 
 
-  constructor(public http:HttpClient) { }
+  constructor(public http:HttpClient,public toastr: ToastrService) { }
 
 // Categories
   Categories:any=[]; 
@@ -499,30 +499,104 @@ getUserData(email: string): Observable<any> {
 
 updateUserData(updatedData: any) {
   const params = new HttpParams()
-    .set('email', updatedData.email)
-    // .set('password', updatedData.password)
-    // .set('repassword', updatedData.repassword)
-    // .set('role_Id', updatedData.role_Id)
-    // .set('user_Id', updatedData.user_Id)
-    .set('first_name', updatedData.first_name)
-    .set('last_Name', updatedData.last_Name)
-    .set('image_Path', updatedData.image_Path) 
-    .set('address', updatedData.address) 
-    .set('phone_Number', updatedData.phone_Number)
-    // .set('login_Id', updatedData.login_Id) 
-    .set('birth_Date', updatedData.birth_Date);
+    .set('L_Email', updatedData.email)
+    .set('L_Pass', updatedData.password)
+    .set('L_RePass', updatedData.repassword)
+    .set('r_id', updatedData.role_Id)
+    .set('u_id', updatedData.user_Id)
+    .set('F_Name', updatedData.first_Name)
+    .set('L_Name', updatedData.last_Name)
+    .set('IMG', this.display_Image1) 
+    .set('u_Address', updatedData.address) 
+    .set('phone', updatedData.phone_Number)
+    .set('L_id', updatedData.login_Id) 
+    .set('B_Day', updatedData.birth_Date);
+
 
   this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
     .subscribe(
       result => {
+        console.log(params);
         console.log("User data updated successfully", result);
+        // window.location.reload();
+        this.toastr.success('successfly update profile');
       },
       error => {
+        console.log(params);
+        
         console.error("Error updating user data", error.message);     
       }
     );
 }
 
+display_Image1 :any ; 
+uploadUserImage(file: FormData) {
+  this.http.put('https://localhost:7004/api/Users/uploadImage', file).subscribe((resp:any)=>{  
+    console.log('uploadUserImage',resp);
+    
+    this.display_Image1=resp.imagename;
+  },err=>{
+    
+    console.log('Error');
+    
+  })
+}
+
+ 
+
+
+
+
+changePassword(payload: any) {
+  this.http.put('https://localhost:7004/api/UserLogin/ChangePassword', payload)
+    .subscribe(
+      result => {
+        console.log("Change Password successfully", result);
+        window.location.reload();
+        this.toastr.success('Change Password successfully ');
+      },
+      error => {
+        
+        
+        console.error("Error Changed Password", error.message);     
+      }
+    );
+}
+
+
+//Testimonial
+Testimonial:any=[];
+getALLTestimonial() {
+  this.http.get("https://localhost:7004/api/Testimonial/GetAllTestimonies").subscribe(
+    res => {
+      this.Testimonial = res;
+      console.log(this.Testimonial);
+    },
+    err => {
+      console.log(err.message);
+    }
+  );
+}
+
+
+
+DeleteTestimonial(id:number){
+  this.http.delete('https://localhost:7004/api/Testimonial/DeleteTestimony/'+id).subscribe(resp=>{
+    console.log('the Testimonial deleted');
+    window.location.reload();
+  },err=>{
+    console.log('Error',err.message);   
+  })
+  } 
+
+  
+
+  updateTestimonial(body:any){
+    this.http.put('https://localhost:7004/api/Testimonial/UpdateTestimony',body).subscribe((resp)=>{
+      console.log('the Testimonial Updated');  
+    },err=>{
+      console.log('error');
+    })}
 
 }
 

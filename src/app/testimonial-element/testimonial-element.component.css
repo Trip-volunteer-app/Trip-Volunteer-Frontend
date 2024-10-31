@@ -1,0 +1,92 @@
+.carousel-testimony .item {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .testimony-wrap {
+    width: 250px;  /* Set a fixed width for each card */
+    height: 300px; /* Set a fixed height for each card */
+    background-color: #fff; /* Optional: Card background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add shadow */
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    margin: auto; /* Centers the card within the carousel */
+  }
+  
+  .user-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    margin-right: 10px;
+  }
+  
+  .text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .name, .position {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  
+  .carousel-testimony {
+    display: flex;
+    overflow: hidden; 
+    gap: 20px;
+  }
+  
+  .item {
+    flex: 0 0 auto;
+    min-width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 30px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1000;
+  }
+  
+  .left-arrow {
+    left: 0;
+  }
+  
+  .right-arrow {
+    right: 0;
+  }
+  
+  
+
+
+  .rating {
+    display: flex;
+    justify-content: center;
+    color: #FFD700; /* Gold color for stars */
+    font-size: 18px;
+  }
+  
+  .star {
+    margin: 0 2px;
+  }
+  

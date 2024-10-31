@@ -1,0 +1,59 @@
+<section class="ftco-section testimony-section bg-bottom" 
+         [ngStyle]="{'background-image': 'url(../../assets/Home/images/' + home.selectedAboutus.feedback_background + ')'}">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row justify-content-center pb-4">
+      <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
+        <span class="subheading">{{home.selectedAboutus.feedbackTitle}}</span>
+        <h2 class="mb-4">{{home.selectedAboutus.feedbackHeader}}</h2>
+      </div>
+    </div>
+    <div class="row ftco-animate">
+      <div class="col-md-12 position-relative">
+        <!-- Single Left Arrow -->
+        <button class="carousel-arrow left-arrow" (click)="scrollLeft()">&#10094;</button>
+        
+        <!-- Testimonial Cards Container -->
+        <div class="carousel-testimony" #carouselTestimony>
+          <div class="item card" *ngFor="let obj of home.Testimonial">
+            <div class="testimony-wrap py-4">
+              <div class="text">
+                
+                <!-- Star Rating Display -->
+                <div class="rating">
+                  <ng-container *ngFor="let star of getStarsArray(obj.rating)">
+                    <span class="star">&#9733;</span> <!-- Unicode star character -->
+                  </ng-container>
+                </div>
+                
+                <p class="mb-4">{{obj.feedback}}</p>
+                <div class="d-flex align-items-center">
+                  <div class="user-img" 
+                       style="background-image: url(../../assets/default-profile.png)">
+                  </div>
+                  <div class="pl-3">
+                    <p class="name" style="color: #f15d30;">{{obj.case}}</p>
+                    <span>Sajeda Alquraan</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>     
+
+        <!-- Single Right Arrow -->
+        <button class="carousel-arrow right-arrow" (click)="scrollRight()">&#10095;</button>
+      </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-center pb-4">
+           <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">          
+            <span class="subheading">
+              <button style="height: 60px; margin-top: 70px;" (click)="openTestimonialDialog()" [disabled]="!isTokenPresent()">Add Testimonial</button>
+            </span>          
+          </div>
+        </div>
+    </div>
+
+  </div>
+</section>

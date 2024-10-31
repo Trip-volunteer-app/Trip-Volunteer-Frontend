@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <body>
+    <div class="container-scroller">
+      <app-header></app-header>
+      <div class="container-fluid page-body-wrapper">
+        <div class="main-panel">
+          <div class="content-wrapper">          
+            <div class="row">  
+              <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Testimonial Table</h4>
+                    <br><br>                 
+                    <div class="table-responsive">
+                      <table class="table table-dark">
+                        <thead>
+                          <tr>
+                            <th> # </th>
+                            <th> login Id </th>
+                            <th> case </th>
+                            <th> status</th>
+                            <th> feedback </th>
+                            <th> rating </th>
+                            <th> create_At </th>
+                            <th> Operations </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let obj of admin.Testimonial">
+                            <!-- <div *ngFor="let obj of admin.Volunteer"> -->
+                                <th> {{obj.testimonial_Id}} </th>
+                                <th> {{obj.login_Id}} </th>
+                                <th> {{obj.case}} </th>
+                                <th> {{obj.status}} </th>
+                                <th> {{obj.feedback}} </th>
+                                <th> {{obj.rating}} </th>
+                                <th> {{obj.create_At}} </th>
+                                <td> 
+                                    <button (click)="openDeleteDialog(obj.testimonial_Id)" style="background-color: rgb(247, 88, 88);">Delete</button> 
+                                    <button (click)="openEditDailog(obj)" style="background-color: rgb(247, 88, 88);">Edit States</button> 
+                                </td>  
+                          </tr>                                                 
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>          
+            </div>
+          </div>   
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+
+
+
+<!-- Delete Testimonial -->
+<ng-template #callDeleteDailog>
+    <h1 mat-dialog-title>Delete Testimonial</h1>
+  <div mat-dialog-content>Are you sure you went to delete this item ?</div>
+  <div mat-dialog-actions>
+      <button mat-button mat-dialog-close="yes">Yes</button>
+    <button mat-button mat-dialog-close="no">No</button>
+  </div>
+</ng-template>
+
+<!-- Edit Testimonial -->
+<ng-template #callEditDailog>
+  <h2 mat-dialog-title>Update status Testimonial</h2>
+  <mat-dialog-content class="mat-typography">
+    <form [formGroup]="Testimonial">
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>login_Id</mat-label>
+          <input type="text" matInput formControlName="login_Id" [ngModel]="pData.login_Id" (click)="disableField($event)">
+        </mat-form-field>
+      </div>     
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>case</mat-label>
+          <input type="text" matInput formControlName="case" [ngModel]="pData.case" (click)="disableField($event)">
+        </mat-form-field>
+      </div>     
+
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>feedback</mat-label>
+          <input type="text" matInput formControlName="feedback" [ngModel]="pData.feedback" (click)="disableField($event)">
+        </mat-form-field>
+      </div>
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>rating</mat-label>
+          <input type="text" matInput formControlName="rating" [ngModel]="pData.rating" (click)="disableField($event)">
+        </mat-form-field>
+      </div>
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>create At</mat-label>
+          <input type="date" matInput formControlName="create_At" [ngModel]="pData.create_At |date" (click)="disableField($event)">
+        </mat-form-field>
+      </div>
+      
+      
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status" [(ngModel)]="pData.status">
+            <mat-option *ngFor="let status of statusList" [value]="status">{{status}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="save2()">Save</button>
+  </mat-dialog-actions>
+</ng-template>
