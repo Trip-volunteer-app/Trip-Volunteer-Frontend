@@ -1,18 +1,16 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef , ViewChild, ElementRef} from '@angular/core';
 import { StyleService } from '../Services/style.service';
 import { HomeService } from '../Services/home.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TestimonalComponent } from '../testimonal/testimonal.component';
 
-
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  selector: 'app-testimonial-element',
+  templateUrl: './testimonial-element.component.html',
+  styleUrls: ['./testimonial-element.component.css']
 })
-
-export class HomeComponent implements OnInit , AfterViewInit {
-
+export class TestimonialElementComponent implements OnInit , AfterViewInit {
+  @ViewChild('carouselTestimony', { static: true }) carouselTestimony!: ElementRef;
   constructor(   
     public home: HomeService,
     private styleService: StyleService,
@@ -47,4 +45,26 @@ export class HomeComponent implements OnInit , AfterViewInit {
   openTestimonialDialog(){
     this.dialog.open(TestimonalComponent);
   }
+
+ 
+
+  scrollLeft() {
+    this.carouselTestimony.nativeElement.scrollBy({
+      left: -100, // Adjust scroll distance as needed
+      behavior: 'smooth'
+    });
+  }
+
+  scrollRight() {
+    this.carouselTestimony.nativeElement.scrollBy({
+      left: 100, // Adjust scroll distance as needed
+      behavior: 'smooth'
+    });
+  }
+
+  getStarsArray(rating: number): number[] {
+    return Array(rating).fill(0); // Creates an array of `rating` length
+  }
 }
+
+

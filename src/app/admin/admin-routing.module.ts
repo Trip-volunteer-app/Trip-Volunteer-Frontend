@@ -20,6 +20,10 @@ import { CreateTripComponent } from './create-trip/create-trip.component';
 import { MapsComponent } from './maps/maps.component';
 import { ManagehomepageComponent } from './managehomepage/managehomepage.component';
 import { UsersComponent } from './users/users.component';
+import { ProfileComponent } from './profile/profile.component';
+import { TestimonalComponent } from '../testimonal/testimonal.component';
+import { ManageTestimonialComponent } from './manage-testimonial/manage-testimonial.component';
+import { ViewUsersForTripsComponent } from './view-users-for-trips/view-users-for-trips.component';
 
 
 const routes: Routes = [
@@ -97,9 +101,22 @@ const routes: Routes = [
   {
     path:'Map',
     component:MapsComponent
-  },{
+  },
+  {
     path:'AllUsers',
     component:UsersComponent
+  },
+  {
+    path:'AdminProfile',
+    component:ProfileComponent
+  },
+  {
+    path:'ManageTestimonial',
+    component:ManageTestimonialComponent
+  },
+  {
+    path:'ViewUsersForTrips/:trip_Id',
+    component:ViewUsersForTripsComponent
   }
 
   

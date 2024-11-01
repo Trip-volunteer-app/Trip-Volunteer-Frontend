@@ -14,6 +14,8 @@ import { TokenInterceptor } from 'src/interceptor/token.interceptor';
 import {SocialLoginModule,SocialAuthServiceConfig,GoogleLoginProvider} from '@abacritt/angularx-social-login';
 import { UserProfileComponent } from './Profile/user-profile/user-profile.component';
 import { UserTripsComponent } from './UserProfile/user-trips/user-trips.component';
+import { TestimonalComponent } from './testimonal/testimonal.component';
+import { TestimonialElementComponent } from './testimonial-element/testimonial-element.component';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import { UserTripsComponent } from './UserProfile/user-trips/user-trips.componen
     AboutusComponent,
     TripDetailsComponent,
     UserProfileComponent,
-    UserTripsComponent
+    UserTripsComponent,
+    TestimonalComponent,
+    TestimonialElementComponent
   ],
 
   imports: [
@@ -36,14 +40,12 @@ import { UserTripsComponent } from './UserProfile/user-trips/user-trips.componen
     SocialLoginModule
   ],
   
-  providers:
-  [
-    {
+  providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass:TokenInterceptor,
     multi:true
-    },
-    {
+  },
+  {
     provide: 'SocialAuthServiceConfig',
     useValue: {
       autoLogin: false,
@@ -59,8 +61,8 @@ import { UserTripsComponent } from './UserProfile/user-trips/user-trips.componen
         console.error(err);
       },
     } as SocialAuthServiceConfig,
-    },
-  ],
+      },
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

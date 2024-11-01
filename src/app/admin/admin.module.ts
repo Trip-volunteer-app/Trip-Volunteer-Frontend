@@ -26,6 +26,9 @@ import { MapsComponent } from './maps/maps.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { ManagehomepageComponent } from './managehomepage/managehomepage.component'; // Import this
 import { UsersComponent } from './users/users.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ManageTestimonialComponent } from './manage-testimonial/manage-testimonial.component';
+import { ViewUsersForTripsComponent } from './view-users-for-trips/view-users-for-trips.component';
 
 
 @NgModule({
@@ -50,7 +53,9 @@ import { UsersComponent } from './users/users.component';
     CreateTripComponent,
     MapsComponent,
     ManagehomepageComponent,        
-    UsersComponent        
+    UsersComponent,
+    ProfileComponent,  
+    ManageTestimonialComponent, ViewUsersForTripsComponent        
   ],
   imports: [
     CommonModule,

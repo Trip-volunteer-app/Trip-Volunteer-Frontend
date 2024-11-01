@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   isLoggedin?: boolean;
 
 
-
+  
   email: string = '';
   password: string = '';
   rememberMe: boolean = true;

@@ -1,0 +1,37 @@
+<h2 mat-dialog-title class="dialog-title">Testimonial Form</h2>
+
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="Testimonal">
+
+    <div class="example-container">
+      <mat-form-field>
+        <mat-label>Case</mat-label>
+        <input type="text" matInput formControlName="case" >
+      </mat-form-field>
+    </div>
+
+    <div class="example-container">
+      <mat-form-field>
+        <mat-label>Feedback</mat-label>
+        <textarea matInput formControlName="feedback" rows="4"></textarea>
+      </mat-form-field>
+    </div>
+    
+
+    <div class="example-container">
+      <mat-label>Rating</mat-label>
+      <div class="star-rating">
+        <span *ngFor="let star of stars; let i = index"
+              (click)="setRating(i + 1)"
+              [class.filled]="i < rating">
+          ★
+        </span>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="save()">Save</button>
+</mat-dialog-actions>
