@@ -33,7 +33,6 @@ import { UserTripsComponent } from './UserProfile/user-trips/user-trips.componen
     AppRoutingModule,
     SharedModule,
     BrowserAnimationsModule ,
-    
     SocialLoginModule
   ],
   

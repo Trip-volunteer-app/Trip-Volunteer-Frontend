@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit , AfterViewInit {
 
   ngOnInit(): void {
     this.styleService.applyFullHeight(); // Apply full height initially
-    this.home.GetAllAboutUsElements();
+    this.home.GetSelectedAboutus();
 
   }
 
