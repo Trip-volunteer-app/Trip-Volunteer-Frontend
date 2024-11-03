@@ -1,6 +1,8 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ContactusService } from '../Services/contactus.service';
 import { StyleService } from '../Services/style.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-contact',
@@ -8,29 +10,66 @@ import { StyleService } from '../Services/style.service';
   styleUrls: ['./contact.component.css'],
 })
 export class ContactComponent implements OnInit, AfterViewInit {
+  isSubmitting: boolean = false;
+
+  CreateContact: FormGroup = new FormGroup({
+    full_Name: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[a-zA-Z ]+$')
+    ]),
+    email: new FormControl('', [
+      Validators.required,
+      Validators.email
+    ]),
+    query: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(70),
+      Validators.pattern('^[a-zA-Z0-9 ]*$')
+    ]),
+    messages: new FormControl('', [
+      Validators.required,
+      Validators.minLength(10),
+      Validators.maxLength(300)
+    ])
+  });
+
   constructor(
     public contact: ContactusService,
     private styleService: StyleService,
-    private cdr: ChangeDetectorRef
-  ) {}
+    private cdr: ChangeDetectorRef,
+    private sanitizer: DomSanitizer
+  ) { }
 
   ngOnInit(): void {
-    // Fetch contact data during initialization
-    this.contact.getAllContactElements();
-    this.contact.getWebsiteInfo();
+    // Fetch contact elements and website info during initialization
+    this.contact.GetSelectedElement();
+    this.contact.GetSelectedWebsiteInfo();
     this.styleService.applyFullHeight(); // Apply full height initially
   }
+
   ngAfterViewInit(): void {
-    // Initialize various styles and functionalities after view initialization
-    this.styleService.applyFullHeight(); // Ensure height recalculates
-    this.styleService.initCarousels(); // Initialize carousels
-    this.styleService.handleDropdownHover(); // Manage dropdown hover effects
-    this.styleService.handleScrollAnimations(); // Set up scroll-based animations
-    this.styleService.initCounters(); // Initialize counters
-    this.styleService.initContentAnimations(); // Apply content animations
-    this.styleService.initMagnificPopup(); // Set up image popups
-    this.styleService.initDatePickers(); // Initialize date pickers
-    this.cdr.detectChanges(); // Detect changes after all initializations
+    // Apply styles and initialize components after view initialization
+    this.styleService.applyFullHeight();
+    this.styleService.initCarousels();
+    this.styleService.handleDropdownHover();
+    this.styleService.handleScrollAnimations();
+    this.styleService.initCounters();
+    this.styleService.initContentAnimations();
+    this.styleService.initMagnificPopup();
+    this.styleService.initDatePickers();
+    this.cdr.detectChanges(); // Detect changes after initializations
+  }
+
+  sanitizeInput(input: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(input);
+  }
+
+  onSubmit(): void {
+    if (this.CreateContact.valid) {
+      const formData = this.CreateContact.value;
+      console.log('Form Data:', formData);
+      this.contact.createContactForm(formData)
+      this.CreateContact.reset();
+    }
   }
 }
-

@@ -4,8 +4,8 @@
   <div class="container" style="height: 300px;">
     <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
       <div class="col-md-9 ftco-animate pb-5 text-center" >
-        <p class="breadcrumbs"><span class="mr-2"><a routerLink="/Trips">Users <i
-                class="fa fa-chevron-right"></i></a></span> <span>Profile <i class="fa fa-chevron-right"></i></span>
+        <p class="breadcrumbs"><span class="mr-2"><a routerLink="/Trips">user <i
+                class="fa fa-chevron-right"></i></a></span> <span>userProfile <i class="fa fa-chevron-right"></i></span>
         </p>
       </div>
     </div>
@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                <img class="rounded-circle mt-5" width="150px" [src]="image_Path || '../../../assets/default-profile.png'">
+                <img class="rounded-circle mt-5" width="150px" [src]="image_Path || '../../../assets/default-profile.png'" >
                 <span class="font-weight-bold">{{first_Name}} {{last_Name}}</span><span class="text-black-50">{{email}}</span>
 
                 <span> 
@@ -41,33 +41,43 @@
                         <div class="row mt-2">
                           <div class="col-md-6">
                             <label class="labels">First Name</label>
-                            <input type="text" class="form-control" placeholder="first name" formControlName="first_Name">
-                          </div>
+                            <input type="text" class="form-control" placeholder="first name" formControlName="first_Name" [(ngModel)]="pData.first_Name">
+                          </div>       
+                          <input type="text" class="form-control" placeholder="user_Id" formControlName="user_Id" [(ngModel)]="pData.user_Id" hidden>                 
                           <div class="col-md-6">
                             <label class="labels">Last Name</label>
-                            <input type="text" class="form-control" placeholder="last name" formControlName="last_Name">
+                            <input type="text" class="form-control" placeholder="last name" formControlName="last_Name" [(ngModel)]="pData.last_Name">
                           </div>
                         </div>
                         <div class="row mt-3">
                           <div class="col-md-12">
                             <label class="labels">Mobile Number</label>
-                            <input type="text" class="form-control" placeholder="enter phone number" formControlName="phone_Number">
+                            <input type="text" class="form-control" placeholder="enter phone number" formControlName="phone_Number" [(ngModel)]="pData.phone_Number">
                           </div>
                           <div class="col-md-12">
                             <label class="labels">Address</label>
-                            <input type="text" class="form-control" placeholder="enter address" formControlName="address">
+                            <input type="text" class="form-control" placeholder="enter address" formControlName="address" [(ngModel)]="pData.address">
                           </div>
                           <div class="col-md-12">
-                            <label class="labels">Birth Date</label>
-                            <input type="text" class="form-control" formControlName="birth_Date" >
+                            <label class="labels">Birth Date
+                            <input type="Date" class="form-control" formControlName="birth_Date"  [(ngModel)]="pData.birth_Date">
+                         </label> </div>
+                          <div class="col-md-12">
+                            <label class="labels">Image
+                            <input type="file" class="form-control" #file formControlName="image_Path" (change)="uploadImage(file.files)">
+                          </label></div>
+                          <div class="col-md-12">
+                            <input type="text" class="form-control"  formControlName="password" [(ngModel)]="pData.password" hidden>
                           </div>
                           <div class="col-md-12">
-                            <label class="labels">Image</label>
-                            <input type="file" class="form-control" (change)="onImageChange($event)">
+                            <input type="text" class="form-control"  formControlName="repassword" [(ngModel)]="pData.repassword" hidden/>                         
                           </div>
                           <div class="col-md-12">
-                            <label class="labels">Date Registered</label>
-                            <input type="text" class="form-control" [value]="date_Register | date" disabled>
+                            <input type="text" class="form-control" formControlName="email" [(ngModel)]="pData.email" hidden>
+                          </div>
+                          <div class="col-md-12">
+                            <label class="labels">Date Registered
+                            <input type="text" class="form-control" [value]="date_Register | date"  readonly></label>
                           </div>
                         </div>
                         <div class="mt-5 text-center">
@@ -86,12 +96,12 @@
                         </div>
                         <br>
                         <div *ngIf="isPasswordFormVisible">
-                        <form>
-                          <div class="col-md-12"><label class="labels">Old Password</label><input type="text" class="form-control" placeholder="Old Password" value=""></div> <br>
-                          <div class="col-md-12"><label class="labels">New Password</label><input type="text" class="form-control" placeholder="New Password" value=""></div>
-                          <div class="col-md-12"><label class="labels">Confirm New Password</label><input type="text" class="form-control" placeholder="Confirm New Password" value=""></div>           
-                          <div class="col-md-12"><label class="labels">Change Password</label><input type="submit" class="form-control btn btn-primary profile-button" placeholder="Change Password" value="Change Password"></div>           
-                        </form>
+                          <form [formGroup]="changePassword">
+                            <div class="col-md-12"><label class="labels">Old Password</label><input type="password" class="form-control" placeholder="Old Password" formControlName="oldPassword" [ngModel]="oldPassword" value=""></div> <br>
+                            <div class="col-md-12"><label class="labels">New Password</label><input type="password" class="form-control" placeholder="New Password" formControlName="newPassword" [ngModel]="newPassword" value=""></div>
+                            <div class="col-md-12"><label class="labels">Confirm New Password</label><input type="password" class="form-control" placeholder="Confirm New Password" formControlName="confirmPassword" [ngModel]="confirmPassword" value=""></div>           
+                            <div class="col-md-12"><label class="labels">Change Password</label><input type="submit" (click)="changedPassword()" class="form-control btn btn-primary profile-button" placeholder="Change Password" value="Change Password"></div>           
+                          </form>
                       </div>
                 </div>
             </div>

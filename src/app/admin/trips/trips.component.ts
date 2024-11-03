@@ -45,4 +45,9 @@ export class TripsComponent implements OnInit{
     this.router.navigate(['admin/CreateTrip']);
 
   }
+
+  ManagePersonal(trip_Id:number)
+  {
+    this.router.navigate(['admin/ViewUsersForTrips/', trip_Id]);
+  }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { StyleService } from '../Services/style.service';
 import { HomeService } from '../Services/home.service';
+import { MatDialog } from '@angular/material/dialog';
+import { TestimonalComponent } from '../testimonal/testimonal.component';
 
 
 @Component({
@@ -14,14 +16,15 @@ export class HomeComponent implements OnInit , AfterViewInit {
   constructor(   
     public home: HomeService,
     private styleService: StyleService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    public dialog: MatDialog
   ) {}
 
 
   ngOnInit(): void {
     this.styleService.applyFullHeight(); // Apply full height initially
-    this.home.GetAllAboutUsElements();
-
+    this.home.GetSelectedAboutus();
+    this.home.GetAcceptedTestimonies();
   }
 
   ngAfterViewInit(): void {
@@ -35,5 +38,13 @@ export class HomeComponent implements OnInit , AfterViewInit {
     this.styleService.initMagnificPopup(); // Set up image popups
     this.styleService.initDatePickers(); // Initialize date pickers
     this.cdr.detectChanges(); // Detect changes after all initializations
+  }
+
+
+  isTokenPresent(): boolean {
+    return !!localStorage.getItem('token'); // Returns true if the token exists, false otherwise
+}
+  openTestimonialDialog(){
+    this.dialog.open(TestimonalComponent);
   }
 }

@@ -1,0 +1,67 @@
+::ng-deep .mat-dialog-container {
+    max-width: 600px; /* Adjust the width as needed */
+    width: 500px;       /* 90% of the viewport width */
+}
+
+/* Set the underline color to #f15d30 when input is focused */
+::ng-deep .mat-form-field-underline {
+    background-color: #f15d30 !important; /* Base underline color */
+}
+
+/* Change the color of the underline and the label when input is focused */
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick,
+::ng-deep .mat-form-field-appearance-fill.mat-focused .mat-form-field-ripple {
+    background-color: #f15d30 !important; /* Floating line color */
+    border-color: #f15d30 !important;     /* Outline border color */
+}
+
+/* Change the label text color when focused */
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+    color: #f15d30 !important; /* Label color when focused */
+}
+
+
+.example-container {
+    width: 500px;
+}
+
+mat-form-field {
+    width:500px;
+    margin-bottom: 15px; /* Add space between fields */
+}
+
+mat-dialog-content {
+    padding: 15px 24px; /* Add padding inside the content */
+}
+
+mat-dialog-actions {
+    padding: 12px 24px;
+    border-top: 1px solid #ddd; /* Optional: Add a top border to separate actions */
+}
+
+button[mat-button] {
+    color: #f15d30 ; /* Customize button colors */
+}
+
+.dialog-title {
+    text-align: center;
+    width: 100%;
+    font-size: 1.5em; /* Optional: Increase font size */
+    font-weight: bold; /* Optional: Make it bold */
+    margin-bottom: 10px; /* Add spacing below the title */
+}
+
+
+.star-rating {
+    font-size: 24px; /* Adjust star size */
+  }
+  
+  .star-rating span {
+    cursor: pointer;
+    color: lightgray; /* Default star color */
+  }
+  
+  .star-rating span.filled {
+    color: gold; /* Filled star color */
+  }
+  

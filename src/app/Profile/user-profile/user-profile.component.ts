@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/Services/admin.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-profile',
@@ -11,46 +12,42 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class UserProfileComponent implements OnInit {
   isLoggedIn: boolean = false;
 
-  login_Id :number |null= null;
+  login_Id :string |null= null;
   email: string | null = null;
   first_Name: string | null = null;
   last_Name: string | null = null;
   image_Path: File | null = null;
-  date_Register: Date | null = null;
+  date_Register: string | null = null;
   address: string | null = null;
   phone_Number: string | null = null;
   birth_Date: Date | null = null;
   password: string | null = null;
   repassword: string | null = null;
-  user_Id: number | null = null;
-  role_Id: number | null = null;
+  user_Id: string | null = null;
+  role_Id: string | null = null;
 
+  display_Image: string | null = null; 
+
+  constructor(public admin: AdminService, private router: Router,public toastr:ToastrService) {}
 
   Users: FormGroup = new FormGroup({
-    login_id: new FormControl(''),
+    login_Id: new FormControl(''),
+    email:new FormControl(''),
     first_Name: new FormControl(''),
     last_Name: new FormControl(''),
     phone_Number: new FormControl(''),
     address: new FormControl(''),
     birth_Date: new FormControl(''),
     image_Path: new FormControl(''),
-    user_id: new FormControl('')
+    user_Id: new FormControl(''),
+    date_Register: new FormControl(''),
+    password: new FormControl(''),
+    repassword: new FormControl(''),
+    role_Id: new FormControl('')
   });
-
-  constructor(public admin: AdminService, private router: Router) {}
 
   ngOnInit(): void {
     this.checkLoginStatus();
-    this.Users = new FormGroup({
-      login_id: new FormControl(this.login_Id),
-      first_Name: new FormControl(this.first_Name),
-      last_Name: new FormControl(this.last_Name),
-      phone_Number: new FormControl(this.phone_Number),
-      address: new FormControl(this.address),
-      birth_Date: new FormControl(this.birth_Date),
-      image_Path: new FormControl(this.image_Path),
-      user_id: new FormControl(this.user_Id)
-    });
   }
   
 
@@ -62,7 +59,10 @@ export class UserProfileComponent implements OnInit {
 
     if (email && token) {
       this.isLoggedIn = true;
+      // this.admin.getUserData(email);
       this.getUserData(email);
+      
+      
     } else {
       this.isLoggedIn = false;
     }
@@ -70,11 +70,25 @@ export class UserProfileComponent implements OnInit {
 
   pData: any = {};
 
+  isDataLoaded: boolean = false;
+
   getUserData(email: string): void {
     this.admin.getUserData(email).subscribe(data => {
       if (data && data.length > 0) {
         const user: any = data[0];
-        this.pData = { ...user };  // Store original data for comparison
+        this.pData = { ...user }; 
+
+        console.log("pData in get User Data",this.pData);
+        
+        if (this.pData.birth_Date) {
+          this.pData.birth_Date = new Date(this.pData.birth_Date).toISOString().split('T')[0];
+        }
+        
+        if (this.pData.date_Register) {
+          this.pData.date_Register = new Date(this.pData.date_Register).toISOString().split('T')[0];
+        }
+        
+        // Assign user data to component properties
         this.login_Id = user.login_Id;
         this.email = user.email; 
         this.first_Name = user.first_Name;
@@ -84,42 +98,111 @@ export class UserProfileComponent implements OnInit {
         this.address = user.address;
         this.phone_Number = user.phone_Number;
         this.birth_Date = user.birth_Date;
-  
-        // Initialize the form with fetched data
-        this.Users.setValue({
-          login_id: this.login_Id,
-          first_Name: this.first_Name,
-          last_Name: this.last_Name,
-          phone_Number: this.phone_Number,
-          address: this.address,
-          birth_Date: this.birth_Date,
-          image_Path: this.image_Path,
-          user_id: this.user_Id
-        });
+        this.role_Id = user.role_Id;
+        this.user_Id = user.user_Id;
+        this.repassword = user.repassword;
+        this.password = user.password;
+        console.log("user_id",this.user_Id);
+
+        // Set the values in the Users form group
+        this.Users.controls['login_Id'].setValue(user.login_Id);
+        this.Users.controls['user_Id'].setValue(user.user_Id);
+        this.Users.controls['role_Id'].setValue(user.role_Id);
+        this.isDataLoaded = true;
+
       }
     });
   }
   
+  
 
-  onImageChange(event: any): void {
-    if (event.target.files.length > 0) {
-      this.image_Path = event.target.files[0];
+  changePassword: FormGroup = new FormGroup({
+    logiN_ID: new FormControl(''),
+    oldPassword: new FormControl(''),
+    newPassword: new FormControl(''),
+    confirmPassword: new FormControl('')
+  });
+
+  changedPassword() {
+    // Retrieve the entire Users form value
+    const usersFormValue = this.Users.value;
+  
+    // Now extract login_Id
+    const loginIdValue = usersFormValue.login_Id;
+    console.log("loginIdValue:",loginIdValue)
+    if (loginIdValue) {
+      // Create a payload for the API
+      const payload = {
+        logiN_ID: loginIdValue,
+        oldPassword: this.changePassword.get('oldPassword')?.value,
+        newPassword: this.changePassword.get('newPassword')?.value,
+        confirmPassword: this.changePassword.get('confirmPassword')?.value
+      };
+  
+      console.log("Payload for Change Password:", payload);
+  
+      // Make the API call
+      this.admin.changePassword(payload);
     }
   }
 
-  saveProfile() {  
-    const updatedData: any = {};
+  uploadImage(file:any){
+
+    if(file.length==0) 
+      return; 
+    let fileToUpload=<File> file[0]; 
+    const formData = new FormData(); 
+    formData.append('file', fileToUpload, fileToUpload.name); 
+    this.admin.updateUserData(formData); 
   
-    Object.keys(this.Users.controls).forEach(key => {
-      if (this.Users.get(key)?.value !== this.pData[key]) {
-        updatedData[key] = this.Users.get(key)?.value;
-      }
-    });
-  
-    if (Object.keys(updatedData).length > 0) {
-      this.admin.updateUserData(updatedData);
-    }
   }
+  
+  // saveProfile(): void {
+  //   if (!this.isDataLoaded) {
+  //     console.error("Data not loaded yet.");
+  //     return; // Prevent saveProfile from running if data is not loaded
+  //   }
+  
+  //   // Call the update service with current form values
+  //   this.admin.updateUserData(this.Users.value);
+  // }
+
+  // uploadUserImage(file: File) {
+  //   const formData = new FormData();
+  //   formData.append('image', file);
+
+  //   this.admin.uploadUserImage(formData).subscribe((resp: any) => {
+  //     this.display_Image = resp.imagename;  // Assuming this is the response property
+  //     this.Users.controls['image_Path'].setValue(this.display_Image); // Update the form control value
+  //   }, err => {
+  //     console.log('Error uploading image', err);
+  //   });
+  // }
+
+  // onFileChange(event: Event) {
+  //   const input = event.target as HTMLInputElement; // Type assertion
+  //   if (input.files && input.files.length > 0) {
+  //     const file = input.files[0];
+  //     this.uploadUserImage(file);
+  //   }
+  // }
+
+
+  saveProfile(): void {
+    if (!this.isDataLoaded) {
+      console.error("Data not loaded yet.");
+      return; // Prevent saveProfile from running if data is not loaded
+    }
+  
+    // Set the image path to the Users form if an image was uploaded
+    if (this.display_Image) {
+      this.Users.controls['image_Path'].setValue(this.display_Image);
+    }
+  
+    // Call the update service with current form values
+    this.admin.updateUserData(this.Users.value);
+  }
+
   
   isPasswordFormVisible: boolean = false; // Controls visibility of the form
   oldPassword: string = '';

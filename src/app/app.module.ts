@@ -14,6 +14,8 @@ import { TokenInterceptor } from 'src/interceptor/token.interceptor';
 import { UserProfileComponent } from './Profile/user-profile/user-profile.component';
 import { UserTripsComponent } from './UserProfile/user-trips/user-trips.component';
 import { PaymentComponent } from './payment/payment.component';
+import { TestimonalComponent } from './testimonal/testimonal.component';
+import { TestimonialElementComponent } from './testimonial-element/testimonial-element.component';
 
 
 @NgModule({
@@ -27,6 +29,8 @@ import { PaymentComponent } from './payment/payment.component';
     UserProfileComponent,
     UserTripsComponent,
     PaymentComponent
+    TestimonalComponent,
+    TestimonialElementComponent
   ],
 
   imports: [

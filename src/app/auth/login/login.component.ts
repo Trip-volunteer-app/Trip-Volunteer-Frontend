@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   isLoggedin?: boolean;
 
 
-
+  
   email: string = '';
   password: string = '';
   rememberMe: boolean = true;
@@ -46,7 +46,9 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService,
     private http: HttpClient,
     private rout:Router,
-    private formBuilder: FormBuilder  ) {}
+    private formBuilder: FormBuilder,
+    private socialAuthService: SocialAuthService
+  ) {}
 
   ngOnInit(): void {
 

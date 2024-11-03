@@ -364,4 +364,30 @@ UpdateSelectedHomeElement(id: number) {
     }
   );
 }
+
+
+//Testimonial
+Testimonial:any=[];
+GetAcceptedTestimonies() {
+  this.http.get("https://localhost:7004/api/Testimonial/GetAcceptedTestimonies").subscribe(
+    res => {
+      this.Testimonial = res;
+      console.log(this.Testimonial);
+    },
+    err => {
+      console.log(err.message);
+    }
+  );
+}
+
+
+  CreateTestimonial(body:any){
+    this.http.post("https://localhost:7004/api/Testimonial/CreateTestimony",body).subscribe(res=>{
+      console.log(this.Testimonial)
+    },err=>{
+      console.log(err.message)
+    })
+  }
+
+
 }
