@@ -23,6 +23,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgChartsModule } from 'ng2-charts';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 
@@ -46,6 +47,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatSelectModule,
     FormsModule,
     NgChartsModule,
+    SweetAlert2Module,
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: 'toast-top-right',
