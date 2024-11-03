@@ -5,7 +5,7 @@ import { AuthService } from 'src/app/Services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
 import {  Router } from '@angular/router';
-import {SocialAuthService,GoogleLoginProvider,SocialUser} from '@abacritt/angularx-social-login';
+// import {SocialAuthService,GoogleLoginProvider,SocialUser} from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
 
-  socialUser!: SocialUser;
+  // socialUser!: SocialUser;
 
   isLoggedin?: boolean;
 
@@ -46,24 +46,21 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService,
     private http: HttpClient,
     private rout:Router,
-    private formBuilder: FormBuilder,
-
-    private socialAuthService: SocialAuthService
-  ) {}
+    private formBuilder: FormBuilder  ) {}
 
   ngOnInit(): void {
 
     this.loginForm = this.formBuilder.group({email: ['', Validators.required],password: ['', Validators.required],});
 
-    this.socialAuthService.authState.subscribe((user) => {
+    // this.socialAuthService.authState.subscribe((user) => {
 
-      this.socialUser = user;
+    //   this.socialUser = user;
 
-      this.isLoggedin = user != null;
+    //   this.isLoggedin = user != null;
 
-      console.log(this.socialUser);
+    //   console.log(this.socialUser);
 
-    });
+    // });
 
 
     const storedEmail = localStorage.getItem('email');
@@ -171,13 +168,13 @@ export class LoginComponent implements OnInit {
 
   loginWithGoogle(): void {
 
-    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    // this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
 
   }
 
   logOut(): void {
 
-    this.socialAuthService.signOut();
+    // this.socialAuthService.signOut();
 
   }
 }

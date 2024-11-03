@@ -11,9 +11,9 @@ import { AboutusComponent } from './aboutus/aboutus.component';
 import { TripDetailsComponent } from './trip-details/trip-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TokenInterceptor } from 'src/interceptor/token.interceptor';
-import {SocialLoginModule,SocialAuthServiceConfig,GoogleLoginProvider} from '@abacritt/angularx-social-login';
 import { UserProfileComponent } from './Profile/user-profile/user-profile.component';
 import { UserTripsComponent } from './UserProfile/user-trips/user-trips.component';
+import { PaymentComponent } from './payment/payment.component';
 
 
 @NgModule({
@@ -25,7 +25,8 @@ import { UserTripsComponent } from './UserProfile/user-trips/user-trips.componen
     AboutusComponent,
     TripDetailsComponent,
     UserProfileComponent,
-    UserTripsComponent
+    UserTripsComponent,
+    PaymentComponent
   ],
 
   imports: [
@@ -33,8 +34,6 @@ import { UserTripsComponent } from './UserProfile/user-trips/user-trips.componen
     AppRoutingModule,
     SharedModule,
     BrowserAnimationsModule ,
-    
-    SocialLoginModule
   ],
   
   providers: [{
@@ -42,23 +41,6 @@ import { UserTripsComponent } from './UserProfile/user-trips/user-trips.componen
     useClass:TokenInterceptor,
     multi:true
   },
-  {
-    provide: 'SocialAuthServiceConfig',
-    useValue: {
-      autoLogin: false,
-      providers: [
-        {
-          id: GoogleLoginProvider.PROVIDER_ID,
-          provider: new GoogleLoginProvider('947293798017-lklpl72kpr2k863rm7vivjtr83qf67ar.apps.googleusercontent.com', {
-            scopes: 'openid profile email',
-          }),
-        },
-      ],
-      onError: (err) => {
-        console.error(err);
-      },
-    } as SocialAuthServiceConfig,
-      },
 ],
   bootstrap: [AppComponent]
 })

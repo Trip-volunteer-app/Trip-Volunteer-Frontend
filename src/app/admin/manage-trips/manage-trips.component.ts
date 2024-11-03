@@ -77,6 +77,7 @@ export class ManageTripsComponent implements OnInit{
     if (this.pData.start_Date) {
       this.pData.start_Date = new Date(this.pData.start_Date).toISOString().split('T')[0];
     }
+    this.dialog.open(this.EditDailog);
   }
 
   save2(){

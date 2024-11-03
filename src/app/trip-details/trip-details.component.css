@@ -242,6 +242,12 @@
   .close-button {
     margin-left: auto;
   }
+  .mat-dialog-container {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+}
   /* ::ng-deep .mat-mdc-tab .mdc-tab__text-label,
   ::ng-deep .mat-mdc-tab-link .mdc-tab__text-label{
     color: #fd450d !important;
