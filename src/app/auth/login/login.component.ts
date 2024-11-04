@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
     private http: HttpClient,
     private rout:Router,
     private formBuilder: FormBuilder,
-    private socialAuthService: SocialAuthService
+    // private socialAuthService: SocialAuthService
   ) {}
 
   ngOnInit(): void {

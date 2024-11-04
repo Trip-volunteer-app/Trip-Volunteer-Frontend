@@ -27,8 +27,8 @@ export class TripsComponent implements OnInit{
     trip_Name: string = '';
     checkInDate: Date | null = null;
     checkOutDate: Date | null = null;
-    minPrice: number  = 0;
-    maxPrice: number = 0;
+    minPrice: number | null = null; // Set to null by default
+    maxPrice: number | null = null; // Set to null by default
 
 
     
