@@ -69,6 +69,7 @@ export class AuthService {
       email : email.toString(),
       password: password.toString(),
       repassword:password.toString()
+
       }
       console.log("body",body);
       const headerDirc= {
@@ -80,6 +81,10 @@ export class AuthService {
       headers:new HttpHeaders(headerDirc)
     }
     
+    console.log('body',body);
+    console.log('requestOptions',requestOptions);
+
+
     this.http.post('https://localhost:7004/api/UserLogin/Auth',body,requestOptions).subscribe((resp:any)=>{
       console.log(resp);
       const responce = {

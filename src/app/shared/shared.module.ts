@@ -23,6 +23,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgChartsModule } from 'ng2-charts';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { TripFilterPipe } from '../trip-filter.pipe';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
@@ -30,7 +31,9 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 @NgModule({
   declarations: [
     FooterComponent,
-    NavbarComponent
+    NavbarComponent,
+    TripFilterPipe
+    
   ],
   imports: [
     CommonModule,
@@ -46,6 +49,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     ReactiveFormsModule,
     MatSelectModule,
     FormsModule,
+    
     NgChartsModule,
     SweetAlert2Module,
     ToastrModule.forRoot({
@@ -94,7 +98,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     MatTooltipModule,
     MatSelectModule,
     MatExpansionModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    TripFilterPipe
     ]
 })
 export class SharedModule { }

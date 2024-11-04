@@ -29,6 +29,7 @@ import { UsersComponent } from './users/users.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ManageTestimonialComponent } from './manage-testimonial/manage-testimonial.component';
 import { ViewUsersForTripsComponent } from './view-users-for-trips/view-users-for-trips.component';
+// import { TripFilterPipe } from '../trip-filter.pipe';
 
 
 @NgModule({
@@ -55,7 +56,7 @@ import { ViewUsersForTripsComponent } from './view-users-for-trips/view-users-fo
     ManagehomepageComponent,        
     UsersComponent,
     ProfileComponent,  
-    ManageTestimonialComponent, ViewUsersForTripsComponent        
+    ManageTestimonialComponent, ViewUsersForTripsComponent
   ],
   imports: [
     CommonModule,

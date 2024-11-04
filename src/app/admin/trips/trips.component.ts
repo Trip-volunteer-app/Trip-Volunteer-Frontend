@@ -4,6 +4,15 @@ import {MatDialog} from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+// src/app/models/trip.model.ts
+export interface TripDetails {
+  tripId: number;
+  destination: string;
+  startDate: string;
+  endDate: string;
+  details: string; // Add other relevant properties based on your API response
+}
+
 @Component({
   selector: 'app-trips',
   templateUrl: './trips.component.html',
@@ -14,6 +23,15 @@ export class TripsComponent implements OnInit{
   @ViewChild('callDeleteDailog') DeleteDailog !:TemplateRef<any>;  
   @ViewChild('callEditDailog') EditDailog !:TemplateRef<any>;  
 
+
+    trip_Name: string = '';
+    checkInDate: Date | null = null;
+    checkOutDate: Date | null = null;
+    minPrice: number  = 0;
+    maxPrice: number = 0;
+
+
+    
   constructor(public admin:AdminService,public dialog: MatDialog,private router:Router)
   {}
 

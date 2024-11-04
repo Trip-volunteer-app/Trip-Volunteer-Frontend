@@ -155,7 +155,7 @@ export class LoginComponent implements OnInit {
     if (this.Email.valid && this.Password.valid) {
       const emailValue = this.Email.value;
       const passwordValue = this.Password.value;
-      console.log('**************************');
+      console.log('befor call auth');
       
 
       this.auth.login(emailValue, passwordValue);

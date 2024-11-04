@@ -541,11 +541,19 @@ uploadUserImage(file: FormData) {
     
   })
 }
+getTripDetails(tripId: number): Observable<any> {
+  return this.http.get(`https://localhost:7004/api/Trips/GetTripById/${tripId}`);
+}
+private  apiUrl = 'https://localhost:7004/api';
+sendTripDetailsEmail(emailData: any): Observable<any> {
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  return this.http.post(`${this.apiUrl}/Volunteers/sendTripDetailsEmail`, emailData, { headers });
+}
 
- 
 
-
-
+// sendTripDetailsEmail(emailData: any): Observable<any> {
+//   return this.http.post('https://localhost:7004/api/Volunteers/sendTripDetailsEmail', emailData);
+// }
 
 changePassword(payload: any) {
   this.http.put('https://localhost:7004/api/UserLogin/ChangePassword', payload)
@@ -622,6 +630,10 @@ DeleteTestimonial(id:number){
   }
 
 
+
+
+
+  
 }
 
 
