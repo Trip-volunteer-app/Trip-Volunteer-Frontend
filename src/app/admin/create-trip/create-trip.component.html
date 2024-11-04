@@ -120,39 +120,71 @@
 
                 <div>
                   <button mat-button matStepperPrevious>Back</button>
-                  <button mat-button matStepperNext [disabled]="!secondFormGroup.valid"
-                    (click)="onSubmit()">Create</button>
+                  <button mat-button matStepperNext [disabled]="!secondFormGroup.valid">Next</button>
                 </div>
               </form>
             </mat-step>
 
+            
+            <mat-step [stepControl]="ServicesFormGroup" label="Services">
+              <form [formGroup]="ServicesFormGroup">
+                <ng-template matStepLabel>Select Services</ng-template>
+            
+                <!-- Title at the Beginning -->
+                <h2 class="services-title">Choose Your Services</h2>
+                
+                <!-- Service List with Two Items Per Row -->
+                <div class="service-list">
+                  <div class="service-item" *ngFor="let service of paginatedServices">
+                    <mat-checkbox 
+                      [checked]="isServiceSelected(service.service_Id)"
+                      (change)="onServiceChange($event.checked, service.service_Id)">
+                      {{ service.service_Name }}, Cost= {{ service.service_Cost }}
+                    </mat-checkbox>
+                  </div>
+                </div>
+            
+                <!-- Custom Pagination Controls -->
+                <div class="pagination-controls">
+                  <button mat-button (click)="previousPage()" [disabled]="currentPage === 1">
+                    <mat-icon>arrow_back</mat-icon> Previous Page
+                  </button>
+                  <span class="pagination-text">Page {{ currentPage }} of {{ totalPages }}</span>
+                  <button mat-button (click)="nextPage()" [disabled]="currentPage === totalPages">
+                    Next Page <mat-icon>arrow_forward</mat-icon>
+                  </button>
+                </div>            
+                <div>
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-button matStepperNext>Next</button>
+                </div>
+              </form>   
+            </mat-step> 
+            
             <mat-step>
               <ng-template matStepLabel>Location</ng-template>
               <div class="map-container">
-                <form (ngSubmit)="saveLocations()">
+                <form [formGroup]="locationFormGroup" (ngSubmit)="saveLocations()">
                   <label for="departure">Departure Location:</label>
                   <input 
                     type="text" 
                     id="departure" 
-                    #departureInput 
+                    formControlName="departure_Location" 
                     placeholder="Enter city, street, or coordinates" 
-                    required 
+                    required
                     [(ngModel)]="departurePosition" 
-                    name="departure" 
-                    (input)="onDepartureInputChange(departureInput.value)" />
-              
+                    (input)="onDepartureInputChange(locationFormGroup.value.departure_Location)" />
+                
                   <label for="destination">Destination Location:</label>
                   <input 
                     type="text" 
                     id="destination" 
-                    #destinationInput 
+                    formControlName="destination_Location" 
                     placeholder="Enter city, street, or coordinates" 
-                    required 
+                    required
                     [(ngModel)]="distenationPosition" 
-                    name="destination" 
-                    (input)="onDestinationInputChange(destinationInput.value)" />
-                </form>
-              
+                    (input)="onDestinationInputChange(locationFormGroup.value.destination_Location)" />
+                </form>                  
                 <google-map
                   height="400px"
                   width="400px"
@@ -189,7 +221,12 @@
                 </div>
               
                 <button (click)="saveLocations()">Save Locations</button>
-              </div>                            
+              </div>      
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext [disabled]="!secondFormGroup.valid"
+                  (click)="onSubmit()">Create</button>
+              </div>                      
             </mat-step>
 
 

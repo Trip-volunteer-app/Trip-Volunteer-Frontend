@@ -43,13 +43,18 @@
                         <tr *ngFor="let obj of admin.Trip">
                           <td class="description-col" matTooltip="{{ obj.trip_Name }}"> {{obj.trip_Name}} </td>
                           <td> {{obj.trip_Price}} </td>
-                          <td> {{obj.destination_Location}} </td>
+                          <td class="description-col"
+                          matTooltip="Departure: {{ obj.departure_Location }}, Destination: {{ obj.destination_Location }}">
+                          Departure: {{ obj.departure_Location }}... <br>
+                          Destination: {{ obj.destination_Location }}...
+                      </td>
                           <td> {{obj.start_Date | date }} </td>
                           <td> {{obj.end_Date | date }} </td>
                           <td> {{obj.max_Number_Of_Users}} </td>
                           <td> {{obj.max_Number_Of_Volunteers}} </td>
                           <td class="description-col" matTooltip="{{ obj.description }}"> {{obj.description}} </td>
                           <td>
+                            <button mat-button color="primary" (click)="ManageTrip(obj.trip_Id)" class="action-button" matTooltip="manage this trip" style="color: rgb(92, 92, 245) !important;" ><i class="bi bi-pencil-square"></i></button>
                             <button mat-button color="primary" (click)="ManageTrip(obj.trip_Id)" class="action-button" matTooltip="manage this trip" style="color: rgb(92, 92, 245) !important;" ><i class="bi bi-pencil-square"></i></button>
                             <button mat-button (click)="openDeleteDialog(obj.trip_Id)" matTooltip="Delete this trip" class="action-button" style="color: rgb(247, 88, 88) !important; "><i class="bi bi-trash-fill"></i></button> 
                             <button mat-button color="accent" matTooltip="View Person Reservstion on this trip" (click)="ManagePersonal(obj.trip_Id)" class="action-button" style="color: rgb(92, 245, 120) !important;"><i class="bi bi-person-fill"></i></button>

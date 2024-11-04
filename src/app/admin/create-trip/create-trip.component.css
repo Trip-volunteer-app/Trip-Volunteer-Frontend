@@ -21179,4 +21179,41 @@ mat-step {
   overflow-y: auto; 
 }
 
+/* Title Styling */
+.services-title {
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 2em 0 1em 0; /* Adds space above and below the title */
+}
 
+/* Centered Service List Layout */
+.service-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  justify-content: center; /* Centers the list horizontally */
+  align-items: center; /* Centers the items vertically */
+  padding: 1em 0; /* Adds space around the service list for balance */
+}
+
+.service-item {
+  flex: 1 1 calc(50% - 0.5em);
+  max-width: 45%;
+  padding-left: 55px;
+  padding-right: 15px;
+}
+/* Centered Pagination Controls */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  margin: 1em 0;
+}
+
+/* Dark Pagination Text */
+.pagination-text {
+  color: #333; /* Dark color for better contrast */
+  font-weight: bold;
+}
