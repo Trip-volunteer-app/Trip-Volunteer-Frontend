@@ -11,12 +11,13 @@ import { AboutusComponent } from './aboutus/aboutus.component';
 import { TripDetailsComponent } from './trip-details/trip-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TokenInterceptor } from 'src/interceptor/token.interceptor';
-import {SocialLoginModule,SocialAuthServiceConfig,GoogleLoginProvider} from '@abacritt/angularx-social-login';
 import { UserProfileComponent } from './Profile/user-profile/user-profile.component';
 import { UserTripsComponent } from './UserProfile/user-trips/user-trips.component';
+import { PaymentComponent } from './payment/payment.component';
 import { TestimonalComponent } from './testimonal/testimonal.component';
 import { TestimonialElementComponent } from './testimonial-element/testimonial-element.component';
-
+// import { TripFilterPipe } from './trip-filter.pipe';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,8 +29,11 @@ import { TestimonialElementComponent } from './testimonial-element/testimonial-e
     TripDetailsComponent,
     UserProfileComponent,
     UserTripsComponent,
+    PaymentComponent,
     TestimonalComponent,
     TestimonialElementComponent
+    
+  
   ],
 
   imports: [
@@ -37,7 +41,8 @@ import { TestimonialElementComponent } from './testimonial-element/testimonial-e
     AppRoutingModule,
     SharedModule,
     BrowserAnimationsModule ,
-    SocialLoginModule
+    FormsModule
+    // SocialLoginModule
   ],
   
   providers: [{
@@ -45,23 +50,6 @@ import { TestimonialElementComponent } from './testimonial-element/testimonial-e
     useClass:TokenInterceptor,
     multi:true
   },
-  {
-    provide: 'SocialAuthServiceConfig',
-    useValue: {
-      autoLogin: false,
-      providers: [
-        {
-          id: GoogleLoginProvider.PROVIDER_ID,
-          provider: new GoogleLoginProvider('947293798017-lklpl72kpr2k863rm7vivjtr83qf67ar.apps.googleusercontent.com', {
-            scopes: 'openid profile email',
-          }),
-        },
-      ],
-      onError: (err) => {
-        console.error(err);
-      },
-    } as SocialAuthServiceConfig,
-      },
 ],
   bootstrap: [AppComponent]
 })

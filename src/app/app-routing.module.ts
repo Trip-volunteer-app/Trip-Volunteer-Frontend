@@ -11,6 +11,7 @@ import { authorizationGuard } from './authorization/authorization.guard';
 import { UsersComponent } from './admin/users/users.component';
 import { UserProfileComponent } from './Profile/user-profile/user-profile.component';
 import { UserTripsComponent } from './UserProfile/user-trips/user-trips.component';
+import { PaymentComponent } from './payment/payment.component';
 import { TestimonalComponent } from './testimonal/testimonal.component';
 import { TestimonialElementComponent } from './testimonial-element/testimonial-element.component';
 
@@ -51,6 +52,9 @@ const routes: Routes = [
   {
     path:"UserTrips",
     component:UserTripsComponent
+  },{
+    path:"payment/:id",
+    component:PaymentComponent
   },
   {
     path:"Testimonial",
