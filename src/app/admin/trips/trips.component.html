@@ -95,7 +95,11 @@ label {
                         <tr *ngFor="let obj of admin.Trip | tripFilter: trip_Name : checkInDate : checkOutDate: minPrice : maxPrice">
                           <td class="description-col" matTooltip="{{ obj.trip_Name }}"> {{obj.trip_Name}} </td>
                           <td> {{obj.trip_Price}} </td>
-                          <td> {{obj.destination_Location}} </td>
+                          <td class="description-col"
+                          matTooltip="Departure: {{ obj.departure_Location }}, Destination: {{ obj.destination_Location }}">
+                          Departure: {{ obj.departure_Location }}... <br>
+                          Destination: {{ obj.destination_Location }}...
+                      </td>
                           <td> {{obj.start_Date | date }} </td>
                           <td> {{obj.end_Date | date }} </td>
                           <td> {{obj.max_Number_Of_Users}} </td>

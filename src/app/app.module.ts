@@ -43,7 +43,6 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule ,
     FormsModule
     // SocialLoginModule
-
   ],
   
   providers: [{
