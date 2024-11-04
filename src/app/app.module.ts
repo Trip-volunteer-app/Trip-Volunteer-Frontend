@@ -29,7 +29,7 @@ import { FormsModule } from '@angular/forms';
     TripDetailsComponent,
     UserProfileComponent,
     UserTripsComponent,
-    PaymentComponent
+    PaymentComponent,
     TestimonalComponent,
     TestimonialElementComponent
     
@@ -41,8 +41,8 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     SharedModule,
     BrowserAnimationsModule ,
-    FormsModule,
-    SocialLoginModule
+    FormsModule
+    // SocialLoginModule
 
   ],
   
