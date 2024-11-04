@@ -16,7 +16,8 @@ import { UserProfileComponent } from './Profile/user-profile/user-profile.compon
 import { UserTripsComponent } from './UserProfile/user-trips/user-trips.component';
 import { TestimonalComponent } from './testimonal/testimonal.component';
 import { TestimonialElementComponent } from './testimonial-element/testimonial-element.component';
-
+// import { TripFilterPipe } from './trip-filter.pipe';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,8 @@ import { TestimonialElementComponent } from './testimonial-element/testimonial-e
     UserTripsComponent,
     TestimonalComponent,
     TestimonialElementComponent
+    
+  
   ],
 
   imports: [
@@ -37,7 +40,7 @@ import { TestimonialElementComponent } from './testimonial-element/testimonial-e
     AppRoutingModule,
     SharedModule,
     BrowserAnimationsModule ,
-    
+    FormsModule,
     SocialLoginModule
   ],
   

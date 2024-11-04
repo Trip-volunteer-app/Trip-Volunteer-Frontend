@@ -3,6 +3,7 @@ import { StyleService } from '../Services/style.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { HomeService } from '../Services/home.service';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
@@ -14,6 +15,21 @@ export class TripsComponent implements OnInit, AfterViewInit {
 
 @Output() openDetails= new EventEmitter();
 
+
+  trip_Name: string = '';
+  checkInDate: Date | null = null;
+  checkOutDate: Date | null = null;
+  minPrice: number | null = null; // Set to null by default
+  maxPrice: number | null = null; // Set to null by default
+  // volunteerRole: string = '';
+
+//   selectedOption: string = ''; // initially no option selected
+
+// setSelectedOption(option: string) {
+//   this.selectedOption = option;
+//   console.log('Selected Option:', this.selectedOption); // Debugging log
+// }
+
   constructor(
     private styleService: StyleService,
     private cdr: ChangeDetectorRef,
@@ -24,6 +40,8 @@ export class TripsComponent implements OnInit, AfterViewInit {
  
 
   ngOnInit(): void {
+
+
     this.styleService.applyFullHeight(); // Apply full height initially
     this.Trip.getALLTrips();
     console.log("ddd",this.Trip.Trips)
@@ -69,4 +87,6 @@ export class TripsComponent implements OnInit, AfterViewInit {
     this.styleService.initDatePickers(); // Initialize date pickers
     this.cdr.detectChanges(); // Detect changes after all initializations
   }
+
+  
 }

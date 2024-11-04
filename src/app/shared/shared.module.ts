@@ -23,13 +23,16 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgChartsModule } from 'ng2-charts';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { TripFilterPipe } from '../trip-filter.pipe';
 
 
 
 @NgModule({
   declarations: [
     FooterComponent,
-    NavbarComponent
+    NavbarComponent,
+    TripFilterPipe
+    
   ],
   imports: [
     CommonModule,
@@ -45,6 +48,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ReactiveFormsModule,
     MatSelectModule,
     FormsModule,
+    
     NgChartsModule,
     ToastrModule.forRoot({
       timeOut: 5000,
@@ -92,7 +96,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatTooltipModule,
     MatSelectModule,
     MatExpansionModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    TripFilterPipe
     ]
 })
 export class SharedModule { }
