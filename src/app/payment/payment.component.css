@@ -1,0 +1,126 @@
+/* Main Payment Card Container */
+.payment-card {
+    max-width: 700px; /* Wider layout */
+    margin: 20px auto;
+    padding: 20px;
+    background: #f8f8f8;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Section Headers */
+  .payment-card h2,
+  .payment-card h3 {
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: 600;
+  }
+  
+  /* Saved Cards Section */
+  .previous-cards {
+    margin-bottom: 20px;
+  }
+  
+  .card-container {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+  }
+  
+  .card {
+    background: #ffffff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    min-width: 300px; /* Fixed width for saved cards */
+    position: relative;
+  }
+  
+  .card input[type="radio"] {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    transform: scale(1.2);
+    accent-color: #ff5722;
+  }
+  
+  .card-logo {
+    width: 40px;
+    margin-right: 10px;
+  }
+  
+  .card-number,
+  .expiry-date {
+    color: #555;
+    font-size: 15px;
+  }
+  
+  .visa-card {
+    border-left: 4px solid #ff5722;
+  }
+  
+  /* New Payment Form */
+  .payment-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .payment-form label {
+    margin: 8px 0 4px;
+    font-size: 0.9em;
+    color: #666;
+  }
+  
+  .payment-form input {
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    color: #333;
+  }
+  
+  .submit-btn {
+    background: #ff5722;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s ease;
+  }
+  
+  .submit-btn:hover {
+    background: #ff5722;
+  }
+  
+  .payment-dialog {
+    width: 400px;
+    margin: 30px;
+
+  }
+  .btn{
+    background: #ff5722;
+    color: white !important;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s ease;
+  }
+  .btn2{
+    background: #0056A3;
+    color: white !important;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s ease;
+  }

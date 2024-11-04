@@ -24,6 +24,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { TripFilterPipe } from '../trip-filter.pipe';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 
@@ -50,6 +51,7 @@ import { TripFilterPipe } from '../trip-filter.pipe';
     FormsModule,
     
     NgChartsModule,
+    SweetAlert2Module,
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: 'toast-top-right',

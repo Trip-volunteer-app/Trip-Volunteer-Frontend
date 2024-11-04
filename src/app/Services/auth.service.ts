@@ -68,7 +68,8 @@ export class AuthService {
     var body ={
       email : email.toString(),
       password: password.toString(),
-      repasword: password.toString()
+      repassword:password.toString()
+
       }
       console.log("body",body);
       const headerDirc= {
