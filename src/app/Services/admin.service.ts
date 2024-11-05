@@ -259,7 +259,7 @@ window.location.reload();
 // Trip Volunteer Role
 TripVolunteerRole:any=[]; 
 getAllTripVolunteerRole(){ 
- this.http.get('https://localhost:7004/api/ITripVolunteerrole/GetAlltrip_volunteerRoles').subscribe(result=>{
+ this.http.get('https://localhost:7004/api/TripVolunteerrole/GetAlltrip_volunteerRoles').subscribe(result=>{
 this.TripVolunteerRole =result ;  
 },err=>{
       console.log(err.message);     
@@ -414,7 +414,7 @@ this.displayImage=res.image_Name;
 //Static Number
 
 NumberOfRegisteredUsers(): Observable<number> {
-  return this.http.get<number>('https://localhost:7004/api/Users/trips/NumberOfRegisteredUsers');
+  return this.http.get<number>('https://localhost:7004/api/Users/NumberOfRegisteredUsers');
 }
 
 NumberOfTrips(): Observable<number> {
@@ -432,6 +432,8 @@ TripsWithMaxReservations:any=[];
 GetAllTripsWithMaxReservations(){ 
  this.http.get('https://localhost:7004/api/Trips/TripsWithMaxReservations').subscribe(result=>{
 this.TripsWithMaxReservations =result ;  
+console.log('GetAllTripsWithMaxReservations',result);
+
 },err=>{
       console.log(err.message);     
 })}

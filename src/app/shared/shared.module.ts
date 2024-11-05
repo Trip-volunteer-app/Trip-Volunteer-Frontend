@@ -25,14 +25,15 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { TripFilterPipe } from '../trip-filter.pipe';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-
+import { TripVolunteerFilterPipe } from '../trip-volunteer-filter.pipe';
 
 
 @NgModule({
   declarations: [
     FooterComponent,
     NavbarComponent,
-    TripFilterPipe
+    TripFilterPipe,
+    TripVolunteerFilterPipe
     
   ],
   imports: [
@@ -99,7 +100,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     MatSelectModule,
     MatExpansionModule,
     MatPaginatorModule,
-    TripFilterPipe
+    TripFilterPipe,
+    TripVolunteerFilterPipe
     ]
 })
 export class SharedModule { }
