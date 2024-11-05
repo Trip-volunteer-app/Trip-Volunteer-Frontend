@@ -151,14 +151,13 @@
   </div>
 </ng-template>
 
-  <!-- Edit Trip -->
-  <ng-template #callBookingDailog>
+  
+  <!-- <ng-template #callBookingDailog>
     <h2 mat-dialog-title>Booking Trip</h2>
     <mat-dialog-content class="mat-typography">
       <form [formGroup]="BookingTrip">
         <div class="example-container" fxLayout="column" fxLayoutGap="20px">
   
-          <!-- Row 1 -->
           <div fxLayout="row" fxLayoutGap="20px">
             <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;">
               <mat-label>Number of Reservations</mat-label>
@@ -167,21 +166,19 @@
   
             <mat-form-field appearance="fill" style="width: 300px !important;">
               <mat-label>Total Amount</mat-label>
-              <input type="number" matInput formControlName="total_Amount" [(ngModel)]="pData.trip_Price" readonly>
+              <input type="number" matInput formControlName="total_Amount" [(ngModel)]="total" readonly>
             </mat-form-field>
           </div>
   
-          <!-- Row 3 - Checkboxes for Services -->
           <div fxLayout="column" fxLayoutGap="20px">
             <mat-label>Select Services</mat-label>
-            <div *ngFor="let service of home.tripDetails.services">
-              <mat-checkbox [(ngModel)]="service.selected">
-                {{ service.service_Name }}
+            <div *ngFor="let service of pData.services">
+              <mat-checkbox (change)="check($event.checked, service.service_Id)" >
+                {{ service.service_Name }} _ {{ service.service_Cost }} $
               </mat-checkbox>
             </div>
           </div>
   
-          <!-- Row 4 - Textarea (alone) -->
           <div fxLayout="row">
             <mat-form-field appearance="fill" style="width: 620px !important; height: 200px;">
               <mat-label>Note</mat-label>
@@ -194,8 +191,112 @@
     </mat-dialog-content>
   
     <mat-dialog-actions align="end">
-      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button mat-dialog-close (click)="clear()">Cancel</button>
       <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="Booking()" style="color: rgb(0,193,83);">Booking</button>
     </mat-dialog-actions>
+  </ng-template> -->
+   
+
+  <ng-template #callBookingDailog>
+    <mat-dialog-content class="mat-typography" style="max-height: 90vh !important; ">
+      <mat-tab-group>
+  
+        <mat-tab label="Booking">
+          <form [formGroup]="BookingTrip">
+            <h3 style="margin-top: 20px;">Booking Trip</h3>
+            <div class="example-container" fxLayout="column" fxLayoutGap="20px">
+              
+              <div fxLayout="row" fxLayoutGap="20px">
+                <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;">
+                  <mat-label>Number of Reservations</mat-label>
+                  <input type="number" matInput formControlName="numberOfUser">
+                </mat-form-field>
+  
+                <mat-form-field appearance="fill" style="width: 300px !important;">
+                  <mat-label>Total Amount</mat-label>
+                  <input type="number" matInput formControlName="total_Amount" [(ngModel)]="total" readonly>
+                </mat-form-field>
+              </div>
+  
+              <div fxLayout="column" fxLayoutGap="20px">
+                <mat-label>Select Services</mat-label>
+                <div *ngFor="let service of pData.services">
+                  <mat-checkbox (change)="check($event.checked, service.service_Id)">
+                    {{ service.service_Name }} _ {{ service.service_Cost }} $
+                  </mat-checkbox>
+                </div>
+              </div>
+  
+              <div fxLayout="row">
+                <mat-form-field appearance="fill" style="width: 620px !important; height: 200px;">
+                  <mat-label>Note</mat-label>
+                  <textarea matInput formControlName="note"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+            <mat-dialog-actions align="end">
+              <button mat-button mat-dialog-close (click)="clear()">Cancel</button>
+              <button mat-button cdkFocusInitial (click)="Booking()" style="background-color: #ff5722;color: white;">Booking</button>
+            </mat-dialog-actions>
+          </form>
+        </mat-tab>
+  
+        <mat-tab label="Volunteer" *ngIf="this.home.VolunteerRoleByTripId?.length > 0">
+          <form [formGroup]="volanteerForm">
+            <h3>Volunteer</h3>
+            
+            <div fxLayout="row" fxLayoutGap="20px">
+              <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;">
+                <mat-label>Email</mat-label>
+                <input type="text" matInput formControlName="email">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" style="width: 300px !important;">
+                <mat-label>Phone Namber</mat-label>
+                <input type="text" matInput formControlName="phone_Number"  >
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutGap="20px">
+              <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;">
+                <mat-label>Emergency Contant</mat-label>
+                <input type="text" matInput formControlName="emergency_Contact" >
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" style="width: 300px !important;">
+                <mat-label>Experience (if any)</mat-label>
+                <input type="text" matInput formControlName="experience" >
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="row">
+              <mat-form-field style="width: 620px !important;">
+                <mat-label>Volunteer Role</mat-label>
+                <mat-select formControlName="volunteer_Role_Id">
+                  <mat-option type="number" *ngFor="let role of this.home.VolunteerRoleByTripId" [value]="role.volunteer_Role_Id"  >
+                    {{role.role_Name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="row">
+              <mat-form-field appearance="fill" style="width: 620px !important; height: 200px;">
+                <mat-label>Note</mat-label>
+                <textarea matInput formControlName="notes"></textarea>
+              </mat-form-field>
+            </div>
+
+             <mat-dialog-actions align="end">
+              <button mat-button mat-dialog-close (click)="clear()">Cancel</button>
+              <button mat-button  cdkFocusInitial (click)="volunteerBooking()" style="background-color: #ff5722;color: white;">Send</button>
+            </mat-dialog-actions>
+          </form>
+        </mat-tab>
+  
+      </mat-tab-group>
+    </mat-dialog-content>
+  
+ 
   </ng-template>
   

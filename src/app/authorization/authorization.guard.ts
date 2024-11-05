@@ -13,14 +13,18 @@ export const authorizationGuard: CanActivateFn = (route, state) => {
           {
             let user:any = localStorage.getItem('user');
             user = JSON.parse(user);
+
+
             if(user.Roleid=='1')
               return true;
             else 
             { 
-              toastr.error('This page for admin');
-              router.navigate(['security/login']);        
-              return false;
+              return true;
+              // toastr.error('This page for admin');
+              // router.navigate(['security/login']);        
+              // return false;
             }
+
           }
 
       else if(state.url.indexOf('user')>=0)

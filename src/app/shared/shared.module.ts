@@ -23,13 +23,19 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgChartsModule } from 'ng2-charts';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MapComponent } from './map/map.component';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { TripFilterPipe } from '../trip-filter.pipe';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 
 @NgModule({
   declarations: [
     FooterComponent,
-    NavbarComponent
+    NavbarComponent,
+    MapComponent,
+    TripFilterPipe
   ],
   imports: [
     CommonModule,
@@ -46,15 +52,17 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatSelectModule,
     FormsModule,
     NgChartsModule,
+    GoogleMapsModule,
+    SweetAlert2Module,
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     })
-
+  ],
     
     // SocialLoginModule
-  ],
+
   // providers: [
   //   {
   //     provide: 'SocialAuthServiceConfig',
@@ -75,6 +83,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
   exports: [
     FooterComponent,
     NavbarComponent,
+    MapComponent,
     HttpClientModule,
     MatCardModule,
     FormsModule,
@@ -92,7 +101,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatTooltipModule,
     MatSelectModule,
     MatExpansionModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    TripFilterPipe
     ]
 })
 export class SharedModule { }

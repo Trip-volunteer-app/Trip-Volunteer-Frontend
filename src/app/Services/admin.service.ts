@@ -507,12 +507,38 @@ export class AdminService {
 
 
 
+
   //UserData
   getUserData(email: string): Observable<any> {
     return this.http.get(`https://localhost:7004/api/UserLogin/GetUserinfoByEmail?email=${email}`);
   }
 
+display_Image1 :any ; 
+uploadUserImage(file: FormData) {
+  this.http.put('https://localhost:7004/api/Users/uploadImage', file).subscribe((resp:any)=>{  
+    console.log('uploadUserImage',resp);
+    
+    this.display_Image1=resp.imagename;
+  },err=>{
+    
+    console.log('Error');
+    
+  })
+}
+getTripDetails(tripId: number): Observable<any> {
+  return this.http.get(`https://localhost:7004/api/Trips/GetTripById/${tripId}`);
+}
+private  apiUrl = 'https://localhost:7004/api';
+sendTripDetailsEmail(emailData: any): Observable<any> {
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  return this.http.post(`${this.apiUrl}/Volunteers/sendTripDetailsEmail`, emailData, { headers });
+}
 
+
+
+// sendTripDetailsEmail(emailData: any): Observable<any> {
+//   return this.http.post('https://localhost:7004/api/Volunteers/sendTripDetailsEmail', emailData);
+// }
 
   // updateUserData(updatedData: any): Observable<any> {
   //   return this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', updatedData);
@@ -599,7 +625,6 @@ export class AdminService {
       }
     );
   }
-
 
 
   DeleteTestimonial(id: number) {
