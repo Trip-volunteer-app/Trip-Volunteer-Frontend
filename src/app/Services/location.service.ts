@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class LocationService {
   locationdetails:any=[];
+  locationByTripID:any={};
 
   constructor(private http: HttpClient) {}
   async getLocationInfo(latitude: number, longitude: number): Promise<void> {
@@ -45,4 +46,27 @@ export class LocationService {
       }
     );
   }
-}  
+
+  async GetLocationByTripId(id: number) : Promise<void> {
+    try {
+      const res = await this.http.get('https://localhost:7004/api/Location/GetLocationByTripId/'+ id).toPromise();
+      this.locationByTripID= res;
+      console.log('fetched')
+      console.log(this.locationByTripID)
+    } catch (error) {
+      console.error('Error fetching selected element:', error);
+    }
+  }
+  
+  UpdateAbout(body:any){
+    console.log('body:', body);
+    this.http.put('https://localhost:7004/api/Location/UPDATElocation',body).subscribe(
+      response => {
+        console.log('Updated successfully');
+      },
+      err => {
+        console.error('Error occurred', err);
+      }
+    );
+  }
+}
