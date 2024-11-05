@@ -182,6 +182,7 @@ UpdateBalance(body: any): Promise<void> {
 }
 
 //volunteer Role
+
 VolunteerRoleByTripId:any;
 GetVolunteerRoleByTripId(id:number){
   const params = new HttpParams().set('id', id.toString());
@@ -193,6 +194,7 @@ GetVolunteerRoleByTripId(id:number){
     console.log(err.message);
   })
 }
+
 
 //Booking volunteer
 BookingVolunteer(body:any){
@@ -389,5 +391,24 @@ GetAcceptedTestimonies() {
     })
   }
 
+  volunteer :any = [];
+  searchVolunteers(searchCriteria: any): Observable<any[]> {
+    return this.http.post<any[]>(`https://localhost:7004/api/Volunteers/SearchVolunteers`, searchCriteria);
+  }
+
+  
+
+  AllVolunteersWithTrip:any=[];
+  AllVolunteersWithTrips() {
+  this.http.get("https://localhost:7004/api/Volunteers/AllVolunteersWithTrips").subscribe(
+    res => {
+      this.AllVolunteersWithTrip = res;
+      console.log('AllVolunteersWithTrip',res);
+    },
+    err => {
+      console.log(err.message);
+    }
+  );
+}
 
 }

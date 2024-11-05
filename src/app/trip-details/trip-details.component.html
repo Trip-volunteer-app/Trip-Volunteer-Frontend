@@ -75,7 +75,21 @@
                     <li *ngFor="let service of home.tripDetails.services; let i = index">Service {{i + 1}} : {{service.service_Name}} _ {{service.service_Cost}}$</li>
                   </ul>
                 </div>
+
+                <div class="trip-booking">
+                  <p><i class="bi bi-person colored-icon"></i> <strong>Volunteer:</strong></p>
+                  <ul>
+                    <li *ngFor="let Volunteer of home.tripDetails.volunteer; let i = index">Volunteer {{i + 1}} : {{Volunteer.email}} ,experience: {{Volunteer.experience}} </li>
+                  </ul>
+                </div>  
                 
+                <div class="trip-booking">
+                  <p><i class="bi bi-person colored-icon"></i> <strong>Volunteer Role:</strong></p>
+                  <ul>
+                    <li *ngFor="let Volunteer of home.VolunteerRoleByTripId; let i = index">Volunteer Role {{i + 1}} : {{Volunteer.trip_Id}} , {{Volunteer.role_Name}} </li>
+                  </ul>
+                </div>
+
                 <p class="trip-description">
                   {{home.tripDetails.description}}
                 </p>

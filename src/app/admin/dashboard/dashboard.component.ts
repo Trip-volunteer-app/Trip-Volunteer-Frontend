@@ -23,6 +23,8 @@ export class DashboardComponent implements OnInit {
     this.admin.NumberOfRegisteredUsers().subscribe(
       (resp: number) => {
         this.NumberOfRegisteredUsers = resp; 
+        console.log('NumberOfRegisteredUsers',resp);
+        
       },
       err => {
         console.error('Error fetching the number of registered users:', err);
@@ -35,6 +37,8 @@ export class DashboardComponent implements OnInit {
     this.admin.NumberOfTrips().subscribe(
       (resp: number) => {
         this.NumberOfTrips = resp; 
+        console.log('NumberOfTrips',resp);
+        
       },
       err => {
         console.error('Error fetching the number of Trips:', err);
