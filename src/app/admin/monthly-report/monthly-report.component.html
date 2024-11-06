@@ -14,13 +14,17 @@
                       <thead>
                         <tr>
                           <th>Month</th>
-                          <th>Monthly REVENUE</th>
+                          <th>TOTAL SERVICE COST </th>
+                          <th>TOTAL REVENUE</th>
+                          <th>NET REVENUE</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr *ngFor="let obj of admin.MonthlyReport">
                           <td>{{ obj.trip_month | date: 'yyyy-MM-dd' }}</td>
-                          <td>{{ obj.monthlY_REVENUE }}</td>
+                          <td>{{ obj.totaL_SERVICE_COST }}</td>
+                          <td>{{ obj.totaL_REVENUE }}</td>
+                          <td>{{ obj.neT_REVENUE }}</td>
                         </tr>
                       </tbody>
                     </table>
