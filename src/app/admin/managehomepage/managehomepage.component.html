@@ -15,20 +15,21 @@
                         <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Home page elements</h4>
-                                    <button (click)="openCreateDialog()"
-                                        style="background-color: rgb(100, 250, 100);">Add
-                                        Home Page Elements</button>
-                                    <br><br>
+                                    <div class="d-flex justify-content-between align-items-center"
+                                        style="margin-bottom: 10px;">
+                                        <h4 class="card-title">Home page elements</h4>
+                                        <button mat-button (click)="openCreateDialog()"
+                                            style="color: rgb(0,193,83); font-size: 30px !important;">
+                                            <i class="bi bi-plus-circle-fill fs-1"></i>
+                                        </button>
+                                    </div>
                                     <div class="table-responsive">
                                         <table class="table table-dark table-hover table-bordered table-stripped">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Hero Image</th>
-                                                    <th>Image 1</th>
-                                                    <th>Image 2</th>
-                                                    <th>Image 3</th>
+                                                    <th>Logo Image</th>
                                                     <th>Header</th>
                                                     <th>Title</th>
                                                     <th>Text 1</th>
@@ -39,14 +40,10 @@
                                             <tbody>
                                                 <tr *ngFor="let obj of home.homePageElements">
                                                     <td>{{ obj.home_Page_Id }}</td>
-                                                    <td><img src="../../../assets/Images/{{ obj.hero_Image }}"
+                                                    <td><img src="../../../assets/images/{{ obj.hero_Image }}"
                                                             alt="Hero"></td>
-                                                    <td><img src="../../../assets/Images/{{ obj.image1 }}"
+                                                    <td><img src="../../../assets/images/{{ obj.logo_Image }}"
                                                             alt="Image 1"></td>
-                                                    <td><img src="../../../assets/Images/{{ obj.image2 }}"
-                                                            alt="Image 2"></td>
-                                                    <td><img src="../../../assets/Images/{{ obj.image3 }}"
-                                                            alt="Image 3"></td>
                                                     <td>{{ obj.header }}</td>
                                                     <td>{{ obj.title }}</td>
                                                     <td>{{ obj.text1 }}</td>
@@ -57,11 +54,20 @@
                                                                 [value]="obj.home_Page_Id"></mat-radio-button>
                                                         </mat-radio-group>
                                                     </td>
+
                                                     <td>
-                                                        <button (click)="openEditDialog(obj)"
-                                                            class="btn btn-primary">Edit</button>
-                                                        <button (click)="openDeleteDialog(obj.home_Page_Id)"
-                                                            class="btn btn-danger">Delete</button>
+                                                        <div class="buttons">
+                                                            <button mat-button color="primary"
+                                                                (click)="openEditDialog(obj)" class="action-button"
+                                                                matTooltip="manage this trip"
+                                                                style="color: rgb(92, 92, 245) !important;"><i
+                                                                    class="bi bi-pencil-square"></i></button>
+                                                            <button mat-button
+                                                                (click)="openDeleteDialog(obj.home_Page_Id)"
+                                                                matTooltip="Delete this trip" class="action-button"
+                                                                style="color: rgb(247, 88, 88) !important;"><i
+                                                                    class="bi bi-trash-fill"></i></button>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -80,39 +86,85 @@
 </html>
 
 
-<!-- create -->
 <ng-template #callCreateDialog>
     <mat-dialog-content class="mat-typography">
         <h3>Create Home Elements</h3>
         <form [formGroup]="CreateHomeElements" style="padding: 30px;">
-            <mat-label>Hero Image</mat-label>
-            <input type="file" #file placeholder="Hero Image" formControlName="hero_Image" (change)="uploadHeroImage(file.files)">
-            <mat-label>Image 1</mat-label>
-            <input type="file" #file2 placeholder="Image 1" formControlName="image1"
-                (change)="uploadImage1(file2.files)">
-            <mat-label>Image 2</mat-label>
-            <input type="file" #file3 placeholder="Image 2" formControlName="image2"
-                (change)="uploadImage2(file3.files)">
-            <mat-label>Image 3</mat-label>
-            <input type="file" #file4 placeholder="Image 3" formControlName="image3"
-                (change)="uploadImage3(file4.files)">
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Title</mat-label>
-                <input type="text" matInput placeholder="Title" formControlName="title">
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Header</mat-label>
-                <input type="text" matInput placeholder="Header" formControlName="header">
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Text 1</mat-label>
-                <input type="text" matInput placeholder="Text 1" formControlName="text1">
-            </mat-form-field>
+            <div>
+                <mat-card class="image-upload-card">
+                    <div class="image-upload-header">
+                        <mat-label>Hero Image</mat-label>
+                        <button mat-icon-button (click)="clearHeroImage()" *ngIf="heroImagePreview">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </div>
+                    <input type="file" #file formControlName="hero_Image" (change)="uploadHeroImage(file.files)" hidden>
+                    <img *ngIf="heroImagePreview" [src]="heroImagePreview" class="image-preview">
+                    <button mat-stroked-button color="primary" (click)="file.click()" *ngIf="!heroImagePreview">
+                        Upload Hero Image
+                    </button>
+                    <mat-error
+                        *ngIf="CreateHomeElements.get('hero_Image')?.invalid && 
+                               (CreateHomeElements.get('hero_Image')?.touched || CreateHomeElements.get('hero_Image')?.dirty)">
+                        Hero Image is required.
+                    </mat-error>
+                </mat-card>
+            </div>
+
+            <div>
+                <mat-card class="image-upload-card">
+                    <div class="image-upload-header">
+                        <mat-label>Logo Image</mat-label>
+                        <button mat-icon-button (click)="clearLogoImage()" *ngIf="logoImagePreview">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </div>
+                    <input type="file" #file2 formControlName="logo_Image" (change)="uploadLogoImg(file2.files)" hidden>
+                    <img *ngIf="logoImagePreview" [src]="logoImagePreview" class="image-preview">
+                    <button mat-stroked-button color="primary" (click)="file2.click()" *ngIf="!logoImagePreview">
+                        Upload Logo Image
+                    </button>
+                    <mat-error
+                        *ngIf="CreateHomeElements.get('logo_Image')?.invalid && 
+                               (CreateHomeElements.get('logo_Image')?.touched || CreateHomeElements.get('logo_Image')?.dirty)">
+                        Logo Image is required.
+                    </mat-error>
+                </mat-card>
+            </div>
+            <div>
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Title</mat-label>
+                    <input type="text" matInput placeholder="Title" formControlName="title">
+                    <mat-error
+                        *ngIf="CreateHomeElements.get('title')?.invalid && CreateHomeElements.get('title')?.touched">
+                        Title is required.
+                    </mat-error>
+                </mat-form-field>
+
+            </div>
+            <div>
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Header</mat-label>
+                    <input type="text" matInput placeholder="Header" formControlName="header">
+                    <mat-error
+                        *ngIf="CreateHomeElements.get('header')?.invalid && CreateHomeElements.get('header')?.touched">
+                        Header is required.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Text 1</mat-label>
+                    <textarea matInput placeholder="Text 1" formControlName="text1" rows="4"></textarea>
+                </mat-form-field>
+            </div>
         </form>
     </mat-dialog-content>
+
     <mat-dialog-actions align="end">
         <button mat-button mat-dialog-close>Cancel</button>
-        <button mat-button mat-dialog-close cdkFocusInitial (click)="save()">Create</button>
+        <button mat-button mat-dialog-close cdkFocusInitial [disabled]="CreateHomeElements.invalid"
+            (click)="save()">Create</button>
     </mat-dialog-actions>
 </ng-template>
 
@@ -122,33 +174,72 @@
     <mat-dialog-content class="mat-typography">
         <h3>Update Element</h3>
         <form [formGroup]="UpdateHomeElements" style="padding: 30px;">
-            <mat-label>Hero Image</mat-label>
-            <input type="file" #file placeholder="Hero Image" formControlName="hero_Image" (change)="uploadHeroImage(file.files)">
-            <mat-label>Image 1</mat-label>
-            <input type="file" #file2 placeholder="Image 1" formControlName="image1"
-                (change)="uploadImage1(file2.files)">
-            <mat-label>Image 2</mat-label>
-            <input type="file" #file3 placeholder="Image 2" formControlName="image2"
-                (change)="uploadImage2(file3.files)">
-            <mat-label>Image 3</mat-label>
-            <input type="file" #file4 placeholder="Image 3" formControlName="image3"
-                (change)="uploadImage3(file4.files)">
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Title</mat-label>
-                <input type="text" matInput placeholder="Title" formControlName="title" [(ngModel)]="pData.title">
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Header</mat-label>
-                <input type="text" matInput placeholder="Header" formControlName="header" [(ngModel)]="pData.header">
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Text 1</mat-label>
-                <input type="text" matInput placeholder="Text 1" formControlName="text1" [(ngModel)]="pData.text1">
-            </mat-form-field>
-        </form>    </mat-dialog-content>
+            <div>
+                <mat-card class="image-upload-card">
+                    <div class="image-upload-header">
+                        <mat-label>Hero Image</mat-label>
+                        <button mat-icon-button (click)="clearHeroImage()" *ngIf="heroImagePreview">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </div>
+                    <input type="file" #file formControlName="hero_Image" (change)="uploadHeroImage(file.files)" hidden>
+                    <img *ngIf="heroImagePreview" [src]="heroImagePreview" class="image-preview">
+                    <button mat-stroked-button color="primary" (click)="file.click()" *ngIf="!heroImagePreview">
+                        Upload Hero Image
+                    </button>
+                </mat-card>
+            </div>
+
+            <div>
+                <mat-card class="image-upload-card">
+                    <div class="image-upload-header">
+                        <mat-label>Logo Image</mat-label>
+                        <button mat-icon-button (click)="clearLogoImage()" *ngIf="logoImagePreview">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </div>
+                    <input type="file" #file2 formControlName="logo_Image" (change)="uploadLogoImg(file2.files)" hidden>
+                    <img *ngIf="logoImagePreview" [src]="logoImagePreview" class="image-preview">
+                    <button mat-stroked-button color="primary" (click)="file2.click()" *ngIf="!logoImagePreview">
+                        Upload Logo Image
+                    </button>
+                </mat-card>
+            </div>
+            <div>
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Title</mat-label>
+                    <input type="text" matInput placeholder="Title" formControlName="title" [(ngModel)]="pData.title">
+                    <mat-error
+                        *ngIf="CreateHomeElements.get('title')?.invalid && CreateHomeElements.get('title')?.touched">
+                        Title is required.
+                    </mat-error>
+                </mat-form-field>
+
+            </div>
+            <div>
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Header</mat-label>
+                    <input type="text" matInput placeholder="Header" formControlName="header"
+                        [(ngModel)]="pData.header">
+                    <mat-error
+                        *ngIf="CreateHomeElements.get('header')?.invalid && CreateHomeElements.get('header')?.touched">
+                        Header is required.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Text 1</mat-label>
+                    <textarea matInput placeholder="Text 1" formControlName="text1" rows="4"
+                        [(ngModel)]="pData.text1"></textarea>
+                </mat-form-field>
+            </div>
+        </form>
+    </mat-dialog-content>
     <mat-dialog-actions align="end">
         <button mat-button mat-dialog-close>Cancel</button>
-        <button mat-button mat-dialog-close cdkFocusInitial (click)="save2()">Edit</button>
+        <button mat-button mat-dialog-close cdkFocusInitial [disabled]="UpdateHomeElements.invalid"
+            (click)="save2()">Edit</button>
     </mat-dialog-actions>
 </ng-template>
 

@@ -140,8 +140,6 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
   openBookingDailog(obj:any){
      if(this.user != null){ 
       this.home.GetVolunteerRoleByTripId(this.tripId);
-  
-
       const userFromStorage = localStorage.getItem("user");
       this.user = userFromStorage ? JSON.parse(userFromStorage) : null;
 

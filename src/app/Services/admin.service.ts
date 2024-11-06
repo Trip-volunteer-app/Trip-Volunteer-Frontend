@@ -450,7 +450,6 @@ NumberOfRegisteredUsers(): Observable<number> {
 
 
 
-  //Static Number
 
   // NumberOfRegisteredUsers(): Observable<number> {
   //   return this.http.get<number>('https://localhost:7004/api/Users/trips/NumberOfRegisteredUsers');

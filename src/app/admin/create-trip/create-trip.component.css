@@ -21217,3 +21217,24 @@ mat-step {
   color: #333; /* Dark color for better contrast */
   font-weight: bold;
 }
+.map-container i {
+  font-size: 24px; /* Adjust the size */
+  color: #3f51b5; /* Choose a color that fits your design */
+  margin-right: 10px; /* Space between icon and input */
+}
+.selected-button {
+  border: 2px solid #1976D2; /* Change to your desired color */
+  color:#f14a3d;
+}
+.save-button{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+
+
+}
+.save-button-specific{
+  color: #f14a3d;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.15);
+
+}
