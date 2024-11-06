@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 interface TripMarker {
   position: google.maps.LatLngLiteral;
   tripId: number;
+  tripName: string;
 }
 
 @Component({
@@ -20,8 +21,6 @@ export class MapComponent {
   center: google.maps.LatLngLiteral = { lat: 31.6000, lng: 37.0000 }; // Amman coordinates
   zoom = 8;
   locationArray: any[] = [];
-  
-  // Use the custom TripMarker type for markers
   markers: TripMarker[] = [];
 
   constructor(
@@ -34,18 +33,17 @@ export class MapComponent {
     this.locationArray = this.location.locationsWithTripId;
     console.log('this.locationArray', this.locationArray);
     
-    // Map the location data to markers array including tripId for each marker
-    this.markers = this.locationArray.map(location => ({
+    this.markers = this.locationArray.map(location => (
+      {
       position: { lat: location.destination_Latitude, lng: location.destination_Longitude },
-      tripId: location.trip_Id // Assuming `tripId` is available in each location object
+      tripId: location.trip_Id,
+      tripName: location.trip_Name
     }));
   }
 
-  // Navigate to the trip details page for the selected trip
-  showDetails(tripId: number,trip:{}) {
+  showDetails(tripId: number, trip: {}) {
     console.log(tripId);
     console.log(trip);
-
     this.router.navigate(['tripDetails/', tripId]);
   }
 }

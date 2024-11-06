@@ -1,9 +1,17 @@
 <div class="map-container">
-    <google-map height="500px" width="1110px" [center]="center" [zoom]="zoom">
-      <map-marker 
-        *ngFor="let marker of markers" 
-        [position]="marker.position"
-        (mapClick)="showDetails(marker.tripId, marker.position)">
-      </map-marker>
-    </google-map>
-  </div>
+  <google-map height="500px" width="1110px" [center]="center" [zoom]="zoom">
+    <map-marker 
+      *ngFor="let marker of markers" 
+      [position]="marker.position"
+      (mapClick)="showDetails(marker.tripId, marker.position)">
+    </map-marker>
+    
+    <div
+      *ngFor="let marker of markers"
+      class="tooltip"
+      [style.left.px]="marker.position.lat" 
+      [style.top.px]="marker.position.lng">
+      {{ marker.tripName }}
+    </div>
+  </google-map>
+</div>

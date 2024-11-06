@@ -262,23 +262,6 @@ export class AdminService {
 
 
 
-
-
-
-
-
-
-  // Trip Volunteer Role
-  TripVolunteerRole: any = [];
-  getAllTripVolunteerRole() {
-    this.http.get('https://localhost:7004/api/ITripVolunteerrole/GetAlltrip_volunteerRoles').subscribe(result => {
-      this.TripVolunteerRole = result;
-    }, err => {
-      console.log(err.message);
-    })
-  }
-
-
   CreateTripVolunteerRole(body: any) {
     this.http.post('https://localhost:7004/api/ITripVolunteerrole/CREATEtrip_volunteerRoles', body).subscribe((resp) => {
       console.log('the Trip Volunteer Role created');
@@ -447,11 +430,6 @@ NumberOfRegisteredUsers(): Observable<number> {
 
 
 
-  //Static Number
-
-  NumberOfRegisteredUsers(): Observable<number> {
-    return this.http.get<number>('https://localhost:7004/api/Users/trips/NumberOfRegisteredUsers');
-  }
 
 
 TripsWithMaxReservations:any=[]; 
@@ -472,17 +450,6 @@ console.log('GetAllTripsWithMaxReservations',result);
 
   NumberOfFinishedTrips(): Observable<number> {
     return this.http.get<number>('https://localhost:7004/api/Trips/trips/NumberOfFinishedTrips');
-  }
-
-
-
-  TripsWithMaxReservations: any = [];
-  GetAllTripsWithMaxReservations() {
-    this.http.get('https://localhost:7004/api/Trips/TripsWithMaxReservations').subscribe(result => {
-      this.TripsWithMaxReservations = result;
-    }, err => {
-      console.log(err.message);
-    })
   }
 
 
