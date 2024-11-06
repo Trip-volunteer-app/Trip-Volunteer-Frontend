@@ -52,7 +52,7 @@ import { TripVolunteerFilterPipe } from '../trip-volunteer-filter.pipe';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatSelectModule,
-    FormsModule,
+    FormsModule, 
     NgChartsModule,
     GoogleMapsModule,
     SweetAlert2Module,

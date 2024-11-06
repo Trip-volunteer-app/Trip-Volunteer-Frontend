@@ -189,6 +189,7 @@ export class AdminService {
 
 
 
+
   // Trip Services
   TripServices: any = [];
   getAllTripServices() {
@@ -260,6 +261,23 @@ export class AdminService {
     window.location.reload();
   }
 
+
+
+
+
+
+
+
+
+  // Trip Volunteer Role
+  // TripVolunteerRole: any = [];
+  // getAllTripVolunteerRole() {
+  //   this.http.get('https://localhost:7004/api/ITripVolunteerrole/GetAlltrip_volunteerRoles').subscribe(result => {
+  //     this.TripVolunteerRole = result;
+  //   }, err => {
+  //     console.log(err.message);
+  //   })
+  // }
 
 
   CreateTripVolunteerRole(body: any) {
@@ -431,6 +449,10 @@ NumberOfRegisteredUsers(): Observable<number> {
 
 
 
+  // NumberOfRegisteredUsers(): Observable<number> {
+  //   return this.http.get<number>('https://localhost:7004/api/Users/trips/NumberOfRegisteredUsers');
+  // }
+
 
 TripsWithMaxReservations:any=[]; 
 GetAllTripsWithMaxReservations(){ 
@@ -451,6 +473,17 @@ console.log('GetAllTripsWithMaxReservations',result);
   NumberOfFinishedTrips(): Observable<number> {
     return this.http.get<number>('https://localhost:7004/api/Trips/trips/NumberOfFinishedTrips');
   }
+
+
+
+  // TripsWithMaxReservations: any = [];
+  // GetAllTripsWithMaxReservations() {
+  //   this.http.get('https://localhost:7004/api/Trips/TripsWithMaxReservations').subscribe(result => {
+  //     this.TripsWithMaxReservations = result;
+  //   }, err => {
+  //     console.log(err.message);
+  //   })
+  // }
 
 
   TotalNumberOfVolunteer(): Observable<number> {
@@ -509,18 +542,18 @@ console.log('GetAllTripsWithMaxReservations',result);
     return this.http.get(`https://localhost:7004/api/UserLogin/GetUserinfoByEmail?email=${email}`);
   }
 
-display_Image1 :any ; 
-uploadUserImage(file: FormData) {
-  this.http.put('https://localhost:7004/api/Users/uploadImage', file).subscribe((resp:any)=>{  
-    console.log('uploadUserImage',resp);
+// display_Image1 :any ; 
+// uploadUserImage(file: FormData) {
+//   this.http.put('https://localhost:7004/api/Users/uploadImage', file).subscribe((resp:any)=>{  
+//     console.log('uploadUserImage',resp);
     
-    this.display_Image1=resp.imagename;
-  },err=>{
+//     this.display_Image1=resp.imagename;
+//   },err=>{
     
-    console.log('Error');
+//     console.log('Error');
     
-  })
-}
+//   })
+// }
 getTripDetails(tripId: number): Observable<any> {
   return this.http.get(`https://localhost:7004/api/Trips/GetTripById/${tripId}`);
 }
