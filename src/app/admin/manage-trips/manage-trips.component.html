@@ -1,158 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <body>
-    <div class="container-scroller">
-      <!-- partial:../../partials/_sidebar.html -->
-      <app-header></app-header>
+<body>
+  <div class="container-scroller">
+    <!-- partial:../../partials/_sidebar.html -->
+    <app-header></app-header>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:../../partials/_navbar.html -->
+
       <!-- partial -->
-      <div class="container-fluid page-body-wrapper">
-        <!-- partial:../../partials/_navbar.html -->
-       
-        <!-- partial -->
-        <div class="main-panel">
-          <div class="content-wrapper">
-           
-            <div class="row">
-              
-              
-              <div class="col-lg-12 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title">Trip Table</h4>
-                     
-                    <div class="table-responsive">
-                      <table class="table table-dark">
-                        <thead>
-                          <tr>
-                            <th> Trip Name </th>
-                            <th> Trip Details </th>
-                            <th> Location  </th>
-                            <th> Images  </th>
-                            <th> Services  </th>
-                            <th> Operations </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr >
-                            <td> {{admin.TripById.trip_Name}} </td>
-                            <td>              
-                              <button mat-button (click)="openEditDailog(admin.TripById)" style="color: rgb(92, 92, 245); font-size: 20px !important;" ><i class="bi bi-pencil-square"></i> </button>
-                            </td>
-                            <td>              
-                              <button mat-button (click)="openlocationEditDailog(location.locationByTripID)" style="color: rgb(92, 92, 245); font-size: 20px !important;" ><i class="bi bi-pencil-square"></i> </button>
-                            </td>
-                            <td> 
-                              <button mat-button (click)="openImages(admin.TripById.trip_Id)" style="color: rgb(92, 92, 245); font-size: 20px !important;" ><i class="bi bi-pencil-square"></i></button>
-                            </td>
-                            <td> 
-                              <button mat-button (click)="openImages(admin.TripById.trip_Id)" style="color: rgb(92, 92, 245); font-size: 20px !important;" ><i class="bi bi-pencil-square"></i></button>
-                            </td>   
-                            <td> 
-                                <button mat-button (click)="openDeleteDialog(admin.TripById.trip_Id)" style="color: rgb(247, 88, 88); font-size: 20px !important;"><i class="bi bi-trash-fill"></i></button> 
-                            </td>                                                 
-                          </tr>                                                 
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="btn2">
-                      <button mat-button (click)="back()"  style="color: white; border-radius: 20px;">Back</button>
-                      </div>
+      <div class="main-panel">
+        <div class="content-wrapper">
+
+          <div class="row">
+
+
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Trip Table</h4>
+
+                  <div class="table-responsive">
+                    <table class="table table-dark">
+                      <thead>
+                        <tr>
+                          <th> Trip Name </th>
+                          <th> Trip Details </th>
+                          <th> Location </th>
+                          <th> Images </th>
+                          <th> Services </th>
+                          <th> Operations </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td> {{admin.TripById.trip_Name}} </td>
+                          <td>
+                            <button mat-button (click)="openEditDailog(admin.TripById)"
+                              style="color: rgb(92, 92, 245); font-size: 20px !important;"><i
+                                class="bi bi-pencil-square"></i> </button>
+                          </td>
+                          <td>
+                            <button mat-button (click)="openlocationEditDailog(location.locationByTripID)"
+                              style="color: rgb(92, 92, 245); font-size: 20px !important;"><i
+                                class="bi bi-pencil-square"></i> </button>
+                          </td>
+                          <td>
+                            <button mat-button (click)="openImages(admin.TripById.trip_Id)"
+                              style="color: rgb(92, 92, 245); font-size: 20px !important;"><i
+                                class="bi bi-pencil-square"></i></button>
+                          </td>
+                          <td>
+                            <button mat-button (click)="openImages(admin.TripById.trip_Id)"
+                              style="color: rgb(92, 92, 245); font-size: 20px !important;"><i
+                                class="bi bi-pencil-square"></i></button>
+                          </td>
+                          <td>
+                            <button mat-button (click)="openDeleteDialog(admin.TripById.trip_Id)"
+                              style="color: rgb(247, 88, 88); font-size: 20px !important;"><i
+                                class="bi bi-trash-fill"></i></button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="btn2">
+                    <button mat-button (click)="back()" style="color: white; border-radius: 20px;">Back</button>
                   </div>
                 </div>
               </div>
-           
             </div>
-          </div>
-          <!-- content-wrapper ends -->
-          <!-- partial:../../partials/_footer.html -->
-          
-          <!-- partial -->
-        </div>
-        <!-- main-panel ends -->
-      </div>
 
-      <!-- page-body-wrapper ends -->
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
     </div>
-    
-  </body>
+
+    <!-- page-body-wrapper ends -->
+  </div>
+
+</body>
+
 </html>
 
 
 <!-- Delete Trip -->
 <ng-template #callDeleteDailog>
-    <h1 mat-dialog-title>Delete Trip</h1>
+  <h1 mat-dialog-title>Delete Trip</h1>
   <div mat-dialog-content>Are you sure you went to delete this item ?</div>
   <div mat-dialog-actions>
-      <button mat-button mat-dialog-close="yes">Yes</button>
+    <button mat-button mat-dialog-close="yes">Yes</button>
     <button mat-button mat-dialog-close="no">No</button>
   </div>
 </ng-template>
 
 <ng-template #callLocationEditDialog>
-  <h2 mat-dialog-title>Update Trip</h2>
-  <mat-dialog-content class="mat-typography map-container">
-  <div >
-    <form [formGroup]="editLocationFormGroup">
-      <label for="departure">Departure Location:</label>
-      <input 
-        type="text" 
-        id="departure" 
-        formControlName="departure_Location" 
-        placeholder="Enter city, street, or coordinates" 
-        required
-        [(ngModel)]="departurePosition" 
-        (input)="onDepartureInputChange(editLocationFormGroup.value.departure_Location)" />
-    
-      <label for="destination">Destination Location:</label>
-      <input 
-        type="text" 
-        id="destination" 
-        formControlName="destination_Location" 
-        placeholder="Enter city, street, or coordinates" 
-        required
-        [(ngModel)]="distenationPosition" 
-        (input)="onDestinationInputChange(editLocationFormGroup.value.destination_Location)" />
-    </form>                  
-    <google-map
-      height="400px"
-      width="400px"
-      [center]="center"
-      [zoom]="zoom"
-      (mapClick)="addMarker($event)">
-      
-      <map-marker
-        *ngIf="markerPositions.departure"
-        [position]="markerPositions.departure"
-        [label]="'Departure'"
-        [title]="'Departure Location'">
-      </map-marker>
-  
-      <map-marker
-        *ngIf="markerPositions.destination"
-        [position]="markerPositions.destination"
-        [label]="'Destination'"
-        [title]="'Destination Location'">
-      </map-marker>
-    </google-map>
-  
-    <div class="marker-controls">
-      <button (click)="selectedMarker = 'departure'">Set Departure</button>
-      <button (click)="selectedMarker = 'destination'">Set Destination</button>
-    </div>
-  
-    <div *ngIf="markerPositions.departure">
+  <h2 mat-dialog-title>Update Location</h2>
+  <mat-dialog-content class="mat-typography">
+    <div class=" map-container">
+      <form [formGroup]="editLocationFormGroup" class="form-container">
+        <mat-form-field class="full-width">
+          <mat-label>Departure Location</mat-label>
+          <input matInput type="text" id="departure" formControlName="departure_Location"
+            placeholder="Enter city, street, or coordinates" required [(ngModel)]="departurePosition"
+            (input)="onDepartureInputChange(editLocationFormGroup.value.departure_Location)" />
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Destination Location</mat-label>
+          <input matInput type="text" id="destination" formControlName="destination_Location"
+            placeholder="Enter city, street, or coordinates" required [(ngModel)]="distenationPosition"
+            (input)="onDestinationInputChange(editLocationFormGroup.value.destination_Location)" />
+        </mat-form-field>
+      </form>
+      <div class="marker-controls">
+        <button mat-raised-button [ngStyle]="{
+          'background-color': selectedMarker === 'departure' ? '#f14a3d' : '#c5babe',
+          'color': 'white',
+          'box-shadow': selectedMarker === 'departure' ? '0 12px 12px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.15)' : 'none'
+        }" (click)="selectedMarker = 'departure'">
+          Set Departure
+        </button>
+
+        <button mat-raised-button [ngStyle]="{
+        'background-color': selectedMarker === 'destination' ? '#f14a3d' : '#c5babe',
+        'color': 'white',
+        'box-shadow': selectedMarker === 'destination' ? '0 6px 12px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.15)' : 'none'
+      }" (click)="selectedMarker = 'destination'">
+          Set Destination
+        </button>
+      </div>
+      <google-map class="map-container" height="400px" [center]="center" [zoom]="zoom" (mapClick)="addMarker($event)">
+
+        <map-marker *ngIf="markerPositions.departure" [position]="markerPositions.departure" [label]="'Departure'"
+          [title]="'Departure Location'">
+        </map-marker>
+
+        <map-marker *ngIf="markerPositions.destination" [position]="markerPositions.destination" [label]="'Destination'"
+          [title]="'Destination Location'">
+        </map-marker>
+      </google-map>
+
+      <!-- <div *ngIf="markerPositions.departure">
       <p>Departure: {{ markerPositions.departure.lat }}, {{ markerPositions.departure.lng }}</p>
     </div>
   
     <div *ngIf="markerPositions.destination">
       <p>Destination: {{ markerPositions.destination.lat }}, {{ markerPositions.destination.lng }}</p>
+    </div> -->
+      <div class="save-button">
+        <button class="save-button-specific" mat-raised-button (click)="updateLocation()">Update locations</button>
+      </div>
     </div>
-
-
-    <button (click)="updateLocation()">update Locations</button>
-  </div>      
-</mat-dialog-content>
+  </mat-dialog-content>
 </ng-template>
 
 
@@ -165,12 +170,13 @@
 
         <!-- Row 1 -->
         <div fxLayout="row" fxLayoutGap="20px">
-          <mat-form-field appearance="fill"  style="margin-right: 20px; width: 300px !important;">
+          <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;">
             <mat-label>Trip Name</mat-label>
-            <input type="text" matInput formControlName="trip_Name" [(ngModel)]="pData.trip_Name" style="width: 300px !important;">
+            <input type="text" matInput formControlName="trip_Name" [(ngModel)]="pData.trip_Name"
+              style="width: 300px !important;">
           </mat-form-field>
 
-          <mat-form-field appearance="fill"  style="width: 300px !important;">
+          <mat-form-field appearance="fill" style="width: 300px !important;">
             <mat-label>Trip Price</mat-label>
             <input type="number" matInput formControlName="trip_Price" [(ngModel)]="pData.trip_Price">
           </mat-form-field>
@@ -178,12 +184,12 @@
 
         <!-- Row 2 -->
         <div fxLayout="row" fxLayoutGap="20px">
-          <mat-form-field appearance="fill"  style="margin-right: 20px; width: 300px !important;">
+          <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;">
             <mat-label>Trip Start Date</mat-label>
             <input type="date" matInput formControlName="start_Date" [(ngModel)]="pData.start_Date">
           </mat-form-field>
 
-          <mat-form-field appearance="fill"  style="width: 300px !important;">
+          <mat-form-field appearance="fill" style="width: 300px !important;">
             <mat-label>Trip End Date</mat-label>
             <input type="date" matInput formControlName="end_Date" [(ngModel)]="pData.end_Date ">
           </mat-form-field>
@@ -191,20 +197,21 @@
 
         <!-- Row 3 -->
         <div fxLayout="row" fxLayoutGap="20px">
-          <mat-form-field appearance="fill"  style="margin-right: 20px; width: 300px !important;">
+          <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;">
             <mat-label>Number Of Users</mat-label>
             <input type="number" matInput formControlName="max_Number_Of_Users" [(ngModel)]="pData.max_Number_Of_Users">
           </mat-form-field>
 
-          <mat-form-field appearance="fill"  style="width: 300px !important;">
+          <mat-form-field appearance="fill" style="width: 300px !important;">
             <mat-label>Number Of Volunteers</mat-label>
-            <input type="number" matInput formControlName="max_Number_Of_Volunteers" [(ngModel)]="pData.max_Number_Of_Volunteers">
+            <input type="number" matInput formControlName="max_Number_Of_Volunteers"
+              [(ngModel)]="pData.max_Number_Of_Volunteers">
           </mat-form-field>
         </div>
 
         <!-- Row 4 - Textarea (alone) -->
         <div fxLayout="row">
-          <mat-form-field appearance="fill"  style="width: 620px !important; height: 200px;">
+          <mat-form-field appearance="fill" style="width: 620px !important; height: 200px;">
             <mat-label>Description</mat-label>
             <textarea matInput formControlName="description" [(ngModel)]="pData.description"></textarea>
           </mat-form-field>
@@ -216,7 +223,7 @@
 
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="save2()" style="color: rgb(0,193,83);">Save</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="save2()"
+      style="color: rgb(0,193,83);">Save</button>
   </mat-dialog-actions>
 </ng-template>
-
