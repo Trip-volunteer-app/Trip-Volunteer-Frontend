@@ -9,47 +9,25 @@ import { AdminService } from 'src/app/Services/admin.service';
 })
 export class NavbarComponent implements OnInit {
 
+
+
   isLoggedIn: boolean = false;
-  email: string | null = null;
-  first_Name :string | null = null
-  last_Name :string | null = null
-  userImage: string | null = null;
 
-
-  constructor(private router:Router,private admin:AdminService){}
+  constructor(private router:Router,public admin:AdminService){}
 
   ngOnInit(): void {
-    this.checkLoginStatus();
-  }
-
-
-  checkLoginStatus(): void {
-    const email = localStorage.getItem('email');
-    const token = localStorage.getItem('token');
-    this.isLoggedIn = !!(email && token);
-    this.email = email; 
-
-    if (email && token) {
+    const userFromStorage = localStorage.getItem("user");
+    const user = userFromStorage ? JSON.parse(userFromStorage) : null;
+    if (user) {
       this.isLoggedIn = true;
-      this.email = email;
-      this.getUserData(email); 
-    } else {
-      this.isLoggedIn = false;
+      const userId = Number(user.loginid);
+
+      this.admin.GetUserByLoginId(userId);
+    }
     }
 
-  }
 
-  getUserData(email: string): void {
-    this.admin.getUserData(email).subscribe(data => {
-      if (data && data.length > 0) {
-        const user: any = data[0];
-        // console.log(user);
-        this.userImage = user.imageUrl; 
-        this.first_Name = user.first_Name;
-        this.last_Name=user.last_Name;
-      }
-    });
-  }
+ 
 
   userProfile():void
   {

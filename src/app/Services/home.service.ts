@@ -165,25 +165,23 @@ GetBookingById(id:number){
   this.http.get("https://localhost:7004/api/Booking/GetBookingById", { params }).subscribe(res=>{
     this.BookingPayment=res;
     console.log("BookingPayment",this.BookingPayment)
+    
   },err=>{
     console.log(err.message);
   })
 }
 
+async UpdatePaymentStatus(body: any): Promise<void> {
+  try {
+    await this.http.put<void>('https://localhost:7004/api/Booking/UpdatePaymentStatus', body).toPromise();
+    console.log('Updated');
+  } catch (err) {
+    console.error('Error updating payment status', err);
+  }
+}
 
-UpdatePaymentStatus(body: any): Promise<void> {
-  return this.http.put<void>('https://localhost:7004/api/Booking/UpdatePaymentStatus', body)
-    .toPromise()
-    .then(() => {
-      console.log('Updated');
-    })
-    .catch(err => {
-      console.error('Error updating payment status', err);
-    });
-}
-sendEmail(emailData: any): Observable<any> {
-  return this.http.post('https://localhost:7004/api/Booking/send-email', emailData);  // Ensure this returns an observable
-}
+
+
 UpdateBalance(body: any): Promise<void> {
   return this.http.put<void>('https://localhost:7004/api/Bank/UpdateBalance', body)
     .toPromise()

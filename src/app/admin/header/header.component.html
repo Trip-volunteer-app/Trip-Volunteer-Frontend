@@ -13,11 +13,11 @@
         <div class="profile-pic">
           <div class="count-indicator">
 
-            <img class="img-xs rounded-circle " [src]="userImage || '../../../assets/default-profile.png'" alt="">
+            <img class="img-xs rounded-circle " [src]="this.admin.UserInfo.image_Path ? '../../../../assets/images/' + this.admin.UserInfo.image_Path : '../../../../assets/default-profile.png'" alt="">
             <span class="count bg-success"></span>
           </div>
           <div class="profile-name">
-            <h5 class="mb-0 font-weight-normal" style="color: white;">{{first_Name}} {{last_Name}}</h5>
+            <h5 class="mb-0 font-weight-normal" style="color: white;">{{this.admin.UserInfo.first_Name}} {{this.admin.UserInfo.last_Name}}</h5>
             <span>Gold Member</span>
           </div>
         </div>
@@ -356,8 +356,8 @@
         <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
           <div class="navbar-profile">
 
-            <img class="img-xs rounded-circle" [src]="userImage || '../../../assets/default-profile.png'" alt="">
-            <p class="mb-0 d-none d-sm-block navbar-profile-name">{{first_Name}} {{last_Name}} </p>
+            <img class="img-xs rounded-circle" [src]="this.admin.UserInfo.image_Path ? '../../../../assets/images/' + this.admin.UserInfo.image_Path : '../../../../assets/default-profile.png'" alt="">
+            <p class="mb-0 d-none d-sm-block navbar-profile-name">{{this.admin.UserInfo.first_Name}} {{this.admin.UserInfo.last_Name}} </p>
             <i class="mdi mdi-menu-down d-none d-sm-block"></i>
           </div>
         </a>

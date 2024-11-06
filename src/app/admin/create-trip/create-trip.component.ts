@@ -109,6 +109,7 @@ export class CreateTripComponent implements OnInit {
     formData.append('file', fileToUpload, fileToUpload.name)
     this.admin.uploadTripImage(formData);
   }
+
   onSubmit(): void {
     if (this.secondFormGroup.valid && this.ServicesFormGroup.valid && this.locationData) {
       console.log('locationdata', this.locationData)

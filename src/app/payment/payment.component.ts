@@ -22,13 +22,13 @@ export class PaymentComponent implements OnInit{
     private route: ActivatedRoute,
     public dialog: MatDialog,
   ) {}
-  ngOnInit(): void {
+   ngOnInit(): void {
     
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe( params => {
       this.id = +params.get('id')!;
       console.log("id:", this.id);
       if (this.id) {
-        this.home.GetBookingById(this.id);
+         this.home.GetBookingById(this.id);
       }
     });
 
@@ -144,19 +144,34 @@ export class PaymentComponent implements OnInit{
 
   async pay(obj: any): Promise<void> {
     try {
+      // Check if BankCard information is available
       if (!this.home || !this.home.BankCard) {
-        Swal.fire({ title: 'Error!', text: 'Your visa Card information is missing.', icon: 'error', confirmButtonText: 'Ok!' });
-        console.log("BankCard information is missing.");
-        throw new Error("BankCard information is missing.");
+        Swal.fire({
+          title: 'Error!',
+          text: 'Your visa Card information is missing.',
+          icon: 'error',
+          confirmButtonText: 'Ok!',
+        });
+        console.error("BankCard information is missing.");
+        return;
       }
   
-      if (this.home.BookingPayment.payment_Status === 'paid') {
-        Swal.fire({ title: 'Error!', text: 'You already paid.', icon: 'error', confirmButtonText: 'Ok!' });
-        throw new Error("You already paid.");
+      // Check if payment is already made
+      if (this.home.BookingPayment?.payment_Status === 'paid') {
+        Swal.fire({
+          title: 'Error!',
+          text: 'You already paid.',
+          icon: 'error',
+          confirmButtonText: 'Ok!',
+        });
+        console.error("You already paid.");
+        return;
       }
   
       console.log("payObj", obj.value);
       const payDetails = obj.value;
+  
+      // Find matching card
       const matchingCard = this.home.BankCard.find((card: any) =>
         card.card_Number === payDetails.card_number &&
         card.expiration_Date === payDetails.expiry_date &&
@@ -165,13 +180,26 @@ export class PaymentComponent implements OnInit{
       );
   
       if (!matchingCard) {
-        Swal.fire({ title: 'Error!', text: 'Card not found. Please check your details or add a new card!', icon: 'error', confirmButtonText: 'Ok!' });
-        throw new Error("No matching card found.");
+        Swal.fire({
+          title: 'Error!',
+          text: 'Card not found. Please check your details or add a new card!',
+          icon: 'error',
+          confirmButtonText: 'Ok!',
+        });
+        console.error("No matching card found.");
+        return;
       }
   
+      // Check for sufficient funds
       if (matchingCard.balance < payDetails.total_amount) {
-        Swal.fire({ title: 'Error!', text: 'Insufficient funds. Please check your balance.', icon: 'error', confirmButtonText: 'Ok!' });
-        throw new Error("Insufficient funds.");
+        Swal.fire({
+          title: 'Error!',
+          text: 'Insufficient funds. Please check your balance.',
+          icon: 'error',
+          confirmButtonText: 'Ok!',
+        });
+        console.error("Insufficient funds.");
+        return;
       }
   
       // Deduct balance
@@ -179,42 +207,80 @@ export class PaymentComponent implements OnInit{
       const NewData = {
         bank_Id: matchingCard.bank_Id,
         balance: matchingCard.balance,
-        cvv: matchingCard.cvv
+        cvv: matchingCard.cvv,
       };
   
-      // Update balance and payment status, then send email
-      await this.home.UpdateBalance(NewData);
-      await this.home.UpdatePaymentStatus({ booking_Id: this.id });
-  
-      // Retrieve necessary details and send email
-      await this.home.GetBookingById(this.id);
-      await this.home.getTripById(this.home.BookingPayment.trip_Id);
-  
+      // Update balance and payment status
+      await this.home.UpdateBalance(NewData).catch(error => {
+        console.error("Error updating balance:", error);
+        throw new Error("Failed to update balance.");
+      });
+
       const email = localStorage.getItem('email');
-      const paymentStatus = this.home.BookingPayment.payment_Status;
       const emailData = {
+        booking_Id: this.id,
         Email: email,
-        Status: paymentStatus,
-        Trip_Name: this.home.tripDetails.trip_Name,
-        Start_Date:this.home.tripDetails.start_Date,
-        End_Date:this.home.tripDetails.end_Date,
-        Departure_Location:this.home.tripDetails.departure_Location,
-        Destination_Location:this.home.tripDetails.Destination_Location,
-        Services:this.home.tripDetails.services
+        Trip_Name: this.home.tripDetails?.trip_Name,
+        Start_Date: this.home.tripDetails?.start_Date,
+        End_Date: this.home.tripDetails?.end_Date,
+        Departure_Location: this.home.tripDetails?.departure_Location,
+        Destination_Location: this.home.tripDetails?.Destination_Location,
+        Services: this.home.tripDetails?.services,
       };
-  
-      // Send email and handle response
-      this.home.sendEmail(emailData).subscribe(
-        response => console.log("Email sent successfully", response),
-        error => console.error("Error sending email:", error)
-      );
-  
-      Swal.fire({ title: 'Success!', text: 'Payment has been made successfully! Reservation Confirmed! THANKS FOR CHOOSING US ♥', icon: 'success', confirmButtonText: 'Ok!' });
+
+      await this.home.UpdatePaymentStatus(emailData).catch(error => {
+        console.error("Error updating payment status:", error);
+        throw new Error("Failed to update payment status.");
+      });
+
+
+
+      // Show success message
+      Swal.fire({
+        title: 'Success!',
+        text: 'Payment has been made successfully! Reservation Confirmed! THANKS FOR CHOOSING US ♥',
+        icon: 'success',
+        confirmButtonText: 'Ok!',
+      });
+
+
     } catch (error) {
       console.error("Error in pay function:", error);
-      Swal.fire({ title: 'Error!', text: 'There was an issue processing your payment. Please try again later.', icon: 'error', confirmButtonText: 'Ok!' });
+      Swal.fire({
+        title: 'Error!',
+        text: 'There was an issue processing your payment. Please try again later.',
+        icon: 'error',
+        confirmButtonText: 'Ok!',
+      });
     }
   }
+
+  // private async fetchLatestPaymentStatus() {
+  //    this.home.GetBookingById(this.id);
+  //    await  this.sendEmail(this.home.BookingPayment?.payment_Status);
+  // }
   
-  
+  // private async sendEmail(latestPaymentStatus:string | undefined) {
+  //   if (latestPaymentStatus == 'paid') {
+  //     const email = localStorage.getItem('email');
+  //     const emailData = {
+  //       Email: email,
+  //       Status: this.home.BookingPayment.payment_Status,
+  //       Trip_Name: this.home.tripDetails?.trip_Name,
+  //       Start_Date: this.home.tripDetails?.start_Date,
+  //       End_Date: this.home.tripDetails?.end_Date,
+  //       Departure_Location: this.home.tripDetails?.departure_Location,
+  //       Destination_Location: this.home.tripDetails?.Destination_Location,
+  //       Services: this.home.tripDetails?.services,
+  //     };
+
+  //     // Send confirmation email
+  //     await this.home.sendEmail(emailData).subscribe(
+  //       (response) => console.log('Email sent successfully', response),
+  //       (error) => console.error('Error sending email:', error)
+  //     );
+  //   } else {
+  //     console.error('Payment status is not "paid"; skipping email send.');
+  //   }
+  // }
 }  
