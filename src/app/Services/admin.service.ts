@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';  
 import {ToastrService} from 'ngx-toastr';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -490,6 +491,28 @@ getUserData(email: string): Observable<any> {
   return this.http.get(`https://localhost:7004/api/UserLogin/GetUserinfoByEmail?email=${email}`);
 }
 
+UserInfo:any; 
+GetUserByLoginId(id:number){ 
+ this.http.get('https://localhost:7004/api/UserLogin/GetUserinfoByLoginId/'+ id).subscribe(result=>{
+this.UserInfo =result ;  
+console.log("UserInformation",this.UserInfo);
+
+},err=>{
+      console.log(err.message);     
+})}
+//UserInformation
+UserInformation:any; 
+GetUserinfoByLoginId(id:number){ 
+ this.http.get('https://localhost:7004/api/UserLogin/GetUserinfoByLoginId/'+ id).subscribe(result=>{
+this.UserInformation =result ;  
+console.log("UserInformation",this.UserInformation);
+
+},err=>{
+      console.log(err.message);     
+})}
+
+
+
 
 
 // updateUserData(updatedData: any): Observable<any> {
@@ -497,8 +520,41 @@ getUserData(email: string): Observable<any> {
 // }
 
 
-updateUserData(updatedData: any) {
+updateUserData(updatedData: any,image_Path:any) {
+  if(this.display_Image1 == null || undefined){
   const params = new HttpParams()
+    .set('L_Email', updatedData.email)
+    .set('L_Pass', updatedData.password)
+    .set('L_RePass', updatedData.repassword)
+    .set('r_id', updatedData.role_Id)
+    .set('u_id', updatedData.user_Id)
+    .set('F_Name', updatedData.first_Name)
+    .set('L_Name', updatedData.last_Name)
+    .set('IMG', image_Path) 
+    .set('u_Address', updatedData.address) 
+    .set('phone', updatedData.phone_Number)
+    .set('L_id', updatedData.login_Id) 
+    .set('B_Day', updatedData.birth_Date);
+
+
+  this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
+    .subscribe(
+      result => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'successfly update profile',
+        });
+        this.GetUserinfoByLoginId(updatedData.user_Id);
+
+      },
+      error => {
+        
+        console.error("Error updating user data", error.message);     
+      }
+    );
+  }else{
+    const params = new HttpParams()
     .set('L_Email', updatedData.email)
     .set('L_Pass', updatedData.password)
     .set('L_RePass', updatedData.repassword)
@@ -516,31 +572,36 @@ updateUserData(updatedData: any) {
   this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
     .subscribe(
       result => {
-        console.log(params);
-        console.log("User data updated successfully", result);
-        // window.location.reload();
-        this.toastr.success('successfly update profile');
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'successfly update profile',
+        });
+        this.GetUserinfoByLoginId(updatedData.user_Id);
       },
       error => {
-        console.log(params);
         
         console.error("Error updating user data", error.message);     
       }
     );
+
+  }
 }
 
+
 display_Image1 :any ; 
-uploadUserImage(file: FormData) {
-  this.http.put('https://localhost:7004/api/Users/uploadImage', file).subscribe((resp:any)=>{  
-    console.log('uploadUserImage',resp);
-    
-    this.display_Image1=resp.imagename;
+
+uploadUserImage(file:FormData){
+  this.http.post('https://localhost:7004/api/Users/uploadImage',file).subscribe((res:any)=>{
+  this.display_Image1=res.image_Path;
+  console.log("imageprofile",res);
+  
   },err=>{
-    
-    console.log('Error');
-    
+    console.log('error');
   })
-}
+  
+  }
+
 getTripDetails(tripId: number): Observable<any> {
   return this.http.get(`https://localhost:7004/api/Trips/GetTripById/${tripId}`);
 }
