@@ -13,14 +13,18 @@
                     <table class="table table-dark">
                       <thead>
                         <tr>
-                          <th>Year</th>
-                          <th>Annual Revenue</th>
+                          <th>Annual</th>
+                          <th>TOTAL SERVICE COST </th>
+                          <th>TOTAL REVENUE</th>
+                          <th>NET REVENUE</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr *ngFor="let obj of admin.AnuualReport">
                           <td>{{ obj.trip_year | date: 'yyyy-MM-dd' }}</td>
-                          <td>{{ obj.annual_revenue }}</td>
+                          <td>{{ obj.totaL_SERVICE_COST }}</td>
+                          <td>{{ obj.totaL_REVENUE }}</td>
+                          <td>{{ obj.neT_REVENUE }}</td>
                         </tr>
                       </tbody>
                     </table>
