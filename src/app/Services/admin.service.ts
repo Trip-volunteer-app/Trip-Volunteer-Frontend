@@ -558,88 +558,88 @@ console.log("UserInformation",this.UserInformation);
   // }
 
 
-
-updateUserData(updatedData: any,image_Path:any) {
-  if(this.display_Image1 == null || undefined){
-  const params = new HttpParams()
-    .set('L_Email', updatedData.email)
-    .set('L_Pass', updatedData.password)
-    .set('L_RePass', updatedData.repassword)
-    .set('r_id', updatedData.role_Id)
-    .set('u_id', updatedData.user_Id)
-    .set('F_Name', updatedData.first_Name)
-    .set('L_Name', updatedData.last_Name)
-    .set('IMG', image_Path) 
-    .set('u_Address', updatedData.address) 
-    .set('phone', updatedData.phone_Number)
-    .set('L_id', updatedData.login_Id) 
-    .set('B_Day', updatedData.birth_Date);
-
-
-  this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
-    .subscribe(
-      result => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Success!',
-          text: 'successfly update profile',
-        });
-        this.GetUserinfoByLoginId(updatedData.user_Id);
-
-      },
-      error => {
-        
-        console.error("Error updating user data", error.message);     
-      }
-    );
-  }else{
+  updateUserData(updatedData: any,image_Path:any) {
+    if(this.display_Image1 == null || undefined){
     const params = new HttpParams()
-    .set('L_Email', updatedData.email)
-    .set('L_Pass', updatedData.password)
-    .set('L_RePass', updatedData.repassword)
-    .set('r_id', updatedData.role_Id)
-    .set('u_id', updatedData.user_Id)
-    .set('F_Name', updatedData.first_Name)
-    .set('L_Name', updatedData.last_Name)
-    .set('IMG', this.display_Image1) 
-    .set('u_Address', updatedData.address) 
-    .set('phone', updatedData.phone_Number)
-    .set('L_id', updatedData.login_Id) 
-    .set('B_Day', updatedData.birth_Date);
-
-
-  this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
-    .subscribe(
-      result => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Success!',
-          text: 'successfly update profile',
-        });
-        this.GetUserinfoByLoginId(updatedData.user_Id);
-      },
-      error => {
-        
-        console.error("Error updating user data", error.message);     
-      }
-    );
-
-  }
-}
-
-
-display_Image1 :any ; 
-
-uploadUserImage(file:FormData){
-  this.http.post('https://localhost:7004/api/Users/uploadImage',file).subscribe((res:any)=>{
-  this.display_Image1=res.image_Path;
-  console.log("imageprofile",res);
+      .set('L_Email', updatedData.email)
+      .set('L_Pass', updatedData.password)
+      .set('L_RePass', updatedData.repassword)
+      .set('r_id', updatedData.role_Id)
+      .set('u_id', updatedData.user_Id)
+      .set('F_Name', updatedData.first_Name)
+      .set('L_Name', updatedData.last_Name)
+      .set('IMG', image_Path) 
+      .set('u_Address', updatedData.address) 
+      .set('phone', updatedData.phone_Number)
+      .set('L_id', updatedData.login_Id) 
+      .set('B_Day', updatedData.birth_Date);
   
-  },err=>{
-    console.log('error');
-  })
   
+    this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
+      .subscribe(
+        result => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'successfly update profile',
+          });
+          this.GetUserinfoByLoginId(updatedData.user_Id);
+  
+        },
+        error => {
+          
+          console.error("Error updating user data", error.message);     
+        }
+      );
+    }else{
+      const params = new HttpParams()
+      .set('L_Email', updatedData.email)
+      .set('L_Pass', updatedData.password)
+      .set('L_RePass', updatedData.repassword)
+      .set('r_id', updatedData.role_Id)
+      .set('u_id', updatedData.user_Id)
+      .set('F_Name', updatedData.first_Name)
+      .set('L_Name', updatedData.last_Name)
+      .set('IMG', this.display_Image1) 
+      .set('u_Address', updatedData.address) 
+      .set('phone', updatedData.phone_Number)
+      .set('L_id', updatedData.login_Id) 
+      .set('B_Day', updatedData.birth_Date);
+  
+  
+    this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
+      .subscribe(
+        result => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'successfly update profile',
+          });
+          this.GetUserinfoByLoginId(updatedData.user_Id);
+        },
+        error => {
+          
+          console.error("Error updating user data", error.message);     
+        }
+      );
+  
+    }
   }
+  
+  
+  display_Image1 :any ; 
+  
+  uploadUserImage(file:FormData){
+    this.http.post('https://localhost:7004/api/Users/uploadImage',file).subscribe((res:any)=>{
+    this.display_Image1=res.image_Path;
+    console.log("imageprofile",res);
+    
+    },err=>{
+      console.log('error');
+    })
+    
+    }
+  
 
 
   //UserData
@@ -668,50 +668,6 @@ sendTripDetailsEmail(emailData: any): Observable<any> {
   // }
 
 
-  updateUserData(updatedData: any) {
-    const params = new HttpParams()
-      .set('L_Email', updatedData.email)
-      .set('L_Pass', updatedData.password)
-      .set('L_RePass', updatedData.repassword)
-      .set('r_id', updatedData.role_Id)
-      .set('u_id', updatedData.user_Id)
-      .set('F_Name', updatedData.first_Name)
-      .set('L_Name', updatedData.last_Name)
-      .set('IMG', this.display_Image1)
-      .set('u_Address', updatedData.address)
-      .set('phone', updatedData.phone_Number)
-      .set('L_id', updatedData.login_Id)
-      .set('B_Day', updatedData.birth_Date);
-
-
-    this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
-      .subscribe(
-        result => {
-          console.log(params);
-          console.log("User data updated successfully", result);
-          // window.location.reload();
-          this.toastr.success('successfly update profile');
-        },
-        error => {
-          console.log(params);
-
-          console.error("Error updating user data", error.message);
-        }
-      );
-  }
-
-  display_Image1: any;
-  uploadUserImage(file: FormData) {
-    this.http.put('https://localhost:7004/api/Users/uploadImage', file).subscribe((resp: any) => {
-      console.log('uploadUserImage', resp);
-
-      this.display_Image1 = resp.imagename;
-    }, err => {
-
-      console.log('Error');
-
-    })
-  }
 
 
 
