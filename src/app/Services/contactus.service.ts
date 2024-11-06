@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr'; // Import ToastrService
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -181,4 +182,9 @@ export class ContactusService {
       this.toastr.error('Failed to send message. Please try again.'); // Use toaster instead of alert
     })
   }
+
+  // Update the service method to receive email data correctly
+sendEmailContact(email: any): Observable<any> {
+  return this.http.post('https://localhost:7004/api/ContactU/send-email', { email }); 
+}
 }

@@ -29,7 +29,7 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.styleService.applyFullHeight(); 
-
+  
     this.route.paramMap.subscribe(params => {
       this.tripId = +params.get('tripId')!;
       console.log("TripId:", this.tripId);
@@ -37,23 +37,44 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
         this.home.getTripById(this.tripId); 
       }
     });
+  
+    console.log('befor volunteers', this.tripId);
+    console.log('***********************');
+  
+    this.home.GetTripVolunteers(this.tripId);
+    console.log('GetTripVolunteers', this.home.GetTripVolunteers(this.tripId));
+    console.log('***********************');
+  
+    if (this.tripId) {
+      this.home.getTripById(this.tripId);
+      this.home.GetVolunteerRoleByTripId(this.tripId); // API call
+    } else {
+      console.log('Invalid tripId, skipping volunteer role fetch');
+    }
+    
     this.BookingTrip.controls['numberOfUser'].valueChanges.subscribe(() => {
       this.updateTotalAmount();
     });
-
+  
     const userFromStorage = localStorage.getItem("user");
-      this.user = userFromStorage ? JSON.parse(userFromStorage) : null;
-
-      this.userId = Number(this.user.loginid);
-    this.home.GetVolunteerRoleByTripId(this.tripId);
-    this.home.GetBookingByTripId(this.tripId,this.userId);
-    this.home.GetVolunteerByTripId(this.tripId,this.userId)
-console.log("bookingtripid",this.home.BookingByTripId);
-console.log("volunteerbytripid",this.home.VolunteerByTripId);
-
-
+    this.user = userFromStorage ? JSON.parse(userFromStorage) : null;
+    this.userId = Number(this.user.loginid);
+  
+    // console.log('++++++++++++++++++++++++++++');   
+    // this.home.GetVolunteerRoleByTripId(this.tripId);  // Correctly calling the function
+    // console.log('++++++++++++++++++++++++++++');
+  
+    // console.log('---------------------');
+    // // The console.log for VolunteerRoleByTripId should be inside the subscription in the method
+    // // console.log("GetVolunteerRoleByTripId", this.home.VolunteerRoleByTripId); 
+    // console.log('------------------------------------');
+    
+    this.home.GetBookingByTripId(this.tripId, this.userId);
+    this.home.GetVolunteerByTripId(this.tripId, this.userId);
+    console.log("bookingtripid", this.home.BookingByTripId);
+    console.log("volunteerbytripid", this.home.VolunteerByTripId);
   }
-
+  
   ngAfterViewInit(): void {
     // Initialize various styles and functionalities after view initialization
     this.styleService.applyFullHeight(); // Ensure height recalculates
@@ -119,7 +140,8 @@ console.log("volunteerbytripid",this.home.VolunteerByTripId);
   openBookingDailog(obj:any){
      if(this.user != null){ 
       this.home.GetVolunteerRoleByTripId(this.tripId);
-      
+  
+
       const userFromStorage = localStorage.getItem("user");
       this.user = userFromStorage ? JSON.parse(userFromStorage) : null;
 
@@ -392,3 +414,5 @@ console.log("volunteerbytripid",this.home.VolunteerByTripId);
     // Implement the logic to navigate to the trip details
   }
 }
+
+

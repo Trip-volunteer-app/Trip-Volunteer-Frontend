@@ -253,3 +253,44 @@
     color: #fd450d !important;
    
   } */
+/* Make the table responsive and handle large text */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  table-layout: fixed; /* Set fixed table layout */
+}
+
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  white-space: normal;  /* Allow wrapping inside cells */
+  overflow-wrap: break-word; /* Break long words if necessary */
+}
+
+table th {
+  background-color: #f4f4f4;
+}
+
+/* Style the first column (Volunteer #) to be smaller */
+table th:nth-child(1), table td:nth-child(1) {
+  width: 90px; /* Adjust this width as needed */
+}
+
+/* Style the second column (Name) to be smaller */
+table th:nth-child(2), table td:nth-child(2) {
+  width: 100px; /* Adjust this width as needed */
+}
+
+/* Ensure that columns grow or shrink based on content */
+table td, table th {
+  max-width: 200px; /* Optional: you can define a max width for each column */
+}
+
+/* Responsive for very small screens */
+@media (max-width: 600px) {
+  table th, table td {
+    padding: 10px 5px; /* Adjust padding for small screens */
+  }
+}
