@@ -4,9 +4,9 @@
         <div class="container">
             <div class="row no-gutters slider-text js-fullheight align-items-center" data-scrollax-parent="true">
                 <div class="col-md-7 ftco-animate">
-                    <span class="subheading">Welcome to Pacific</span>
-                    <h1 class="mb-4">Discover Your Favorite Place with Us</h1>
-                    <p class="caps">Travel to the any corner of the world, without going around in circles</p>
+                    <span class="subheading">{{home.selectedHome.header}}</span>
+                    <h1 class="mb-4">{{home.selectedHome.title}}</h1>
+                    <p class="caps">{{home.selectedHome.text1}}</p>
                 </div>
             </div>
         </div>
@@ -313,28 +313,35 @@
         <div class="container">
           <div class="row justify-content-center pb-4">
             <div class="col-md-12 heading-section text-center ftco-animate">
-              <span class="subheading">Destination</span>
-              <h2 class="mb-4">Tour Destination</h2>
+              <span class="subheading">Most</span>
+              <h2 class="mb-4">Popular Trips</h2>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-4 ftco-animate">
-              <div class="project-wrap">
-                <a href="#" class="img" style="background-image: url(../../assets/Home/images/petra.jpeg);">
-                  <span class="price">$250/person</span>
-                </a>
-                <div class="text p-4">
-                  <span class="days">3 Days Tour</span>
-                  <h3><a href="#">Petra</a></h3>
-                  <p class="location"><span class="fa fa-map-marker"></span> Petra, Jordan</p>
-                  <ul>
-                    <li><span class="flaticon-sun-umbrella"></span>Read more</li>
-    
-                  </ul>
+            <div class="col-md-4" *ngFor="let obj of home.topRatedTrips">
+                <div class="project-wrap">
+                  <a *ngIf="obj.ImageName; else fallback">
+                    <div class="img" [ngStyle]="{'background-image': 'url(../../assets/images/' + obj.image_Name + ')'}">
+                      <span class="price">${{obj.trip_Price}}/Person</span>
+                    </div>
+                  </a>
+                  <!-- fallback template -->
+                  <ng-template #fallback>
+                    <div class="img" [ngStyle]="{'background-image': 'url(../../assets/images/d56b3a7d-a020-4a7f-b670-c96c627071c4_chero12.jpeg)'}">
+                      <span class="price">${{obj.trip_Price}}/Person</span>
+                    </div>
+                  </ng-template>
+                  <div class="text p-4">
+                    <span class="days">{{ getDaysDifference(obj.start_Date, obj.end_Date) }} Days Tour</span>
+                    <h5 class="title">{{obj.trip_Name}}</h5>
+                    <p class="location"><span class="fa fa-map-marker"></span> {{obj.destination_Location}}</p>
+                    <ul class="read-more-wrapper">
+                      <li><a (click)="showDetails(obj.trip_Id)" class="read-more-link">Read more <i class="bi bi-chevron-right"></i></a></li>
+                    </ul>
                 </div>
               </div>
             </div>
-            <div class="col-md-4 ftco-animate">
+            <!-- <div class="col-md-4 ftco-animate">
               <div class="project-wrap">
                 <a href="#" class="img" style="background-image: url(../../assets/Home/images/Aqaba.jpg);">
                   <span class="price">$550/person</span>
@@ -461,7 +468,7 @@
                   </ul>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="row mt-5">
             <div class="col text-center">

@@ -3,6 +3,7 @@ import { StyleService } from '../Services/style.service';
 import { HomeService } from '../Services/home.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TestimonalComponent } from '../testimonal/testimonal.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,7 +18,8 @@ export class HomeComponent implements OnInit , AfterViewInit {
     public home: HomeService,
     private styleService: StyleService,
     private cdr: ChangeDetectorRef,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public router: Router
   ) {}
 
 
@@ -25,6 +27,9 @@ export class HomeComponent implements OnInit , AfterViewInit {
     this.styleService.applyFullHeight(); // Apply full height initially
     this.home.GetSelectedAboutus();
     this.home.GetAcceptedTestimonies();
+    this.home.GetSelectedHomeElement();
+    this.home.getTopRatedTrips();
+
   }
 
   ngAfterViewInit(): void {
@@ -46,5 +51,16 @@ export class HomeComponent implements OnInit , AfterViewInit {
 }
   openTestimonialDialog(){
     this.dialog.open(TestimonalComponent);
+  }
+  getDaysDifference(startDate: string, endDate: string): number {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const differenceInTime = end.getTime() - start.getTime();
+    const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+    console.log('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk', differenceInDays);
+    return differenceInDays;
+  }
+  showDetails(tripId:number){
+    this.router.navigate(['tripDetails/',tripId]);
   }
 }
