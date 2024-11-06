@@ -450,7 +450,6 @@ NumberOfRegisteredUsers(): Observable<number> {
 
 
 
-  //Static Number
 
   // NumberOfRegisteredUsers(): Observable<number> {
   //   return this.http.get<number>('https://localhost:7004/api/Users/trips/NumberOfRegisteredUsers');
@@ -699,24 +698,6 @@ sendTripDetailsEmail(emailData: any): Observable<any> {
         }
       );
   }
-
-  display_Image1: any;
-  uploadUserImage(file: FormData) {
-    this.http.put('https://localhost:7004/api/Users/uploadImage', file).subscribe((resp: any) => {
-      console.log('uploadUserImage', resp);
-
-      this.display_Image1 = resp.imagename;
-    }, err => {
-
-      console.log('Error');
-
-    })
-  }
-
-
-
-
-
 
   changePassword(payload: any) {
     this.http.put('https://localhost:7004/api/UserLogin/ChangePassword', payload)

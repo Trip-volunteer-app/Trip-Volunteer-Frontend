@@ -164,41 +164,72 @@
             <mat-step>
               <ng-template matStepLabel>Location</ng-template>
               <div class="map-container">
-                <form [formGroup]="locationFormGroup" (ngSubmit)="saveLocations()">
-                  <label for="departure">Departure Location:</label>
-                  <input 
-                    type="text" 
-                    id="departure" 
-                    formControlName="departure_Location" 
-                    placeholder="Enter city, street, or coordinates" 
-                    required
-                    [(ngModel)]="departurePosition" 
-                    (input)="onDepartureInputChange(locationFormGroup.value.departure_Location)" />
-                
-                  <label for="destination">Destination Location:</label>
-                  <input 
-                    type="text" 
-                    id="destination" 
-                    formControlName="destination_Location" 
-                    placeholder="Enter city, street, or coordinates" 
-                    required
-                    [(ngModel)]="distenationPosition" 
-                    (input)="onDestinationInputChange(locationFormGroup.value.destination_Location)" />
-                </form>                  
+                <form [formGroup]="locationFormGroup" (ngSubmit)="saveLocations()" class="location-form">
+                  <mat-form-field class="full-width">
+                    <mat-label>Departure Location</mat-label>
+                    <input 
+                      matInput
+                      type="text" 
+                      id="departure" 
+                      formControlName="departure_Location" 
+                      placeholder="Enter city, street, or coordinates" 
+                      required
+                      [(ngModel)]="departurePosition" 
+                      (input)="onDepartureInputChange(locationFormGroup.value.departure_Location)" />
+                  </mat-form-field>
+
+                  <mat-form-field class="full-width">
+                    <mat-label>Destination Location</mat-label>
+                    <input 
+                      matInput
+                      type="text" 
+                      id="destination" 
+                      formControlName="destination_Location" 
+                      placeholder="Enter city, street, or coordinates" 
+                      required
+                      [(ngModel)]="distenationPosition" 
+                      (input)="onDestinationInputChange(locationFormGroup.value.destination_Location)" />
+                  </mat-form-field>
+                </form> 
+                <div class="marker-controls">
+                  <button 
+                    mat-raised-button 
+                    [ngStyle]="{
+                      'background-color': selectedMarker === 'departure' ? '#f14a3d' : '#c5babe',
+                      'color': 'white',
+                      'box-shadow': selectedMarker === 'departure' ? '0 12px 12px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.15)' : 'none'
+                    }" 
+                    (click)="selectedMarker = 'departure'">
+                    Set Departure
+                  </button>
+                  
+                  <button 
+                  mat-raised-button 
+                  [ngStyle]="{
+                    'background-color': selectedMarker === 'destination' ? '#f14a3d' : '#c5babe',
+                    'color': 'white',
+                    'box-shadow': selectedMarker === 'destination' ? '0 6px 12px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.15)' : 'none'
+                  }"
+                  (click)="selectedMarker = 'destination'">
+                  Set Destination
+                </button>                
+                </div>              
                 <google-map
                   height="400px"
-                  width="400px"
+                  width="100%"
                   [center]="center"
                   [zoom]="zoom"
                   (mapClick)="addMarker($event)">
                   
+                  <!-- Departure Marker -->
                   <map-marker
                     *ngIf="markerPositions.departure"
                     [position]="markerPositions.departure"
                     [label]="'Departure'"
                     [title]="'Departure Location'">
                   </map-marker>
-              
+            
+                  <!-- Destination Marker -->
                   <map-marker
                     *ngIf="markerPositions.destination"
                     [position]="markerPositions.destination"
@@ -206,29 +237,26 @@
                     [title]="'Destination Location'">
                   </map-marker>
                 </google-map>
-              
-                <div class="marker-controls">
-                  <button (click)="selectedMarker = 'departure'">Set Departure</button>
-                  <button (click)="selectedMarker = 'destination'">Set Destination</button>
-                </div>
-              
-                <div *ngIf="markerPositions.departure">
-                  <p>Departure: {{ markerPositions.departure.lat }}, {{ markerPositions.departure.lng }}</p>
-                </div>
-              
-                <div *ngIf="markerPositions.destination">
-                  <p>Destination: {{ markerPositions.destination.lat }}, {{ markerPositions.destination.lng }}</p>
-                </div>
-              
-                <button (click)="saveLocations()">Save Locations</button>
-              </div>      
-              <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext [disabled]="!secondFormGroup.valid"
-                  (click)="onSubmit()">Create</button>
-              </div>                      
-            </mat-step>
 
+                <div *ngIf="markerPositions.departure" class="marker-details">
+                  <p><strong>Departure:</strong> {{ markerPositions.departure.lat }}, {{ markerPositions.departure.lng }}</p>
+                </div>
+                
+                <div *ngIf="markerPositions.destination" class="marker-details">
+                  <p><strong>Destination:</strong> {{ markerPositions.destination.lat }}, {{ markerPositions.destination.lng }}</p>
+                </div>
+            
+                <div class="save-button">
+                  <button class="save-button-specific" mat-raised-button (click)="saveLocations()">Save Locations</button>
+                </div>
+              </div> 
+
+              <div class="navigation-buttons">
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext [disabled]="!secondFormGroup.valid" (click)="onSubmit()">Create</button>
+              </div>
+            </mat-step>
+            
 
             <mat-step >
               <ng-template matStepLabel>Done</ng-template>

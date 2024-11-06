@@ -23,6 +23,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgChartsModule } from 'ng2-charts';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MapComponent } from './map/map.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 import { TripFilterPipe } from '../trip-filter.pipe';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { TripVolunteerFilterPipe } from '../trip-volunteer-filter.pipe';
@@ -32,6 +34,7 @@ import { TripVolunteerFilterPipe } from '../trip-volunteer-filter.pipe';
   declarations: [
     FooterComponent,
     NavbarComponent,
+    MapComponent,
     TripFilterPipe,
     TripVolunteerFilterPipe
     
@@ -49,19 +52,19 @@ import { TripVolunteerFilterPipe } from '../trip-volunteer-filter.pipe';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatSelectModule,
-    FormsModule,
-    
+    FormsModule, 
     NgChartsModule,
+    GoogleMapsModule,
     SweetAlert2Module,
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     })
-
+  ],
     
     // SocialLoginModule
-  ],
+
   // providers: [
   //   {
   //     provide: 'SocialAuthServiceConfig',
@@ -82,6 +85,7 @@ import { TripVolunteerFilterPipe } from '../trip-volunteer-filter.pipe';
   exports: [
     FooterComponent,
     NavbarComponent,
+    MapComponent,
     HttpClientModule,
     MatCardModule,
     FormsModule,

@@ -3,6 +3,8 @@ import { StyleService } from '../Services/style.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { HomeService } from '../Services/home.service';
+import { LocationService } from '../Services/location.service';
+
 import { FormsModule } from '@angular/forms';
 
 
@@ -42,6 +44,7 @@ selectTab(tab: string) {
     public Trip:HomeService,
     private router:Router,
     private route: ActivatedRoute,
+    public location:LocationService,
     public home:HomeService
   ) {}
  
@@ -62,6 +65,8 @@ selectTab(tab: string) {
 
     this.styleService.applyFullHeight(); // Apply full height initially
     this.Trip.getALLTrips();
+    this.location.GetAllLocationsWithTripId();
+    console.log("ddd",this.Trip.Trips)
     console.log("Trip",this.Trip.Trips)
     this.home.AllVolunteersWithTrips();
     console.log("AllVolunteersWithTrip",this.home.AllVolunteersWithTrip);
