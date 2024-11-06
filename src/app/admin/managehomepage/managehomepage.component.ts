@@ -91,12 +91,12 @@ export class ManagehomepageComponent implements OnInit {
   save2() {
     Swal.fire({
       title: 'Are you sure?',
-      text: 'Do you want to proceed with the booking?',
+      text: 'Do you want to proceed with the Update?',
       icon: 'warning',
       showCancelButton: true,  // Adds a cancel button for confirmation
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, book it!'
+      confirmButtonText: 'Yes, update'
     }).then((result) => {
       if (result.isConfirmed) {
         this.home.UpdateHopmePageElements(this.UpdateHomeElements.value)

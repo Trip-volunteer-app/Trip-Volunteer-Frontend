@@ -667,37 +667,6 @@ sendTripDetailsEmail(emailData: any): Observable<any> {
   // }
 
 
-  updateUserData(updatedData: any) {
-    const params = new HttpParams()
-      .set('L_Email', updatedData.email)
-      .set('L_Pass', updatedData.password)
-      .set('L_RePass', updatedData.repassword)
-      .set('r_id', updatedData.role_Id)
-      .set('u_id', updatedData.user_Id)
-      .set('F_Name', updatedData.first_Name)
-      .set('L_Name', updatedData.last_Name)
-      .set('IMG', this.display_Image1)
-      .set('u_Address', updatedData.address)
-      .set('phone', updatedData.phone_Number)
-      .set('L_id', updatedData.login_Id)
-      .set('B_Day', updatedData.birth_Date);
-
-
-    this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
-      .subscribe(
-        result => {
-          console.log(params);
-          console.log("User data updated successfully", result);
-          // window.location.reload();
-          this.toastr.success('successfly update profile');
-        },
-        error => {
-          console.log(params);
-
-          console.error("Error updating user data", error.message);
-        }
-      );
-  }
 
   changePassword(payload: any) {
     this.http.put('https://localhost:7004/api/UserLogin/ChangePassword', payload)
