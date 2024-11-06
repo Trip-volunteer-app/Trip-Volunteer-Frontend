@@ -27,8 +27,8 @@
                 <li class="nav-item dropdown" *ngIf="isLoggedIn" >
                   <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                       <div class="navbar-profile">
-                          <img class="img-xs rounded-circle" [src]="userImage || '../../../assets/default-profile.png'" alt="Profile Image" width="100" height="100">
-                          <p class="mb-0 d-none d-sm-block navbar-profile-name">{{first_Name}} {{last_Name}}</p>
+                          <img class="img-xs rounded-circle" [src]="this.admin.UserInfo.image_Path ? '../../../assets/images/' + this.admin.UserInfo.image_Path : '../../../assets/default-profile.png'" alt="Profile Image" width="100" height="100">
+                          <p class="mb-0 d-none d-sm-block navbar-profile-name">{{this.admin.UserInfo.first_Name}} {{this.admin.UserInfo.last_Name}}</p>
                           <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                       </div>
                   </a>

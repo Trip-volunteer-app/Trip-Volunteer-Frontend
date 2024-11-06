@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild,TemplateRef  } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/Services/admin.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup,Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import {MatDialog,MatDialogRef } from '@angular/material/dialog';
+import Swal from 'sweetalert2';
+import * as SHA256 from 'crypto-js/sha256';
 
 @Component({
   selector: 'app-profile',
@@ -10,24 +13,25 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  isLoggedIn: boolean = false;
+  @ViewChild('callConfirmPassDailog') ConfirmPassDailog !:TemplateRef<any>;  
 
-  login_Id :string |null= null;
-  email: string | null = null;
-  first_Name: string | null = null;
-  last_Name: string | null = null;
-  image_Path: File | null = null;
-  date_Register: string | null = null;
-  address: string | null = null;
-  phone_Number: string | null = null;
-  birth_Date: Date | null = null;
-  password: string | null = null;
-  repassword: string | null = null;
-  user_Id: string | null = null;
-  role_Id: string | null = null;
+  constructor(public admin: AdminService, private router: Router,public toastr: ToastrService,public dialog: MatDialog) {}
 
+  BirthDay:any;
 
-  constructor(public admin: AdminService, private router: Router,public toastr: ToastrService) {}
+  async ngOnInit() {
+    const userFromStorage = localStorage.getItem("user");
+    const user = userFromStorage ? JSON.parse(userFromStorage) : null;
+
+    const userId = Number(user.loginid);
+    await this.admin.GetUserinfoByLoginId(userId);
+    
+    setTimeout(() => {
+      if (this.admin.UserInformation && this.admin.UserInformation.birth_Date) {
+        this.BirthDay = new Date(this.admin.UserInformation.birth_Date)
+        .toLocaleDateString('en-CA');      }
+  }, 4000);
+  }
 
   Users: FormGroup = new FormGroup({
     login_Id: new FormControl(''),
@@ -39,11 +43,57 @@ export class ProfileComponent implements OnInit {
     birth_Date: new FormControl(''),
     image_Path: new FormControl(''),
     user_Id: new FormControl(''),
-    date_Register: new FormControl(''),
-    password: new FormControl(''),
-    repassword: new FormControl(''),
-    role_Id: new FormControl('')
   });
+
+  passwordForm: FormGroup= new FormGroup({
+    password: new FormControl('', [Validators.required])
+  });
+
+  pData:any;
+  dialogRef!: MatDialogRef<any>;
+
+  openConfirmPassDailog(): void {
+    this.dialogRef = this.dialog.open(this.ConfirmPassDailog, {
+      disableClose: true  
+    });
+}
+
+
+ uploadImage(file:any){
+    if(file.length==0) 
+      return; 
+    let fileToUpload=<File> file[0]; 
+    const formData = new FormData(); 
+    formData.append('file', fileToUpload, fileToUpload.name); 
+    this.admin.uploadUserImage(formData); 
+  
+  }
+
+  saveProfile(): void {
+    const enteredPassword = this.passwordForm.get('password')?.value;
+  const hashedEnteredPassword = this.hashPassword(enteredPassword);
+
+  if (hashedEnteredPassword === this.admin.UserInformation.password) {
+    // Password is correct, proceed with the update
+    this.Users.controls['login_Id'].setValue(this.admin.UserInformation.login_Id);
+    this.Users.controls['user_Id'].setValue(this.admin.UserInformation.user_Id);
+    this.Users.controls['email'].setValue(this.admin.UserInformation.email);
+
+    this.admin.updateUserData(this.Users.value, this.admin.UserInformation.image_Path);
+  } else {
+    // Show SweetAlert if the password is incorrect
+    Swal.fire({
+      icon: 'error',
+      title: 'Incorrect Password',
+      text: 'The password you entered is incorrect. Please try again.',
+    });
+  }
+  }
+
+  hashPassword(password: string): string {
+    return SHA256(password).toString();
+  }
+  
 
 
   changePassword: FormGroup = new FormGroup({
@@ -75,104 +125,6 @@ export class ProfileComponent implements OnInit {
       this.admin.changePassword(payload);
     }
   }
-  
- 
-
-
-  ngOnInit(): void {
-    this.checkLoginStatus();
-  }
-  
-
-  checkLoginStatus(): void {
-    const email = localStorage.getItem('email');
-    const token = localStorage.getItem('token');
-    this.isLoggedIn = !!(email && token);
-    this.email = email;
-
-    if (email && token) {
-      this.isLoggedIn = true;
-      // this.admin.getUserData(email);
-      this.getUserData(email);
-      
-      
-    } else {
-      this.isLoggedIn = false;
-    }
-  }
-
-  pData: any = {};
-
-  isDataLoaded: boolean = false;
-
-  getUserData(email: string): void {
-    this.admin.getUserData(email).subscribe(data => {
-      if (data && data.length > 0) {
-        const user: any = data[0];
-        this.pData = { ...user }; 
-
-        // console.log("pData in get User Data",this.pData);
-        
-        if (this.pData.birth_Date) {
-          this.pData.birth_Date = new Date(this.pData.birth_Date).toISOString().split('T')[0];
-        }
-        
-        if (this.pData.date_Register) {
-          this.pData.date_Register = new Date(this.pData.date_Register).toISOString().split('T')[0];
-        }
-        
-        // Assign user data to component properties
-        this.login_Id = user.login_Id;
-        this.email = user.email; 
-        this.first_Name = user.first_Name;
-        this.last_Name = user.last_Name;
-        this.image_Path = user.image_Path;
-        this.date_Register = user.date_Register;
-        this.address = user.address;
-        this.phone_Number = user.phone_Number;
-        this.birth_Date = user.birth_Date;
-        this.role_Id = user.role_Id;
-        this.user_Id = user.user_Id;
-        this.repassword = user.repassword;
-        this.password = user.password;
-        // console.log("user_id",this.user_Id);
-
-        // Set the values in the Users form group
-        this.Users.controls['login_Id'].setValue(user.login_Id);
-        this.Users.controls['user_Id'].setValue(user.user_Id);
-        this.Users.controls['role_Id'].setValue(user.role_Id);
- 
-        
-        this.isDataLoaded = true;
-
-      }
-    });
-  }
-  
-   
-
-
-  onImageChange(event: any): void {
-    if (event.target.files.length > 0) {
-      this.image_Path = event.target.files[0];
-    }
-  }
-
-  saveProfile(): void {
-    if (!this.isDataLoaded) {
-      // console.error("Data not loaded yet.");
-      return; // Prevent saveProfile from running if data is not loaded
-    }
-    const fileData = new FormData();
-    if (this.image_Path) {
-      fileData.append('image_Path', this.image_Path);
-    }
-  
-    // Call the update service with current form values
-    this.admin.updateUserData(this.Users.value);
-    
-
-  }
 
 
   isPasswordFormVisible: boolean = false; // Controls visibility of the form
@@ -190,7 +142,6 @@ export class ProfileComponent implements OnInit {
 
   logout(): void {
     localStorage.clear();
-    this.isLoggedIn = false;
     this.router.navigate(['security/login']);
   }
 }

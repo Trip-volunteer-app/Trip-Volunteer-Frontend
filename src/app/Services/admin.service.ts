@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';  
+import {ToastrService} from 'ngx-toastr';
+import Swal from 'sweetalert2';
+
 
 @Injectable({
   providedIn: 'root'
@@ -526,6 +528,28 @@ console.log('GetAllTripsWithMaxReservations',result);
 
 
 
+UserInfo:any; 
+GetUserByLoginId(id:number){ 
+ this.http.get('https://localhost:7004/api/UserLogin/GetUserinfoByLoginId/'+ id).subscribe(result=>{
+this.UserInfo =result ;  
+console.log("UserInformation",this.UserInfo);
+
+},err=>{
+      console.log(err.message);     
+})}
+//UserInformation
+UserInformation:any; 
+GetUserinfoByLoginId(id:number){ 
+ this.http.get('https://localhost:7004/api/UserLogin/GetUserinfoByLoginId/'+ id).subscribe(result=>{
+this.UserInformation =result ;  
+console.log("UserInformation",this.UserInformation);
+
+},err=>{
+      console.log(err.message);     
+})}
+
+
+
 
   //Charts
   // GetAllAnuualReport2(): Observable<any[]> {
@@ -534,7 +558,87 @@ console.log('GetAllTripsWithMaxReservations',result);
 
 
 
+updateUserData(updatedData: any,image_Path:any) {
+  if(this.display_Image1 == null || undefined){
+  const params = new HttpParams()
+    .set('L_Email', updatedData.email)
+    .set('L_Pass', updatedData.password)
+    .set('L_RePass', updatedData.repassword)
+    .set('r_id', updatedData.role_Id)
+    .set('u_id', updatedData.user_Id)
+    .set('F_Name', updatedData.first_Name)
+    .set('L_Name', updatedData.last_Name)
+    .set('IMG', image_Path) 
+    .set('u_Address', updatedData.address) 
+    .set('phone', updatedData.phone_Number)
+    .set('L_id', updatedData.login_Id) 
+    .set('B_Day', updatedData.birth_Date);
 
+
+  this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
+    .subscribe(
+      result => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'successfly update profile',
+        });
+        this.GetUserinfoByLoginId(updatedData.user_Id);
+
+      },
+      error => {
+        
+        console.error("Error updating user data", error.message);     
+      }
+    );
+  }else{
+    const params = new HttpParams()
+    .set('L_Email', updatedData.email)
+    .set('L_Pass', updatedData.password)
+    .set('L_RePass', updatedData.repassword)
+    .set('r_id', updatedData.role_Id)
+    .set('u_id', updatedData.user_Id)
+    .set('F_Name', updatedData.first_Name)
+    .set('L_Name', updatedData.last_Name)
+    .set('IMG', this.display_Image1) 
+    .set('u_Address', updatedData.address) 
+    .set('phone', updatedData.phone_Number)
+    .set('L_id', updatedData.login_Id) 
+    .set('B_Day', updatedData.birth_Date);
+
+
+  this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
+    .subscribe(
+      result => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'successfly update profile',
+        });
+        this.GetUserinfoByLoginId(updatedData.user_Id);
+      },
+      error => {
+        
+        console.error("Error updating user data", error.message);     
+      }
+    );
+
+  }
+}
+
+
+display_Image1 :any ; 
+
+uploadUserImage(file:FormData){
+  this.http.post('https://localhost:7004/api/Users/uploadImage',file).subscribe((res:any)=>{
+  this.display_Image1=res.image_Path;
+  console.log("imageprofile",res);
+  
+  },err=>{
+    console.log('error');
+  })
+  
+  }
 
 
   //UserData
@@ -542,18 +646,7 @@ console.log('GetAllTripsWithMaxReservations',result);
     return this.http.get(`https://localhost:7004/api/UserLogin/GetUserinfoByEmail?email=${email}`);
   }
 
-// display_Image1 :any ; 
-// uploadUserImage(file: FormData) {
-//   this.http.put('https://localhost:7004/api/Users/uploadImage', file).subscribe((resp:any)=>{  
-//     console.log('uploadUserImage',resp);
-    
-//     this.display_Image1=resp.imagename;
-//   },err=>{
-    
-//     console.log('Error');
-    
-//   })
-// }
+
 getTripDetails(tripId: number): Observable<any> {
   return this.http.get(`https://localhost:7004/api/Trips/GetTripById/${tripId}`);
 }
