@@ -71,6 +71,20 @@ Trips:any=[];
     })
   }
 
+// 
+GetTripVolunteer:any=[];
+GetTripVolunteers(tripId: number) {
+  // Ensure the tripId is part of the URL path
+  this.http.get(`https://localhost:7004/api/Volunteers/GetTripVolunteers/${tripId}`).subscribe(res => {
+    this.GetTripVolunteer = res;
+    console.log("vvvvvvvvvvvvv", res);
+  }, err => {
+    console.log("Error: ", err.message);
+  });
+}
+
+
+
 //booking
 
 CreateBooking(body: any) {
@@ -180,17 +194,25 @@ UpdateBalance(body: any): Promise<void> {
 }
 
 //volunteer Role
-VolunteerRoleByTripId:any;
-GetVolunteerRoleByTripId(id:number){
-  const params = new HttpParams().set('id', id.toString());
 
-  this.http.get("https://localhost:7004/api/TripVolunteerrole/GetVolunteerRoleByTripId",{params}).subscribe(res=>{
-    this.VolunteerRoleByTripId=res;
-    console.log("VolunteerRoleByTripId",this.VolunteerRoleByTripId)
-  },err=>{
-    console.log(err.message);
-  })
+VolunteerRoleByTripId:any;
+GetVolunteerRoleByTripId(id: number) {
+  const params = new HttpParams().set('id', id.toString());
+  console.log('Calling API with params:', params.toString());
+
+  this.http.get("https://localhost:7004/api/TripVolunteerrole/GetVolunteerRoleByTripId", { params }).subscribe(
+    res => {
+      this.VolunteerRoleByTripId = res;
+      console.log("VolunteerRoleByTripId response:", this.VolunteerRoleByTripId); // Log response data
+    },
+    err => {
+      console.error("Error fetching volunteer role:", err); // Log full error object
+    }
+  );
 }
+
+
+
 
 //Booking volunteer
 BookingVolunteer(body:any){
@@ -387,5 +409,24 @@ GetAcceptedTestimonies() {
     })
   }
 
+  volunteer :any = [];
+  searchVolunteers(searchCriteria: any): Observable<any[]> {
+    return this.http.post<any[]>(`https://localhost:7004/api/Volunteers/SearchVolunteers`, searchCriteria);
+  }
+
+  
+
+  AllVolunteersWithTrip:any=[];
+  AllVolunteersWithTrips() {
+  this.http.get("https://localhost:7004/api/Volunteers/AllVolunteersWithTrips").subscribe(
+    res => {
+      this.AllVolunteersWithTrip = res;
+      console.log('AllVolunteersWithTrip',res);
+    },
+    err => {
+      console.log(err.message);
+    }
+  );
+}
 
 }

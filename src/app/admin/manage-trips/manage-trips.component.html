@@ -29,6 +29,7 @@
                             <th> Trip Details </th>
                             <th> Location  </th>
                             <th> Images  </th>
+                            <th> Services  </th>
                             <th> Operations </th>
                           </tr>
                         </thead>
@@ -39,14 +40,17 @@
                               <button mat-button (click)="openEditDailog(admin.TripById)" style="color: rgb(92, 92, 245); font-size: 20px !important;" ><i class="bi bi-pencil-square"></i> </button>
                             </td>
                             <td>              
-                              <button mat-button style="color: rgb(92, 92, 245); font-size: 20px !important;" ><i class="bi bi-pencil-square"></i> </button>
+                              <button mat-button (click)="openlocationEditDailog(location.locationByTripID)" style="color: rgb(92, 92, 245); font-size: 20px !important;" ><i class="bi bi-pencil-square"></i> </button>
                             </td>
                             <td> 
                               <button mat-button (click)="openImages(admin.TripById.trip_Id)" style="color: rgb(92, 92, 245); font-size: 20px !important;" ><i class="bi bi-pencil-square"></i></button>
                             </td>
                             <td> 
+                              <button mat-button (click)="openImages(admin.TripById.trip_Id)" style="color: rgb(92, 92, 245); font-size: 20px !important;" ><i class="bi bi-pencil-square"></i></button>
+                            </td>   
+                            <td> 
                                 <button mat-button (click)="openDeleteDialog(admin.TripById.trip_Id)" style="color: rgb(247, 88, 88); font-size: 20px !important;"><i class="bi bi-trash-fill"></i></button> 
-                            </td>                          
+                            </td>                                                 
                           </tr>                                                 
                         </tbody>
                       </table>
@@ -85,7 +89,71 @@
   </div>
 </ng-template>
 
+<ng-template #callLocationEditDialog>
+  <h2 mat-dialog-title>Update Trip</h2>
+  <mat-dialog-content class="mat-typography map-container">
+  <div >
+    <form [formGroup]="editLocationFormGroup">
+      <label for="departure">Departure Location:</label>
+      <input 
+        type="text" 
+        id="departure" 
+        formControlName="departure_Location" 
+        placeholder="Enter city, street, or coordinates" 
+        required
+        [(ngModel)]="departurePosition" 
+        (input)="onDepartureInputChange(editLocationFormGroup.value.departure_Location)" />
+    
+      <label for="destination">Destination Location:</label>
+      <input 
+        type="text" 
+        id="destination" 
+        formControlName="destination_Location" 
+        placeholder="Enter city, street, or coordinates" 
+        required
+        [(ngModel)]="distenationPosition" 
+        (input)="onDestinationInputChange(editLocationFormGroup.value.destination_Location)" />
+    </form>                  
+    <google-map
+      height="400px"
+      width="400px"
+      [center]="center"
+      [zoom]="zoom"
+      (mapClick)="addMarker($event)">
+      
+      <map-marker
+        *ngIf="markerPositions.departure"
+        [position]="markerPositions.departure"
+        [label]="'Departure'"
+        [title]="'Departure Location'">
+      </map-marker>
+  
+      <map-marker
+        *ngIf="markerPositions.destination"
+        [position]="markerPositions.destination"
+        [label]="'Destination'"
+        [title]="'Destination Location'">
+      </map-marker>
+    </google-map>
+  
+    <div class="marker-controls">
+      <button (click)="selectedMarker = 'departure'">Set Departure</button>
+      <button (click)="selectedMarker = 'destination'">Set Destination</button>
+    </div>
+  
+    <div *ngIf="markerPositions.departure">
+      <p>Departure: {{ markerPositions.departure.lat }}, {{ markerPositions.departure.lng }}</p>
+    </div>
+  
+    <div *ngIf="markerPositions.destination">
+      <p>Destination: {{ markerPositions.destination.lat }}, {{ markerPositions.destination.lng }}</p>
+    </div>
 
+
+    <button (click)="updateLocation()">update Locations</button>
+  </div>      
+</mat-dialog-content>
+</ng-template>
 
 
 <!-- Edit Trip -->

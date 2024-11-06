@@ -75,7 +75,52 @@
                     <li *ngFor="let service of home.tripDetails.services; let i = index">Service {{i + 1}} : {{service.service_Name}} _ {{service.service_Cost}}$</li>
                   </ul>
                 </div>
+
+                <div class="trip-booking">
+                  <p><i class="bi bi-person colored-icon"></i> <strong>Volunteer:</strong></p>
                 
+                  <!-- Check if there are volunteers -->
+                  <table *ngIf="home.GetTripVolunteer && home.GetTripVolunteer.length > 0; else noVolunteers">
+                    <thead>
+                      <tr>
+                        <th>Volunteer #</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role Name</th>
+                        <th>Experience</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let Volunteer of home.GetTripVolunteer; let i = index">
+                        <td>{{i + 1}}</td>
+                        <td>{{Volunteer.first_name}} {{Volunteer.last_name}}</td>
+                        <td>{{Volunteer.email}}</td>
+                        <td>{{Volunteer.rolE_NAMES}}</td>
+                        <td>{{Volunteer.experience}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                
+                  <!-- Fallback message if no volunteers -->
+                  <ng-template #noVolunteers>
+                    <p class="no-volunteers">Not found Accepted volunteer for this Trip</p>
+                  </ng-template>
+                </div>
+                
+                
+<br><br>                
+                
+                <div class="trip-booking">
+                  <p><i class="bi bi-person colored-icon"></i> <strong>Volunteer Role:</strong></p>
+                  <ul *ngIf="home.VolunteerRoleByTripId && home.VolunteerRoleByTripId.length > 0; else noRoleVolunteers">
+                    <li *ngFor="let VolunteerRole of home.VolunteerRoleByTripId; let i = index">Volunteer Role {{i + 1}} :  {{VolunteerRole.role_Name}} </li>
+                  </ul>
+
+                  <ng-template #noRoleVolunteers>
+                    <p>Not found Role volunteer for this Trip</p>
+                  </ng-template>
+                </div>
+
                 <p class="trip-description">
                   {{home.tripDetails.description}}
                 </p>
