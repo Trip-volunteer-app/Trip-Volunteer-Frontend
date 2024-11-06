@@ -290,6 +290,16 @@ export class AdminService {
   }
 
 
+
+// Trip Volunteer Role
+TripVolunteerRole:any=[]; 
+getAllTripVolunteerRole(){ 
+ this.http.get('https://localhost:7004/api/TripVolunteerrole/GetAlltrip_volunteerRoles').subscribe(result=>{
+this.TripVolunteerRole =result ;  
+},err=>{
+      console.log(err.message);     
+})}
+
   DeleteTripVolunteerRole(id: number) {
     this.http.delete('https://localhost:7004/api/ITripVolunteerrole/Deletetrip_volunteerRoles/' + id).subscribe(resp => {
       console.log('the Trip Volunteer Role deleted');
@@ -298,6 +308,7 @@ export class AdminService {
     })
     window.location.reload();
   }
+
 
 
   updateTripVolunteerRole(body: any) {
@@ -419,12 +430,18 @@ export class AdminService {
     })
   }
 
+
+NumberOfRegisteredUsers(): Observable<number> {
+  return this.http.get<number>('https://localhost:7004/api/Users/NumberOfRegisteredUsers');
+}
+
   uploadTripImage(file: FormData) {
     this.http.post('https://localhost:7004/api/TripImage/uploadImage', file).subscribe((res: any) => {
       this.displayImage = res.image_Name;
     }, err => {
       console.log('error');
     })
+
 
   }
 
@@ -436,9 +453,21 @@ export class AdminService {
     return this.http.get<number>('https://localhost:7004/api/Users/trips/NumberOfRegisteredUsers');
   }
 
+
+TripsWithMaxReservations:any=[]; 
+GetAllTripsWithMaxReservations(){ 
+ this.http.get('https://localhost:7004/api/Trips/TripsWithMaxReservations').subscribe(result=>{
+this.TripsWithMaxReservations =result ;  
+console.log('GetAllTripsWithMaxReservations',result);
+
+},err=>{
+      console.log(err.message);     
+})}
+
   NumberOfTrips(): Observable<number> {
     return this.http.get<number>('https://localhost:7004/api/Trips/trips/GetNumberOfTrips');
   }
+
 
 
   NumberOfFinishedTrips(): Observable<number> {
@@ -576,24 +605,6 @@ sendTripDetailsEmail(emailData: any): Observable<any> {
         }
       );
   }
-
-  display_Image1: any;
-  uploadUserImage(file: FormData) {
-    this.http.put('https://localhost:7004/api/Users/uploadImage', file).subscribe((resp: any) => {
-      console.log('uploadUserImage', resp);
-
-      this.display_Image1 = resp.imagename;
-    }, err => {
-
-      console.log('Error');
-
-    })
-  }
-
-
-
-
-
 
   changePassword(payload: any) {
     this.http.put('https://localhost:7004/api/UserLogin/ChangePassword', payload)

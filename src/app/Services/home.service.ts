@@ -238,6 +238,7 @@ const params = new HttpParams()
     .set('LoginId', LoginId.toString());
   this.http.get("https://localhost:7004/api/Volunteers/GetVolunteerByTripId", { params }).subscribe(res=>{
     this.VolunteerByTripId=res;
+    console.log('111111111111111111111111111111111111111111',this.VolunteerByTripId)
     console.log("VolunteerByTripId",this.VolunteerByTripId)
   },err=>{
     console.log(err.message);
@@ -278,17 +279,17 @@ DeleteHomePageElements(id: number) {
 
 CreateHomePageElements(body: any) {
   body.hero_Image = this.imageStorage['hero_Image'];
-  body.image1 = this.imageStorage['image1'];
-  body.image2 = this.imageStorage['image2'];
-  body.image3 = this.imageStorage['image3'];
+  body.logo_Image = this.imageStorage['logo_Image'];
 
   console.log('Final Body:', body);
   this.http.post('https://localhost:7004/api/HomePageElements/CreateHomePageElement/', body).subscribe(
     (response) => {
       console.log('Created successfully');
+      window.location.reload();
     },
     (err) => {
       console.error('Error occurred while creating', err);
+      
     }
   );
 }
@@ -312,9 +313,7 @@ CreateHomePageElements(body: any) {
 
 UpdateHopmePageElements(body:any){
   body.hero_Image = this.imageStorage['hero_Image'];
-  body.image1 = this.imageStorage['image1'];
-  body.image2 = this.imageStorage['image2'];
-  body.image3 = this.imageStorage['image3'];
+  body.logo_Image = this.imageStorage['logo_Image'];
   this.http.put(
     'https://localhost:7004/api/HomePageElements/UpdatHomePageElement',body
   ).subscribe(
@@ -349,7 +348,6 @@ UploadAttachment(file: FormData, apiPath: string, imgNumber: string) {
   }
 }
 UpdateSelectedHomeElement(id: number) {
-  console.log(id,'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
   const params = new HttpParams().set('id', id.toString());
   this.http.put(
     'https://localhost:7004/api/HomePageElements/UpdateHomeSelectStatus', 
@@ -389,5 +387,24 @@ GetAcceptedTestimonies() {
     })
   }
 
+  volunteer :any = [];
+  searchVolunteers(searchCriteria: any): Observable<any[]> {
+    return this.http.post<any[]>(`https://localhost:7004/api/Volunteers/SearchVolunteers`, searchCriteria);
+  }
+
+  
+
+  AllVolunteersWithTrip:any=[];
+  AllVolunteersWithTrips() {
+  this.http.get("https://localhost:7004/api/Volunteers/AllVolunteersWithTrips").subscribe(
+    res => {
+      this.AllVolunteersWithTrip = res;
+      console.log('AllVolunteersWithTrip',res);
+    },
+    err => {
+      console.log(err.message);
+    }
+  );
+}
 
 }

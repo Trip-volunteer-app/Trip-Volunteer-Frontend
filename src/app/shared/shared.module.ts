@@ -27,7 +27,7 @@ import { MapComponent } from './map/map.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { TripFilterPipe } from '../trip-filter.pipe';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-
+import { TripVolunteerFilterPipe } from '../trip-volunteer-filter.pipe';
 
 
 @NgModule({
@@ -35,7 +35,9 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     FooterComponent,
     NavbarComponent,
     MapComponent,
-    TripFilterPipe
+    TripFilterPipe,
+    TripVolunteerFilterPipe
+    
   ],
   imports: [
     CommonModule,
@@ -102,7 +104,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     MatSelectModule,
     MatExpansionModule,
     MatPaginatorModule,
-    TripFilterPipe
+    TripFilterPipe,
+    TripVolunteerFilterPipe
     ]
 })
 export class SharedModule { }

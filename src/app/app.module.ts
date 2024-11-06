@@ -19,6 +19,8 @@ import { TestimonialElementComponent } from './testimonial-element/testimonial-e
 // import { TripFilterPipe } from './trip-filter.pipe';
 import { FormsModule } from '@angular/forms';
 
+// import { TripVolunteerFilterPipe } from './trip-volunteer-filter.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +34,8 @@ import { FormsModule } from '@angular/forms';
     PaymentComponent,
     TestimonalComponent,
     TestimonialElementComponent
+
+    // TripVolunteerFilterPipe
     
   
   ],

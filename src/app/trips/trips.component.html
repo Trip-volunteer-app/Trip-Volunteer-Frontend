@@ -27,9 +27,9 @@
                               aria-orientation="vertical">
                               <a class="nav-link active mr-md-1" id="v-pills-1-tab" data-toggle="pill"
                                   href="#v-pills-1" role="tab" aria-controls="v-pills-1"
-                                  aria-selected="true">Trip</a>
+                                  aria-selected="true" (click)="selectTab('trip')">Trip</a>
                               <a class="nav-link" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2"
-                                  role="tab" aria-controls="v-pills-2" aria-selected="false">Volunteer</a>
+                                  role="tab" aria-controls="v-pills-2" aria-selected="false" (click)="selectTab('volunteer')">Volunteer</a>
                           </div>
                       </div>
                       <div class="col-md-12 tab-wrap">
@@ -60,13 +60,13 @@
                                       <div class="col-lg d-flex">
                                         <div class="form-group p-4">
                                           <label>Min Price</label>
-                                          <input type="number" class="form-control" [(ngModel)]="minPrice">
+                                          <input type="number" class="form-control" placeholder="Min Price"  [(ngModel)]="minPrice">
                                         </div>
                                       </div>
                                       <div class="col-lg d-flex">
                                         <div class="form-group p-4">
                                           <label>Max Price</label>
-                                          <input type="number" class="form-control" [(ngModel)]="maxPrice">
+                                          <input type="number" class="form-control" placeholder="Max Price"  [(ngModel)]="maxPrice">
                                         </div>
                                       </div>
                                     </div>
@@ -74,122 +74,65 @@
                               </div>
 
                               <!-- ******************************************************************************************* -->
-                              <div class="tab-pane fade" id="v-pills-2" role="tabpanel"
-                                  aria-labelledby="v-pills-2-tab">
-                                  <form action="#" class="search-property-1">
+                              <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab">
                                       <div class="row no-gutters">
                                           <div class="col-lg d-flex">
                                               <div class="form-group p-4 border-0">
-                                                  <label for="#">First Name</label>
+                                                  <label style="color: #f15d30;">First Name</label>
                                                   <div class="form-field">
-                                                      <div class="icon"><span class="fa fa-search"></span></div>
+                                                      <!-- <div class="icon"><span class="fa fa-search"></span></div> -->
                                                       <input type="text" class="form-control"
-                                                          placeholder="First Name">
+                                                          placeholder="First Name" [(ngModel)]="first_Name">
                                                   </div>
                                               </div>
                                           </div>
                                           <div class="col-lg d-flex">
                                               <div class="form-group p-4">
-                                                  <label for="#">Last Name</label>
+                                                  <label style="color: #f15d30;">Last Name</label>
                                                   <div class="form-field">
-                                                      <div class="icon"><span class="fa fa-calendar"></span></div>
-                                                      <input type="text" class="form-control checkin_date"
-                                                          placeholder="Last Name">
+                                                      <!-- <div class="icon"><span class="fa fa-calendar"></span></div> -->
+                                                      <input type="text" class="form-control"
+                                                          placeholder="Last Name" [(ngModel)]="last_Name">
                                                   </div>
                                               </div>
                                           </div>
                                           <div class="col-lg d-flex">
                                               <div class="form-group p-4">
-                                                  <label for="#">Trip Name</label>
+                                                  <label style="color: #f15d30;">Trip Name</label>
                                                   <div class="form-field">
-                                                      <div class="icon"><span class="fa fa-calendar"></span></div>
-                                                      <input type="text" class="form-control checkout_date"
-                                                          placeholder="Trip Name">
+                                                      <!-- <div class="icon"><span class="fa fa-calendar"></span></div> -->
+                                                      <input type="text" class="form-control"
+                                                          placeholder="Trip Name" [(ngModel)]="trip_Name">
                                                   </div>
                                               </div>
                                           </div>
                                           <div class="col-lg d-flex">
                                             <div class="form-group p-4">
-                                                <label for="#">Volunteer Role</label>
+                                                <label style="color: #f15d30;">Volunteer Role</label>
                                                 <div class="form-field">
-                                                    <div class="icon"><span class="fa fa-calendar"></span></div>
-                                                    <input type="text" class="form-control checkout_date"
-                                                        placeholder="Volunteer Role">
+                                                    <!-- <div class="icon"><span class="fa fa-calendar"></span></div> -->
+                                                    <input type="text" class="form-control " placeholder="Volunteer Role" [(ngModel)]="role_Name">
                                                 </div>
                                             </div>
                                         </div>
-                                          <div class="col-lg d-flex">
+                                          <!-- <div class="col-lg d-flex">
                                               <div class="form-group d-flex w-100 border-0">
                                                   <div class="form-field w-100 align-items-center d-flex">
                                                       <input type="submit" value="Search"
-                                                          class="align-self-stretch form-control btn btn-primary p-0">
+                                                          class="align-self-stretch form-control btn btn-primary p-0"  (click)="searchVolunteers()">
                                                   </div>
                                               </div>
-                                          </div>
+                                          </div> -->
                                       </div>
-                                  </form>
                               </div>
+                              <section>
+                                <app-map></app-map>
+                              </section>
                           </div>
                       </div>
                   </div>
               </div>
-              <div class="col-lg d-flex">
-                <div class="form-group p-4">
-                  <label for="#">Check-in date</label>
-                  <div class="form-field">
-                    <div class="icon"><span class="fa fa-calendar"></span></div>
-                    <input type="text" class="form-control checkin_date" placeholder="Check In Date">
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg d-flex">
-                <div class="form-group p-4">
-                  <label for="#">Check-out date</label>
-                  <div class="form-field">
-                    <div class="icon"><span class="fa fa-calendar"></span></div>
-                    <input type="text" class="form-control checkout_date" placeholder="Check Out Date">
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg d-flex">
-                <div class="form-group p-4">
-                  <label for="#">Price Limit</label>
-                  <div class="form-field">
-                    <div class="select-wrap">
-                      <div class="icon"><span class="fa fa-chevron-down"></span></div>
-                      <select name="" id="" class="form-control">
-                        <option value="">$5,000</option>
-                        <option value="">$10,000</option>
-                        <option value="">$50,000</option>
-                        <option value="">$100,000</option>
-                        <option value="">$200,000</option>
-                        <option value="">$300,000</option>
-                        <option value="">$400,000</option>
-                        <option value="">$500,000</option>
-                        <option value="">$600,000</option>
-                        <option value="">$700,000</option>
-                        <option value="">$800,000</option>
-                        <option value="">$900,000</option>
-                        <option value="">$1,000,000</option>
-                        <option value="">$2,000,000</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg d-flex">
-                <div class="form-group d-flex w-100 border-0">
-                  <div class="form-field w-100 align-items-center d-flex">
-                    <input type="submit" value="Search" class="align-self-stretch form-control btn btn-primary">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form>
-          <section>
-            <app-map></app-map>
-          </section>
-        </div>
+          </div>
       </div>
   </div>
 </section>
@@ -204,21 +147,86 @@
 <input type="number" class="form-control" placeholder="Min Price" [(ngModel)]="minPrice"> 
 <input type="number" class="form-control" placeholder="Max Price" [(ngModel)]="maxPrice">  -->
 
+<!-- <div>
+  <input [(ngModel)]="first_Name" placeholder="First Name" />
+  <input [(ngModel)]="last_Name" placeholder="Last Name" />
+  <input [(ngModel)]="trip_Name" placeholder="Trip Name" />
+  <input [(ngModel)]="role_Name" placeholder="Volunteer Role" />
+  </div> -->
 
-<section class="ftco-section">
+<!-- <div *ngFor="let volunteer of home.volunteer">
+  <p>{{ volunteer.first_Name }} {{ volunteer.last_Name }}</p>
+  <p>{{ volunteer.trip_Name }}</p>
+  <p>{{ volunteer.role_Name }}</p>
+</div> -->
+
+<!-- <h1>************************************************************</h1> -->
+<!-- <section class="ftco-section">
+  <div class="container">
+    <div class="row">
+      <div *ngFor="let obj of home.AllVolunteersWithTrip | tripVolunteerFilter : first_Name: last_Name : role_Name: trip_Name" class="col-md-4">
+        <div class="project-wrap">        
+          <div class="text p-4">
+            <span class="days">{{ obj.first_Name }} {{obj.last_Name}}</span>
+            <p class="location"><span class="fa fa-map-marker"></span> {{obj.role_Name}}</p>
+            <p class="location"><span class="fa fa-map-marker"></span> {{obj.trip_Name}}</p>
+            <ul class="read-more-wrapper">
+              <li><a (click)="showDetails(obj.trip_Id)" class="read-more-link">Read more <i class="bi bi-chevron-right"></i></a></li>
+            </ul>
+          </div>
+        </div>
+        <br><br>
+      </div>     
+    </div>
+  </div>
+</section> -->
+<!-- <h1>************************************************************</h1> -->
+<section class="ftco-section" *ngIf="activeTab === 'volunteer'">
+  <div class="container">
+    <div class="row" >
+      <div *ngFor="let obj of home.AllVolunteersWithTrip | tripVolunteerFilter : first_Name: last_Name : trip_Name: role_Name" class="col-md-4">
+        <div class="project-wrap">
+          <a>
+            <div class="img" [ngStyle]="{'background-image': 'url(../../assets/default-profile.png)'}">
+            </div>
+          </a>
+          <!-- fallback template -->
+          <ng-template #fallback>
+            <div class="img" [ngStyle]="{'background-image': 'url(../../assets/images/d56b3a7d-a020-4a7f-b670-c96c627071c4_chero12.jpeg)'}">
+            </div>
+          </ng-template>
+          <div class="text p-4">
+            <span class="days">{{ obj.first_Name }} {{ obj.last_Name}}</span>
+            <h5 class="title">{{obj.trip_Name}}</h5>
+            <p class="location"><span class="fa fa-map-marker"></span> {{obj.role_Name}}</p>
+            <ul class="read-more-wrapper">
+              <li><a (click)="showDetails(obj.trip_Id)" class="read-more-link">Read more <i class="bi bi-chevron-right"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ******************************************************************************************  -->
+<section class="ftco-section" *ngIf="activeTab === 'trip'">
   <div class="container">
     <div class="row">
       <div *ngFor="let obj of getPaginatedTrips() | tripFilter: trip_Name : checkInDate : checkOutDate: minPrice : maxPrice" class="col-md-4">
         <div class="project-wrap">
           <a *ngIf="obj.images.length > 0; else fallback">
             <div class="img" [ngStyle]="{'background-image': 'url(../../assets/images/' + obj.images[0].image_Name + ')'}">
-              <span class="price">${{obj.trip_Price}}/person</span>
+              <span class="price">${{obj.trip_Price}}/Person</span>
             </div>
           </a>
           <!-- fallback template -->
           <ng-template #fallback>
             <div class="img" [ngStyle]="{'background-image': 'url(../../assets/images/d56b3a7d-a020-4a7f-b670-c96c627071c4_chero12.jpeg)'}">
-              <span class="price">${{obj.trip_Price}}/person</span>
+              <span class="price">${{obj.trip_Price}}/Person</span>
             </div>
           </ng-template>
           <div class="text p-4">

@@ -17,19 +17,25 @@ export class TripsComponent implements OnInit, AfterViewInit {
 @Output() openDetails= new EventEmitter();
 
 
+activeTab: string = 'trip'; // Default to 'trip' tab
+
+selectTab(tab: string) {
+  this.activeTab = tab;
+}
+
   trip_Name: string = '';
   checkInDate: Date | null = null;
   checkOutDate: Date | null = null;
-  minPrice: number | null = null; // Set to null by default
-  maxPrice: number | null = null; // Set to null by default
-  // volunteerRole: string = '';
+  minPrice: number | null = null; 
+  maxPrice: number | null = null; 
 
-//   selectedOption: string = ''; // initially no option selected
+ 
+ 
+    first_Name: string = '';
+    last_Name: string = '';
+    // trip_Name: string = '';
+    role_Name: string = '';
 
-// setSelectedOption(option: string) {
-//   this.selectedOption = option;
-//   console.log('Selected Option:', this.selectedOption); // Debugging log
-// }
 
   constructor(
     private styleService: StyleService,
@@ -37,9 +43,21 @@ export class TripsComponent implements OnInit, AfterViewInit {
     public Trip:HomeService,
     private router:Router,
     private route: ActivatedRoute,
-    public location:LocationService
+    public location:LocationService,
+    public home:HomeService
   ) {}
  
+
+  // searchVolunteers() {
+  //   this.home.searchVolunteers(this.searchCriteria).subscribe(
+  //     (response) => {
+  //       this.volunteers = response;  // Update the volunteers list with search results
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching volunteers:', error);
+  //     }
+  //   );
+  // }
 
   ngOnInit(): void {
 
@@ -48,6 +66,10 @@ export class TripsComponent implements OnInit, AfterViewInit {
     this.Trip.getALLTrips();
     this.location.GetAllLocationsWithTripId();
     console.log("ddd",this.Trip.Trips)
+    console.log("Trip",this.Trip.Trips)
+    this.home.AllVolunteersWithTrips();
+    console.log("AllVolunteersWithTrip",this.home.AllVolunteersWithTrip);
+
   }
 
   getDaysDifference(startDate: string, endDate: string): number {
