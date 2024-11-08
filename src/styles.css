@@ -1,1 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --admin-background-color: #2e2e2e;
+
+    --admin-card-background-color: #ffffff !important;
+
+    --admin-background-color-under-card: #F9F9F9 !important;
+  }

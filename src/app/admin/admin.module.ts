@@ -29,6 +29,7 @@ import { UsersComponent } from './users/users.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ManageTestimonialComponent } from './manage-testimonial/manage-testimonial.component';
 import { ViewUsersForTripsComponent } from './view-users-for-trips/view-users-for-trips.component';
+import { ManageTripServicesComponent } from './manage-trip-services/manage-trip-services.component';
 // import { TripFilterPipe } from '../trip-filter.pipe';
 
 
@@ -56,7 +57,7 @@ import { ViewUsersForTripsComponent } from './view-users-for-trips/view-users-fo
     ManagehomepageComponent,        
     UsersComponent,
     ProfileComponent,  
-    ManageTestimonialComponent, ViewUsersForTripsComponent
+    ManageTestimonialComponent, ViewUsersForTripsComponent, ManageTripServicesComponent
   ],
   imports: [
     CommonModule,
