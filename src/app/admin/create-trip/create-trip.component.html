@@ -34,11 +34,23 @@
             <mat-step>
               <ng-template matStepLabel>Image</ng-template>
               <form [formGroup]="TripImage">
-                <div class="example-container">
-
-                  <input type="file" #file formControlName="image_Name" (change)="uploadImage(file.files)">
-
-                </div>
+                <div>
+                  <mat-card class="image-upload-card">
+                    <div class="image-upload-header">
+                      <mat-label>Logo Image</mat-label>
+                      <button mat-icon-button (click)="clearImage()" *ngIf="ImagePreview">
+                        <mat-icon>close</mat-icon>
+                      </button>
+                    </div>
+                  
+                    <!-- File input and image preview -->
+                    <input type="file" #file formControlName="image_Name" (change)="uploadImage(file.files)" hidden>
+                    <img *ngIf="ImagePreview" [src]="ImagePreview" class="image-preview" alt="Preview Image">
+                    <button mat-stroked-button color="primary" (click)="file.click()" *ngIf="!ImagePreview">
+                      Upload Image
+                    </button>
+                  </mat-card>
+              </div>
               </form>
               <div>
                 <button mat-button matStepperPrevious>Back</button>
@@ -124,42 +136,69 @@
                 </div>
               </form>
             </mat-step>
-
-            
             <mat-step [stepControl]="ServicesFormGroup" label="Services">
               <form [formGroup]="ServicesFormGroup">
-                <ng-template matStepLabel>Select Services</ng-template>
+                <ng-template matStepLabel>Services</ng-template>
+                <div class="add-service-section">
+                  <button mat-raised-button color="accent" (click)="toggleAddService()" 
+                          matTooltip="Click to add a new service" aria-label="Add New Service">
+                    + Add A New Service
+                  </button>
+                </div>
+
+                <div *ngIf="showAddServiceForm" class="new-service-form" [formGroup]="serviceFormGroup">
+                  <h3>Add New Service</h3>
+                  
+                  <mat-form-field appearance="outline" class="form-field form-field1">
+                    <mat-label>Service Name</mat-label>
+                    <input matInput formControlName="service_Name" placeholder="Enter service name">
+                  </mat-form-field>
+                  
+                  <mat-form-field appearance="outline" class="form-field form-field1">
+                    <mat-label>Service Cost</mat-label>
+                    <input matInput formControlName="service_Cost" placeholder="Enter service cost" type="number">
+                  </mat-form-field>
             
-                <!-- Title at the Beginning -->
-                <h2 class="services-title">Choose Your Services</h2>
+                  <div class="add-service-actions">
+                    <button mat-stroked-button class="cancel-button" (click)="cancelAddService()">Cancel</button>
+                    <button mat-stroked-button class="clear-button" (click)="addService()">Add Service</button>
+                  </div>
+                </div>
+                <div class="hint-text">Add a new service or choose from the list.</div>
+
+                <mat-divider></mat-divider>
                 
-                <!-- Service List with Two Items Per Row -->
+                <h2 class="services-title">Choose Services</h2>
+                
                 <div class="service-list">
                   <div class="service-item" *ngFor="let service of paginatedServices">
                     <mat-checkbox 
                       [checked]="isServiceSelected(service.service_Id)"
                       (change)="onServiceChange($event.checked, service.service_Id)">
-                      {{ service.service_Name }}, Cost= {{ service.service_Cost }}
+                      <span class="service-name">{{ service.service_Name }}</span> 
+                      <span class="service-cost">  {{ service.service_Cost | currency }}</span>
                     </mat-checkbox>
                   </div>
                 </div>
             
-                <!-- Custom Pagination Controls -->
                 <div class="pagination-controls">
-                  <button mat-button (click)="previousPage()" [disabled]="currentPage === 1">
-                    <mat-icon>arrow_back</mat-icon> Previous Page
+                  <button mat-icon-button (click)="previousPage()" [disabled]="currentPage === 1">
+                    <mat-icon>arrow_back</mat-icon>
                   </button>
                   <span class="pagination-text">Page {{ currentPage }} of {{ totalPages }}</span>
-                  <button mat-button (click)="nextPage()" [disabled]="currentPage === totalPages">
-                    Next Page <mat-icon>arrow_forward</mat-icon>
+                  <button mat-icon-button (click)="nextPage()" [disabled]="currentPage === totalPages">
+                    <mat-icon>arrow_forward</mat-icon>
                   </button>
-                </div>            
-                <div>
-                  <button mat-button matStepperPrevious>Back</button>
-                  <button mat-button matStepperNext>Next</button>
                 </div>
-              </form>   
-            </mat-step> 
+            
+                <div class="stepper-buttons">
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-raised-button color="primary" matStepperNext>Next</button>
+                </div>
+              </form>
+            </mat-step>
+            
+            
             
             <mat-step>
               <ng-template matStepLabel>Location</ng-template>

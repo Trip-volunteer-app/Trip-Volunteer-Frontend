@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { LocationService } from '../../Services/location.service';
 import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs';
+import { ChangeDetectorRef } from '@angular/core';
+
 
 @Component({
   selector: 'app-create-trip',
@@ -21,30 +23,37 @@ export class CreateTripComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalPages: number = 0;
-  locationData: any ={};
+  showAddServiceForm = false;
+  selectedServices: any[] = [];
+  Services: any = [];
+  sortedServices = [];
+  previousServices: any = [];
 
+  locationData: any = {};
+  ImagePreview: string | ArrayBuffer | null | undefined = null;
   center: google.maps.LatLngLiteral = { lat: 31.9454, lng: 35.9284 }; // Amman coordinates
   zoom = 10;
   departurePosition: any;
   distenationPosition: any;
-
   markerPositions: {
     departure?: google.maps.LatLngLiteral;
     destination?: google.maps.LatLngLiteral;
   } = {};
-
   selectedMarker: 'departure' | 'destination' = 'departure';
-
   location1: any = []; // Holds the geocoding result
   location2: any = [];
 
-  constructor(public admin: AdminService, private router: Router,
-    public location: LocationService, private http: HttpClient) { }
+  constructor(
+    public admin: AdminService,
+    private router: Router,
+    public location: LocationService,
+    private http: HttpClient,
+    private cdr: ChangeDetectorRef) { }
 
-    async ngOnInit(): Promise<void> {
+
+  async ngOnInit(): Promise<void> {
     this.admin.getAllCategories();
     await this.admin.getAllServices();
-    console.log(this.admin.Services);
     this.totalPages = Math.ceil(this.admin.Services.length / this.itemsPerPage);
     this.updatePaginatedServices();
   }
@@ -79,6 +88,10 @@ export class CreateTripComponent implements OnInit {
     destination_Longitude: new FormControl('', Validators.required),
   });
 
+  serviceFormGroup: FormGroup = new FormGroup({
+    service_Name: new FormControl('', Validators.required,),
+    service_Cost: new FormControl('', [Validators.required, Validators.min(0)])
+  });
 
   selectedCategoryId: number | null = null;
 
@@ -102,13 +115,20 @@ export class CreateTripComponent implements OnInit {
 
 
   uploadImage(file: any) {
-    if (file.length == 0)
-      return;
-    let fileToUpload = <File>file[0];
+    if (file.length === 0) return;
+  
+    const fileToUpload = <File>file[0];
     const formData = new FormData();
-    formData.append('file', fileToUpload, fileToUpload.name)
-    this.admin.uploadTripImage(formData);
+    formData.append('file', fileToUpload, fileToUpload.name);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      this.ImagePreview = e.target?.result;
+    };
+    reader.readAsDataURL(fileToUpload);
   }
+  
+
+  
 
   onSubmit(): void {
     if (this.secondFormGroup.valid && this.ServicesFormGroup.valid && this.locationData) {
@@ -120,11 +140,11 @@ export class CreateTripComponent implements OnInit {
         SelectedServices: this.ServicesFormGroup.value.selectedServices,
         ...this.locationFormGroup.value
       };
-      
+
       this.admin.CreateTrip(tripData);
       console.log('Form Submitted:', tripData);
     }
-  } 
+  }
   back() {
     this.router.navigate(['admin/TripsInformation']);
 
@@ -238,9 +258,9 @@ export class CreateTripComponent implements OnInit {
       this.getGeocodeInfo(destination, 'destination'); // Call the API with the current input value
     }
   }
-  updatePaginatedServices(): void {
+  async updatePaginatedServices(): Promise<void> {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    this.paginatedServices = this.admin.Services.slice(startIndex, startIndex + this.itemsPerPage);
+    this.paginatedServices = this.admin.sortedServices.slice(startIndex, startIndex + this.itemsPerPage);
   }
   onServiceChange(isChecked: boolean, serviceId: number) {
 
@@ -256,10 +276,9 @@ export class CreateTripComponent implements OnInit {
       // Remove the service ID if unchecked
       selectedServices.setValue(currentSelection.filter(id => id !== serviceId));
     }
-    console.log(selectedServices.value)
+    console.log('selectedServices', selectedServices.value)
   }
 
-  // Helper method to check if a service ID is selected
   isServiceSelected(serviceId: number): boolean {
     return (this.ServicesFormGroup.get('selectedServices')?.value as number[]).includes(serviceId);
   }
@@ -282,4 +301,47 @@ export class CreateTripComponent implements OnInit {
       this.updatePaginatedServices();
     }
   }
+
+  toggleAddService() {
+    this.showAddServiceForm = !this.showAddServiceForm;
+  }
+
+  async cancelAddService() {
+    this.showAddServiceForm = false;
+    this.ServicesFormGroup.patchValue({
+      newServiceName: '',
+      newServiceCost: ''
+    });
+  }
+
+  async addService() {
+    try {
+      this.previousServices = [...this.admin.sortedServices];
+      await this.admin.CreateService(this.serviceFormGroup.value);
+      await this.admin.getAllServices();
+      console.log('Updated Services List:', this.admin.sortedServices);
+      const newService: any = this.admin.sortedServices.find((service: any) =>
+        !this.previousServices.some((prevService: any) => prevService.service_Id === service.service_Id)
+      );
+      if (newService) {
+        const currentSelectedServices = this.ServicesFormGroup.value.selectedServices || [];
+        this.ServicesFormGroup.patchValue({
+          selectedServices: [...currentSelectedServices, newService.service_Id]
+        });
+        console.log('Updated selected services:', this.ServicesFormGroup.value.selectedServices);
+      }
+      this.cdr.detectChanges();
+      this.updatePaginatedServices();
+      this.cancelAddService();
+    } catch (error) {
+      console.error('Error adding service:', error);
+    }
+  }
+
+  clearImage(): void {
+    this.ImagePreview = null;
+    const control = this.TripImage.get('image_Name');
+    control?.reset();
+    control?.markAsTouched();
+}
 }
