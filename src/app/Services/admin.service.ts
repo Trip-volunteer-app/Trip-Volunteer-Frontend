@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';  
-import {ToastrService} from 'ngx-toastr';
+import { Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 
 
@@ -66,12 +66,13 @@ export class AdminService {
 
   // Services
   Services: any = [];
+  sortedServices = [];
   async getAllServices(): Promise<void> {
     try {
       const res = await this.http.get('https://localhost:7004/api/Service').toPromise();
       this.Services = res;
-      console.log(this.Services);
-
+      this.sortedServices = this.Services.sort((a: any, b: any) => (b.service_Id - a.service_Id));
+      console.log('sortedServicessortedServices', this.sortedServices)
     } catch (error) {
       console.error('Error fetching selected element:', error);
     }
@@ -100,17 +101,12 @@ export class AdminService {
 
   updateServices(body: any) {
     this.http.put('https://localhost:7004/api/Service/UpdateService', body).subscribe((resp) => {
+      console.log('bodybodybodybodybodybodybody')
       console.log('Updated');
     }, err => {
       console.log('error');
     })
   }
-
-
-
-
-
-
 
   // VolunteerRole
   VolunteerRole: any = [];
@@ -294,14 +290,15 @@ export class AdminService {
 
 
 
-// Trip Volunteer Role
-TripVolunteerRole:any=[]; 
-getAllTripVolunteerRole(){ 
- this.http.get('https://localhost:7004/api/TripVolunteerrole/GetAlltrip_volunteerRoles').subscribe(result=>{
-this.TripVolunteerRole =result ;  
-},err=>{
-      console.log(err.message);     
-})}
+  // Trip Volunteer Role
+  TripVolunteerRole: any = [];
+  getAllTripVolunteerRole() {
+    this.http.get('https://localhost:7004/api/TripVolunteerrole/GetAlltrip_volunteerRoles').subscribe(result => {
+      this.TripVolunteerRole = result;
+    }, err => {
+      console.log(err.message);
+    })
+  }
 
   DeleteTripVolunteerRole(id: number) {
     this.http.delete('https://localhost:7004/api/ITripVolunteerrole/Deletetrip_volunteerRoles/' + id).subscribe(resp => {
@@ -434,9 +431,9 @@ this.TripVolunteerRole =result ;
   }
 
 
-NumberOfRegisteredUsers(): Observable<number> {
-  return this.http.get<number>('https://localhost:7004/api/Users/NumberOfRegisteredUsers');
-}
+  NumberOfRegisteredUsers(): Observable<number> {
+    return this.http.get<number>('https://localhost:7004/api/Users/NumberOfRegisteredUsers');
+  }
 
   uploadTripImage(file: FormData) {
     this.http.post('https://localhost:7004/api/TripImage/uploadImage', file).subscribe((res: any) => {
@@ -456,15 +453,16 @@ NumberOfRegisteredUsers(): Observable<number> {
   // }
 
 
-TripsWithMaxReservations:any=[]; 
-GetAllTripsWithMaxReservations(){ 
- this.http.get('https://localhost:7004/api/Trips/TripsWithMaxReservations').subscribe(result=>{
-this.TripsWithMaxReservations =result ;  
-console.log('GetAllTripsWithMaxReservations',result);
+  TripsWithMaxReservations: any = [];
+  GetAllTripsWithMaxReservations() {
+    this.http.get('https://localhost:7004/api/Trips/TripsWithMaxReservations').subscribe(result => {
+      this.TripsWithMaxReservations = result;
+      console.log('GetAllTripsWithMaxReservations', result);
 
-},err=>{
-      console.log(err.message);     
-})}
+    }, err => {
+      console.log(err.message);
+    })
+  }
 
   NumberOfTrips(): Observable<number> {
     return this.http.get<number>('https://localhost:7004/api/Trips/trips/GetNumberOfTrips');
@@ -528,25 +526,27 @@ console.log('GetAllTripsWithMaxReservations',result);
 
 
 
-UserInfo:any; 
-GetUserByLoginId(id:number){ 
- this.http.get('https://localhost:7004/api/UserLogin/GetUserinfoByLoginId/'+ id).subscribe(result=>{
-this.UserInfo =result ;  
-console.log("UserInformation",this.UserInfo);
+  UserInfo: any;
+  GetUserByLoginId(id: number) {
+    this.http.get('https://localhost:7004/api/UserLogin/GetUserinfoByLoginId/' + id).subscribe(result => {
+      this.UserInfo = result;
+      console.log("UserInformation", this.UserInfo);
 
-},err=>{
-      console.log(err.message);     
-})}
-//UserInformation
-UserInformation:any; 
-GetUserinfoByLoginId(id:number){ 
- this.http.get('https://localhost:7004/api/UserLogin/GetUserinfoByLoginId/'+ id).subscribe(result=>{
-this.UserInformation =result ;  
-console.log("UserInformation",this.UserInformation);
+    }, err => {
+      console.log(err.message);
+    })
+  }
+  //UserInformation
+  UserInformation: any;
+  GetUserinfoByLoginId(id: number) {
+    this.http.get('https://localhost:7004/api/UserLogin/GetUserinfoByLoginId/' + id).subscribe(result => {
+      this.UserInformation = result;
+      console.log("UserInformation", this.UserInformation);
 
-},err=>{
-      console.log(err.message);     
-})}
+    }, err => {
+      console.log(err.message);
+    })
+  }
 
 
 
@@ -558,86 +558,86 @@ console.log("UserInformation",this.UserInformation);
 
 
 
-updateUserData(updatedData: any,image_Path:any) {
-  if(this.display_Image1 == null || undefined){
-  const params = new HttpParams()
-    .set('L_Email', updatedData.email)
-    .set('L_Pass', updatedData.password)
-    .set('L_RePass', updatedData.repassword)
-    .set('r_id', updatedData.role_Id)
-    .set('u_id', updatedData.user_Id)
-    .set('F_Name', updatedData.first_Name)
-    .set('L_Name', updatedData.last_Name)
-    .set('IMG', image_Path) 
-    .set('u_Address', updatedData.address) 
-    .set('phone', updatedData.phone_Number)
-    .set('L_id', updatedData.login_Id) 
-    .set('B_Day', updatedData.birth_Date);
+  updateUserData(updatedData: any, image_Path: any) {
+    if (this.display_Image1 == null || undefined) {
+      const params = new HttpParams()
+        .set('L_Email', updatedData.email)
+        .set('L_Pass', updatedData.password)
+        .set('L_RePass', updatedData.repassword)
+        .set('r_id', updatedData.role_Id)
+        .set('u_id', updatedData.user_Id)
+        .set('F_Name', updatedData.first_Name)
+        .set('L_Name', updatedData.last_Name)
+        .set('IMG', image_Path)
+        .set('u_Address', updatedData.address)
+        .set('phone', updatedData.phone_Number)
+        .set('L_id', updatedData.login_Id)
+        .set('B_Day', updatedData.birth_Date);
 
 
-  this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
-    .subscribe(
-      result => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Success!',
-          text: 'successfly update profile',
-        });
-        this.GetUserinfoByLoginId(updatedData.user_Id);
+      this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
+        .subscribe(
+          result => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Success!',
+              text: 'successfly update profile',
+            });
+            this.GetUserinfoByLoginId(updatedData.user_Id);
 
-      },
-      error => {
-        
-        console.error("Error updating user data", error.message);     
-      }
-    );
-  }else{
-    const params = new HttpParams()
-    .set('L_Email', updatedData.email)
-    .set('L_Pass', updatedData.password)
-    .set('L_RePass', updatedData.repassword)
-    .set('r_id', updatedData.role_Id)
-    .set('u_id', updatedData.user_Id)
-    .set('F_Name', updatedData.first_Name)
-    .set('L_Name', updatedData.last_Name)
-    .set('IMG', this.display_Image1) 
-    .set('u_Address', updatedData.address) 
-    .set('phone', updatedData.phone_Number)
-    .set('L_id', updatedData.login_Id) 
-    .set('B_Day', updatedData.birth_Date);
+          },
+          error => {
+
+            console.error("Error updating user data", error.message);
+          }
+        );
+    } else {
+      const params = new HttpParams()
+        .set('L_Email', updatedData.email)
+        .set('L_Pass', updatedData.password)
+        .set('L_RePass', updatedData.repassword)
+        .set('r_id', updatedData.role_Id)
+        .set('u_id', updatedData.user_Id)
+        .set('F_Name', updatedData.first_Name)
+        .set('L_Name', updatedData.last_Name)
+        .set('IMG', this.display_Image1)
+        .set('u_Address', updatedData.address)
+        .set('phone', updatedData.phone_Number)
+        .set('L_id', updatedData.login_Id)
+        .set('B_Day', updatedData.birth_Date);
 
 
-  this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
-    .subscribe(
-      result => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Success!',
-          text: 'successfly update profile',
-        });
-        this.GetUserinfoByLoginId(updatedData.user_Id);
-      },
-      error => {
-        
-        console.error("Error updating user data", error.message);     
-      }
-    );
+      this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
+        .subscribe(
+          result => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Success!',
+              text: 'successfly update profile',
+            });
+            this.GetUserinfoByLoginId(updatedData.user_Id);
+          },
+          error => {
 
+            console.error("Error updating user data", error.message);
+          }
+        );
+
+    }
   }
-}
 
 
-display_Image1 :any ; 
+  display_Image1: any;
 
-uploadUserImage(file:FormData){
-  this.http.post('https://localhost:7004/api/Users/uploadImage',file).subscribe((res:any)=>{
-  this.display_Image1=res.image_Path;
-  console.log("imageprofile",res);
-  
-  },err=>{
-    console.log('error');
-  })
-  
+  uploadUserImage(file: FormData) {
+    this.http.post('https://localhost:7004/api/Users/uploadImage', file).subscribe((res: any) => {
+      this.display_Image1 = res.image_Path;
+      console.log("imageprofile", res);
+
+    }, err => {
+      console.log('error');
+    })
+
   }
 
 
@@ -647,20 +647,20 @@ uploadUserImage(file:FormData){
   }
 
 
-getTripDetails(tripId: number): Observable<any> {
-  return this.http.get(`https://localhost:7004/api/Trips/GetTripById/${tripId}`);
-}
-private  apiUrl = 'https://localhost:7004/api';
-sendTripDetailsEmail(emailData: any): Observable<any> {
-  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  return this.http.post(`${this.apiUrl}/Volunteers/sendTripDetailsEmail`, emailData, { headers });
-}
+  getTripDetails(tripId: number): Observable<any> {
+    return this.http.get(`https://localhost:7004/api/Trips/GetTripById/${tripId}`);
+  }
+  private apiUrl = 'https://localhost:7004/api';
+  sendTripDetailsEmail(emailData: any): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(`${this.apiUrl}/Volunteers/sendTripDetailsEmail`, emailData, { headers });
+  }
 
 
 
-// sendTripDetailsEmail(emailData: any): Observable<any> {
-//   return this.http.post('https://localhost:7004/api/Volunteers/sendTripDetailsEmail', emailData);
-// }
+  // sendTripDetailsEmail(emailData: any): Observable<any> {
+  //   return this.http.post('https://localhost:7004/api/Volunteers/sendTripDetailsEmail', emailData);
+  // }
 
   // updateUserData(updatedData: any): Observable<any> {
   //   return this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', updatedData);
@@ -751,5 +751,34 @@ sendTripDetailsEmail(emailData: any): Observable<any> {
     }, err => {
       console.log(err.message);
     })
+  }
+
+  //create a service(admin)
+  async CreateService(body: any): Promise<void> {
+    try {
+      await this.http.post('https://localhost:7004/api/Service/CreateService', body).toPromise();
+      console.log('Created successfully');
+    } catch (error) {
+      console.error('Error creating', error);
+    }
+  }
+
+  async CreateServiceForTrip(body: any): Promise<void> {
+    try {
+      console.log('Final Body:', body);
+      await this.http.post('https://localhost:7004/api/Service/CreateServiceForTrip', body).toPromise();
+      console.log('the service Added');
+    } catch (error) {
+      console.error('Error creating', error);
+    }
+  }
+  async CreateTripServiceForServicesList(body: any): Promise<void> {
+    try {
+      console.log('Final Body:', body);
+      await this.http.post('https://localhost:7004/api/serviceTripe/CreateTripServiceForServicesList', body).toPromise();
+      console.log('the trip services Added');
+    } catch (error) {
+      console.error('Error creating', error);
+    }
   }
 }

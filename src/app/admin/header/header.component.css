@@ -7495,9 +7495,9 @@
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #ffffff;
+    color: var(--admin-background-color-under-card);
     text-align: left;
-    background-color: #fff; }
+    background-color: #F9F9F9; }
   
   [tabindex="-1"]:focus:not(:focus-visible) {
     outline: 0 !important; }
@@ -9787,7 +9787,7 @@
     color: #ffffff;
     text-align: left;
     list-style: none;
-    background-color: #191c24;
+    background-color: var(--admin-background-color);
     background-clip: padding-box;
     border: 1px solid #2c2e33;
     border-radius: 0.25rem; }
@@ -11399,7 +11399,7 @@
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
-    background-color: #191c24;
+    background-color:var(--admin-background-color);
     background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0.25rem; }
@@ -15716,7 +15716,7 @@
   html {
     overflow-x: hidden;
     padding-right: 0 !important;
-    background-color: #191c24; }
+    background-color: var(--admin-background-color); }
   
   *:-moz-full-screen,
   *:-webkit-full-screen,
@@ -19027,7 +19027,7 @@
       color: #ffffff; }
   
   .fc-external-events .fc-event {
-    background: #191c24;
+    background: var(--admin-background-color);
     color: #ffffff;
     border-width: 0 0 0 4px;
     padding: 16px;
@@ -20340,7 +20340,7 @@
   /* Navbar */
   .navbar {
     font-weight: normal;
-    background: #191c24;
+    background: var(--admin-background-color);
     left: 244px;
     transition: left 0.25s ease;
     -webkit-transition: left 0.25s ease;
@@ -20354,7 +20354,7 @@
       -webkit-transition: width 0.25s ease, background 0.25s ease;
       -moz-transition: width 0.25s ease, background 0.25s ease;
       -ms-transition: width 0.25s ease, background 0.25s ease;
-      background: #191c24;
+      background: var(--admin-background-color);
       width: 244px;
       height: 70px; }
       @media (max-width: 991px) {
@@ -20450,7 +20450,7 @@
         .navbar .navbar-menu-wrapper .count-indicator .count-number {
           position: absolute;
           border-radius: 100%;
-          border: 2px solid #191c24; }
+          border: 2px solid var(--admin-background-color); }
         .navbar .navbar-menu-wrapper .count-indicator .count-symbol {
           top: 17px;
           right: -3px;
@@ -20591,7 +20591,7 @@
               margin-left: 0;
               margin-right: auto; } }
       .navbar .navbar-menu-wrapper .search input {
-        background: #191c24;
+        background: var(--admin-background-color);
         padding: 13px 20px 11px 20px;
         border: 1px solid #2c2e33; }
         .navbar .navbar-menu-wrapper .search input::placeholder {
@@ -20623,7 +20623,7 @@
   /* Sidebar */
   .sidebar {
     min-height: calc(100vh - 70px);
-    background: #191c24;
+    background: var(--admin-background-color);
     font-weight: normal;
     padding: 0;
     width: 244px;
@@ -20637,7 +20637,7 @@
       -webkit-transition: width 0.25s ease, background 0.25s ease;
       -moz-transition: width 0.25s ease, background 0.25s ease;
       -ms-transition: width 0.25s ease, background 0.25s ease;
-      background: #191c24;
+      background: var(--admin-background-color);
       width: 244px;
       height: 70px; }
       @media (max-width: 991px) {
@@ -20814,7 +20814,7 @@
                 .sidebar .nav .nav-item.profile .profile-desc .profile-pic .count-indicator .count-number {
                   position: absolute;
                   border-radius: 100%;
-                  border: 2px solid #191c24; }
+                  border: 2px solid var(--admin-background-color); }
                 .sidebar .nav .nav-item.profile .profile-desc .profile-pic .count-indicator .count-symbol {
                   top: 17px;
                   right: -3px;
@@ -21051,7 +21051,7 @@
             left: 70px;
             width: 190px; }
             .sidebar-dark.sidebar-icon-only .sidebar .nav .nav-item.hover-open .collapse, .sidebar-dark.sidebar-icon-only .sidebar .nav .nav-item.hover-open .collapsing {
-              background: #191c24; }
+              background: var(--admin-background-color); }
             .rtl.sidebar-icon-only .sidebar .nav .nav-item.hover-open .collapse, .rtl.sidebar-icon-only .sidebar .nav .nav-item.hover-open .collapsing {
               left: auto;
               right: 70px;
@@ -21133,4 +21133,6 @@
     flex-grow: 1; }
   
   /*# sourceMappingURL=maps/style.css.map */
-  
+  .mat-typography {
+    background-color: #0050e3 !important;
+  }

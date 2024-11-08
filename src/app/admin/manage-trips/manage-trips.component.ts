@@ -7,6 +7,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { LocationService } from 'src/app/Services/location.service';
+import { ChangeDetectorRef } from '@angular/core';
+
 
 @Component({
   selector: 'app-manage-trips',
@@ -20,31 +22,29 @@ export class ManageTripsComponent implements OnInit{
   @ViewChild('callLocationEditDialog') EditLocationDailog !:TemplateRef<any>; 
   @ViewChild('departureInput') departureInput!: ElementRef; // Reference to input field
   @ViewChild('destinationInput') destinationInput!: ElementRef;
-  locationData: any ={};
 
+  locationData: any ={};
   center: google.maps.LatLngLiteral = { lat: 31.9454, lng: 35.9284 }; // Amman coordinates
   zoom = 10;
   departurePosition: any;
   distenationPosition: any;
-
   markerPositions: {
     departure?: google.maps.LatLngLiteral;
     destination?: google.maps.LatLngLiteral;
   } = {};
-
   selectedMarker: 'departure' | 'destination' = 'departure';
-
   location1: any = []; // Holds the geocoding result
   location2: any = []; 
-
   tripId!: number; 
+
   constructor(
     public admin:AdminService,
     public location:LocationService,
     public dialog: MatDialog,
     private router:Router,
     private route: ActivatedRoute,
-    private http: HttpClient)
+    private http: HttpClient,
+    private cdr: ChangeDetectorRef)
   {}
 
   async ngOnInit(): Promise<void> {
@@ -54,11 +54,9 @@ export class ManageTripsComponent implements OnInit{
       console.log("TripId:", this.tripId);
       if (this.tripId) {
         this.admin.GetTripById(this.tripId);
-        this.admin.GetServicesByTripID(this.tripId);
         await this.location.GetLocationByTripId(this.tripId);
         this.departurePosition = this.location.locationByTripID.departure_Location;
         this.distenationPosition= this.location.locationByTripID.destination_Location;
-        console.log(this.admin.tripServices);
         this.markerPositions.departure = {
           lat: this.location.locationByTripID.departure_Latitude,
           lng: this.location.locationByTripID.departure_Longitude
@@ -223,5 +221,9 @@ export class ManageTripsComponent implements OnInit{
     console.log('formformformformformform',this.editLocationFormGroup.value)
     this.location.UpdateAbout(this.editLocationFormGroup.value);
   }
+  openServices(tripId:number){
+    this.router.navigate(['admin/ManageServices/', tripId]);
+  }
+  
 }
 
