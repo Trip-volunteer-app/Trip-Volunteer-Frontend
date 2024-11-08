@@ -237,5 +237,12 @@ export class ManageTripServicesComponent implements OnInit {
       !this.admin.tripServices.some((tripService: any) => tripService.service_Id === service.service_Id)
     );
   }
+  return(){
+    this.router.navigate(['admin/TripsInformation']);
+  }
+  back(id:number){
+    this.router.navigate(['admin/ManageTrips/', id]);
+
+  }
 }
 
