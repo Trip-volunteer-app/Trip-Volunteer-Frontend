@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';  
-import {ToastrService} from 'ngx-toastr';
+import { Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 
 
@@ -66,12 +66,13 @@ export class AdminService {
 
   // Services
   Services: any = [];
+  sortedServices = [];
   async getAllServices(): Promise<void> {
     try {
       const res = await this.http.get('https://localhost:7004/api/Service').toPromise();
       this.Services = res;
-      console.log(this.Services);
-
+      this.sortedServices = this.Services.sort((a: any, b: any) => (b.service_Id - a.service_Id));
+      console.log('sortedServicessortedServices', this.sortedServices)
     } catch (error) {
       console.error('Error fetching selected element:', error);
     }
@@ -100,17 +101,12 @@ export class AdminService {
 
   updateServices(body: any) {
     this.http.put('https://localhost:7004/api/Service/UpdateService', body).subscribe((resp) => {
+      console.log('bodybodybodybodybodybodybody')
       console.log('Updated');
     }, err => {
       console.log('error');
     })
   }
-
-
-
-
-
-
 
   // VolunteerRole
   VolunteerRole: any = [];
@@ -122,6 +118,27 @@ export class AdminService {
     })
   }
 
+  VolunteerRoles: any = [];
+  SortedVolunteerRoles = [];
+  async getAllVolunteerRoles(): Promise<void> {
+    try {
+      const res = await this.http.get('https://localhost:7004/api/VolunteerRoles/GetAllVolunteerRoles').toPromise();
+      this.VolunteerRoles = res;
+      this.SortedVolunteerRoles= this.VolunteerRoles.sort((a: any, b: any) => (b.volunteer_Role_Id - a.volunteer_Role_Id));
+      console.log('sortedServicessortedServices', this.SortedVolunteerRoles)
+    } catch (error) {
+      console.error('Error fetching selected element:', error);
+    }
+  }
+
+  async CreateVolunteerRoles(body: any): Promise<void> {
+    try {
+      await this.http.post('https://localhost:7004/api/VolunteerRoles/CreateVolunteerRole', body).toPromise();
+      console.log('the Volunteer Role created');
+    } catch (error) {
+      console.error('Error creating', error);
+    }
+  }
 
   CreateVolunteerRole(body: any) {
     this.http.post('https://localhost:7004/api/VolunteerRoles/CreateVolunteerRole', body).subscribe((resp) => {
@@ -132,7 +149,6 @@ export class AdminService {
       window.location.reload();
     })
   }
-
 
   DeleteVolunteerRole(id: number) {
     this.http.delete('https://localhost:7004/api/VolunteerRoles/DeleteVolunteerRole/' + id).subscribe(resp => {
@@ -153,7 +169,35 @@ export class AdminService {
   }
 
 
+  tripVolunteers: any = [];
+  async GetVolunteerRoleByTripID(trip_Id: number): Promise<void> {
+    try {
+      const res = await this.http.get(`https://localhost:7004/api/VolunteerRoles/GetRoleByTripID/${trip_Id}`).toPromise();
+      this.tripVolunteers = res;
+      console.log
+    } catch (error) {
+      console.error('Error creating', error);
+    }
+  }
 
+  async CreateTripVRoleForVRolesList(body: any): Promise<void> {
+    try {
+      console.log('Final Body:', body);
+      await this.http.post('https://localhost:7004/api/TripVolunteerrole/CreateTripVRoleForVRolesList', body).toPromise();
+      console.log('the trip services Added');
+    } catch (error) {
+      console.error('Error creating', error);
+    }
+  }
+  async CreateVolunteerRoleForTrip(body: any): Promise<void> {
+    try {
+      console.log('Final Body:', body);
+      await this.http.post('https://localhost:7004/api/VolunteerRoles/CreateVolunteerRoleForTrip', body).toPromise();
+      console.log('the service Added');
+    } catch (error) {
+      console.error('Error creating', error);
+    }
+  }
 
 
   // Volunteer
@@ -264,24 +308,6 @@ export class AdminService {
   }
 
 
-
-
-
-
-
-
-
-  // Trip Volunteer Role
-  // TripVolunteerRole: any = [];
-  // getAllTripVolunteerRole() {
-  //   this.http.get('https://localhost:7004/api/ITripVolunteerrole/GetAlltrip_volunteerRoles').subscribe(result => {
-  //     this.TripVolunteerRole = result;
-  //   }, err => {
-  //     console.log(err.message);
-  //   })
-  // }
-
-
   CreateTripVolunteerRole(body: any) {
     this.http.post('https://localhost:7004/api/ITripVolunteerrole/CREATEtrip_volunteerRoles', body).subscribe((resp) => {
       console.log('the Trip Volunteer Role created');
@@ -294,14 +320,15 @@ export class AdminService {
 
 
 
-// Trip Volunteer Role
-TripVolunteerRole:any=[]; 
-getAllTripVolunteerRole(){ 
- this.http.get('https://localhost:7004/api/TripVolunteerrole/GetAlltrip_volunteerRoles').subscribe(result=>{
-this.TripVolunteerRole =result ;  
-},err=>{
-      console.log(err.message);     
-})}
+  // Trip Volunteer Role
+  TripVolunteerRole: any = [];
+  getAllTripVolunteerRole() {
+    this.http.get('https://localhost:7004/api/TripVolunteerrole/GetAlltrip_volunteerRoles').subscribe(result => {
+      this.TripVolunteerRole = result;
+    }, err => {
+      console.log(err.message);
+    })
+  }
 
   DeleteTripVolunteerRole(id: number) {
     this.http.delete('https://localhost:7004/api/ITripVolunteerrole/Deletetrip_volunteerRoles/' + id).subscribe(resp => {
@@ -312,7 +339,13 @@ this.TripVolunteerRole =result ;
     window.location.reload();
   }
 
-
+  DeleteTripVolunteerRoleForATrip(id: number, tripid:number) {
+    this.http.delete(`https://localhost:7004/api/TripVolunteerrole/Deletetrip_volunteerRoles?id=${id}&tripid=${tripid}`).subscribe(resp => {
+      console.log('the Trip Volunteer Role deleted');
+    }, err => {
+      console.log('Error');
+    })
+  }
 
   updateTripVolunteerRole(body: any) {
     this.http.put('https://localhost:7004/api/ITripVolunteerrole/UPDATEtrip_volunteerRoles', body).subscribe((resp) => {
@@ -322,7 +355,7 @@ this.TripVolunteerRole =result ;
       console.log('error');
     })
   }
-
+ 
 
 
 
@@ -372,10 +405,8 @@ this.TripVolunteerRole =result ;
   DeleteTrip(id: number) {
     this.http.delete('https://localhost:7004/api/Trips/DeleteTrip/' + id).subscribe(resp => {
       console.log('the Trip deleted');
-      window.location.reload();
     }, err => {
       console.log('Error');
-      window.location.reload();
     })
   }
 
@@ -434,9 +465,9 @@ this.TripVolunteerRole =result ;
   }
 
 
-NumberOfRegisteredUsers(): Observable<number> {
-  return this.http.get<number>('https://localhost:7004/api/Users/NumberOfRegisteredUsers');
-}
+  NumberOfRegisteredUsers(): Observable<number> {
+    return this.http.get<number>('https://localhost:7004/api/Users/NumberOfRegisteredUsers');
+  }
 
   uploadTripImage(file: FormData) {
     this.http.post('https://localhost:7004/api/TripImage/uploadImage', file).subscribe((res: any) => {
@@ -456,15 +487,16 @@ NumberOfRegisteredUsers(): Observable<number> {
   // }
 
 
-TripsWithMaxReservations:any=[]; 
-GetAllTripsWithMaxReservations(){ 
- this.http.get('https://localhost:7004/api/Trips/TripsWithMaxReservations').subscribe(result=>{
-this.TripsWithMaxReservations =result ;  
-console.log('GetAllTripsWithMaxReservations',result);
+  TripsWithMaxReservations: any = [];
+  GetAllTripsWithMaxReservations() {
+    this.http.get('https://localhost:7004/api/Trips/TripsWithMaxReservations').subscribe(result => {
+      this.TripsWithMaxReservations = result;
+      console.log('GetAllTripsWithMaxReservations', result);
 
-},err=>{
-      console.log(err.message);     
-})}
+    }, err => {
+      console.log(err.message);
+    })
+  }
 
   NumberOfTrips(): Observable<number> {
     return this.http.get<number>('https://localhost:7004/api/Trips/trips/GetNumberOfTrips');
@@ -528,25 +560,27 @@ console.log('GetAllTripsWithMaxReservations',result);
 
 
 
-UserInfo:any; 
-GetUserByLoginId(id:number){ 
- this.http.get('https://localhost:7004/api/UserLogin/GetUserinfoByLoginId/'+ id).subscribe(result=>{
-this.UserInfo =result ;  
-console.log("UserInformation",this.UserInfo);
+  UserInfo: any;
+  GetUserByLoginId(id: number) {
+    this.http.get('https://localhost:7004/api/UserLogin/GetUserinfoByLoginId/' + id).subscribe(result => {
+      this.UserInfo = result;
+      console.log("UserInformation", this.UserInfo);
 
-},err=>{
-      console.log(err.message);     
-})}
-//UserInformation
-UserInformation:any; 
-GetUserinfoByLoginId(id:number){ 
- this.http.get('https://localhost:7004/api/UserLogin/GetUserinfoByLoginId/'+ id).subscribe(result=>{
-this.UserInformation =result ;  
-console.log("UserInformation",this.UserInformation);
+    }, err => {
+      console.log(err.message);
+    })
+  }
+  //UserInformation
+  UserInformation: any;
+  GetUserinfoByLoginId(id: number) {
+    this.http.get('https://localhost:7004/api/UserLogin/GetUserinfoByLoginId/' + id).subscribe(result => {
+      this.UserInformation = result;
+      console.log("UserInformation", this.UserInformation);
 
-},err=>{
-      console.log(err.message);     
-})}
+    }, err => {
+      console.log(err.message);
+    })
+  }
 
 
 
@@ -623,9 +657,7 @@ console.log("UserInformation",this.UserInformation);
       );
   
     }
-  }
-  
-  
+
   display_Image1 :any ; 
   
   uploadUserImage(file:FormData){
@@ -647,29 +679,24 @@ console.log("UserInformation",this.UserInformation);
   }
 
 
-getTripDetails(tripId: number): Observable<any> {
-  return this.http.get(`https://localhost:7004/api/Trips/GetTripById/${tripId}`);
-}
-private  apiUrl = 'https://localhost:7004/api';
-sendTripDetailsEmail(emailData: any): Observable<any> {
-  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  return this.http.post(`${this.apiUrl}/Volunteers/sendTripDetailsEmail`, emailData, { headers });
-}
+  getTripDetails(tripId: number): Observable<any> {
+    return this.http.get(`https://localhost:7004/api/Trips/GetTripById/${tripId}`);
+  }
+  private apiUrl = 'https://localhost:7004/api';
+  sendTripDetailsEmail(emailData: any): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(`${this.apiUrl}/Volunteers/sendTripDetailsEmail`, emailData, { headers });
+  }
 
 
 
-// sendTripDetailsEmail(emailData: any): Observable<any> {
-//   return this.http.post('https://localhost:7004/api/Volunteers/sendTripDetailsEmail', emailData);
-// }
+  // sendTripDetailsEmail(emailData: any): Observable<any> {
+  //   return this.http.post('https://localhost:7004/api/Volunteers/sendTripDetailsEmail', emailData);
+  // }
 
   // updateUserData(updatedData: any): Observable<any> {
   //   return this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', updatedData);
   // }
-
-
-
-
-
 
 
 
@@ -767,5 +794,34 @@ sendTripDetailsEmail(emailData: any): Observable<any> {
     }, err => {
       console.log(err.message);
     })
+  }
+
+  //create a service(admin)
+  async CreateService(body: any): Promise<void> {
+    try {
+      await this.http.post('https://localhost:7004/api/Service/CreateService', body).toPromise();
+      console.log('Created successfully');
+    } catch (error) {
+      console.error('Error creating', error);
+    }
+  }
+
+  async CreateServiceForTrip(body: any): Promise<void> {
+    try {
+      console.log('Final Body:', body);
+      await this.http.post('https://localhost:7004/api/Service/CreateServiceForTrip', body).toPromise();
+      console.log('the service Added');
+    } catch (error) {
+      console.error('Error creating', error);
+    }
+  }
+  async CreateTripServiceForServicesList(body: any): Promise<void> {
+    try {
+      console.log('Final Body:', body);
+      await this.http.post('https://localhost:7004/api/serviceTripe/CreateTripServiceForServicesList', body).toPromise();
+      console.log('the trip services Added');
+    } catch (error) {
+      console.error('Error creating', error);
+    }
   }
 }

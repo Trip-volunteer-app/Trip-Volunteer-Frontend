@@ -44,7 +44,8 @@
               "src/assets/Home/css/magnific-popup.css",
               "src/assets/Home/css/owl.theme.default.min.css",
               "src/assets/Home/css/owl.carousel.min.css",
-              "src/assets/Home/css/animate.css"
+              "src/assets/Home/css/animate.css",
+              "src/styles.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",

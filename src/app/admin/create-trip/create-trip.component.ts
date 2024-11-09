@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { LocationService } from '../../Services/location.service';
 import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs';
+import { ChangeDetectorRef } from '@angular/core';
+
 
 @Component({
   selector: 'app-create-trip',
@@ -17,35 +19,60 @@ import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs';
 export class CreateTripComponent implements OnInit {
   @ViewChild('departureInput') departureInput!: ElementRef; // Reference to input field
   @ViewChild('destinationInput') destinationInput!: ElementRef;
-  paginatedServices: any[] = [];
+
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalPages: number = 0;
-  locationData: any ={};
+//Services
+  paginatedServices: any[] = [];
+  showAddServiceForm = false;
+  selectedServices: any[] = [];
+  Services: any = [];
+  sortedServices = [];
+  previousServices: any = [];
 
+//volunteer
+  paginatedVolunteerRoles: any[] = [];
+  showAddVolunteerRoleForm = false;
+  selectedVolunteerRoles: any[] = [];
+  VolunteerRoles: any = [];
+  sortedVolanteerRoles = [];
+  previousVolunteerRoles: any = [];
+  totalVolunteerPages: number = 0;
+  currentVolunteerPage: number = 1;
+  itemsPerVolunteerPage: number = 10;
+
+
+//location
+  locationData: any = {};
+  ImagePreview: string | ArrayBuffer | null | undefined = null;
   center: google.maps.LatLngLiteral = { lat: 31.9454, lng: 35.9284 }; // Amman coordinates
   zoom = 10;
   departurePosition: any;
   distenationPosition: any;
-
   markerPositions: {
     departure?: google.maps.LatLngLiteral;
     destination?: google.maps.LatLngLiteral;
   } = {};
-
   selectedMarker: 'departure' | 'destination' = 'departure';
-
   location1: any = []; // Holds the geocoding result
   location2: any = [];
 
-  constructor(public admin: AdminService, private router: Router,
-    public location: LocationService, private http: HttpClient) { }
+  constructor(
+    public admin: AdminService,
+    private router: Router,
+    public location: LocationService,
+    private http: HttpClient,
+    private cdr: ChangeDetectorRef) { }
 
-    async ngOnInit(): Promise<void> {
+
+  async ngOnInit(): Promise<void> {
     this.admin.getAllCategories();
     await this.admin.getAllServices();
-    console.log(this.admin.Services);
+    await this.admin.getAllVolunteerRoles();
     this.totalPages = Math.ceil(this.admin.Services.length / this.itemsPerPage);
+    this.totalVolunteerPages = Math.ceil(this.admin.Services.length / this.itemsPerPage);
+    this.updatePaginatedVolunteerRoles();
     this.updatePaginatedServices();
   }
 
@@ -56,10 +83,8 @@ export class CreateTripComponent implements OnInit {
 
   secondFormGroup: FormGroup = new FormGroup({ // Fixed the initialization of secondFormGroup
     Trip_Name: new FormControl('', Validators.required),
-    Trip_Price: new FormControl('', [Validators.required, Validators.min(0)]),
     Start_Date: new FormControl('', Validators.required),
     End_Date: new FormControl('', Validators.required),
-    Max_Number_Of_Volunteers: new FormControl('', [Validators.required, Validators.min(0)]),
     Max_Number_Of_Users: new FormControl('', [Validators.required, Validators.min(0)]),
     description: new FormControl('', Validators.required),
   });
@@ -68,7 +93,10 @@ export class CreateTripComponent implements OnInit {
     selectedServices: new FormControl([])
   });
 
-
+  serviceFormGroup: FormGroup = new FormGroup({
+    service_Name: new FormControl('', Validators.required,),
+    service_Cost: new FormControl('', [Validators.required, Validators.min(0)])
+  });
 
   locationFormGroup: FormGroup = new FormGroup({
     departure_Location: new FormControl('', Validators.required),
@@ -78,7 +106,6 @@ export class CreateTripComponent implements OnInit {
     destination_Latitude: new FormControl('', Validators.required),
     destination_Longitude: new FormControl('', Validators.required),
   });
-
 
   selectedCategoryId: number | null = null;
 
@@ -102,14 +129,18 @@ export class CreateTripComponent implements OnInit {
 
 
   uploadImage(file: any) {
-    if (file.length == 0)
-      return;
-    let fileToUpload = <File>file[0];
+    if (file.length === 0) return;
+  
+    const fileToUpload = <File>file[0];
     const formData = new FormData();
-    formData.append('file', fileToUpload, fileToUpload.name)
-    this.admin.uploadTripImage(formData);
+    formData.append('file', fileToUpload, fileToUpload.name);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      this.ImagePreview = e.target?.result;
+    };
+    reader.readAsDataURL(fileToUpload);
   }
-
+  
   onSubmit(): void {
     if (this.secondFormGroup.valid && this.ServicesFormGroup.valid && this.locationData) {
       console.log('locationdata', this.locationData)
@@ -118,13 +149,16 @@ export class CreateTripComponent implements OnInit {
         Category_Id: this.selectedCategoryId,
         image_Name: this.TripImage.value.image_Name,
         SelectedServices: this.ServicesFormGroup.value.selectedServices,
-        ...this.locationFormGroup.value
+        SelectedVolunteerRoles: this.RolesFormGroup.value.selectedRoles,
+        ...this.locationFormGroup.value,
+        Trip_Price: this.totalTripPrice,
+        Max_Number_Of_Volunteers: this.maxNumberOfVolunteers
       };
-      
+
       this.admin.CreateTrip(tripData);
       console.log('Form Submitted:', tripData);
     }
-  } 
+  }
   back() {
     this.router.navigate(['admin/TripsInformation']);
 
@@ -169,7 +203,6 @@ export class CreateTripComponent implements OnInit {
   saveLocations() {
     if (this.locationFormGroup.valid) {
       console.log('Form Submitted', this.locationFormGroup.value);
-      // Additional processing for form submission
     }
 
   }
@@ -238,38 +271,46 @@ export class CreateTripComponent implements OnInit {
       this.getGeocodeInfo(destination, 'destination'); // Call the API with the current input value
     }
   }
-  updatePaginatedServices(): void {
+  async updatePaginatedServices(): Promise<void> {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    this.paginatedServices = this.admin.Services.slice(startIndex, startIndex + this.itemsPerPage);
+    this.paginatedServices = this.admin.sortedServices.slice(startIndex, startIndex + this.itemsPerPage);
   }
-  onServiceChange(isChecked: boolean, serviceId: number) {
 
+  totalTripPrice: number = 0; // Initialize totalTripPrice
+
+  onServiceChange(isChecked: boolean, serviceId: number) {
     const selectedServices = this.ServicesFormGroup.get('selectedServices') as FormControl;
     const currentSelection = selectedServices.value as number[];
-    console.log(selectedServices.value)
-    if (isChecked) {
-      // Add the service ID if not already selected
-      if (!currentSelection.includes(serviceId)) {
-        selectedServices.setValue([...currentSelection, serviceId]);
+  
+    const selectedService = this.paginatedServices.find(service => service.service_Id === serviceId);
+  
+    if (selectedService) {
+      const serviceCost = selectedService.service_Cost;
+  
+      if (isChecked) {
+        // Add the service ID and its cost if checked
+        if (!currentSelection.includes(serviceId)) {
+          selectedServices.setValue([...currentSelection, serviceId]);
+          this.totalTripPrice += serviceCost;
+        }
+      } else {
+        // Remove the service ID and its cost if unchecked
+        selectedServices.setValue(currentSelection.filter(id => id !== serviceId));
+        this.totalTripPrice -= serviceCost;
       }
-    } else {
-      // Remove the service ID if unchecked
-      selectedServices.setValue(currentSelection.filter(id => id !== serviceId));
     }
-    console.log(selectedServices.value)
   }
-
-  // Helper method to check if a service ID is selected
   isServiceSelected(serviceId: number): boolean {
     return (this.ServicesFormGroup.get('selectedServices')?.value as number[]).includes(serviceId);
   }
+
   nextPage(): void {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
       this.updatePaginatedServices();
     }
   }
-
+  
   previousPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
@@ -282,4 +323,150 @@ export class CreateTripComponent implements OnInit {
       this.updatePaginatedServices();
     }
   }
+
+  toggleAddService() {
+    this.showAddServiceForm = !this.showAddServiceForm;
+  }
+
+  async cancelAddService() {
+    this.showAddServiceForm = false;
+    this.ServicesFormGroup.patchValue({
+      newServiceName: '',
+      newServiceCost: ''
+    });
+  }
+
+  async addService() {
+    try {
+      this.previousServices = [...this.admin.sortedServices];
+      await this.admin.CreateService(this.serviceFormGroup.value);
+      await this.admin.getAllServices();
+      console.log('Updated Services List:', this.admin.sortedServices);
+      const newService: any = this.admin.sortedServices.find((service: any) =>
+        !this.previousServices.some((prevService: any) => prevService.service_Id === service.service_Id)
+      );
+      if (newService) {
+        this.totalTripPrice=this.totalTripPrice+newService.service_Cost;
+        const currentSelectedServices = this.ServicesFormGroup.value.selectedServices || [];
+        this.ServicesFormGroup.patchValue({
+          selectedServices: [...currentSelectedServices, newService.service_Id]
+        });
+        console.log('Updated selected services:', this.ServicesFormGroup.value.selectedServices);
+      }
+      this.cdr.detectChanges();
+      this.updatePaginatedServices();
+      this.cancelAddService();
+    } catch (error) {
+      console.error('Error adding service:', error);
+    }
+  }
+
+  clearImage(): void {
+    this.ImagePreview = null;
+    const control = this.TripImage.get('image_Name');
+    control?.reset();
+    control?.markAsTouched();
+}
+async updatePaginatedVolunteerRoles(): Promise<void> {
+  const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  this.paginatedVolunteerRoles = this.admin.SortedVolunteerRoles.slice(startIndex, startIndex + this.itemsPerPage);
+}
+
+RolesFormGroup: FormGroup = new FormGroup({
+  selectedRoles: new FormControl([])
+});
+
+roleFormGroup: FormGroup = new FormGroup({
+  role_Name: new FormControl('', Validators.required),
+  number_Of_Volunteers: new FormControl('', Validators.required)
+});
+
+maxNumberOfVolunteers:number=0;
+onVolunteerRoleChange(isChecked: boolean, volunteerRoleId: number) {
+
+  const selectedVolunteerRoles = this.RolesFormGroup.get('selectedRoles') as FormControl;
+  const currentSelection = selectedVolunteerRoles.value as number[];
+  const selectedVolunteer = this.paginatedVolunteerRoles.find(role => role.volunteer_Role_Id === volunteerRoleId);
+  if (selectedVolunteer) {
+    const volunteerCount = selectedVolunteer.number_Of_Volunteers;
+  console.log(selectedVolunteerRoles.value)
+  if (isChecked) {
+
+    if (!currentSelection.includes(volunteerRoleId)) {
+      selectedVolunteerRoles.setValue([...currentSelection, volunteerRoleId]);
+      this.maxNumberOfVolunteers += volunteerCount;
+    }
+  } else {
+    selectedVolunteerRoles.setValue(currentSelection.filter(id => id !== volunteerRoleId));
+    this.maxNumberOfVolunteers -= volunteerCount;
+
+  }
+  console.log('selectedRoles', selectedVolunteerRoles.value)
+  console.log('maxNumberOfVolunteers', this.maxNumberOfVolunteers)
+
+}
+}
+
+isVolunteerRolelected(VolunteerRoleId: number): boolean {
+  return (this.RolesFormGroup.get('selectedRoles')?.value as number[]).includes(VolunteerRoleId);
+}
+
+nextVolunteerPage(): void {
+  if (this.currentVolunteerPage < this.totalVolunteerPages) {
+    this.currentVolunteerPage++;
+    this.updatePaginatedVolunteerRoles();
+  }
+}
+
+previousVolunteerPage(): void {
+  if (this.currentVolunteerPage > 1) {
+    this.currentVolunteerPage--;
+    this.updatePaginatedVolunteerRoles();
+  }
+}
+goToVolunteerPage(page: number): void {
+  if (page > 0 && page <= this.totalPages) {
+    this.currentVolunteerPage = page;
+    this.updatePaginatedVolunteerRoles();
+  }
+}
+
+
+toggleAddVolunteer() {
+  this.showAddVolunteerRoleForm = !this.showAddVolunteerRoleForm;
+}
+
+async cancelAddVoluntter() {
+  this.showAddVolunteerRoleForm = false;
+  this.ServicesFormGroup.patchValue({
+    newVolunteerName: '',
+    newVolunteerNumber: ''
+  });
+}
+
+async addVolunteer() {
+  try {
+    this.previousVolunteerRoles = [...this.admin.SortedVolunteerRoles];
+    await this.admin.CreateVolunteerRoles(this.roleFormGroup.value);
+    await this.admin.getAllVolunteerRoles();
+    console.log('Updated Roles List:', this.admin.sortedServices);
+    const newRole: any = this.admin.SortedVolunteerRoles.find((role: any) =>
+      !this.previousVolunteerRoles.some((prevRole: any) => prevRole.volunteer_Role_Id === role.volunteer_Role_Id)
+    );
+    if (newRole) {
+      this.maxNumberOfVolunteers=this.maxNumberOfVolunteers + newRole.number_Of_Volunteers;
+
+      const currentSelectedRoles = this.roleFormGroup.value.selectedRoles || [];
+      this.RolesFormGroup.patchValue({
+        selectedRoles: [...currentSelectedRoles, newRole.volunteer_Role_Id]
+      });
+      console.log('Updated selected Roles:', this.RolesFormGroup.value.selectedRoles);
+    }
+    this.cdr.detectChanges();
+    this.updatePaginatedVolunteerRoles();
+    this.cancelAddVoluntter();
+  } catch (error) {
+    console.error('Error adding Volunteer Role:', error);
+  }
+}
 }
