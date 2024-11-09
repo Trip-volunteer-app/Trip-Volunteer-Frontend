@@ -591,88 +591,86 @@ export class AdminService {
   // }
 
 
-
-  updateUserData(updatedData: any, image_Path: any) {
-    if (this.display_Image1 == null || undefined) {
+  updateUserData(updatedData: any,image_Path:any) {
+    if(this.display_Image1 == null || undefined){
+    const params = new HttpParams()
+      .set('L_Email', updatedData.email)
+      .set('L_Pass', updatedData.password)
+      .set('L_RePass', updatedData.repassword)
+      .set('r_id', updatedData.role_Id)
+      .set('u_id', updatedData.user_Id)
+      .set('F_Name', updatedData.first_Name)
+      .set('L_Name', updatedData.last_Name)
+      .set('IMG', image_Path) 
+      .set('u_Address', updatedData.address) 
+      .set('phone', updatedData.phone_Number)
+      .set('L_id', updatedData.login_Id) 
+      .set('B_Day', updatedData.birth_Date);
+  
+  
+    this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
+      .subscribe(
+        result => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'successfly update profile',
+          });
+          this.GetUserinfoByLoginId(updatedData.login_Id);
+  
+        },
+        error => {
+          
+          console.error("Error updating user data", error.message);     
+        }
+      );
+    }else{
       const params = new HttpParams()
-        .set('L_Email', updatedData.email)
-        .set('L_Pass', updatedData.password)
-        .set('L_RePass', updatedData.repassword)
-        .set('r_id', updatedData.role_Id)
-        .set('u_id', updatedData.user_Id)
-        .set('F_Name', updatedData.first_Name)
-        .set('L_Name', updatedData.last_Name)
-        .set('IMG', image_Path)
-        .set('u_Address', updatedData.address)
-        .set('phone', updatedData.phone_Number)
-        .set('L_id', updatedData.login_Id)
-        .set('B_Day', updatedData.birth_Date);
-
-
-      this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
-        .subscribe(
-          result => {
-            Swal.fire({
-              icon: 'success',
-              title: 'Success!',
-              text: 'successfly update profile',
-            });
-            this.GetUserinfoByLoginId(updatedData.user_Id);
-
-          },
-          error => {
-
-            console.error("Error updating user data", error.message);
-          }
-        );
-    } else {
-      const params = new HttpParams()
-        .set('L_Email', updatedData.email)
-        .set('L_Pass', updatedData.password)
-        .set('L_RePass', updatedData.repassword)
-        .set('r_id', updatedData.role_Id)
-        .set('u_id', updatedData.user_Id)
-        .set('F_Name', updatedData.first_Name)
-        .set('L_Name', updatedData.last_Name)
-        .set('IMG', this.display_Image1)
-        .set('u_Address', updatedData.address)
-        .set('phone', updatedData.phone_Number)
-        .set('L_id', updatedData.login_Id)
-        .set('B_Day', updatedData.birth_Date);
-
-
-      this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
-        .subscribe(
-          result => {
-            Swal.fire({
-              icon: 'success',
-              title: 'Success!',
-              text: 'successfly update profile',
-            });
-            this.GetUserinfoByLoginId(updatedData.user_Id);
-          },
-          error => {
-
-            console.error("Error updating user data", error.message);
-          }
-        );
-
+      .set('L_Email', updatedData.email)
+      .set('L_Pass', updatedData.password)
+      .set('L_RePass', updatedData.repassword)
+      .set('r_id', updatedData.role_Id)
+      .set('u_id', updatedData.user_Id)
+      .set('F_Name', updatedData.first_Name)
+      .set('L_Name', updatedData.last_Name)
+      .set('IMG', this.display_Image1) 
+      .set('u_Address', updatedData.address) 
+      .set('phone', updatedData.phone_Number)
+      .set('L_id', updatedData.login_Id) 
+      .set('B_Day', updatedData.birth_Date);
+  
+  
+    this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
+      .subscribe(
+        result => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'successfly update profile',
+          });
+          this.GetUserinfoByLoginId(updatedData.login_Id);
+        },
+        error => {
+          
+          console.error("Error updating user data", error.message);     
+        }
+      );
+  
     }
-  }
 
-
-  display_Image1: any;
-
-  uploadUserImage(file: FormData) {
-    this.http.post('https://localhost:7004/api/Users/uploadImage', file).subscribe((res: any) => {
-      this.display_Image1 = res.image_Path;
-      console.log("imageprofile", res);
-
-    }, err => {
+  display_Image1 :any ; 
+  
+  uploadUserImage(file:FormData){
+    this.http.post('https://localhost:7004/api/Users/uploadImage',file).subscribe((res:any)=>{
+    this.display_Image1=res.image_Path;
+    console.log("imageprofile",res);
+    
+    },err=>{
       console.log('error');
     })
-
-  }
+    
+    }
+  
 
 
   //UserData
@@ -707,17 +705,28 @@ export class AdminService {
       .subscribe(
         result => {
           console.log("Change Password successfully", result);
-          window.location.reload();
-          this.toastr.success('Change Password successfully ');
+  
+          Swal.fire({
+            icon: 'success',
+            title: 'Password Changed Successfully',
+            text: 'Your password has been updated.',
+            confirmButtonColor: '#f15d30'
+          }).then(() => {
+            this.GetUserinfoByLoginId(payload.login_Id);
+          });
         },
         error => {
-
-
-          console.error("Error Changed Password", error.message);
+          console.error("Error Changing Password", error.message);
+  
+          Swal.fire({
+            icon: 'error',
+            title: 'Password Change Failed',
+            text: 'There was an issue updating your password. Please try again.',
+            confirmButtonColor: '#f15d30'
+          });
         }
       );
   }
-
 
   //Testimonial
   Testimonial: any = [];

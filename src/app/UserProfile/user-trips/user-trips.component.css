@@ -1,48 +1,147 @@
-body {
-    background: rgb(99, 39, 120)
+
+
+/* Add spacing between sections */
+.mt-4 {
+    margin-top: 30px;
 }
 
-.form-control:focus {
-    box-shadow: none;
-    border-color: #BA68C8
+/* Simple list styling */
+.simple-list .list-group-item {
+    font-size: 0.95rem;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #eee;
 }
 
-.profile-button {
-    background: rgb(99, 39, 120);
-    box-shadow: none;
-    border: none
+/* Button link styling */
+.btn-link {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+.btn-link:hover {
+    color: #f15d30;
+    font-weight: bold;
+    text-decoration: none;
 }
 
-.profile-button:hover {
-    background: #682773
+/* Card header styling for differentiation */
+.card-header {
+    font-size: 1rem;
+    font-weight: bold;
 }
 
-.profile-button:focus {
-    background: #682773;
-    box-shadow: none
+
+/* Container and card padding */
+.container {
+    padding: 20px;
+}
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.profile-button:active {
-    background: #682773;
-    box-shadow: none
-}
-
-.back:hover {
-    color: #682773;
-    cursor: pointer
-}
-
-.labels {
-    font-size: 11px
-}
-
-.add-experience:hover {
-    background: #BA68C8;
+.btn-outline-secondary {
+    color: #f15d30;
+    border-color: #f15d30;
+  }
+  
+  .btn-outline-secondary:hover {
+    background-color: #f15d30;
+    border-color: #f15d30;
+    color: white;
+  }
+  
+  .btn-custom-primary {
+    background-color: #f15d30;
     color: #fff;
-    cursor: pointer;
-    border: solid 1px #BA68C8
+  }
+  
+  .btn-custom-primary:hover {
+    background-color: #d54e27;
+  }
+
+  h4{
+    color: white;
+  }
+
+  /* General styling for the container span */
+.status-span {
+    font-weight: bold;
+    font-size: small;
+  }
+  
+  /* Payment Status - Not Paid */
+  .payment-Not-Paid {
+    color: #dc3545; /* Red text color */
+  }
+  
+  /* Payment Status - Paid */
+  .payment-paid {
+    color: #28a745; 
+  }
+  
+  /* Volunteer Status - Pending */
+  .status-pending {
+    color: #ffc107; 
+  }
+  
+  /* Volunteer Status - Approved */
+  .status-approved {
+    color: #17a2b8; 
+  }
+  
+  .status-other {
+    color: #b9160a; /* Gray color */
+    font-weight: bold;
 }
-
-
-
-
+  .modal-body {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  .booking-section, .trip-section, .services-section, .reservation-section, .volunteer-section {
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .services-section ul, .volunteer-section ul {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .modal-title {
+    color: #007bff;
+    font-weight: bold;
+  }
+  .simple-list {
+    padding-left: 0;
+  }
+  
+  .card-body {
+    padding: 1.25rem;
+  }
+  
+  .d-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .d-flex > .btn {
+    margin-left: 5px;
+  }
+  
+  .text-center {
+    margin-top: 2rem;
+    font-style: italic;
+  }
+  
+  .font-weight-bold {
+    font-weight: bold;
+  }
+  
+  

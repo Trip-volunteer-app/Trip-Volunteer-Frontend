@@ -1,124 +1,147 @@
 <app-navbar></app-navbar>
-<section class="hero-wrap hero-wrap-2 " style="background-image: url('assets/Home/images/chero12.jpeg');height: 300px; background-size: cover; background-position: center;">
-  <div class="overlay" style="height: 300px;"></div>
-  <div class="container" style="height: 300px;">
-    <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
-      <div class="col-md-9 ftco-animate pb-5 text-center" >
-        <p class="breadcrumbs"><span class="mr-2"><a routerLink="/Trips">user <i
-                class="fa fa-chevron-right"></i></a></span> <span>userProfile <i class="fa fa-chevron-right"></i></span>
-        </p>
-      </div>
+
+<!-- Hero Section -->
+<section class="hero-wrap hero-wrap-2" style="background-image: url('assets/Home/images/chero12.jpeg'); height: 300px; background-size: cover; background-position: center;">
+  <div class="overlay" style="height: 300px; background-color: rgba(0, 0, 0, 0.5);"></div>
+  <div class="container h-100 d-flex justify-content-center align-items-center text-center">
+    <div>
+      <p class="breadcrumbs">
+        <a routerLink="/Trips" class="text-white">user <i class="fa fa-chevron-right"></i></a> 
+        <span class="text-white">userProfile <i class="fa fa-chevron-right"></i></span>
+      </p>
     </div>
   </div>
 </section>
-<div class="container rounded bg-white mt-5 mb-5">
-    <div class="row">
-        <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                <img class="rounded-circle mt-5" width="150px" [src]="this.admin.UserInformation.image_Path ? '../../../assets/images/' + this.admin.UserInformation.image_Path : '../../../assets/default-profile.png'" >
-                <span class="font-weight-bold">{{this.admin.UserInformation.first_Name}} {{this.admin.UserInformation.last_Name}}</span><span class="text-black-50">{{this.admin.UserInformation.email}}</span>
 
-                <span> 
-                  <div class="mt-5 text-center">
-                      <button class="btn btn-primary profile-button" type="submit" (click)="YourTripsAndFavorites()">Your Trips && Favorites</button>
-                  </div>
-              </span>
-
-                <span> 
-                    <div class="mt-5 text-center">
-                        <button class="btn btn-primary profile-button" type="submit" (click)="logout()">Logout</button>
-                    </div>
-                </span>
-            </div>
-        </div>
-            <div class="col-md-5 border-right">
-                <div class="p-3 py-5">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="text-right">Profile Settings</h4>
-                    </div>
-
-                    <form #profileForm="ngForm" [formGroup]="Users">
-                        <div class="row mt-2">
-                          <div class="col-md-6">
-                            <label class="labels">First Name</label>
-                            <input type="text" class="form-control" placeholder="first name" formControlName="first_Name" [(ngModel)]="this.admin.UserInformation.first_Name">
-                          </div>       
-                          <input type="text" class="form-control" placeholder="user_Id" formControlName="user_Id" [(ngModel)]="this.admin.UserInformation.user_Id" hidden>                 
-                          <div class="col-md-6">
-                            <label class="labels">Last Name</label>
-                            <input type="text" class="form-control" placeholder="last name" formControlName="last_Name" [(ngModel)]="this.admin.UserInformation.last_Name">
-                          </div>
-                        </div>
-                        <div class="row mt-3">
-                          <div class="col-md-12">
-                            <label class="labels">Mobile Number</label>
-                            <input type="text" class="form-control" placeholder="enter phone number" formControlName="phone_Number" [(ngModel)]="this.admin.UserInformation.phone_Number">
-                          </div>
-                          <div class="col-md-12">
-                            <label class="labels">Address</label>
-                            <input type="text" class="form-control" placeholder="enter address" formControlName="address" [(ngModel)]="this.admin.UserInformation.address">
-                          </div>
-                          <div class="col-md-12">
-                            <label class="labels">Birth Date
-                            <input type="Date" class="form-control" formControlName="birth_Date"  [(ngModel)]="BirthDay">
-                         </label> </div>
-                          <div class="col-md-12">
-                            <label class="labels">Image</label>
-                            <input type="file" class="form-control" #file formControlName="image_Path" (change)="uploadImage(file.files)">
-                          </div>
-                          <div class="col-md-12">
-                            <input type="text" class="form-control"  formControlName="password" [(ngModel)]="this.admin.UserInformation.password" hidden>
-                          </div>
-                          <div class="col-md-12">
-                            <input type="text" class="form-control"  formControlName="repassword" [(ngModel)]="this.admin.UserInformation.repassword" hidden/>                         
-                          </div>
-                          <div class="col-md-12">
-                            <input type="text" class="form-control" formControlName="email" [(ngModel)]="this.admin.UserInformation.email" hidden>
-                          </div>
-                          <div class="col-md-12">
-                            <label class="labels">Date Registered
-                            <input type="text" class="form-control" [value]="this.admin.UserInformation.date_Register | date"  readonly></label>
-                          </div>
-                        </div>
-                        <div class="mt-5 text-center">
-                            <button class="btn btn-primary profile-button" type="submit" (click)="openConfirmPassDailog()">Save Profile</button>
-                        </div>
-                      </form>
-                      
-                      <ng-template #callConfirmPassDailog>
-                        <h2 mat-dialog-title>Confirm Password</h2>
-                          <form [formGroup]="passwordForm">
-                            <div class="col-md-12">
-                              <mat-label>Current Password</mat-label>
-                              <input class="form-control" matInput type="password" formControlName="password" placeholder="Enter current password">
-                              <mat-error *ngIf="passwordForm.get('password')?.invalid">Password is required</mat-error>
-                            </div>
-                          </form>
-                        <mat-dialog-actions align="end">
-                          <button mat-button mat-dialog-close="yes">Cancel</button>
-                          <button class="btn btn-primary profile-button" mat-dialog-close="yes" (click)="saveProfile()" [disabled]="passwordForm.invalid">Confirm</button>
-                        </mat-dialog-actions>
-                         </ng-template>
-                
-                </div>
-            </div>
-                <div class="col-md-4">
-                    <div class="p-3 py-5">
-                        <div class="d-flex justify-content-between align-items-center experience"><span>Password</span>
-                          <span class="border px-3 p-1 add-experience" (click)="togglePasswordForm()"><i class="fa fa-plus"></i>&nbsp;Change Password</span>
-                        </div>
-                        <br>
-                        <div *ngIf="isPasswordFormVisible">
-                          <form [formGroup]="changePassword">
-                            <div class="col-md-12"><label class="labels">Old Password</label><input type="password" class="form-control" placeholder="Old Password" formControlName="oldPassword" [ngModel]="oldPassword" value=""></div> <br>
-                            <div class="col-md-12"><label class="labels">New Password</label><input type="password" class="form-control" placeholder="New Password" formControlName="newPassword" [ngModel]="newPassword" value=""></div>
-                            <div class="col-md-12"><label class="labels">Confirm New Password</label><input type="password" class="form-control" placeholder="Confirm New Password" formControlName="confirmPassword" [ngModel]="confirmPassword" value=""></div>           
-                            <div class="col-md-12"><label class="labels">Change Password</label><input type="submit" (click)="changedPassword()" class="form-control btn btn-primary profile-button" placeholder="Change Password" value="Change Password"></div>           
-                          </form>
-                      </div>
-                </div>
-            </div>
+<!-- Profile and Settings Container -->
+<div class="container mt-5 mb-5">
+  <div class="row">
+    
+    <!-- Profile Picture and Actions -->
+    <div class="col-md-3">
+      <div class="card p-4 text-center">
+        <img 
+          class="rounded-circle mb-3 mx-auto" 
+          width="150px" 
+          [src]="this.admin.UserInformation.image_Path ? '../../../assets/images/' + this.admin.UserInformation.image_Path : '../../../assets/default-profile.png'"
+          style="border: 3px solid #f15d30;" 
+          alt="User Profile Picture">
+          
+        <h5 class="font-weight-bold">{{ this.admin.UserInformation.first_Name }} {{ this.admin.UserInformation.last_Name }}</h5>
+        <p class="text-muted">{{ this.admin.UserInformation.email }}</p>
+        <button class="btn btn-primary btn-sm w-100 mt-3" (click)="YourTripsAndFavorites()">Your Trips & Favorites</button>
+      </div>
     </div>
+    
+    
+    <!-- Profile Settings Form -->
+    <div class="col-md-5">
+      <div class="card p-4">
+        <h4>Profile Settings</h4>
+        <form [formGroup]="Users">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label">First Name</label>
+              <input type="text" class="form-control" formControlName="first_Name" [(ngModel)]="this.admin.UserInformation.first_Name">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Last Name</label>
+              <input type="text" class="form-control" formControlName="last_Name" [(ngModel)]="this.admin.UserInformation.last_Name">
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="text" class="form-control" formControlName="email" [(ngModel)]="this.admin.UserInformation.email">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Mobile Number</label>
+            <input type="text" class="form-control" formControlName="phone_Number" [(ngModel)]="this.admin.UserInformation.phone_Number">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Address</label>
+            <input type="text" class="form-control" formControlName="address" [(ngModel)]="this.admin.UserInformation.address">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Birth Date</label>
+            <input type="date" class="form-control" formControlName="birth_Date" [(ngModel)]="BirthDay">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Image</label>
+            <input type="file" class="form-control" #file formControlName="image_Path" (change)="uploadImage(file.files)">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Date Registered</label>
+            <input type="text" class="form-control" [value]="this.admin.UserInformation.date_Register | date" readonly>
+          </div>
+          <button type="button" class="btn btn-primary w-100 mt-4" (click)="openConfirmPassDailog()">Save Profile</button>
+        </form>
+      </div>
+    </div>
+    
+    <!-- Password Management Section -->
+    <div class="col-md-4">
+      <div class="card p-4">
+        <div class="d-flex justify-content-between align-items-center">
+          <span>Password</span>
+          <span class="add-experience" (click)="togglePasswordForm()"><i class="fa fa-key"></i> Change Password</span>
+        </div>
+        <form *ngIf="isPasswordFormVisible" [formGroup]="changePassword">
+          <div class="form-group">
+            <label for="oldPassword">Old Password</label>
+            <input type="password" id="oldPassword" class="form-control" placeholder="Old Password" formControlName="oldPassword">
+            <span *ngIf="changePassword.get('oldPassword')?.invalid && changePassword.get('oldPassword')?.touched" class="text-danger">
+              Old password is required
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="newPassword">New Password</label>
+            <input type="password" id="newPassword" class="form-control" placeholder="New Password" formControlName="newPassword">
+            <span *ngIf="changePassword.get('newPassword')?.hasError('required') && changePassword.get('newPassword')?.touched" class="text-danger">
+              New password is required
+            </span>
+            <span *ngIf="changePassword.get('newPassword')?.hasError('minlength')" class="text-danger">
+              Password must be at least 8 characters long
+            </span>
+            <span *ngIf="changePassword.get('newPassword')?.hasError('pattern')" class="text-danger">
+              Password must contain at least one special character (!#$%^&*_-)
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Confirm New Password</label>
+            <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm New Password" formControlName="confirmPassword">
+            <span *ngIf="changePassword.hasError('passwordsMismatch')" class="text-danger">
+              Passwords do not match
+            </span>
+          </div>
+          <div class="mt-4">
+          <button 
+          class="btn w-100 mb-3" 
+          style="border-color: #f15d30; background-color: #f15d30; color: white;" 
+          (click)="changedPassword()"
+        >
+          <i class="fa fa-key me-2"></i>Change Password
+        </button>  
+        </div>      
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
-
+<!-- Confirm Password Modal -->
+<ng-template #callConfirmPassDailog>
+  <div class="modal-body">
+    <h5 class="modal-title">Confirm Password</h5>
+    <form [formGroup]="passwordForm">
+      <div class="form-group">
+        <label>Current Password</label>
+        <input type="password" class="form-control" formControlName="password" placeholder="Enter current password">
+        <div *ngIf="passwordForm.get('password')?.invalid" class="text-danger">Password is required</div>
+      </div>
+      <div class="d-flex justify-content-end mt-4">
+        <button type="button" class="btn btn-secondary me-2" mat-dialog-close>Cancel</button>
+        <button type="button" class="btn btn-primary" mat-dialog-close (click)="saveProfile()" [disabled]="passwordForm.invalid">Confirm</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
