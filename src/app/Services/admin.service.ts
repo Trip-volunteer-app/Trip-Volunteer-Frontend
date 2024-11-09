@@ -582,7 +582,7 @@ console.log("UserInformation",this.UserInformation);
             title: 'Success!',
             text: 'successfly update profile',
           });
-          this.GetUserinfoByLoginId(updatedData.user_Id);
+          this.GetUserinfoByLoginId(updatedData.login_Id);
   
         },
         error => {
@@ -614,7 +614,7 @@ console.log("UserInformation",this.UserInformation);
             title: 'Success!',
             text: 'successfly update profile',
           });
-          this.GetUserinfoByLoginId(updatedData.user_Id);
+          this.GetUserinfoByLoginId(updatedData.login_Id);
         },
         error => {
           
@@ -678,17 +678,28 @@ sendTripDetailsEmail(emailData: any): Observable<any> {
       .subscribe(
         result => {
           console.log("Change Password successfully", result);
-          window.location.reload();
-          this.toastr.success('Change Password successfully ');
+  
+          Swal.fire({
+            icon: 'success',
+            title: 'Password Changed Successfully',
+            text: 'Your password has been updated.',
+            confirmButtonColor: '#f15d30'
+          }).then(() => {
+            this.GetUserinfoByLoginId(payload.login_Id);
+          });
         },
         error => {
-
-
-          console.error("Error Changed Password", error.message);
+          console.error("Error Changing Password", error.message);
+  
+          Swal.fire({
+            icon: 'error',
+            title: 'Password Change Failed',
+            text: 'There was an issue updating your password. Please try again.',
+            confirmButtonColor: '#f15d30'
+          });
         }
       );
   }
-
 
   //Testimonial
   Testimonial: any = [];

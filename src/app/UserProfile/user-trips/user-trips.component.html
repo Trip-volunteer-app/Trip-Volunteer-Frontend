@@ -1,54 +1,226 @@
 <app-navbar></app-navbar>
-<section class="hero-wrap hero-wrap-2 " style="background-image: url('assets/Home/images/chero12.jpeg');height: 300px; background-size: cover; background-position: center;">
-  <div class="overlay" style="height: 300px;"></div>
-  <div class="container" style="height: 300px;">
-    <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
-      <div class="col-md-9 ftco-animate pb-5 text-center" >
-        <p class="breadcrumbs"><span class="mr-2"><a routerLink="/Trips">Users <i
-                class="fa fa-chevron-right"></i></a></span> <span>Profile <i class="fa fa-chevron-right"></i></span>
-        </p>
+
+<section class="hero-wrap hero-wrap-2"
+    style="background-image: url('assets/Home/images/chero12.jpeg'); height: 200px; background-size: cover; background-position: center;">
+    <div class="overlay" style="height: 200px;"></div>
+    <div class="container" style="height: 200px;">
+        <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 200px;">
+            <div class="col-md-9 text-center">
+                <p class="breadcrumbs"><span class="mr-2"><a routerLink="/Trips">Users <i
+                                class="fa fa-chevron-right"></i></a></span> <span>User Trips <i
+                            class="fa fa-chevron-right"></i></span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container rounded bg-white mt-4 mb-4 p-4">
+
+    <div class="card mb-4">
+        <div class="card-body text-center">
+            <img class="rounded-circle mb-3 mx-auto" width="100px"
+                [src]="this.home.UserInformation.image_Path ? '../../../assets/images/' + this.home.UserInformation.image_Path : '../../../assets/default-profile.png'"
+                style="border: 2px solid #f15d30;" alt="Profile Picture">
+
+            <h5 class="font-weight-bold">{{ this.home.UserInformation.first_Name }} {{
+                this.home.UserInformation.last_Name }}</h5>
+            <p class="text-muted">{{ this.home.UserInformation.email }}</p>
+
+            <button class="btn btn-outline-secondary btn-sm mt-3" (click)="YourTripsAndFavorites()">Profile
+                Settings</button>
+        </div>
+    </div>
+
+   
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h4>Your Trips Booking</h4>
+        </div>
+        <div class="card-body">
+            <div *ngIf="this.home.UserInformation.bookings.length > 0; else noBookings">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center"
+                        *ngFor="let booking of this.home.UserInformation.bookings">
+                        <div>
+                            <strong>{{ booking.trip_Name }}</strong><br>
+                            <span class="text-muted">Payment:</span>
+                            <span class="status-span"
+                                [ngClass]="booking.payment_Status.toLowerCase() === 'not paid' ? 'payment-Not-Paid' : 'payment-paid'">
+                                {{ booking.payment_Status }}
+                            </span>
+                        </div>
+                        <div>
+                            <button *ngIf="booking.payment_Status.toLowerCase() === 'not paid'" class="btn btn-danger btn-sm mr-2"
+                                (click)="deleteBooking(booking.booking_Id)">
+                                Delete
+                            </button>
+                            <button class="btn btn-link btn-sm" (click)="openDetailsBookDialog(booking)">Details</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <ng-template #noBookings>
+                <p class="text-muted">No bookings found.</p>
+            </ng-template>
+        </div>
+    </div>
+
+    <ng-template #callDetailsBookDailog>
+        <div class="modal-body">
+          <h4 class="modal-title text-center">Booking Details</h4>
+          
+          <div class="booking-section mb-4">
+            <h5>Booking Information</h5>
+            <div class="row">
+              <div class="col-md-6"><strong>Booking Date:</strong> {{ selectedBooking.create_At| date }}</div>
+              <div class="col-md-6"><strong>Total Amount:</strong> ${{ selectedBooking.total_Amount}}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-6"><strong>Nunber of reservation:</strong> {{ selectedBooking.numberOfUser }}</div>              
+            </div>
+          </div>
+      
+          <div class="trip-section mb-4">
+            <h5>Trip Details</h5>
+            <div class="row">
+              <div class="col-md-6"><strong>Trip Name:</strong> {{ selectedBooking.trip_Name }}</div>
+              <div class="col-md-6"><strong>Price:</strong> ${{ selectedBooking.trip_Price }}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-6"><strong>Departure Location:</strong> {{ selectedBooking.departure_Location }}</div>
+              <div class="col-md-6"><strong>Destination:</strong> {{ selectedBooking.destination_Location }}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-6"><strong>Date of Departure:</strong> {{ selectedBooking.start_Date |date }}</div>
+              <div class="col-md-6"><strong>Date of Return:</strong> {{ selectedBooking.end_Date |date }}</div>
+            </div>
+          </div>
+      
+          <div class="services-section mb-4">
+            <h5>My Services</h5>
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let service of this.home.bookingServices">
+                {{ service.service_Name }}
+                <span >${{ service.service_Cost }}</span>
+              </li>
+            </ul>
+          </div>
+      
+          <div class="d-flex justify-content-end mt-4">
+            <button type="button" class="btn btn-secondary me-2" style="margin-right: 20px;" mat-dialog-close>Cancel</button>
+            <button type="button" class="btn btn-primary" *ngIf="selectedBooking.payment_Status.toLowerCase() === 'not paid'" mat-dialog-close (click)="goPayment(selectedBooking.booking_Id)">Payment</button>
+          </div>
+        </div>
+      </ng-template>
+
+    <div class="card mb-4">
+        <div class="card-header bg-secondary text-white">
+            <h4>Your Volunteer Booking</h4>
+        </div>
+        <div class="card-body">
+            <div *ngIf="this.home.UserInformation.volunteer.length > 0; else noVolunteer">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center"
+                        *ngFor="let volunteer of this.home.UserInformation.volunteer">
+                        <div>
+                            <strong>{{ volunteer.trip_Name }}</strong><br>
+                            <span class="text-muted">Status:</span>
+                            <span class="status-span"
+                                [ngClass]="volunteer.status.toLowerCase() === 'pending' ? 'status-pending' :
+                                volunteer.status.toLowerCase() === 'approved' ? 'status-approved' :
+                                'status-other'">
+                                {{ volunteer.status }}
+                            </span>
+                        </div>
+                        <div>
+                            <button *ngIf="volunteer.status === 'pending'  || volunteer.status.toLowerCase() === 'rejected'" class="btn btn-danger btn-sm mr-2"
+                                (click)="deleteVolunteer(volunteer.volunteer_Id)">
+                                Delete
+                            </button>
+                            <button class="btn btn-link btn-sm" (click)="openDetailsVolunteerDailog(volunteer)">Details</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <ng-template #noVolunteer>
+                <p class="text-muted">No volunteer bookings found.</p>
+            </ng-template>
+        </div>
+    </div>
+
+    <ng-template #callDetailsVolunteerDailog>
+      <div class="modal-body">
+        <h4 class="modal-title text-center">Volunteer Details</h4>
+        
+        <div class="booking-section mb-4">
+          <h5>Booking Information</h5>
+          <div class="row">
+            <div class="col-md-6"><strong>Booking Date:</strong> {{ selectedVolunteer.date_Applied| date }}</div>
+            <div class="col-md-6"><strong>Total Amount:</strong> {{ selectedVolunteer.status}}</div>
+          </div>
+        </div>
+    
+        <div class="trip-section mb-4">
+          <h5>Trip Details</h5>
+          <div class="row">
+            <div class="col-md-6"><strong>Trip Name:</strong> {{ selectedVolunteer.trip_Name }}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6"><strong>Departure Location:</strong> {{ selectedVolunteer.departure_Location }}</div>
+            <div class="col-md-6"><strong>Destination:</strong> {{ selectedVolunteer.destination_Location }}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6"><strong>Date of Departure:</strong> {{ selectedVolunteer.start_Date |date }}</div>
+            <div class="col-md-6"><strong>Date of Return:</strong> {{ selectedVolunteer.end_Date |date }}</div>
+          </div>
+        </div>
+    
+        <div class="services-section mb-4">
+          <h5>My Volunteer Role</h5>
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              {{ selectedVolunteer.role_Name }}
+            </li>
+          </ul>
+        </div>
+    
+        <div class="d-flex justify-content-end mt-4">
+          <button type="button" class="btn btn-primary" mat-dialog-close>Ok</button>
+        </div>
+      </div>
+    </ng-template>
+
+    <div class="card mb-4">
+      <div class="card-header bg-secondary text-white">
+        <h4>Your Favorite Trips</h4>
+      </div>
+      <div class="card-body">
+        <div *ngIf="favorites.length > 0; else noFavorites">
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let favorite of favorites">
+              <div>
+                <strong>{{ favorite.name }}</strong><br>
+                <span class="text-muted">Location:</span> {{ favorite.location }}
+              </div>
+              <div>
+                <button class="btn btn-link btn-sm text-danger" (click)="removeFavorite(favorite.tripId)">
+                  Remove
+                </button>
+                <button class="btn btn-link btn-sm text-primary" (click)="goToDetails(favorite.tripId)">
+                 Details
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <ng-template #noFavorites>
+          <p class="text-muted">No favorite trips added yet.</p>
+        </ng-template>
       </div>
     </div>
-  </div>
-</section>
-<div class="container rounded bg-white mt-5 mb-5">
-    <div class="row">
-        <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                <img class="rounded-circle mt-5" width="150px" [src]="image_Path || '../../../assets/default-profile.png'">
-                <span class="font-weight-bold">{{first_Name}} {{last_Name}}</span><span class="text-black-50">{{email}}</span>
-                <span> 
-                    <div class="mt-5 text-center">
-                        <button class="btn btn-primary profile-button" type="submit" (click)="YourTripsAndFavorites()">Profile Setting</button>
-                    </div>
-                </span>
+    
+    
+    
+  
 
-                <span> 
-                    <div class="mt-5 text-center">
-                        <button class="btn btn-primary profile-button" type="submit" (click)="logout()">Logout</button>
-                    </div>
-                </span>
-            </div>
-        </div>
-            <div class="col-md-5 border-right">
-                <div class="p-3 py-5">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="text-right">Your Trips</h4>
-                    </div>
-
-                 
-                      
-                    
-                
-                </div>
-            </div>
-
-        <div class="col-md-4">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center experience"><span>Favorites Trips</span></div><br>
-                 </div>
-        </div>
-    </div>
 </div>
-
-

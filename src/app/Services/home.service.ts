@@ -92,6 +92,19 @@ CreateBooking(body: any) {
     next: (resp: any) => {
       if (resp?.bookingId) { 
         console.log('Booking created with ID:', resp.bookingId);
+        const updateUserBody = {
+          id: resp.tripId, // Assuming the trip ID is returned in the response
+          res_num: resp.numberOfUsers // Assuming the number of users is in the response
+        };
+
+        // Update max users
+        this.updateMaxUser(updateUserBody.id, updateUserBody.res_num)
+          .then(() => {
+            console.log('Max number of users updated successfully');
+          })
+          .catch(err => {
+            console.error('Error updating max number of users:', err);
+          });
         this.showAlert(resp.bookingId);
       } else {
         console.error('Booking ID not returned in response');
@@ -193,6 +206,16 @@ UpdateBalance(body: any): Promise<void> {
     });
 }
 
+updateMaxUser(id: number, res_num: number): Promise<void> {
+  return this.http.put<void>(`https://localhost:7004/api/Trips/updateMaxUser?id=${id}&res_num=${res_num}`, {})
+    .toPromise()
+    .then(() => {
+      console.log('Max number of users updated');
+    })
+    .catch(err => {
+      console.error('Error updating MaxUser:', err);
+    });
+}
 //volunteer Role
 
 VolunteerRoleByTripId:any;
@@ -286,6 +309,50 @@ DeleteVolanteerReq(id: number) {
 }
 
 
+
+//deleted for user trip page 
+//Delete booking
+Deletebookings(bookingId: number,loginid:number) {
+  this.http.delete('https://localhost:7004/api/Booking/DeleteBooking/' +bookingId).subscribe(response => {
+    console.log('deleted')
+    this.GetUserinfoByLoginId(loginid)
+  },
+    err => {
+      console.log('errer');
+    })
+}
+
+//Delete volanteer
+
+DeleteVolanteerReqs(id: number,loginid:number) {
+  this.http.delete('https://localhost:7004/api/Volunteers/DeleteVolunteer/' +id).subscribe(response => {
+    console.log('deleted')
+    this.GetUserinfoByLoginId(loginid)
+  },
+    err => {
+      console.log('errer');
+    })
+}
+//user login information
+UserInformation:any; 
+GetUserinfoByLoginId(id:number){ 
+ this.http.get('https://localhost:7004/api/UserLogin/GetUserinfoByLoginId/'+ id).subscribe(result=>{
+this.UserInformation =result ;  
+console.log("UserInformation",this.UserInformation);
+
+},err=>{
+      console.log(err.message);     
+})}
+//user login information
+bookingServices:any; 
+GetBookingServiceByBookingId(id:number){ 
+ this.http.get('https://localhost:7004/api/BookingServices/GetBookingServiceByBookingId/'+ id).subscribe(result=>{
+this.bookingServices =result ;  
+console.log("bookingServices",this.bookingServices);
+
+},err=>{
+      console.log(err.message);     
+})}
 
 DeleteHomePageElements(id: number) {
   this.http.delete('https://localhost:7004/api/HomePageElements/DeleteHomePageElement/' + id).subscribe(response => {

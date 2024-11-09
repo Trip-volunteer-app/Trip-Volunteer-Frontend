@@ -5,6 +5,7 @@ import { Router ,ActivatedRoute} from '@angular/router';
 import {  FormGroup, FormControl,Validators } from '@angular/forms';
 import {MatDialog,MatDialogRef } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
+import { formatDate } from '@angular/common'; 
 
 
 @Component({
@@ -59,22 +60,19 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
     const userFromStorage = localStorage.getItem("user");
     this.user = userFromStorage ? JSON.parse(userFromStorage) : null;
     this.userId = Number(this.user.loginid);
-  
-    // console.log('++++++++++++++++++++++++++++');   
-    // this.home.GetVolunteerRoleByTripId(this.tripId);  // Correctly calling the function
-    // console.log('++++++++++++++++++++++++++++');
-  
-    // console.log('---------------------');
-    // // The console.log for VolunteerRoleByTripId should be inside the subscription in the method
-    // // console.log("GetVolunteerRoleByTripId", this.home.VolunteerRoleByTripId); 
-    // console.log('------------------------------------');
-    
+
     this.home.GetBookingByTripId(this.tripId, this.userId);
     this.home.GetVolunteerByTripId(this.tripId, this.userId);
     console.log("bookingtripid", this.home.BookingByTripId);
     console.log("volunteerbytripid", this.home.VolunteerByTripId);
   }
+  isFutureTrip(startDate: string): boolean {
+    const currentDate = new Date();
+    const tripStartDate = new Date(startDate);
+    const seatsAvailable = this.home.tripDetails.max_Number_Of_Users > 0;
   
+    return tripStartDate > currentDate && seatsAvailable;
+  }
   ngAfterViewInit(): void {
     // Initialize various styles and functionalities after view initialization
     this.styleService.applyFullHeight(); // Ensure height recalculates
@@ -86,13 +84,41 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
     this.styleService.initMagnificPopup(); // Set up image popups
     this.styleService.initDatePickers(); // Initialize date pickers
     this.cdr.detectChanges(); // Detect changes after all initializations
+
+    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    this.isFavorite = favorites.some((favorite: any) => favorite.bookingId === this.home.tripDetails.bookingId);
+  
   }
 
   isFavorite: boolean = false; // Track whether the item is a favorite
 
   toggleFavorite() {
-    this.isFavorite = !this.isFavorite; // Toggle the favorite state
+    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+
+    // Check if the current trip is already in the favorites
+    const index = favorites.findIndex((favorite: any) => favorite.bookingId === this.home.tripDetails.bookingId);
+
+    if (index > -1) {
+      // Trip is already in favorites, so remove it
+      favorites.splice(index, 1);
+      this.isFavorite = false;
+    } else {
+      // Trip is not in favorites, so add it
+      favorites.push({
+        tripId:this.home.tripDetails.trip_Id,
+        name: this.home.tripDetails.trip_Name,
+        price: this.home.tripDetails.trip_Price,
+        startDate: this.home.tripDetails.start_Date,
+        endDate: this.home.tripDetails.end_Date,
+        location: this.home.tripDetails.destination_Location
+      });
+      this.isFavorite = true;
+    }
+
+    // Save updated favorites back to localStorage
+    localStorage.setItem('favorites', JSON.stringify(favorites));
   }
+
 
   currentSlide = 0;
 
@@ -174,7 +200,6 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
 
    }}
 
-  selectedService: number[] = [];
 
   check(isChecked: boolean, id: number) {
     if (isChecked) {
@@ -228,6 +253,7 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
     this.BookingTrip.reset();
 
   }
+  selectedService: number[] = [];
   bookingreq:any;
   Booking() {
     Swal.fire({
@@ -245,7 +271,8 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
           // Check if there's an existing reservation or volunteer request
           if (this.home.BookingByTripId == null) {
             if (this.home.VolunteerByTripId == null) {
-  
+              const maxUser=this.BookingTrip.controls['numberOfUser'].value;
+              if(this.home.tripDetails.max_Number_Of_Users >= maxUser ){
               // No existing booking or volunteer request, proceed to create booking
               this.bookingreq = {
                 ...this.BookingTrip.value,
@@ -253,7 +280,13 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
               };
               this.home.CreateBooking(this.bookingreq);
               this.dialogRef.close();
-  
+             }else{
+              Swal.fire({
+                icon: 'error',
+                title: 'Seats Full',
+                text: 'Sorry, there are not enough available seats for this booking. Please adjust the number of users or choose another trip.',
+              });
+             }
             } else if (this.home.VolunteerByTripId !== null && this.home.VolunteerByTripId.status?.toLowerCase() === 'pending') {
   
               // Volunteer request is pending, confirm with the user before proceeding
@@ -267,6 +300,8 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
                 confirmButtonText: 'Yes, book!'
               }).then((volunteerResult) => {
                 if (volunteerResult.isConfirmed) {
+                  const maxUser=this.BookingTrip.controls['numberOfUser'].value;
+                  if(this.home.tripDetails.max_Number_Of_Users >=maxUser ){
                   // Cancel volunteer request and proceed with booking
                   this.home.DeleteVolanteerReq(this.home.VolunteerByTripId.volunteer_Id);
                   
@@ -277,6 +312,13 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
                   this.home.CreateBooking(this.bookingreq);
                   this.dialogRef.close();
                 }
+              }else{
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Seats Full',
+                  text: 'Sorry, there are not enough available seats for this booking. Please adjust the number of users or choose another trip.',
+                });
+              }
               });
             } else {
               // Volunteer status is not 'pending'
@@ -375,6 +417,10 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
         }
       }
     });  }
+
+
+
+    
   reviews = [
     {
       avatarUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/1200px-User_icon_2.svg.png',

@@ -1,7 +1,7 @@
 import { Component, OnInit,ViewChild,TemplateRef  } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/Services/admin.service';
-import { FormControl, FormGroup,Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import {MatDialog,MatDialogRef } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
@@ -27,10 +27,11 @@ export class UserProfileComponent implements OnInit {
     const userId = Number(user.loginid);
     await this.admin.GetUserinfoByLoginId(userId);
     
+    setTimeout(() => {
       if (this.admin.UserInformation && this.admin.UserInformation.birth_Date) {
         this.BirthDay = new Date(this.admin.UserInformation.birth_Date)
         .toLocaleDateString('en-CA');      }
-
+  }, 4000);
   }
   
 
@@ -98,23 +99,46 @@ export class UserProfileComponent implements OnInit {
 
 
   changePassword: FormGroup = new FormGroup({
-    logiN_ID: new FormControl(''),
-    oldPassword: new FormControl(''),
-    newPassword: new FormControl(''),
-    confirmPassword: new FormControl('')
-  });
+    login_Id: new FormControl(''),
+    oldPassword: new FormControl('', Validators.required),
+    newPassword: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.pattern(/^(?=.*[a-zA-Z0-9])(?=.*[!@#$%^&*_-]).*$/)
+    ]),
+    confirmPassword: new FormControl('', Validators.required)
+  }, { validators: this.passwordsMatchValidator });
+  
+  // Custom validator to check if newPassword and confirmPassword match
+  passwordsMatchValidator(control: AbstractControl): ValidationErrors | null {
+    const newPassword = control.get('newPassword')?.value;
+    const confirmPassword = control.get('confirmPassword')?.value;
+    return newPassword === confirmPassword ? null : { passwordsMismatch: true };
+  }
 
   changedPassword() {
-    // Retrieve the entire Users form value
-    const usersFormValue = this.Users.value;
-  
-    // Now extract login_Id
-    const loginIdValue = usersFormValue.login_Id;
-    console.log("loginIdValue:",loginIdValue)
-    if (loginIdValue) {
-      // Create a payload for the API
+    if (this.changePassword.invalid) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Invalid Input',
+        text: 'Please ensure all fields are filled correctly and that passwords match.',
+        confirmButtonColor: '#f15d30'
+      });
+      return;
+    }
+
+
+    const userFromStorage = localStorage.getItem("user");
+    const user = userFromStorage ? JSON.parse(userFromStorage) : null;
+
+    const userId = Number(user.loginid);
+    const oldPass =this.changePassword.get('oldPassword')?.value;
+    const hashedEnteredPassword = this.hashPassword(oldPass);
+
+    if(hashedEnteredPassword == this.admin.UserInformation.password){
+      if (userId) {
       const payload = {
-        logiN_ID: loginIdValue,
+        login_Id: userId,
         oldPassword: this.changePassword.get('oldPassword')?.value,
         newPassword: this.changePassword.get('newPassword')?.value,
         confirmPassword: this.changePassword.get('confirmPassword')?.value
@@ -122,16 +146,18 @@ export class UserProfileComponent implements OnInit {
   
       console.log("Payload for Change Password:", payload);
   
-      // Make the API call
       this.admin.changePassword(payload);
+    }}else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Incorrect Old Password',
+        text: 'The current password you entered is incorrect.',
+        confirmButtonColor: '#f15d30'
+      });
     }
   }
 
 
-
-
-
-  
   isPasswordFormVisible: boolean = false; // Controls visibility of the form
   oldPassword: string = '';
   newPassword: string = '';
@@ -145,8 +171,5 @@ export class UserProfileComponent implements OnInit {
     this.router.navigate(['UserTrips']);
   }
 
-  logout(): void {
-    localStorage.clear();
-    this.router.navigate(['security/login']);
-  }
+
 }

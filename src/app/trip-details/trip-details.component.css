@@ -294,3 +294,34 @@ table td, table th {
     padding: 10px 5px; /* Adjust padding for small screens */
   }
 }
+.alert-box {
+  padding: 5px;
+  background-color: #ffecb3;
+  border: 1px solid #ffcc80;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.alert-box mat-icon {
+  font-size: 16px f5722;
+}
+
+.alert-box h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 5px;
+  color: #333;
+}
+
+.alert-box p {
+  font-size: 16px;
+  color: #555;
+  margin: 5px 0;
+}
+
+
+
