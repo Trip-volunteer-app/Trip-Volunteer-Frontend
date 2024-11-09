@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import Swal from 'sweetalert2';
+
 
 @Injectable({
   providedIn: 'root',
@@ -40,9 +42,22 @@ export class LocationService {
   CreateLocation(body: any){
     this.http.post('https://localhost:7004/api/Location/CREATElocation/', body).subscribe(
       (response) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Create!',
+          text: 'The location has been created successfully.',
+          showConfirmButton: false,
+          timer: 2000
+        });
         console.log('Created successfully');
       },
       (err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'An error occurred while Created the location. Please try again.',
+          confirmButtonText: 'OK'
+        });
         console.error('Error occurred while creating', err);
       }
     );
@@ -63,9 +78,22 @@ export class LocationService {
     console.log('body:', body);
     this.http.put('https://localhost:7004/api/Location/UPDATElocation',body).subscribe(
       response => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Update About!',
+          text: 'The Update About element has been successfully.',
+          showConfirmButton: false,
+          timer: 2000
+        });
         console.log('Updated successfully');
       },
       err => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'An error occurred while updating the element. Please try again.',
+          confirmButtonText: 'OK'
+        });
         console.error('Error occurred', err);
       }
     );

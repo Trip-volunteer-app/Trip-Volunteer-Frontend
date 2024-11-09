@@ -178,6 +178,9 @@ CreateBooking(body: any) {
     })
   }
 
+
+
+
 updateMaxUser(id: number, res_num: number): Promise<void> {
   return this.http.put<void>(`https://localhost:7004/api/Trips/updateMaxUser?id=${id}&res_num=${res_num}`, {})
     .toPromise()
@@ -189,16 +192,68 @@ updateMaxUser(id: number, res_num: number): Promise<void> {
     });
 }
 //volunteer Role
+
   async UpdatePaymentStatus(body: any): Promise<void> {
     try {
-      await this.http.put<void>('https://localhost:7004/api/Booking/UpdatePaymentStatus', body).toPromise();
-      console.log('Updated');
+      // Update payment status
+      const paymentResponse = await this.http.put<any>('https://localhost:7004/api/Booking/UpdatePaymentStatus', body).toPromise();
+  
+      // Get booking information
+      const params = new HttpParams().set('bookingId', body.booking_Id.toString());
+      const bookingResponse = await this.http.get<any>("https://localhost:7004/api/Booking/GetBookingById", { params }).toPromise();
+        
+      // Extract payment status and total amount
+      const paymentStatus = bookingResponse?.payment_Status || 'Not Available';
+      const totalAmount = bookingResponse?.total_Amount || 'Not Available';
+        
+      
+      // Get email from local storage
+      const receiverEmail = localStorage.getItem('email');
+      if (!receiverEmail) {
+        console.error('User email not found in local storage');
+        return;
+      }
+  
+      // Extract relevant information for the email body
+      const emailBody = `
+        Booking ID: ${body.booking_Id}
+        Trip Name: ${body.Trip_Name}
+        Start Date: ${body.Start_Date}
+        End Date: ${body.End_Date}
+        Departure Location: ${body.Departure_Location}
+  
+        Services:
+        ${body.Services.map((service: any) =>
+          `- ${service.service_Name}: $${service.service_Cost}`).join('\n')}
+  
+        Payment Status: ${paymentStatus}
+        Total Amount: $${totalAmount}
+
+      `;
+  
+      // Prepare the email request body
+      const emailRequest = {
+        ReceiverEmail: receiverEmail,
+        Body: emailBody
+      };
+  
+      // Send email with PDF attachment
+      this.http.post('https://localhost:7004/api/Trips/SendEmailWithPdfAttachment', emailRequest)
+        .subscribe(
+          res => {
+            console.log('Success: Email sent');
+          },
+          err => {
+            console.error('Error: Failed to send email', err);
+          }
+        );
+  
+      console.log('Payment status updated and email request sent');
     } catch (err) {
       console.error('Error updating payment status', err);
     }
   }
-
-
+  
 
   UpdateBalance(body: any): Promise<void> {
     return this.http.put<void>('https://localhost:7004/api/Bank/UpdateBalance', body)
@@ -373,32 +428,30 @@ DeleteHomePageElements(id: number) {
     console.log('Final Body:', body);
     this.http.post('https://localhost:7004/api/HomePageElements/CreateHomePageElement/', body).subscribe(
       (response) => {
+        
+      Swal.fire({
+        icon: 'success',
+        title: 'Create!',
+        text: 'The Home Page element has been created successfully.',
+        showConfirmButton: false,
+        timer: 2000
+      });
         console.log('Created successfully');
-        window.location.reload();
+        this.GetAllHomePageElements();
       },
       (err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'An error occurred while created the element. Please try again.',
+          confirmButtonText: 'OK'
+        });
         console.error('Error occurred while creating', err);
 
       }
     );
   }
 
-
-  // UpdateSelectedAboutus(id: number) {
-  //   const params = new HttpParams().set('id', id.toString());
-  //   this.http.put(
-  //     'https://localhost:7004/api/AboutUs/UpdateSelectedAboutus',
-  //     {}, // Empty body as you're sending the id in query parameters
-  //     { params } // Add the parameters here
-  //   ).subscribe(
-  //     response => {
-  //       console.log('Updated successfully');
-  //     },
-  //     err => {
-  //       console.error('Error occurred', err);
-  //     }
-  //   );
-  // }
 
   UpdateHopmePageElements(body: any) {
     body.hero_Image = this.imageStorage['hero_Image'];
@@ -407,9 +460,22 @@ DeleteHomePageElements(id: number) {
       'https://localhost:7004/api/HomePageElements/UpdatHomePageElement', body
     ).subscribe(
       response => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Update!',
+          text: 'The Hopme Page element has been updated successfully.',
+          showConfirmButton: false,
+          timer: 2000
+        });
         console.log('Updated successfully');
       },
       err => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'An error occurred while update the element. Please try again.',
+          confirmButtonText: 'OK'
+        });
         console.error('Error occurred', err);
       }
     );
@@ -470,13 +536,37 @@ DeleteHomePageElements(id: number) {
   }
 
 
-  CreateTestimonial(body: any) {
-    this.http.post("https://localhost:7004/api/Testimonial/CreateTestimony", body).subscribe(res => {
-      console.log(this.Testimonial)
-    }, err => {
-      console.log(err.message)
-    })
-  }
+
+CreateTestimonial(body: any) {
+  this.http.post("https://localhost:7004/api/Testimonial/CreateTestimony", body).subscribe(
+    (res) => {
+      console.log(this.Testimonial);
+
+      // Show success message using SweetAlert2
+      Swal.fire({
+        icon: 'success',
+        title: 'Testimonial Submitted',
+        text: 'Your testimonial has been submitted successfully!',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'OK'
+      });
+    },
+    (err) => {
+      console.log(err.message);
+
+      // Show error message using SweetAlert2
+      Swal.fire({
+        icon: 'error',
+        title: 'Submission Failed',
+        text: 'There was an error submitting your testimonial. Please try again later.',
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'Retry'
+      });
+    }
+  );
+}
+
+
 
   volunteer: any = [];
   searchVolunteers(searchCriteria: any): Observable<any[]> {

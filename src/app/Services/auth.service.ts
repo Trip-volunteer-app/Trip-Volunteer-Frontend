@@ -4,6 +4,9 @@ import { jwtDecode } from 'jwt-decode';
 import {ToastrService} from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import Swal from 'sweetalert2';
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -28,17 +31,38 @@ export class AuthService {
         (resp: any) => {
           console.log(resp);
           if (resp && resp.success) {
-            this.toastr.success('Successfully Registered! Login now!');
+            Swal.fire({
+              icon: 'success',
+              title: 'Register!',
+              text: 'The Registers has been successfully! Login to you account now.',
+              showConfirmButton: false,
+              timer: 2000
+            });
             this.router.navigate(['security/login']);
           } else {
-            this.toastr.error('Registration failed. Please try again.');
+            Swal.fire({
+              icon: 'error',
+              title: 'Error!',
+              text: 'An error occurred while Registers!. Please try again.',
+              confirmButtonText: 'OK'
+            });
           }
         },
         (err) => {
           if (err.status === 400 && err.error === 'Email already exists') {
-            this.toastr.error('Email already exists. Please use a different email.');
+            Swal.fire({
+              icon: 'error',
+              title: 'Error!',
+              text: 'Email already exists. Please use a different email.',
+              confirmButtonText: 'OK'
+            });
           } else {
-            this.toastr.error('An error occurred during registration. Please try again.');
+            Swal.fire({
+              icon: 'error',
+              title: 'Error!',
+              text: 'An error occurred during registration. Please try again.',
+              confirmButtonText: 'OK'
+            });
             console.error('Error registering user', err);
           }
         }
@@ -87,6 +111,8 @@ export class AuthService {
 
     this.http.post('https://localhost:7004/api/UserLogin/Auth',body,requestOptions).subscribe((resp:any)=>{
       console.log(resp);
+
+      
       const responce = {
       token : resp.toString() 
       }

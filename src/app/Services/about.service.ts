@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -29,15 +30,41 @@ export class AboutService {
     }
   }
   
-
   DeleteAboutUsElements(id: number) {
-    this.http.delete('https://localhost:7004/api/AboutUs/DeleteAboutUsElements/' + id).subscribe(response => {
-      console.log('deleted')
-    },
+    this.http.delete('https://localhost:7004/api/AboutUs/DeleteAboutUsElements/' + id).subscribe(
+      response => {
+        // Show success alert
+        Swal.fire({
+          icon: 'success',
+          title: 'Deleted!',
+          text: 'The About Us element has been deleted successfully.',
+          showConfirmButton: false,
+          timer: 2000
+        });
+        this.GetAllAboutUsElements();
+      },
       err => {
-        console.log('errer');
-      })
+        // Show error alert
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'An error occurred while deleting the element. Please try again.',
+          confirmButtonText: 'OK'
+        });
+        console.error('Error:', err);
+      }
+    );
   }
+
+  // DeleteAboutUsElements(id: number) {
+  //   this.http.delete('https://localhost:7004/api/AboutUs/DeleteAboutUsElements/' + id).subscribe(response => {
+  //     this.GetAllAboutUsElements();
+  //     console.log('deleted')
+  //   },
+  //     err => {
+  //       console.log('errer');
+  //     })
+  // }
 
   CreateAboutUsElements(body: any) {
     body.hero_image = this.imageStorage['hero_image'];
@@ -51,9 +78,24 @@ export class AboutService {
     console.log('Final Body:', body);
     this.http.post('https://localhost:7004/api/AboutUs/CreateAboutUsElements/', body).subscribe(
       (response) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Create!',
+          text: 'The About Us element has been created successfully.',
+          showConfirmButton: false,
+          timer: 2000
+        });
+
+        this.GetAllAboutUsElements();
         console.log('Created successfully');
       },
       (err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'An error occurred while Created the element. Please try again.',
+          confirmButtonText: 'OK'
+        });
         console.error('Error occurred while creating', err);
       }
     );
@@ -62,15 +104,30 @@ export class AboutService {
 
   UpdateSelectedAboutus(id: number) {
     const params = new HttpParams().set('id', id.toString());
-    this.http.put(
-      'https://localhost:7004/api/AboutUs/UpdateSelectedAboutus',
+    this.http.put('https://localhost:7004/api/AboutUs/UpdateSelectedAboutus',
       {}, // Empty body as you're sending the id in query parameters
       { params } // Add the parameters here
     ).subscribe(
       response => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Update Selected Aboutus!',
+          text: 'The About Us element has been selected successfully.',
+          showConfirmButton: false,
+          timer: 2000
+        });
+
+
+        this.GetAllAboutUsElements();
         console.log('Updated successfully');
       },
       err => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'An error occurred while Selected the element. Please try again.',
+          confirmButtonText: 'OK'
+        });
         console.error('Error occurred', err);
       }
     );
@@ -90,9 +147,25 @@ export class AboutService {
       'https://localhost:7004/api/AboutUs/UpdateAboutUsElements',body
     ).subscribe(
       response => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Update About!',
+          text: 'The About Us element has been updated successfully.',
+          showConfirmButton: false,
+          timer: 2000
+        });
+
+
+        this.GetAllAboutUsElements();
         console.log('Updated successfully');
       },
       err => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'An error occurred while update the element. Please try again.',
+          confirmButtonText: 'OK'
+        });
         console.error('Error occurred', err);
       }
     );
