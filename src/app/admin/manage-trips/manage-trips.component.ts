@@ -224,6 +224,9 @@ export class ManageTripsComponent implements OnInit{
   openServices(tripId:number){
     this.router.navigate(['admin/ManageServices/', tripId]);
   }
+  openRoles(tripId:number){
+    this.router.navigate(['admin/ManageRoles/', tripId]);
+  }
   
 }
 

@@ -116,12 +116,23 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="scrollable-services-container" style="display: flex; justify-content: flex-end;">
-                                <div class="add-service-section">
-                                    <button mat-raised-button color="accent" (click)="Save()"
-                                        matTooltip="Click to add a new service" aria-label="Save">
-                                        Save
-                                    </button>
+                                <div class="scrollable-services-container"
+                                    style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <div class="add-butoon-section">
+                                        <button mat-raised-button color="accent" (click)="back(tripId)"
+                                            matTooltip="Click to view all trips" aria-label="All Trips">
+                                            All Trips
+                                        </button>
+                                    </div>
+                                    <div class="add-butoon-section">
+                                        <button mat-raised-button color="warn" (click)="return()"
+                                            matTooltip="Click to go back" aria-label="Back">
+                                            Back
+                                        </button>
+                                        <button mat-raised-button color="primary" (click)="Save()"
+                                            matTooltip="Click to save changes" aria-label="Save">
+                                            Save
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -132,6 +143,7 @@
         </div>
     </div>
 </div>
+
 
 
 <ng-template #callUpdateDialog>

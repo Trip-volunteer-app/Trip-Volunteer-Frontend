@@ -1,85 +1,97 @@
-  <div class="container-scroller">
-    <!-- partial:../../partials/_sidebar.html -->
-    <app-header></app-header>
+<div class="container-scroller">
+  <!-- partial:../../partials/_sidebar.html -->
+  <app-header></app-header>
+  <!-- partial -->
+  <div class="container-fluid page-body-wrapper">
+    <!-- partial:../../partials/_navbar.html -->
+
     <!-- partial -->
-    <div class="container-fluid page-body-wrapper">
-      <!-- partial:../../partials/_navbar.html -->
+    <div class="main-panel">
+      <div class="content-wrapper">
 
-      <!-- partial -->
-      <div class="main-panel">
-        <div class="content-wrapper">
-
-          <div class="row">
+        <div class="row">
 
 
-            <div class="col-lg-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Trip Table</h4>
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Trip Table</h4>
 
-                  <div class="table-responsive">
-                    <table class="table table-dark">
-                      <thead>
-                        <tr>
-                          <th> Trip Name </th>
-                          <th> Trip Details </th>
-                          <th> Location </th>
-                          <th> Images </th>
-                          <th> Services </th>
-                          <th> Operations </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td> {{admin.TripById.trip_Name}} </td>
-                          <td>
-                            <button mat-button (click)="openEditDailog(admin.TripById)"
-                              style="color: rgb(92, 92, 245); font-size: 20px !important;"><i
-                                class="bi bi-pencil-square"></i> </button>
-                          </td>
-                          <td>
-                            <button mat-button (click)="openlocationEditDailog(location.locationByTripID)"
-                              style="color: rgb(92, 92, 245); font-size: 20px !important;"><i
-                                class="bi bi-pencil-square"></i> </button>
-                          </td>
-                          <td>
-                            <button mat-button (click)="openImages(admin.TripById.trip_Id)"
-                              style="color: rgb(92, 92, 245); font-size: 20px !important;"><i
-                                class="bi bi-pencil-square"></i></button>
-                          </td>
-                          <td>
-                            <button mat-button (click)="openServices(admin.TripById.trip_Id)"
-                              style="color: rgb(92, 92, 245); font-size: 20px !important;"><i
-                                class="bi bi-pencil-square"></i></button>
-                          </td>
-                          <td>
-                            <button mat-button (click)="openDeleteDialog(admin.TripById.trip_Id)"
-                              style="color: rgb(247, 88, 88); font-size: 20px !important;"><i
-                                class="bi bi-trash-fill"></i></button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div class="btn2">
-                    <button mat-button (click)="back()" style="color: white; border-radius: 20px;">Back</button>
-                  </div>
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Trip Name</th>
+                        <th>Trip Details</th>
+                        <th>Location</th>
+                        <th>Images</th>
+                        <th>Services</th>
+                        <th>Volunteer Roles</th>
+                        <th>Operations</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{ admin.TripById.trip_Name }}</td>
+                        <td>
+                          <button mat-button (click)="openEditDailog(admin.TripById)" class="button"
+                            matTooltip="Edit Trip Details">
+                            <i class="bi bi-pencil-square"></i>
+                          </button>
+                        </td>
+                        <td>
+                          <button mat-button (click)="openlocationEditDailog(location.locationByTripID)" class="button"
+                            matTooltip="Edit Location">
+                            <i class="bi bi-pencil-square"></i>
+                          </button>
+                        </td>
+                        <td>
+                          <button mat-button (click)="openImages(admin.TripById.trip_Id)" class="button"
+                            matTooltip="Edit Images">
+                            <i class="bi bi-pencil-square"></i>
+                          </button>
+                        </td>
+                        <td>
+                          <button mat-button (click)="openServices(admin.TripById.trip_Id)" class="button"
+                            matTooltip="Edit Services">
+                            <i class="bi bi-pencil-square"></i>
+                          </button>
+                        </td>
+                        <td>
+                          <button mat-button (click)="openRoles(admin.TripById.trip_Id)" class="button"
+                            matTooltip="Edit Volunteer Roles">
+                            <i class="bi bi-pencil-square"></i>
+                          </button>
+                        </td>
+                        <td>
+                          <button mat-button (click)="openDeleteDialog(admin.TripById.trip_Id)" class="delete-button"
+                            matTooltip="Delete Trip">
+                            <i class="bi bi-trash-fill"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="btn2">
+                  <button mat-button (click)="back()" style="color: #535656; border-radius: 20px ;">Back</button>
                 </div>
               </div>
             </div>
-
           </div>
+
         </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:../../partials/_footer.html -->
-
-        <!-- partial -->
       </div>
-      <!-- main-panel ends -->
-    </div>
+      <!-- content-wrapper ends -->
+      <!-- partial:../../partials/_footer.html -->
 
-    <!-- page-body-wrapper ends -->
+      <!-- partial -->
+    </div>
+    <!-- main-panel ends -->
   </div>
+
+  <!-- page-body-wrapper ends -->
+</div>
 
 
 
@@ -220,6 +232,3 @@
       style="color: rgb(0,193,83);">Save</button>
   </mat-dialog-actions>
 </ng-template>
-
-
-
