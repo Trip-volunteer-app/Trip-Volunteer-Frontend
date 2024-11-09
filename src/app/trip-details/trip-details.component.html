@@ -16,14 +16,22 @@
 <mat-card class="image-slider-container">
   <div class="example-button-row">
 
-    <button mat-raised-button (click)="openBookingDailog(home.tripDetails)" style="background-color: #ff5722; color: white;">Booking</button>
-  
+    <button mat-raised-button *ngIf="isFutureTrip(home.tripDetails.start_Date)" (click)="openBookingDailog(home.tripDetails)" style="background-color: #ff5722; color: white;">Booking</button>
+   
+    <mat-dialog-content *ngIf="!isFutureTrip(home.tripDetails.start_Date)">
+      <div class="alert-box">
+        <p>
+          The trip has already passed or the seats are full .Search for other trip!
+        </p>
+      </div>
+    </mat-dialog-content>
+   
     <button mat-icon-button 
-            [color]="isFavorite ? 'warn' : 'default'" 
-            (click)="toggleFavorite()"
-            aria-label="Icon button with a heart icon">
-      <mat-icon style="font-size: 26px;">{{ isFavorite ? 'favorite' : 'favorite_border' }}</mat-icon>
-    </button>
+    [color]="isFavorite ? 'warn' : 'default'" 
+    (click)="toggleFavorite()"
+    aria-label="Icon button with a heart icon">
+<mat-icon style="font-size: 26px;">{{ isFavorite ? 'favorite' : 'favorite_border' }}</mat-icon>
+</button>
   </div>
   
     <mat-card-content>
@@ -66,7 +74,7 @@
                 </p>
                 
                 <p class="trip-booking">
-                  <i class="bi bi-person colored-icon"></i> Remaining <strong>5</strong> seats
+                  <i class="bi bi-person colored-icon"></i> Remaining <strong>{{this.home.tripDetails.max_Number_Of_Users}}</strong> seats
                 </p>
                 
                 <div class="trip-services">

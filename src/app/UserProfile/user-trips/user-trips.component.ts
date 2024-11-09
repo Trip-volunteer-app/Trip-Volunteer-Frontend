@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { AdminService } from 'src/app/Services/admin.service';
+import { HomeService } from 'src/app/Services/home.service';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-trips',
@@ -9,46 +11,90 @@ import { AdminService } from 'src/app/Services/admin.service';
 })
 export class UserTripsComponent implements OnInit {
 
-  isLoggedIn: boolean = false;
-  email: string | null = null;
-  first_Name: string | null = null;
-  last_Name: string | null = null;
-  image_Path: File | null = null;
+  @ViewChild('callDetailsBookDailog') DetailsBookDailog !: TemplateRef<any>; 
+  @ViewChild('callDetailsVolunteerDailog') DetailsVolunteerDailog !: TemplateRef<any>;  
 
-  constructor(public admin: AdminService, private router: Router) {}
+  constructor(public home: HomeService, private router: Router, public dialog: MatDialog) {}
 
-  ngOnInit(): void {
-    this.checkLoginStatus();
-    if (this.isLoggedIn && this.email) {
-      this.getUserData(this.email);
-    }
+  async ngOnInit() {
+    const userFromStorage = localStorage.getItem("user");
+    const user = userFromStorage ? JSON.parse(userFromStorage) : null;
+
+    const userId = Number(user?.loginid); // Optional chaining to handle null user
+
+    // Fetch user info and then load favorites
+    await this.home.GetUserinfoByLoginId(userId);
+    this.loadFavorites();
   }
 
-  getUserData(email: string): void {
-    this.admin.getUserData(email).subscribe(data => {
-      if (data && data.length > 0) {
-        const user: any = data[0];
-        this.email = user.email; 
-        this.first_Name = user.first_Name;
-        this.last_Name = user.last_Name;
-      }
+  dialogRef!: MatDialogRef<any>;
+  selectedBooking: any;
+  selectedVolunteer: any;
+
+  // Open dialog for booking details
+  async openDetailsBookDialog(booking: any) {
+    this.selectedBooking = booking;
+    this.loadFavorites();
+    await this.home.GetBookingServiceByBookingId(this.selectedBooking.booking_Id);
+    await this.dialog.open(this.DetailsBookDailog);
+  }
+
+  // Open dialog for volunteer details
+  openDetailsVolunteerDailog(volunteer: any): void {
+    this.selectedVolunteer = volunteer;
+    console.log("selectedVolunteer", this.selectedVolunteer);
+    this.dialogRef = this.dialog.open(this.DetailsVolunteerDailog, {
+      disableClose: true
     });
   }
 
-  checkLoginStatus(): void {
-    const email = localStorage.getItem('email');
-    const token = localStorage.getItem('token');
-    this.isLoggedIn = !!(email && token);
-    this.email = email;
-  }
-
+  // Navigate to the user profile
   YourTripsAndFavorites(): void {
     this.router.navigate(['userProfile']);
   }
 
-  logout(): void {
-    localStorage.clear();
-    this.isLoggedIn = false;
-    this.router.navigate(['security/login']);
+  // Delete a booking
+  deleteBooking(bookingId: number): void {
+    const userFromStorage = localStorage.getItem("user");
+    const user = userFromStorage ? JSON.parse(userFromStorage) : null;
+    const userId = Number(user?.loginid);
+    this.home.Deletebookings(bookingId, userId);
+  }
+
+  // Delete a volunteer
+  deleteVolunteer(volunteerId: number): void {
+    const userFromStorage = localStorage.getItem("user");
+    const user = userFromStorage ? JSON.parse(userFromStorage) : null;
+    const userId = Number(user?.loginid);
+    this.home.DeleteVolanteerReqs(volunteerId, userId);
+  }
+
+  // Navigate to the payment page
+  goPayment(id: number) {
+    this.router.navigate(['payment', id]); 
+  }
+
+  favorites: any[] = [];
+
+  // Load favorites from localStorage
+  loadFavorites() {
+    this.favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    console.log("Loaded favorites:", this.favorites);
+  }
+
+  // Remove a favorite trip
+  removeFavorite(tripId: string) {
+    const index = this.favorites.findIndex((favorite: any) => favorite.tripId === tripId);
+
+    if (index > -1) {
+      this.favorites.splice(index, 1);
+      localStorage.setItem('favorites', JSON.stringify(this.favorites));
+      this.loadFavorites(); // Reload favorites after removal
+    }
+  }
+
+  // Navigate to trip details page
+  goToDetails(tripId: string) {
+    this.router.navigate(['tripDetails/', tripId]);
   }
 }

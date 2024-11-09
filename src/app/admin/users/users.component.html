@@ -31,7 +31,7 @@
                             <td>{{obj.login_Id}}</td>
                             <td>{{obj.first_Name}}</td>
                             <td>{{obj.last_Name}}</td>
-                            <td><img src="../../../assets/images/{obj.image_Path}"></td>
+                            <td><img [src]="'../../../assets/images/' + obj.image_Path" alt="Dynamic Image"></td>
                             <!-- <td>{{obj.image_Path}}</td> -->
                             <td>{{obj.address}}</td>
                             <td>{{obj.phone_Number}}</td>

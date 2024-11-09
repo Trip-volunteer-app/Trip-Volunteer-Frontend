@@ -199,6 +199,27 @@ export class AdminService {
     })
   }
 
+  VolunteerRoles: any = [];
+  SortedVolunteerRoles = [];
+  async getAllVolunteerRoles(): Promise<void> {
+    try {
+      const res = await this.http.get('https://localhost:7004/api/VolunteerRoles/GetAllVolunteerRoles').toPromise();
+      this.VolunteerRoles = res;
+      this.SortedVolunteerRoles= this.VolunteerRoles.sort((a: any, b: any) => (b.volunteer_Role_Id - a.volunteer_Role_Id));
+      console.log('sortedServicessortedServices', this.SortedVolunteerRoles)
+    } catch (error) {
+      console.error('Error fetching selected element:', error);
+    }
+  }
+
+  async CreateVolunteerRoles(body: any): Promise<void> {
+    try {
+      await this.http.post('https://localhost:7004/api/VolunteerRoles/CreateVolunteerRole', body).toPromise();
+      console.log('the Volunteer Role created');
+    } catch (error) {
+      console.error('Error creating', error);
+    }
+  }
 
   CreateVolunteerRole(body: any) {
     this.http.post('https://localhost:7004/api/VolunteerRoles/CreateVolunteerRole', body).subscribe((resp) => {
@@ -222,7 +243,6 @@ export class AdminService {
       console.log('Error');
     })
   }
-
 
   DeleteVolunteerRole(id: number) {
     this.http.delete('https://localhost:7004/api/VolunteerRoles/DeleteVolunteerRole/' + id).subscribe(resp => {
@@ -270,7 +290,35 @@ export class AdminService {
   }
 
 
+  tripVolunteers: any = [];
+  async GetVolunteerRoleByTripID(trip_Id: number): Promise<void> {
+    try {
+      const res = await this.http.get(`https://localhost:7004/api/VolunteerRoles/GetRoleByTripID/${trip_Id}`).toPromise();
+      this.tripVolunteers = res;
+      console.log
+    } catch (error) {
+      console.error('Error creating', error);
+    }
+  }
 
+  async CreateTripVRoleForVRolesList(body: any): Promise<void> {
+    try {
+      console.log('Final Body:', body);
+      await this.http.post('https://localhost:7004/api/TripVolunteerrole/CreateTripVRoleForVRolesList', body).toPromise();
+      console.log('the trip services Added');
+    } catch (error) {
+      console.error('Error creating', error);
+    }
+  }
+  async CreateVolunteerRoleForTrip(body: any): Promise<void> {
+    try {
+      console.log('Final Body:', body);
+      await this.http.post('https://localhost:7004/api/VolunteerRoles/CreateVolunteerRoleForTrip', body).toPromise();
+      console.log('the service Added');
+    } catch (error) {
+      console.error('Error creating', error);
+    }
+  }
 
 
   // Volunteer
@@ -439,6 +487,7 @@ export class AdminService {
 
 
 
+
   // Trip Volunteer Role
   TripVolunteerRole: any = [];
   getAllTripVolunteerRole() {
@@ -448,6 +497,7 @@ export class AdminService {
       console.log(err.message);
     })
   }
+
 
 
   CreateTripVolunteerRole(body: any) {
@@ -495,7 +545,13 @@ export class AdminService {
     })
   }
 
-
+  DeleteTripVolunteerRoleForATrip(id: number, tripid:number) {
+    this.http.delete(`https://localhost:7004/api/TripVolunteerrole/Deletetrip_volunteerRoles?id=${id}&tripid=${tripid}`).subscribe(resp => {
+      console.log('the Trip Volunteer Role deleted');
+    }, err => {
+      console.log('Error');
+    })
+  }
 
   updateTripVolunteerRole(body: any) {
     this.http.put('https://localhost:7004/api/ITripVolunteerrole/UPDATEtrip_volunteerRoles', body).subscribe((resp) => {
@@ -519,7 +575,7 @@ export class AdminService {
       console.log('error');
     })
   }
-
+ 
 
 
   //All Users Informations
@@ -579,6 +635,7 @@ export class AdminService {
   DeleteTrip(id: number) {
     this.http.delete('https://localhost:7004/api/Trips/DeleteTrip/' + id).subscribe(resp => {
       console.log('the Trip deleted');
+
       Swal.fire({
         icon: 'success',
         title: 'Delete Trip!',
@@ -769,6 +826,7 @@ export class AdminService {
 
 
 
+
   updateUserData(updatedData: any, image_Path: any) {
     if (this.display_Image1 == null || undefined) {
       const params = new HttpParams()
@@ -803,53 +861,53 @@ export class AdminService {
           }
         );
     } else {
+
       const params = new HttpParams()
-        .set('L_Email', updatedData.email)
-        .set('L_Pass', updatedData.password)
-        .set('L_RePass', updatedData.repassword)
-        .set('r_id', updatedData.role_Id)
-        .set('u_id', updatedData.user_Id)
-        .set('F_Name', updatedData.first_Name)
-        .set('L_Name', updatedData.last_Name)
-        .set('IMG', this.display_Image1)
-        .set('u_Address', updatedData.address)
-        .set('phone', updatedData.phone_Number)
-        .set('L_id', updatedData.login_Id)
-        .set('B_Day', updatedData.birth_Date);
-
-
-      this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
-        .subscribe(
-          result => {
-            Swal.fire({
-              icon: 'success',
-              title: 'Success!',
-              text: 'successfly update profile',
-            });
-            this.GetUserinfoByLoginId(updatedData.user_Id);
-          },
-          error => {
-
-            console.error("Error updating user data", error.message);
-          }
-        );
-
+      .set('L_Email', updatedData.email)
+      .set('L_Pass', updatedData.password)
+      .set('L_RePass', updatedData.repassword)
+      .set('r_id', updatedData.role_Id)
+      .set('u_id', updatedData.user_Id)
+      .set('F_Name', updatedData.first_Name)
+      .set('L_Name', updatedData.last_Name)
+      .set('IMG', this.display_Image1) 
+      .set('u_Address', updatedData.address) 
+      .set('phone', updatedData.phone_Number)
+      .set('L_id', updatedData.login_Id) 
+      .set('B_Day', updatedData.birth_Date);
+  
+  
+    this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
+      .subscribe(
+        result => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'successfly update profile',
+          });
+          this.GetUserinfoByLoginId(updatedData.login_Id);
+        },
+        error => {
+          
+          console.error("Error updating user data", error.message);     
+        }
+      );
+  
     }
-  }
 
-
-  display_Image1: any;
-
-  uploadUserImage(file: FormData) {
-    this.http.post('https://localhost:7004/api/Users/uploadImage', file).subscribe((res: any) => {
-      this.display_Image1 = res.image_Path;
-      console.log("imageprofile", res);
-
-    }, err => {
+  display_Image1 :any ; 
+  
+  uploadUserImage(file:FormData){
+    this.http.post('https://localhost:7004/api/Users/uploadImage',file).subscribe((res:any)=>{
+    this.display_Image1=res.image_Path;
+    console.log("imageprofile",res);
+    
+    },err=>{
       console.log('error');
     })
-
-  }
+    
+    }
+  
 
 
   //UserData
@@ -876,17 +934,28 @@ export class AdminService {
       .subscribe(
         result => {
           console.log("Change Password successfully", result);
-          window.location.reload();
-          this.toastr.success('Change Password successfully ');
+  
+          Swal.fire({
+            icon: 'success',
+            title: 'Password Changed Successfully',
+            text: 'Your password has been updated.',
+            confirmButtonColor: '#f15d30'
+          }).then(() => {
+            this.GetUserinfoByLoginId(payload.login_Id);
+          });
         },
         error => {
-
-
-          console.error("Error Changed Password", error.message);
+          console.error("Error Changing Password", error.message);
+  
+          Swal.fire({
+            icon: 'error',
+            title: 'Password Change Failed',
+            text: 'There was an issue updating your password. Please try again.',
+            confirmButtonColor: '#f15d30'
+          });
         }
       );
   }
-
 
   //Testimonial
   Testimonial: any = [];

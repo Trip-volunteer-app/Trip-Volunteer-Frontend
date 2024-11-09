@@ -25,6 +25,7 @@ import { TestimonalComponent } from '../testimonal/testimonal.component';
 import { ManageTestimonialComponent } from './manage-testimonial/manage-testimonial.component';
 import { ViewUsersForTripsComponent } from './view-users-for-trips/view-users-for-trips.component';
 import { ManageTripServicesComponent } from './manage-trip-services/manage-trip-services.component';
+import { ManageRolesComponent } from './manage-roles/manage-roles.component';
 
 
 const routes: Routes = [
@@ -122,9 +123,11 @@ const routes: Routes = [
   {
     path:'ManageServices/:tripId',
     component:ManageTripServicesComponent
-  }
-
-  
+  },
+  {
+    path:'ManageRoles/:tripId',
+    component:ManageRolesComponent
+  }  
 ];
 
 @NgModule({
