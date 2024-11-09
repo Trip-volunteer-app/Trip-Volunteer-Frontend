@@ -14,8 +14,7 @@ export class DashboardComponent implements OnInit {
   NumberOfTrips:number =0;
   NumberOfFinishedTrips:number =0;
   TotalNumberOfVolunteer=0;
-  TotalNumberOfPayments=0;
-
+  TotalNumberOfBooking=0;
 
   constructor(public admin: AdminService) {}
 
@@ -66,9 +65,9 @@ export class DashboardComponent implements OnInit {
 
 
     
-    this.admin.TotalNumberOfPayments().subscribe(
+    this.admin.TotalNumberOfBooking().subscribe(
       (resp: number) => {
-        this.TotalNumberOfPayments = resp; 
+        this.TotalNumberOfBooking = resp; 
       },
       err => {
         console.error('Error fetching the number of Payment:', err);

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
+import { error } from 'jquery';
 
 
 @Injectable({
@@ -33,28 +34,69 @@ export class AdminService {
   CreateCategories(body: any) {
     this.http.post('https://localhost:7004/api/categories/CREATEcategories', body).subscribe((resp) => {
       console.log('the Categories created');
-      window.location.reload();
+      Swal.fire({
+        icon: 'success',
+        title: 'Create Categories!',
+        text: 'The Categories has been Created successfully.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.getAllCategories();    
     }, err => {
+      
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'An error occurred while created the categories. Please try again.',
+        confirmButtonText: 'OK'
+      });
       console.log('Error');
-      window.location.reload();
     })
   }
 
 
   DeleteCategories(id: number) {
     this.http.delete('https://localhost:7004/api/categories/Deletecategories/' + id).subscribe(resp => {
+      
+      Swal.fire({
+        icon: 'success',
+        title: 'Deleted!',
+        text: 'The Categories has been deleted successfully.',
+        showConfirmButton: false,
+        timer: 2000
+      });
       console.log('the Categories deleted');
+      this.getAllCategories();
     }, err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'An error occurred while deleting the categories. Please try again.',
+        confirmButtonText: 'OK'
+      });
       console.log('Error');
     })
-    window.location.reload();
   }
 
 
   updateCategories(body: any) {
     this.http.put('https://localhost:7004/api/categories/UPDATEcategories', body).subscribe((resp) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'update!',
+        text: 'The Categories has been updating successfully.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.getAllCategories();
       console.log('Updated');
     }, err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'An error occurred while updateing the categories. Please try again.',
+        confirmButtonText: 'OK'
+      });
       console.log('error');
     })
   }
@@ -72,7 +114,7 @@ export class AdminService {
       const res = await this.http.get('https://localhost:7004/api/Service').toPromise();
       this.Services = res;
       this.sortedServices = this.Services.sort((a: any, b: any) => (b.service_Id - a.service_Id));
-      console.log('sortedServicessortedServices', this.sortedServices)
+      console.log('sortedServices', this.sortedServices)
     } catch (error) {
       console.error('Error fetching selected element:', error);
     }
@@ -80,34 +122,73 @@ export class AdminService {
 
   CreateServices(body: any) {
     this.http.post('https://localhost:7004/api/Service/CreateService', body).subscribe((resp) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Create Services!',
+        text: 'The Services has been Created successfully.',
+        showConfirmButton: false,
+        timer: 2000
+      });
       console.log('the Services created');
-      window.location.reload();
+      this.getAllServices();
     }, err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'An error occurred while creating the categories. Please try again.',
+        confirmButtonText: 'OK'
+      });
       console.log('Error');
-      window.location.reload();
     })
   }
 
 
   DeleteServices(id: number) {
     this.http.delete('https://localhost:7004/api/Service/DeleteService/' + id).subscribe(resp => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Deleted!',
+        text: 'The Services has been deleted successfully.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.getAllServices();
       console.log('the Services deleted');
     }, err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'An error occurred while deleting the Services. Please try again.',
+        confirmButtonText: 'OK'
+      });
       console.log('Error');
     })
-    window.location.reload();
   }
 
 
   updateServices(body: any) {
     this.http.put('https://localhost:7004/api/Service/UpdateService', body).subscribe((resp) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'update Services!',
+        text: 'The Services has been updated successfully.',
+        showConfirmButton: false,
+        timer: 2000
+      });
       console.log('bodybodybodybodybodybodybody')
       console.log('Updated');
     }, err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'An error occurred while updated the Services. Please try again.',
+        confirmButtonText: 'OK'
+      });
       console.log('error');
     })
   }
 
+  
   // VolunteerRole
   VolunteerRole: any = [];
   getAllVolunteerRole() {
@@ -121,11 +202,24 @@ export class AdminService {
 
   CreateVolunteerRole(body: any) {
     this.http.post('https://localhost:7004/api/VolunteerRoles/CreateVolunteerRole', body).subscribe((resp) => {
+      
+      Swal.fire({
+        icon: 'success',
+        title: 'Create Volunteer Role!',
+        text: 'The Volunteer Role has been created successfully.',
+        showConfirmButton: false,
+        timer: 2000
+      });
       console.log('the Volunteer Role created');
-      window.location.reload();
-    }, err => {
+      this.getAllVolunteerRole();    
+      }, err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'An error occurred while deleting the Volunteer Role. Please try again.',
+        confirmButtonText: 'OK'
+      });
       console.log('Error');
-      window.location.reload();
     })
   }
 
@@ -133,17 +227,44 @@ export class AdminService {
   DeleteVolunteerRole(id: number) {
     this.http.delete('https://localhost:7004/api/VolunteerRoles/DeleteVolunteerRole/' + id).subscribe(resp => {
       console.log('the Volunteer Role deleted');
+      Swal.fire({
+        icon: 'success',
+        title: 'Deleted!',
+        text: 'The Volunteer Role has been deleted successfully.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.getAllVolunteerRole();
     }, err => {
       console.log('Error');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'An error occurred while deleting the Volunteer Role. Please try again.',
+        confirmButtonText: 'OK'
+      });
     })
-    window.location.reload();
   }
 
 
   updateVolunteerRole(body: any) {
     this.http.put('https://localhost:7004/api/VolunteerRoles/UpdateVolunteerRole', body).subscribe((resp) => {
       console.log('the Volunteer Role Updated');
+      Swal.fire({
+        icon: 'success',
+        title: 'Deleted!',
+        text: 'The Volunteer Role has been updated successfully.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.getAllVolunteerRole();
     }, err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'An error occurred while updating the Volunteer Role. Please try again.',
+        confirmButtonText: 'OK'
+      });
       console.log('error');
     })
   }
@@ -163,14 +284,27 @@ export class AdminService {
   }
 
 
-
   DeleteVolunteer(id: number) {
     this.http.delete('https://localhost:7004/api/Volunteers/DeleteVolunteer/' + id).subscribe(resp => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Deleted!',
+        text: 'The Volunteer has been deleted successfully.',
+        showConfirmButton: false,
+        timer: 2000
+      });
       console.log('the Volunteer deleted');
+      this.getAllVolunteer();
     }, err => {
+      
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'An error occurred while deleting the Volunteer. Please try again.',
+        confirmButtonText: 'OK'
+      });
       console.log('Error');
     })
-    window.location.reload();
   }
 
 
@@ -202,10 +336,22 @@ export class AdminService {
   CreateTripServices(body: any) {
     this.http.post('https://localhost:7004/api/serviceTripe/CreateTripService', body).subscribe((resp) => {
       console.log('the Trip Services created');
-      window.location.reload();
+      Swal.fire({
+        icon: 'success',
+        title: 'Create Trip Services!',
+        text: 'The Trip Services has been created successfully.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.getAllTripServices();
     }, err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'An error occurred while created the Trip Services. Please try again.',
+        confirmButtonText: 'OK'
+      });
       console.log('Error');
-      window.location.reload();
     })
   }
 
@@ -213,29 +359,48 @@ export class AdminService {
   DeleteTripServices(id: number) {
     console.log('open admin');
     this.http.delete('https://localhost:7004/api/serviceTripe/DeleteTripService/' + id).subscribe(resp => {
-      console.log('in resp');
+      Swal.fire({
+        icon: 'success',
+        title: 'Create Trip Services!',
+        text: 'The Trip Services has been deleted successfully.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.getAllTripServices();
       console.log('the Trip Services deleted');
     }, err => {
-      console.log('in err');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'An error occurred while deleted the Trip Services. Please try again.',
+        confirmButtonText: 'OK'
+      });
       console.log('Error');
     })
-    // window.location.reload();
   }
 
 
   updateTripServices(body: any) {
     this.http.put('https://localhost:7004/api/serviceTripe/UpdateTripService', body).subscribe((resp) => {
       console.log('the Trip Services Updated');
+      Swal.fire({
+        icon: 'success',
+        title: 'update Trip Services!',
+        text: 'The Trip Services has been updated successfully.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.getAllTripServices();
     }, err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'An error occurred while updated the Trip Services. Please try again.',
+        confirmButtonText: 'OK'
+      });
       console.log('error');
     })
   }
-
-
-
-
-
-
 
 
 
@@ -252,39 +417,23 @@ export class AdminService {
 
   DeleteReview(id: number) {
     this.http.delete('https://localhost:7004/api/Review/DeleteReview' + id).subscribe(resp => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Deleted!',
+        text: 'The Review has been deleted successfully.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.getAllReview();
       console.log('the Review deleted');
     }, err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'An error occurred while deleting the Review. Please try again.',
+        confirmButtonText: 'OK'
+      });
       console.log('Error');
-    })
-    window.location.reload();
-  }
-
-
-
-
-
-
-
-
-
-  // Trip Volunteer Role
-  // TripVolunteerRole: any = [];
-  // getAllTripVolunteerRole() {
-  //   this.http.get('https://localhost:7004/api/ITripVolunteerrole/GetAlltrip_volunteerRoles').subscribe(result => {
-  //     this.TripVolunteerRole = result;
-  //   }, err => {
-  //     console.log(err.message);
-  //   })
-  // }
-
-
-  CreateTripVolunteerRole(body: any) {
-    this.http.post('https://localhost:7004/api/ITripVolunteerrole/CREATEtrip_volunteerRoles', body).subscribe((resp) => {
-      console.log('the Trip Volunteer Role created');
-      // window.location.reload();
-    }, err => {
-      console.log('Error');
-      // window.location.reload();
     })
   }
 
@@ -300,13 +449,50 @@ export class AdminService {
     })
   }
 
+
+  CreateTripVolunteerRole(body: any) {
+    this.http.post('https://localhost:7004/api/ITripVolunteerrole/CREATEtrip_volunteerRoles', body).subscribe((resp) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Deleted!',
+        text: 'The Trip Volunteer Role has been created successfully.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      console.log('the Trip Volunteer Role created');
+      this.getAllTripVolunteerRole();
+    }, err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'An error occurred while creating the Trip Volunteer Role. Please try again.',
+        confirmButtonText: 'OK'
+      });
+      console.log('Error');
+    })
+  }
+
+
   DeleteTripVolunteerRole(id: number) {
     this.http.delete('https://localhost:7004/api/ITripVolunteerrole/Deletetrip_volunteerRoles/' + id).subscribe(resp => {
       console.log('the Trip Volunteer Role deleted');
+      Swal.fire({
+        icon: 'success',
+        title: 'Deleted!',
+        text: 'The Trip Volunteer Role has been deleted successfully.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.getAllTripVolunteerRole();
     }, err => {
       console.log('Error');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'An error occurred while deleting the Trip Volunteer Role. Please try again.',
+        confirmButtonText: 'OK'
+      });
     })
-    window.location.reload();
   }
 
 
@@ -314,13 +500,25 @@ export class AdminService {
   updateTripVolunteerRole(body: any) {
     this.http.put('https://localhost:7004/api/ITripVolunteerrole/UPDATEtrip_volunteerRoles', body).subscribe((resp) => {
       console.log('the Trip Volunteer Role Updated');
+      Swal.fire({
+        icon: 'success',
+        title: 'update Trip Volunteer Role!',
+        text: 'The Trip Volunteer Role has been updated successfully.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.getAllTripVolunteerRole();
 
     }, err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'An error occurred while updating the Trip Volunteer Role. Please try again.',
+        confirmButtonText: 'OK'
+      });
       console.log('error');
     })
   }
-
-
 
 
 
@@ -333,7 +531,6 @@ export class AdminService {
       console.log(err.message);
     })
   }
-
 
 
   //Trip
@@ -359,8 +556,21 @@ export class AdminService {
     console.log(body)
     this.http.post('https://localhost:7004/api/Trips/CreateTrip', body).subscribe((resp) => {
       console.log('the Trip Added');
-      window.location.reload();
+      Swal.fire({
+        icon: 'success',
+        title: 'Create Trip!',
+        text: 'The Trip has been created successfully.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.GetAllTrips();
     }, err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'An error occurred while created the trip. Please try again.',
+        confirmButtonText: 'OK'
+      });
       console.log('Error');
     })
   }
@@ -369,10 +579,22 @@ export class AdminService {
   DeleteTrip(id: number) {
     this.http.delete('https://localhost:7004/api/Trips/DeleteTrip/' + id).subscribe(resp => {
       console.log('the Trip deleted');
-      window.location.reload();
+      Swal.fire({
+        icon: 'success',
+        title: 'Delete Trip!',
+        text: 'The Trip has been deleted successfully.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.GetAllTrips();
     }, err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'An error occurred while deleted the trip. Please try again.',
+        confirmButtonText: 'OK'
+      });
       console.log('Error');
-      window.location.reload();
     })
   }
 
@@ -380,7 +602,21 @@ export class AdminService {
   UpdateTrip(body: any) {
     this.http.put('https://localhost:7004/api/Trips/UpdateTrip', body).subscribe((resp) => {
       console.log('Updated');
+      Swal.fire({
+        icon: 'success',
+        title: 'Update Trip!',
+        text: 'The Trip has been Updated successfully.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.GetAllTrips();
     }, err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'An error occurred while Update the trip. Please try again.',
+        confirmButtonText: 'OK'
+      });
       console.log('error');
     })
   }
@@ -447,12 +683,6 @@ export class AdminService {
 
 
 
-
-  // NumberOfRegisteredUsers(): Observable<number> {
-  //   return this.http.get<number>('https://localhost:7004/api/Users/trips/NumberOfRegisteredUsers');
-  // }
-
-
   TripsWithMaxReservations: any = [];
   GetAllTripsWithMaxReservations() {
     this.http.get('https://localhost:7004/api/Trips/TripsWithMaxReservations').subscribe(result => {
@@ -475,26 +705,14 @@ export class AdminService {
   }
 
 
-
-  // TripsWithMaxReservations: any = [];
-  // GetAllTripsWithMaxReservations() {
-  //   this.http.get('https://localhost:7004/api/Trips/TripsWithMaxReservations').subscribe(result => {
-  //     this.TripsWithMaxReservations = result;
-  //   }, err => {
-  //     console.log(err.message);
-  //   })
-  // }
-
-
   TotalNumberOfVolunteer(): Observable<number> {
     return this.http.get<number>('https://localhost:7004/api/Volunteers/TotalNumberOfVolunteer');
   }
 
 
-  TotalNumberOfPayments(): Observable<number> {
-    return this.http.get<number>('https://localhost:7004/api/Payment/TotalNumberOfPayments');
+  TotalNumberOfBooking(): Observable<number> {
+    return this.http.get<number>('https://localhost:7004/api/Booking/TotalNumberOfBooking');
   }
-
 
 
 
@@ -548,13 +766,6 @@ export class AdminService {
     })
   }
 
-
-
-
-  //Charts
-  // GetAllAnuualReport2(): Observable<any[]> {
-  //   return this.http.get<any[]>('https://localhost:7004/api/Annual/AnnualReport');
-  // }
 
 
 
@@ -658,14 +869,6 @@ export class AdminService {
 
 
 
-  // sendTripDetailsEmail(emailData: any): Observable<any> {
-  //   return this.http.post('https://localhost:7004/api/Volunteers/sendTripDetailsEmail', emailData);
-  // }
-
-  // updateUserData(updatedData: any): Observable<any> {
-  //   return this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', updatedData);
-  // }
-
 
 
   changePassword(payload: any) {
@@ -703,21 +906,54 @@ export class AdminService {
   DeleteTestimonial(id: number) {
     this.http.delete('https://localhost:7004/api/Testimonial/DeleteTestimony/' + id).subscribe(resp => {
       console.log('the Testimonial deleted');
-      window.location.reload();
+      Swal.fire({
+        icon: 'success',
+        title: 'Deleted!',
+        text: 'The Testimonial has been deleted successfully.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.getALLTestimonial();
     }, err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'An error occurred while deleting the Testimonial. Please try again.',
+        confirmButtonText: 'OK'
+      });
       console.log('Error', err.message);
     })
   }
 
 
 
-  updateTestimonial(body: any) {
-    this.http.put('https://localhost:7004/api/Testimonial/UpdateTestimony', body).subscribe((resp) => {
-      console.log('the Testimonial Updated');
-    }, err => {
-      console.log('error');
-    })
-  }
+
+updateTestimonial(body: any) {
+  this.http.put('https://localhost:7004/api/Testimonial/UpdateTestimony', body).subscribe(
+    (resp) => {
+      console.log('The testimonial was updated'); 
+      Swal.fire({
+        icon: 'success',
+        title: 'Update Successful',
+        text: 'The testimonial has been updated successfully!',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'OK'
+      });
+      this.getALLTestimonial();
+    },
+    (err) => {
+      console.log(err);
+      Swal.fire({
+        icon: 'error',
+        title: 'Update Failed',
+        text: 'Failed to update the testimonial. Please try again later.',
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'Retry'
+      });
+    }
+  );
+}
+
 
 
 

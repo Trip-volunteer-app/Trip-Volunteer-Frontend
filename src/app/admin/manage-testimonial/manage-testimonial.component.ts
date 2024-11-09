@@ -40,7 +40,7 @@ export class ManageTestimonialComponent implements OnInit{
 
 
   Testimonial:FormGroup = new FormGroup({
-    testimonial_Id:new FormControl(),
+    testimonial_Id:new FormControl(''),
     login_Id:new FormControl('',Validators.required),
     case:new FormControl('',Validators.required),
     status:new FormControl('',Validators.required),
@@ -58,11 +58,13 @@ export class ManageTestimonialComponent implements OnInit{
   openEditDailog(obj:any){
     this.pData=obj; 
     console.log(this.pData);
-    this.Testimonial.controls['testimonial_Id'].setValue(this.pData.testimonial_Id)
     this.dialog.open(this.EditDailog)
   }
 
   save2() {
+    console.log(this.Testimonial.value);
+    console.log('Request Payload:', JSON.stringify(this.Testimonial.value));
+
       this.admin.updateTestimonial(this.Testimonial.value);
   }
   

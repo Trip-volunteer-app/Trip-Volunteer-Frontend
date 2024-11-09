@@ -76,6 +76,12 @@
     <form [formGroup]="Testimonial">
       <div class="example-container">
         <mat-form-field>
+          <mat-label>testimonial_Id</mat-label>
+          <input type="text" matInput formControlName="testimonial_Id" [ngModel]="pData.testimonial_Id" (click)="disableField($event)">
+        </mat-form-field>
+      </div>
+      <div class="example-container">
+        <mat-form-field>
           <mat-label>login_Id</mat-label>
           <input type="text" matInput formControlName="login_Id" [ngModel]="pData.login_Id" (click)="disableField($event)">
         </mat-form-field>
@@ -102,7 +108,7 @@
       <div class="example-container">
         <mat-form-field>
           <mat-label>create At</mat-label>
-          <input type="date" matInput formControlName="create_At" [ngModel]="pData.create_At |date" (click)="disableField($event)">
+          <input type="date" matInput formControlName="create_At" [ngModel]="pData.create_At" (click)="disableField($event)">
         </mat-form-field>
       </div>
       
@@ -110,10 +116,10 @@
       <div class="example-container">
         <mat-form-field>
           <mat-label>Status</mat-label>
-          <mat-select formControlName="status" [(ngModel)]="pData.status">
+          <mat-select formControlName="status">
             <mat-option *ngFor="let status of statusList" [value]="status">{{status}}</mat-option>
           </mat-select>
-        </mat-form-field>
+        </mat-form-field>        
       </div>
       
     </form>
