@@ -46,7 +46,7 @@ export class ManageTripServicesComponent implements OnInit {
 
     this.route.paramMap.subscribe(async params => {
       this.tripId = +params.get('tripId')!;
-      await this.admin.GetServicesByTripID(66);
+      await this.admin.GetServicesByTripID(this.tripId);
       await this.admin.getAllServices();
       this.servicesNotInTrip = this.admin.sortedServices.filter((service: any) =>
         !this.admin.tripServices.some((tripService: any) => tripService.service_Id === service.service_Id)
@@ -231,7 +231,7 @@ export class ManageTripServicesComponent implements OnInit {
     });
     this.updateSelectedServicesDetails();
     await this.admin.getAllServices;
-    await this.admin.GetServicesByTripID(66);
+    await this.admin.GetServicesByTripID(this.tripId);
 
     this.servicesNotInTrip = this.admin.sortedServices.filter((service: any) =>
       !this.admin.tripServices.some((tripService: any) => tripService.service_Id === service.service_Id)

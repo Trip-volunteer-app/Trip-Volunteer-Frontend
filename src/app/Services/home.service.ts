@@ -52,7 +52,7 @@ export class HomeService {
   getALLTrips() {
     this.http.get("https://localhost:7004/api/Trips/GetAllTripInformation/").subscribe(res => {
       this.Trips = res;
-      console.log(this.Trips)
+      console.log('tripstrips',this.Trips)
 
     }, err => {
       console.log(err.message);

@@ -118,6 +118,27 @@ export class AdminService {
     })
   }
 
+  VolunteerRoles: any = [];
+  SortedVolunteerRoles = [];
+  async getAllVolunteerRoles(): Promise<void> {
+    try {
+      const res = await this.http.get('https://localhost:7004/api/VolunteerRoles/GetAllVolunteerRoles').toPromise();
+      this.VolunteerRoles = res;
+      this.SortedVolunteerRoles= this.VolunteerRoles.sort((a: any, b: any) => (b.volunteer_Role_Id - a.volunteer_Role_Id));
+      console.log('sortedServicessortedServices', this.SortedVolunteerRoles)
+    } catch (error) {
+      console.error('Error fetching selected element:', error);
+    }
+  }
+
+  async CreateVolunteerRoles(body: any): Promise<void> {
+    try {
+      await this.http.post('https://localhost:7004/api/VolunteerRoles/CreateVolunteerRole', body).toPromise();
+      console.log('the Volunteer Role created');
+    } catch (error) {
+      console.error('Error creating', error);
+    }
+  }
 
   CreateVolunteerRole(body: any) {
     this.http.post('https://localhost:7004/api/VolunteerRoles/CreateVolunteerRole', body).subscribe((resp) => {
@@ -128,7 +149,6 @@ export class AdminService {
       window.location.reload();
     })
   }
-
 
   DeleteVolunteerRole(id: number) {
     this.http.delete('https://localhost:7004/api/VolunteerRoles/DeleteVolunteerRole/' + id).subscribe(resp => {
@@ -149,7 +169,35 @@ export class AdminService {
   }
 
 
+  tripVolunteers: any = [];
+  async GetVolunteerRoleByTripID(trip_Id: number): Promise<void> {
+    try {
+      const res = await this.http.get(`https://localhost:7004/api/VolunteerRoles/GetRoleByTripID/${trip_Id}`).toPromise();
+      this.tripVolunteers = res;
+      console.log
+    } catch (error) {
+      console.error('Error creating', error);
+    }
+  }
 
+  async CreateTripVRoleForVRolesList(body: any): Promise<void> {
+    try {
+      console.log('Final Body:', body);
+      await this.http.post('https://localhost:7004/api/TripVolunteerrole/CreateTripVRoleForVRolesList', body).toPromise();
+      console.log('the trip services Added');
+    } catch (error) {
+      console.error('Error creating', error);
+    }
+  }
+  async CreateVolunteerRoleForTrip(body: any): Promise<void> {
+    try {
+      console.log('Final Body:', body);
+      await this.http.post('https://localhost:7004/api/VolunteerRoles/CreateVolunteerRoleForTrip', body).toPromise();
+      console.log('the service Added');
+    } catch (error) {
+      console.error('Error creating', error);
+    }
+  }
 
 
   // Volunteer
@@ -260,24 +308,6 @@ export class AdminService {
   }
 
 
-
-
-
-
-
-
-
-  // Trip Volunteer Role
-  // TripVolunteerRole: any = [];
-  // getAllTripVolunteerRole() {
-  //   this.http.get('https://localhost:7004/api/ITripVolunteerrole/GetAlltrip_volunteerRoles').subscribe(result => {
-  //     this.TripVolunteerRole = result;
-  //   }, err => {
-  //     console.log(err.message);
-  //   })
-  // }
-
-
   CreateTripVolunteerRole(body: any) {
     this.http.post('https://localhost:7004/api/ITripVolunteerrole/CREATEtrip_volunteerRoles', body).subscribe((resp) => {
       console.log('the Trip Volunteer Role created');
@@ -309,7 +339,13 @@ export class AdminService {
     window.location.reload();
   }
 
-
+  DeleteTripVolunteerRoleForATrip(id: number, tripid:number) {
+    this.http.delete(`https://localhost:7004/api/TripVolunteerrole/Deletetrip_volunteerRoles?id=${id}&tripid=${tripid}`).subscribe(resp => {
+      console.log('the Trip Volunteer Role deleted');
+    }, err => {
+      console.log('Error');
+    })
+  }
 
   updateTripVolunteerRole(body: any) {
     this.http.put('https://localhost:7004/api/ITripVolunteerrole/UPDATEtrip_volunteerRoles', body).subscribe((resp) => {
@@ -319,7 +355,7 @@ export class AdminService {
       console.log('error');
     })
   }
-
+ 
 
 
 
@@ -369,10 +405,8 @@ export class AdminService {
   DeleteTrip(id: number) {
     this.http.delete('https://localhost:7004/api/Trips/DeleteTrip/' + id).subscribe(resp => {
       console.log('the Trip deleted');
-      window.location.reload();
     }, err => {
       console.log('Error');
-      window.location.reload();
     })
   }
 

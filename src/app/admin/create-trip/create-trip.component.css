@@ -31106,3 +31106,85 @@ button {
   margin-top: 10px;
   border-radius: 5px;
 }
+
+::ng-deep .mat-step-icon-selected {
+    background-color: var(--admin-selection-color) !important;
+    color: var(--mat-stepper-header-selected-state-icon-foreground-color);
+}
+
+.mat-mdc-radio-button.mat-accent {
+  --mdc-radio-disabled-selected-icon-color: #000;
+  --mdc-radio-disabled-unselected-icon-color: #000;
+  --mdc-radio-unselected-hover-icon-color: #212121;
+  --mdc-radio-unselected-icon-color: rgba(0, 0, 0, 0.54);
+  --mdc-radio-unselected-pressed-icon-color: rgba(0, 0, 0, 0.54);
+  --mdc-radio-selected-focus-icon-color: var(--admin-button-color);
+  --mdc-radio-selected-hover-icon-color:var(--admin-button-color);
+  --mdc-radio-selected-icon-color: var(--admin-selection-color);
+  --mdc-radio-selected-pressed-icon-color: var(--admin-selection-color);
+  --mat-radio-ripple-color: #000;
+  --mat-radio-checked-ripple-color: var(--admin-selection-color);
+  --mat-radio-disabled-label-color: rgba(0, 0, 0, 0.38);
+}
+
+::ng-deep .mat-step-icon-state-edit {
+  background-color: var(--admin-selection-color) !important;
+  color: var(--mat-stepper-header-edit-state-icon-foreground-color);
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end; /* Align button to the right */
+  margin-top: 16px; /* Add some space above the button */
+}
+
+.next-button {
+  background-color: #3f51b5; /* Customize background color */
+  color: white;
+  padding: 8px 16px;
+  font-weight: bold;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.next-button:hover {
+  background-color: #303f9f; /* Darker shade on hover */
+}
+
+.next-button:disabled {
+  background-color: #bdbdbd; /* Disabled color */
+  cursor: not-allowed;
+}
+.trip-details-form {
+  margin-top: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.button-container button {
+  min-width: 100px;
+}
+.in-container{
+  display: flex;
+ justify-content: space-between;
+ align-items:flex-end; 
+ width: 100%;
+ min-width: 900px;
+}
+.mat-mdc-text-field-wrapper {
+  width: 95% !important;
+}
+.total-trip-price {
+  margin-top: 16px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
