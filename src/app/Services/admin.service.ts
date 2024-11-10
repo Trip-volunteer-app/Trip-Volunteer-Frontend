@@ -828,41 +828,8 @@ export class AdminService {
 
 
   updateUserData(updatedData: any, image_Path: any) {
-    if (this.display_Image1 == null || undefined) {
-      const params = new HttpParams()
-        .set('L_Email', updatedData.email)
-        .set('L_Pass', updatedData.password)
-        .set('L_RePass', updatedData.repassword)
-        .set('r_id', updatedData.role_Id)
-        .set('u_id', updatedData.user_Id)
-        .set('F_Name', updatedData.first_Name)
-        .set('L_Name', updatedData.last_Name)
-        .set('IMG', image_Path)
-        .set('u_Address', updatedData.address)
-        .set('phone', updatedData.phone_Number)
-        .set('L_id', updatedData.login_Id)
-        .set('B_Day', updatedData.birth_Date);
-
-
-      this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
-        .subscribe(
-          result => {
-            Swal.fire({
-              icon: 'success',
-              title: 'Success!',
-              text: 'successfly update profile',
-            });
-            this.GetUserinfoByLoginId(updatedData.user_Id);
-
-          },
-          error => {
-
-            console.error("Error updating user data", error.message);
-          }
-        );
-    } else {
-
-      const params = new HttpParams()
+    // Prepare the parameters for the API call
+    let params = new HttpParams()
       .set('L_Email', updatedData.email)
       .set('L_Pass', updatedData.password)
       .set('L_RePass', updatedData.repassword)
@@ -870,12 +837,16 @@ export class AdminService {
       .set('u_id', updatedData.user_Id)
       .set('F_Name', updatedData.first_Name)
       .set('L_Name', updatedData.last_Name)
-      .set('IMG', this.display_Image1) 
-      .set('u_Address', updatedData.address) 
+      .set('u_Address', updatedData.address)
       .set('phone', updatedData.phone_Number)
-      .set('L_id', updatedData.login_Id) 
+      .set('L_id', updatedData.login_Id)
       .set('B_Day', updatedData.birth_Date);
   
+    if (this.display_Image1 != null && this.display_Image1 !== undefined) {
+      params = params.set('IMG', this.display_Image1); 
+    } else if (image_Path) {
+      params = params.set('IMG', image_Path); 
+    }
   
     this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
       .subscribe(
@@ -883,17 +854,16 @@ export class AdminService {
           Swal.fire({
             icon: 'success',
             title: 'Success!',
-            text: 'successfly update profile',
+            text: 'Profile updated successfully',
           });
-          this.GetUserinfoByLoginId(updatedData.login_Id);
+          this.GetUserinfoByLoginId(updatedData.user_Id);
         },
         error => {
-          
-          console.error("Error updating user data", error.message);     
+          console.error("Error updating user data", error.message);
         }
       );
+  }
   
-    }
 
   display_Image1 :any ; 
   

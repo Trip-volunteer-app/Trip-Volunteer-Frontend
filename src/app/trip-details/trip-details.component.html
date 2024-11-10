@@ -205,49 +205,7 @@
 </ng-template>
 
   
-  <!-- <ng-template #callBookingDailog>
-    <h2 mat-dialog-title>Booking Trip</h2>
-    <mat-dialog-content class="mat-typography">
-      <form [formGroup]="BookingTrip">
-        <div class="example-container" fxLayout="column" fxLayoutGap="20px">
-  
-          <div fxLayout="row" fxLayoutGap="20px">
-            <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;">
-              <mat-label>Number of Reservations</mat-label>
-              <input type="number" matInput formControlName="numberOfUser">
-            </mat-form-field>
-  
-            <mat-form-field appearance="fill" style="width: 300px !important;">
-              <mat-label>Total Amount</mat-label>
-              <input type="number" matInput formControlName="total_Amount" [(ngModel)]="total" readonly>
-            </mat-form-field>
-          </div>
-  
-          <div fxLayout="column" fxLayoutGap="20px">
-            <mat-label>Select Services</mat-label>
-            <div *ngFor="let service of pData.services">
-              <mat-checkbox (change)="check($event.checked, service.service_Id)" >
-                {{ service.service_Name }} _ {{ service.service_Cost }} $
-              </mat-checkbox>
-            </div>
-          </div>
-  
-          <div fxLayout="row">
-            <mat-form-field appearance="fill" style="width: 620px !important; height: 200px;">
-              <mat-label>Note</mat-label>
-              <textarea matInput formControlName="note"></textarea>
-            </mat-form-field>
-          </div>
-  
-        </div>
-      </form>
-    </mat-dialog-content>
-  
-    <mat-dialog-actions align="end">
-      <button mat-button mat-dialog-close (click)="clear()">Cancel</button>
-      <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="Booking()" style="color: rgb(0,193,83);">Booking</button>
-    </mat-dialog-actions>
-  </ng-template> -->
+
    
 
   <ng-template #callBookingDailog>
