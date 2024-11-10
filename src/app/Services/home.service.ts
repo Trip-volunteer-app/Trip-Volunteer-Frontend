@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Observable } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -93,23 +94,6 @@ export class HomeService {
       next: (resp: any) => {
         if (resp?.bookingId) {
           console.log('Booking created with ID:', resp.bookingId);
-  
-          // Assuming the response includes tripId and numberOfUsers
-          const updateUserBody = {
-            id: resp.tripId, // trip ID from response
-            res_num: resp.numberOfUsers // number of users from response
-          };
-  
-          // Update max users by calling updateMaxUser and properly handling the promise
-          this.updateMaxUser(updateUserBody.id, updateUserBody.res_num)
-            .then(() => {
-              console.log('Max number of users updated successfully');
-            })
-            .catch(err => {
-              console.error('Error updating max number of users:', err);
-            });
-  
-          // Show an alert with the booking ID
           this.showAlert(resp.bookingId);
         }
       },
