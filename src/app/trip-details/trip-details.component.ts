@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, ChangeDetectorRef, Input,ViewChild,Te
 import { StyleService } from '../Services/style.service';
 import { HomeService } from '../Services/home.service';
 import { Router ,ActivatedRoute} from '@angular/router';
-import {  FormGroup, FormControl,Validators } from '@angular/forms';
+import {  FormGroup, FormControl,Validators,FormBuilder } from '@angular/forms';
 import {MatDialog,MatDialogRef } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { formatDate } from '@angular/common'; 
@@ -20,7 +20,8 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef,
     public home:HomeService,
     private route: ActivatedRoute,
-    private router:Router
+    private router:Router,
+    private fb: FormBuilder
   ) {}
   @ViewChild('callBookingDailog') BookingDailog !:TemplateRef<any>;  
   @ViewChild('callAuthDailog') AuthDailog !:TemplateRef<any>;  
@@ -29,6 +30,7 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
   total:number=0
 
   ngOnInit(): void {
+    
     this.styleService.applyFullHeight(); 
   
     this.route.paramMap.subscribe(params => {
@@ -39,24 +41,18 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
       }
     });
   
-    console.log('befor volunteers', this.tripId);
-    console.log('***********************');
+    
   
     this.home.GetTripVolunteers(this.tripId);
-    console.log('GetTripVolunteers', this.home.GetTripVolunteers(this.tripId));
-    console.log('***********************');
+    
   
     if (this.tripId) {
       this.home.getTripById(this.tripId);
-      this.home.GetVolunteerRoleByTripId(this.tripId); // API call
+      this.home.GetVolunteerRoleByTripId(this.tripId); 
     } else {
       console.log('Invalid tripId, skipping volunteer role fetch');
     }
-    
-    this.BookingTrip.controls['numberOfUser'].valueChanges.subscribe(() => {
-      this.updateTotalAmount();
-    });
-  
+
     const userFromStorage = localStorage.getItem("user");
     this.user = userFromStorage ? JSON.parse(userFromStorage) : null;
     this.userId = Number(this.user.loginid);
@@ -65,13 +61,37 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
     this.home.GetVolunteerByTripId(this.tripId, this.userId);
     console.log("bookingtripid", this.home.BookingByTripId);
     console.log("volunteerbytripid", this.home.VolunteerByTripId);
+
   }
+
+  
   isFutureTrip(startDate: string): boolean {
     const currentDate = new Date();
     const tripStartDate = new Date(startDate);
-    const seatsAvailable = this.home.tripDetails.max_Number_Of_Users > 0;
   
-    return tripStartDate > currentDate && seatsAvailable;
+    return tripStartDate > currentDate 
+  }
+  initializeForm() {
+    this.BookingTrip = this.fb.group({
+      trip_Id:new FormControl('',Validators.required),
+      login_Id:new FormControl('',Validators.required),
+      numberOfUser: [{ value: '', disabled: !this.isSeatsAvailable() }],
+      total_Amount: [{ value: '', disabled: !this.isSeatsAvailable() }],
+      note: [{ value: '', disabled: !this.isSeatsAvailable() }],
+    });
+  }
+
+  updateFormState() {
+    if (!this.isSeatsAvailable()) {
+      this.BookingTrip.disable(); 
+    } else {
+      this.BookingTrip.enable(); 
+    }
+  }
+
+  isSeatsAvailable(): boolean {
+      const seatsAvailable = this.home.tripDetails.max_Number_Of_Users > 0;
+      return seatsAvailable;
   }
   ngAfterViewInit(): void {
     // Initialize various styles and functionalities after view initialization
@@ -90,20 +110,16 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
   
   }
 
-  isFavorite: boolean = false; // Track whether the item is a favorite
+  isFavorite: boolean = false; 
 
   toggleFavorite() {
     const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-
-    // Check if the current trip is already in the favorites
     const index = favorites.findIndex((favorite: any) => favorite.bookingId === this.home.tripDetails.bookingId);
 
     if (index > -1) {
-      // Trip is already in favorites, so remove it
       favorites.splice(index, 1);
       this.isFavorite = false;
     } else {
-      // Trip is not in favorites, so add it
       favorites.push({
         tripId:this.home.tripDetails.trip_Id,
         name: this.home.tripDetails.trip_Name,
@@ -114,8 +130,6 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
       });
       this.isFavorite = true;
     }
-
-    // Save updated favorites back to localStorage
     localStorage.setItem('favorites', JSON.stringify(favorites));
   }
 
@@ -170,6 +184,8 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
       this.user = userFromStorage ? JSON.parse(userFromStorage) : null;
 
       this.userId = Number(this.user.loginid);
+      this.initializeForm();
+      this.updateFormState();
 
     this.pData=obj; 
     this.BookingTrip.controls['trip_Id'].setValue(this.pData.trip_Id);
@@ -183,7 +199,8 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
 
     this.updateTotalAmount();
 
-    
+   
+
     this.dialogRef = this.dialog.open(this.BookingDailog, {
       disableClose: true  
     });
@@ -283,7 +300,7 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
              }else{
               Swal.fire({
                 icon: 'error',
-                title: 'Seats Full',
+                title: 'Not enough seats',
                 text: 'Sorry, there are not enough available seats for this booking. Please adjust the number of users or choose another trip.',
               });
              }
@@ -315,7 +332,7 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
               }else{
                 Swal.fire({
                   icon: 'error',
-                  title: 'Seats Full',
+                  title: 'Not enough seats',
                   text: 'Sorry, there are not enough available seats for this booking. Please adjust the number of users or choose another trip.',
                 });
               }
