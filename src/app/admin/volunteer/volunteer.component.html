@@ -1,49 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-
-  <body>
-    <div class="container-scroller">
-      <!-- partial:../../partials/_sidebar.html -->
+   <div class="container-scroller">
       <app-header></app-header>
-      <!-- partial -->
       <div class="container-fluid page-body-wrapper">
-        <!-- partial:../../partials/_navbar.html -->
-       
-        <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
-           
             <div class="row">
-              
-              
               <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Volunteer Table</h4>
+                    <h4 class="card-title" style="color: black;">Volunteer Table</h4>
                     <br><br>                 
                     <div class="table-responsive">
-                      <table class="table table-dark">
+                      <table class="table table-light" style="background-color: white;">
                         <thead>
                           <tr>
-                            <th> # </th>
-                            <th> Volunteer Name </th>
-                            <th> login Id </th>
-                            <th> Trip Id </th>
-                            <th> Role Id</th>
-                            <th> Experience </th>
-                            <th> Phone Number </th>
-                            <th> Email </th>
-                            <th> Notes </th>
-                            <th> Emergency Contact </th>
-                            <th> Date Applied </th>
-                            <th> Status </th>
-                            <th> Operations </th>
+                            <th style=" color: black;"> <b>#</b></th>
+                            <th style=" color: black;"> <b>login Id</b> </th>
+                            <th style=" color: black;"> <b>Trip Id</b> </th>
+                            <th style=" color: black;"> <b>Role Id</b></th>
+                            <th style=" color: black;"> <b>Experience</b> </th>
+                            <th style=" color: black;"> <b>Phone Number</b> </th>
+                            <th style=" color: black;"> <b>Email</b> </th>
+                            <th style=" color: black;"> <b>Notes</b> </th>
+                            <th style=" color: black;"> <b>Emergency Contact </b></th>
+                            <th style=" color: black;"> <b>Date Applied</b> </th>
+                            <th style=" color: black;"> <b>Status</b> </th>
+                            <th style=" color: black;"> <b>Operations</b> </th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr *ngFor="let obj of admin.Volunteer">
-                            <!-- <div *ngFor="let obj of admin.Volunteer"> -->
-                                <th> # </th>
                                 <th> {{obj.volunteer_Id}} </th>
                                 <th> {{obj.login_Id}} </th>
                                 <th> {{obj.trip_Id}} </th>
@@ -56,33 +41,37 @@
                                 <th> {{obj.date_Applied |date}}</th>
                                 <th> {{obj.status}}</th>
                                 <td> 
-                                    <button (click)="openDeleteDialog(obj.volunteer_Id)" style="background-color: rgb(247, 88, 88);">Delete</button> 
-                                    <button (click)="openEditDailog(obj)" style="background-color: rgb(247, 88, 88);">Edit States</button> 
 
+                                  <button mat-button color="primary"
+                                  (click)="openEditDailog(obj)" class="action-button"
+                                  matTooltip="update statues"
+                                  style="color: rgb(92, 92, 245) !important;"><i
+                                      class="bi bi-pencil-square"></i>
+                                    </button>
+                              <button mat-button
+                                  (click)="openDeleteDialog(obj.volunteer_Id)"
+                                  matTooltip="Delete this volunteer" class="action-button"
+                                  style="color: rgb(247, 88, 88) !important;"><i
+                                      class="bi bi-trash-fill"></i>
+                              </button>
+
+
+                                    <!-- <button (click)="openDeleteDialog(obj.volunteer_Id)" style="background-color: rgb(247, 88, 88);">Delete</button> 
+                                    <button (click)="openEditDailog(obj)" style="background-color: rgb(247, 88, 88);">Edit States</button>  -->
                                 </td>  
-                            <!-- </div>   -->
                           </tr>                                                 
                         </tbody>
                       </table>
                     </div>
                   </div>
                 </div>
-              </div>
-           
+              </div>      
             </div>
           </div>
-          <!-- content-wrapper ends -->
-          <!-- partial:../../partials/_footer.html -->
-          
-          <!-- partial -->
         </div>
-        <!-- main-panel ends -->
       </div>
-      <!-- page-body-wrapper ends -->
     </div>
     
-  </body>
-</html>
 
 
 
@@ -102,54 +91,15 @@
   <h2 mat-dialog-title>Update Volunteer</h2>
   <mat-dialog-content class="mat-typography">
     <form [formGroup]="Volunteer">
-      <div class="example-container">
-        <mat-form-field>
-          <mat-label>Login ID</mat-label>
-          <input type="text" matInput formControlName="login_Id" [ngModel]="pData.login_Id" (click)="disableField($event)">
-        </mat-form-field>
-      </div>     
-      <div class="example-container">
-        <mat-form-field>
-          <mat-label>Trip ID</mat-label>
-          <input type="text" matInput formControlName="trip_Id" [ngModel]="pData.trip_Id" (click)="disableField($event)">
-        </mat-form-field>
-      </div>     
-      <div class="example-container">
-        <mat-form-field>
-          <mat-label>Role ID</mat-label>
-          <input type="text" matInput formControlName="volunteer_Role_Id" [ngModel]="pData.volunteer_Role_Id" (click)="disableField($event)">
-        </mat-form-field>
-      </div>  
-      <div class="example-container">
-        <mat-form-field>
-          <mat-label>Experience</mat-label>
-          <input type="text" matInput formControlName="experience" [ngModel]="pData.experience" (click)="disableField($event)">
-        </mat-form-field>
-      </div>
-      <div class="example-container">
-        <mat-form-field>
-          <mat-label>Phone Number</mat-label>
-          <input type="text" matInput formControlName="phone_Number" [ngModel]="pData.phone_Number" (click)="disableField($event)">
-        </mat-form-field>
-      </div>
-      <div class="example-container">
-        <mat-form-field>
-          <mat-label>Email</mat-label>
-          <input type="text" matInput formControlName="email" [ngModel]="pData.email" (click)="disableField($event)">
-        </mat-form-field>
-      </div>
-      <div class="example-container">
-        <mat-form-field>
-          <mat-label>Date Applied</mat-label>
-          <input type="text" matInput formControlName="date_Applied" [ngModel]="pData.date_Applied" (click)="disableField($event)">
-        </mat-form-field>
-      </div>
-      <div class="example-container">
-        <mat-form-field>
-          <mat-label>Notes</mat-label>
-          <input type="text" matInput formControlName="notes" [ngModel]="pData.notes" (click)="disableField($event)">
-        </mat-form-field>
-      </div>
+          <input type="text" matInput formControlName="login_Id" [ngModel]="pData.login_Id" (click)="disableField($event)" hidden>
+          <input type="text" matInput formControlName="trip_Id" [ngModel]="pData.trip_Id" (click)="disableField($event)" hidden>
+          <input type="text" matInput formControlName="volunteer_Role_Id" [ngModel]="pData.volunteer_Role_Id" (click)="disableField($event)" hidden>
+          <input type="text" matInput formControlName="experience" [ngModel]="pData.experience" (click)="disableField($event)" hidden>
+          <input type="text" matInput formControlName="phone_Number" [ngModel]="pData.phone_Number" (click)="disableField($event)" hidden>
+          <input type="text" matInput formControlName="email" [ngModel]="pData.email" (click)="disableField($event)" hidden>
+          <input type="text" matInput formControlName="date_Applied" [ngModel]="pData.date_Applied" (click)="disableField($event)" hidden>
+          <input type="text" matInput formControlName="notes" [ngModel]="pData.notes" (click)="disableField($event)" hidden>
+
       <div class="example-container">
         <mat-form-field>
           <mat-label>Status</mat-label>
