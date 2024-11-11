@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { AdminService } from 'src/app/Services/admin.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-volunteer',
@@ -16,6 +17,12 @@ export class VolunteerComponent implements OnInit {
 
   ngOnInit(): void {
     this.admin.getAllVolunteer();
+    this.Volunteer.controls['experience'].disable();
+    this.Volunteer.controls['phone_Number'].disable();
+    this.Volunteer.controls['notes'].disable();
+    this.Volunteer.controls['emergency_Contact'].disable();
+    this.Volunteer.controls['date_Applied'].disable();
+    this.Volunteer.controls['email'].disable();
   }
 
   openDeleteDialog(id: number) {
@@ -30,7 +37,7 @@ export class VolunteerComponent implements OnInit {
 
   Volunteer: FormGroup = new FormGroup({
     volunteer_Id: new FormControl(),
-    login_Id: new FormControl('', Validators.required),
+    login_Id: new FormControl('', Validators.required ),
     trip_Id: new FormControl('', Validators.required),
     volunteer_Role_Id: new FormControl('', Validators.required),
     experience: new FormControl('', Validators.required),
@@ -43,29 +50,66 @@ export class VolunteerComponent implements OnInit {
   });
 
   pData: any = {};
-  statusList: string[] = ['Pending', 'Accepted', 'Rejected'];
+  statusList: string[] = ['Accepted', 'Rejected'];
 
   openEditDailog(obj: any) {
     this.pData = obj;
     this.Volunteer.controls['volunteer_Id'].setValue(this.pData.volunteer_Id);
+    this.Volunteer.controls['login_Id'].setValue(this.pData.login_Id);
+    this.Volunteer.controls['trip_Id'].setValue(this.pData.trip_Id);
+    this.Volunteer.controls['volunteer_Role_Id'].setValue(this.pData.volunteer_Role_Id);
+    this.Volunteer.controls['experience'].setValue(this.pData.experience);
+    this.Volunteer.controls['emergency_Contact'].setValue(this.pData.emergency_Contact);
+    this.Volunteer.controls['phone_Number'].setValue(this.pData.phone_Number);
+    this.Volunteer.controls['notes'].setValue(this.pData.notes);
+    this.Volunteer.controls['date_Applied'].setValue(this.pData.date_Applied);
+    this.Volunteer.controls['email'].setValue(this.pData.email);
+
     this.dialog.open(this.EditDailog);
   }
 
   save2() {
     const updatedVolunteer = this.Volunteer.value;
-
-    this.admin.updateVolunteer(updatedVolunteer).subscribe(response => {
-      const status = updatedVolunteer.status;
-
-      if (status === 'Accepted' || status === 'Rejected') {
-        this.sendEmailNotification(updatedVolunteer.volunteer_Id, status);
-
-        if (status === 'Accepted') {
-          this.sendTripDetails(updatedVolunteer.trip_Id);
+    console.log("updatedVolunteer", updatedVolunteer);
+  
+    this.admin.UpdateVolunteerStatus(updatedVolunteer).subscribe(
+      response => {
+        // Successful update
+        const status = updatedVolunteer.status;
+        
+        // Show success alert
+        Swal.fire({
+          icon: 'success',
+          title: 'Status Updated',
+          text: 'The volunteer status has been successfully updated.',
+          confirmButtonText: 'OK'
+        });
+  
+        // Additional actions if the status is "Accepted" or "Rejected"
+        if (status === 'Accepted' || status === 'Rejected') {
+          this.sendEmailNotification(updatedVolunteer.volunteer_Id, status);
+  
+          if (status === 'Accepted') {
+            this.sendTripDetails(updatedVolunteer.trip_Id);
+            this.admin.updateNumberOfVolunteer(updatedVolunteer);
+          }
         }
+      },
+      err => {
+        // Show error alert
+        Swal.fire({
+          icon: 'error',
+          title: 'Update Failed',
+          text: 'There was an error updating the volunteer status. Please try again.',
+          confirmButtonText: 'OK'
+        });
+  
+        // Log error
+        console.log(err.message);
       }
-    });
+    );
   }
+  
 
   sendEmailNotification(volunteerId: number, status: string) {
     const userEmail = this.pData.email;
@@ -110,8 +154,8 @@ export class VolunteerComponent implements OnInit {
   }
   
 
-  disableField(event: Event) {
-    const inputField = event.target as HTMLInputElement;
-    inputField.disabled = true;
-  }
+  // disableField(event: Event) {
+  //   const inputField = event.target as HTMLInputElement;
+  //   inputField.disabled = true;
+  // }
 }

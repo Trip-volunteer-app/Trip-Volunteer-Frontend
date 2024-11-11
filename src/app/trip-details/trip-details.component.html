@@ -229,7 +229,7 @@
               <div fxLayout="row" fxLayoutGap="20px">
                 <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;">
                   <mat-label>Number of Reservations</mat-label>
-                  <input type="number" matInput formControlName="numberOfUser" (change)="this.updateTotalAmount();">
+                  <input type="number" matInput formControlName="numberOfUser" (change)="this.updateTotalAmount();" [readonly]="!isSeatsAvailable()">
                 </mat-form-field>
   
                 <mat-form-field appearance="fill" style="width: 300px !important;">
@@ -250,7 +250,7 @@
               <div fxLayout="row">
                 <mat-form-field appearance="fill" style="width: 620px !important; height: 200px;" >
                   <mat-label>Note</mat-label>
-                  <textarea matInput formControlName="note" ></textarea>
+                  <textarea matInput formControlName="note" [readonly]="!isSeatsAvailable()"></textarea>
                 </mat-form-field>
               </div>
             </div>
@@ -261,14 +261,23 @@
           </form>
         </mat-tab>
   
-        <mat-tab label="Volunteer" *ngIf="this.home.VolunteerRoleByTripId?.length > 0">
+        <mat-tab label="Volunteer" >
+
+          <mat-dialog-content *ngIf="!isVolunteerAvailable">
+            <div class="alert-box">
+              <p>
+                We get max number of volunteer .Search for other trip!
+              </p>
+            </div>
+          </mat-dialog-content>
+
           <form [formGroup]="volanteerForm">
             <h3>Volunteer</h3>
             
             <div fxLayout="row" fxLayoutGap="20px">
-              <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;">
+              <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;" >
                 <mat-label>Email</mat-label>
-                <input type="text" matInput formControlName="email">
+                <input type="text" matInput formControlName="email" >
               </mat-form-field>
 
               <mat-form-field appearance="fill" style="width: 300px !important;">
@@ -280,12 +289,12 @@
             <div fxLayout="row" fxLayoutGap="20px">
               <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;">
                 <mat-label>Emergency Contant</mat-label>
-                <input type="text" matInput formControlName="emergency_Contact" >
+                <input type="text" matInput formControlName="emergency_Contact"  >
               </mat-form-field>
 
               <mat-form-field appearance="fill" style="width: 300px !important;">
                 <mat-label>Experience (if any)</mat-label>
-                <input type="text" matInput formControlName="experience" >
+                <input type="text" matInput formControlName="experience"  >
               </mat-form-field>
             </div>
 
@@ -293,7 +302,7 @@
               <mat-form-field style="width: 620px !important;">
                 <mat-label>Volunteer Role</mat-label>
                 <mat-select formControlName="volunteer_Role_Id">
-                  <mat-option type="number" *ngFor="let role of this.home.VolunteerRoleByTripId" [value]="role.volunteer_Role_Id"  >
+                  <mat-option type="number" *ngFor="let role of volunteerRolesWithVolunteers" [value]="role.volunteer_Role_Id"  >
                     {{role.role_Name}}
                   </mat-option>
                 </mat-select>
@@ -303,13 +312,13 @@
             <div fxLayout="row">
               <mat-form-field appearance="fill" style="width: 620px !important; height: 200px;">
                 <mat-label>Note</mat-label>
-                <textarea matInput formControlName="notes"></textarea>
+                <textarea matInput formControlName="notes" ></textarea>
               </mat-form-field>
             </div>
 
              <mat-dialog-actions align="end">
               <button mat-button mat-dialog-close (click)="clear()">Cancel</button>
-              <button mat-button  cdkFocusInitial (click)="volunteerBooking()" style="background-color: #ff5722;color: white;">Send</button>
+              <button mat-button  cdkFocusInitial (click)="volunteerBooking()" *ngIf="isVolunteerAvailable" style="background-color: #ff5722;color: white;">Send</button>
             </mat-dialog-actions>
           </form>
         </mat-tab>

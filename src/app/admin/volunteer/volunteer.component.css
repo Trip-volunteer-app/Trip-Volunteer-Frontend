@@ -21133,4 +21133,16 @@
     flex-grow: 1; }
   
   /*# sourceMappingURL=maps/style.css.map */
-  
+  .form-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  container2 {
+    flex: 1; /* Distribute space equally among containers */
+  }
+
+  mat-form-field {
+    width: 100%; /* Ensure fields take up full width of their containers */
+  }
