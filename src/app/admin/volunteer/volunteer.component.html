@@ -13,15 +13,13 @@
                       <table class="table table-light" style="background-color: white;">
                         <thead>
                           <tr>
-                            <th style=" color: black;"> <b>#</b></th>
-                            <th style=" color: black;"> <b>login Id</b> </th>
-                            <th style=" color: black;"> <b>Trip Id</b> </th>
-                            <th style=" color: black;"> <b>Role Id</b></th>
-                            <th style=" color: black;"> <b>Experience</b> </th>
+                            <th class="description-col"  style=" color: black;"> <b>Trip Name</b> </th>
+                            <th style=" color: black;"> <b>Volunteer Role</b> </th>
+                            <th class="description-col"style=" color: black;"> <b>Email</b> </th>
                             <th style=" color: black;"> <b>Phone Number</b> </th>
-                            <th style=" color: black;"> <b>Email</b> </th>
-                            <th style=" color: black;"> <b>Notes</b> </th>
                             <th style=" color: black;"> <b>Emergency Contact </b></th>
+                            <th class="description-col" style=" color: black;"> <b>Experience</b> </th>
+                            <th class="description-col" style=" color: black;"> <b>Notes</b> </th>
                             <th style=" color: black;"> <b>Date Applied</b> </th>
                             <th style=" color: black;"> <b>Status</b> </th>
                             <th style=" color: black;"> <b>Operations</b> </th>
@@ -29,15 +27,13 @@
                         </thead>
                         <tbody>
                           <tr *ngFor="let obj of admin.Volunteer">
-                                <th> {{obj.volunteer_Id}} </th>
-                                <th> {{obj.login_Id}} </th>
-                                <th> {{obj.trip_Id}} </th>
-                                <th> {{obj.volunteer_Role_Id}} </th>
-                                <th> {{obj.experience}} </th>
+                                <th class="description-col" matTooltip="{{ obj.trip_Name }}"> {{obj.trip_Name}}</th>
+                                <th> {{obj.role_Name}}</th>
+                                <th class="description-col" matTooltip="{{ obj.email }}"> {{obj.email}} </th>
                                 <th> {{obj.phone_Number}} </th>
-                                <th> {{obj.email}} </th>
-                                <th> {{obj.notes}}</th>
                                 <th> {{obj.emergency_Contact}} </th>
+                                <th class="description-col" matTooltip="{{ obj.experience }}"> {{obj.experience}} </th>
+                                <th class="description-col" matTooltip="{{ obj.notes }}"> {{obj.notes}}</th>
                                 <th> {{obj.date_Applied |date}}</th>
                                 <th> {{obj.status}}</th>
                                 <td> 

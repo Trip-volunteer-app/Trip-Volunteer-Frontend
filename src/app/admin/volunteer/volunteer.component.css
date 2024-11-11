@@ -20454,3 +20454,8 @@ container2 {
 mat-form-field {
   width: 100%; /* Ensure fields take up full width of their containers */
 }
+.description-col {
+  max-width: 150px;     
+  white-space: nowrap;    
+  overflow: hidden;       
+}

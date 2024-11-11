@@ -16,7 +16,7 @@ export class VolunteerComponent implements OnInit {
   constructor(public admin: AdminService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.admin.getAllVolunteer();
+    this.admin.getAllVolunteer();    
     this.Volunteer.controls['experience'].disable();
     this.Volunteer.controls['phone_Number'].disable();
     this.Volunteer.controls['notes'].disable();
@@ -68,10 +68,11 @@ export class VolunteerComponent implements OnInit {
     this.dialog.open(this.EditDailog);
   }
 
-  save2() {
+  async save2() {
     const updatedVolunteer = this.Volunteer.value;
     console.log("updatedVolunteer", updatedVolunteer);
-  
+    await this.admin.GetVolunteerRoleByTripID(updatedVolunteer.trip_Id)
+    if(this.admin.tripVolunteers.volunteer_Role_Id == updatedVolunteer.volunteer_Role_Id && this.admin.tripVolunteers.number_of_volunteers>0){
     this.admin.UpdateVolunteerStatus(updatedVolunteer).subscribe(
       response => {
         
@@ -103,11 +104,21 @@ export class VolunteerComponent implements OnInit {
           text: 'There was an error updating the volunteer status. Please try again.',
           confirmButtonText: 'OK'
         });
-  
+        this.admin.getAllVolunteer();
+
         // Log error
         console.log(err.message);
       }
     );
+  }else{
+    Swal.fire({
+      icon: 'warning',
+      title: 'Full',
+      text: 'You accepted max number of volunteer for this volanteer role in this trip',
+      confirmButtonText: 'OK'
+    });
+  }
+
   }
   
 
