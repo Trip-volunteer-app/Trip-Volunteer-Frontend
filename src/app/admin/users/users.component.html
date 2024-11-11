@@ -10,20 +10,20 @@
               <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Users Table</h4>
+                    <h4 class="card-title" style="color: black;">Users Table</h4>
                     <br><br>                 
                     <div class="table-responsive">
-                      <table class="table table-dark">
+                      <table class="table table-light" style="background-color: white;">
                         <thead>
                           <tr>
-                            <th> # </th> 
-                            <th> First Name</th>
-                            <th> Last Name </th>
-                            <th> Image </th>
-                            <th> Addres </th>
-                            <th> Phone Number </th>
-                            <th> Birth Date </th>
-                            <th> Date Register </th>
+                            <th style="color: black;"><b>#</b></th> 
+                            <th style="color: black;"><b>First Name</b></th>
+                            <th style="color: black;"><b>Last Name</b></th>
+                            <th style="color: black;"><b>Image</b></th>
+                            <th style="color: black;"><b>Addres</b></th>
+                            <th style="color: black;"><b>Phone Number</b></th>
+                            <th style="color: black;"><b>Birth Date </b></th>
+                            <th style="color: black;"><b>Date Register</b></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -31,12 +31,12 @@
                             <td>{{obj.login_Id}}</td>
                             <td>{{obj.first_Name}}</td>
                             <td>{{obj.last_Name}}</td>
-                            <td><img [src]="'../../../assets/images/' + obj.image_Path" alt="Dynamic Image"></td>
+                            <td><img [src]="'../../../assets/images/' + obj.image_Path" alt="empty"></td>
                             <!-- <td>{{obj.image_Path}}</td> -->
                             <td>{{obj.address}}</td>
                             <td>{{obj.phone_Number}}</td>
-                            <td>{{obj.birth_Date}}</td>     
-                            <td>{{obj.date_Register}}</td>                     
+                            <td>{{obj.birth_Date | date}}</td>     
+                            <td>{{obj.date_Register | date}}</td>                     
                           </tr>                                                 
                         </tbody>
                       </table>

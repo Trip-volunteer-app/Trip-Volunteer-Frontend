@@ -10,19 +10,19 @@
               <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Review Table</h4>
+                    <h4 class="card-title" style="color: black;">Review Table</h4>
                     <br><br>                 
                     <div class="table-responsive">
-                      <table class="table table-dark">
+                      <table class="table table-light" style="background-color: white;">
                         <thead>
                           <tr>
-                            <th> # </th> 
-                            <th> VOLUNTEER_ID</th>
-                            <th> BOOKING_ID </th>
-                            <th> FEEDBACK </th>
-                            <th> RATE </th>
-                            <th> CREATE_AT </th>
-                            <th> Operations </th>
+                            <th style="color: black;"><b># </b> </th> 
+                            <th style="color: black;"><b>VOLUNTEER_ID</b> </th>
+                            <th style="color: black;"><b>BOOKING_ID</b>  </th>
+                            <th style="color: black;"><b>FEEDBACK</b>  </th>
+                            <th style="color: black;"><b>RATE</b>  </th>
+                            <th style="color: black;"> <b>CREATE_AT</b> </th>
+                            <th style="color: black;"> <b>Operations</b> </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -34,7 +34,10 @@
                             <td>{{obj.REVIEW_ID}}</td>
                             <td>{{obj.CREATE_AT}}</td>
                             <td> 
-                                <button (click)="openDeleteDialog(obj.REVIEW_ID)" style="background-color: rgb(199, 51, 51); color: white;">Delete</button>                      
+                                <button (click)="openDeleteDialog(obj.REVIEW_ID)" style="border: none;">
+                                  <i class="bi bi-trash-fill" style="color: red; font-size: 20px;"></i>
+
+                                </button>                      
                             </td>                          
                           </tr>                                                 
                         </tbody>

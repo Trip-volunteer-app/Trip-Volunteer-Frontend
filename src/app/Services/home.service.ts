@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Observable } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -88,30 +89,33 @@ export class HomeService {
 
   //booking
 
-CreateBooking(body: any) {
-  this.http.post('https://localhost:7004/api/Booking/CreateBooking', body).subscribe({
-    next: (resp: any) => {
-      if (resp?.bookingId) { 
-        console.log('Booking created with ID:', resp.bookingId);
-        const updateUserBody = {
-          id: resp.tripId, // Assuming the trip ID is returned in the response
-          res_num: resp.numberOfUsers // Assuming the number of users is in the response
-        };
-
-        // Update max users
-        this.updateMaxUser(updateUserBody.id, updateUserBody.res_num)
-          .then(() => {
-            console.log('Max number of users updated successfully');
-          })
-          .catch(err => {
-            console.error('Error updating max number of users:', err);
-          });
-        this.showAlert(resp.bookingId);
+  CreateBooking(body: any) {
+    this.http.post('https://localhost:7004/api/Booking/CreateBooking', body).subscribe({
+      next: (resp: any) => {
+        if (resp?.bookingId) {
+          console.log('Booking created with ID:', resp.bookingId);
+          this.showAlert(resp.bookingId);
+        }
+      },
+      error: (err) => {
+        console.error('Error creating booking:', err);
       }
-    }
-  })
-}
+    });
+  }
 
+  
+  updateMaxUser(id: number, res_num: number): Promise<void> {
+    return this.http.put<void>(`https://localhost:7004/api/Trips/updateMaxUser?id=${id}&res_num=${res_num}`, {})
+      .toPromise()
+      .then(() => {
+        console.log('Max number of users updated');
+      })
+      .catch(err => {
+        console.error('Error updating MaxUser:', err);
+        throw err;  // Ensure errors are thrown so they can be caught in CreateBooking
+      });
+  }
+  
   showAlert(id: number) {
     Swal.fire({
       title: 'Success!',
@@ -180,20 +184,6 @@ CreateBooking(body: any) {
       console.log(err.message);
     })
   }
-
-
-
-
-updateMaxUser(id: number, res_num: number): Promise<void> {
-  return this.http.put<void>(`https://localhost:7004/api/Trips/updateMaxUser?id=${id}&res_num=${res_num}`, {})
-    .toPromise()
-    .then(() => {
-      console.log('Max number of users updated');
-    })
-    .catch(err => {
-      console.error('Error updating MaxUser:', err);
-    });
-}
 //volunteer Role
 
   async UpdatePaymentStatus(body: any): Promise<void> {
@@ -239,7 +229,7 @@ updateMaxUser(id: number, res_num: number): Promise<void> {
         ReceiverEmail: receiverEmail,
         Body: emailBody
       };
-  
+    
       // Send email with PDF attachment
       this.http.post('https://localhost:7004/api/Trips/SendEmailWithPdfAttachment', emailRequest)
         .subscribe(
@@ -313,6 +303,7 @@ updateMaxUser(id: number, res_num: number): Promise<void> {
 
   //All Booking by trip id
   BookingByTripId: any;
+  
   GetBookingByTripId(TripId: number, LoginId: number) {
     const params = new HttpParams()
       .set('TripId', TripId.toString())
@@ -406,15 +397,6 @@ console.log("bookingServices",this.bookingServices);
 })}
 
 
-  DeleteHomePageElements(id: number) {
-    this.http.delete('https://localhost:7004/api/HomePageElements/DeleteHomePageElement/' + id).subscribe(response => {
-      console.log('deleted')
-    },
-      err => {
-        console.log('errer');
-      })
-  }
-
   CreateHomePageElements(body: any) {
     body.hero_Image = this.imageStorage['hero_Image'];
     body.logo_Image = this.imageStorage['logo_Image'];
@@ -445,7 +427,14 @@ console.log("bookingServices",this.bookingServices);
       }
     );
   }
-
+  DeleteHomePageElements(id: number) {
+    this.http.delete('https://localhost:7004/api/HomePageElements/DeleteHomePageElement/' + id).subscribe(response => {
+      console.log('deleted')
+    },
+      err => {
+        console.log('errer');
+      })
+  }
 
   UpdateHopmePageElements(body: any) {
     body.hero_Image = this.imageStorage['hero_Image'];
@@ -484,20 +473,20 @@ console.log("bookingServices",this.bookingServices);
         this.imageStorage[imgNumber] = response[imgNumber];
       },
       (err) => {
-        console.error('Error occurred', err);
+        console.log('Error occurred', err);
       }
     );
   }
   async GetSelectedHomeElement(): Promise<void> {
     try {
       const res = await this.http.get('https://localhost:7004/api/HomePageElements/GetSelectedHomeElement').toPromise();
-      this.selectedHome = res;
-      console.log(this.selectedHome);
-      console.log('this.selectedHomethis.selectedHomethis.selectedHomethis.selectedHome');
+      this.selectedHome = res; // Assign the response
     } catch (error) {
-      console.error('Error fetching selected element:', error);
+      console.error('Error fetching selected home element:', error);
     }
   }
+
+
   UpdateSelectedHomeElement(id: number) {
     const params = new HttpParams().set('id', id.toString());
     this.http.put(

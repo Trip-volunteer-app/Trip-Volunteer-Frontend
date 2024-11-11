@@ -233,7 +233,12 @@ export class PaymentComponent implements OnInit{
         throw new Error("Failed to update payment status.");
       });
 
-
+     const id =this.home.BookingPayment.trip_Id;
+     const res_num=this.home.BookingPayment.numberOfUser;
+      await this.home.updateMaxUser(id,res_num).catch(error => {
+        console.error("Error updating Max User:", error);
+        throw new Error("Failed to update Max User.");
+      });
 
       // Show success message
       Swal.fire({
