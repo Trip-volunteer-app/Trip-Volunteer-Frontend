@@ -74,18 +74,18 @@ export class VolunteerComponent implements OnInit {
   
     this.admin.UpdateVolunteerStatus(updatedVolunteer).subscribe(
       response => {
-        // Successful update
+        
         const status = updatedVolunteer.status;
         
-        // Show success alert
         Swal.fire({
           icon: 'success',
           title: 'Status Updated',
           text: 'The volunteer status has been successfully updated.',
           confirmButtonText: 'OK'
         });
-  
-        // Additional actions if the status is "Accepted" or "Rejected"
+
+         this.admin.getAllVolunteer();
+         
         if (status === 'Accepted' || status === 'Rejected') {
           this.sendEmailNotification(updatedVolunteer.volunteer_Id, status);
   
