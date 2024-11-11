@@ -4,7 +4,7 @@ import { HomeService } from '../Services/home.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TestimonalComponent } from '../testimonal/testimonal.component';
 import { Router } from '@angular/router';
-
+import {MoveFilterDataService} from '../Services/move-filter-data.service'
 
 @Component({
   selector: 'app-home',
@@ -14,12 +14,14 @@ import { Router } from '@angular/router';
 
 export class HomeComponent implements OnInit , AfterViewInit {
 
+  
   constructor(   
     public home: HomeService,
     private styleService: StyleService,
     private cdr: ChangeDetectorRef,
     public dialog: MatDialog,
-    public router: Router
+    public router: Router,
+    private tripDataService: MoveFilterDataService
   ) {}
 
 
@@ -63,4 +65,56 @@ export class HomeComponent implements OnInit , AfterViewInit {
   showDetails(tripId:number){
     this.router.navigate(['tripDetails/',tripId]);
   }
+
+  trip_Name: string = '';
+  checkInDate: string = '';
+  checkOutDate: string = '';
+  minPrice: number | null = null;
+  maxPrice: number | null = null;
+
+
+  first_Name: string = '';
+  last_Name: string = '';
+  // trip_Name: string = '';
+  role_Name: string = '';
+
+  onSearch() {
+    // Navigate to Trip page with query parameters
+    this.router.navigate(['/Trips'], {
+      queryParams: {
+        trip_Name: this.trip_Name,
+        checkInDate: this.checkInDate,
+        checkOutDate: this.checkOutDate,
+        minPrice: this.minPrice,
+        maxPrice: this.maxPrice
+      },
+    });
+  }
+
+
+  // Method to switch tabs
+  selectTab(tab: string): void {
+    this.activeTab = tab;
+  }
+
+  activeTab: string = 'trip'; // Default tab is 'trip'
+
+setActiveTab(tabName: string): void {
+  this.activeTab = tabName;
 }
+navigateToTripPage(tab: string) {
+  this.router.navigate(['/Trips'], {
+    queryParams: {
+      tab: tab,
+      first_Name: this.first_Name,
+      last_Name: this.last_Name,
+      trip_Name: this.trip_Name,
+      role_Name: this.role_Name
+    }
+  });
+}
+}
+
+
+
+
