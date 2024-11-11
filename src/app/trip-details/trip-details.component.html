@@ -140,21 +140,17 @@
           <mat-tab class="tab" label="Review" >
             <ng-template matTabContent>
               <div class="review-section">
-                <div class="review-card" *ngFor="let review of reviews; let i = index" [hidden]="i >= 10">
+                <div class="review-card" *ngFor="let review of this.home.review; let i = index" [hidden]="i >= 10">
                   <div class="review-header">
-                    <img class="review-avatar" [src]="review.avatarUrl" alt="{{ review.name }}" />
+                    <img class="review-avatar" [src]="review.image_Path" alt="{{ review.first_Name }}" />
                     <div class="review-info">
-                      <p class="review-name">{{ review.name }}</p>
+                      <p class="review-name">{{ review.first_Name }} {{ review.last_Name }}</p>
                       <div class="review-stars">
-                        <mat-icon *ngFor="let star of [1,2,3,4,5]" [class.filled]="star <= review.rating">star</mat-icon>
+                        <mat-icon *ngFor="let star of [1,2,3,4,5]" [class.filled]="star <= review.rate">star</mat-icon>
                       </div>
                     </div>
                   </div>
                   <p class="review-feedback">{{ review.feedback }}</p>
-                </div>
-              
-                <div class="show-more">
-                  <a href="#" (click)="showMoreReviews()">View more reviews</a>
                 </div>
               </div>
             </ng-template>
@@ -163,25 +159,20 @@
           <mat-tab class="tab" label="Similar Trips">
             <ng-template matTabContent>
               <div class="Similar-trips">
-                <mat-table [dataSource]="previousTrips" class="mat-elevation-z8">
-                  <ng-container matColumnDef="name">
-                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                    <mat-cell *matCellDef="let trip"> 
-                      <a href="#" (click)="goToTripDetails(trip.id)">{{ trip.name }}</a>
-                    </mat-cell>
-                  </ng-container>
-          
-                  <ng-container matColumnDef="location">
-                    <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-                    <mat-cell *matCellDef="let trip"> {{ trip.location }} </mat-cell>
-                  </ng-container>
-          
-                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                </mat-table>
+                <div *ngFor="let trip of home.similarTrip" class="trip-item">
+                  <mat-card class="trip-card">
+                    <mat-card-title>
+                      <a  (click)="goToTripDetails(trip.trip_Id)">{{ trip.trip_Name }}</a>
+                    </mat-card-title>
+                    <mat-card-content>
+                      <p>Location: {{ trip.destination_Location }}</p>
+                    </mat-card-content>
+                  </mat-card>
+                </div>
               </div>
             </ng-template>
           </mat-tab>
+          
           
         </mat-tab-group>
       </div>
