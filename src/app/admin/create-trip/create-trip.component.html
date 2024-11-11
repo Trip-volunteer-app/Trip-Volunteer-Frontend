@@ -11,350 +11,343 @@
 
       <!-- partial -->
       <div class="main-panel">
-        <div class="content-wrapper" >
-          
+        <div class="content-wrapper">
+
           <div class="custom-stepper">
-          <mat-stepper #stepper >
-            <mat-step [stepControl]="firstFormGroup">
-              <form [formGroup]="firstFormGroup">
-                <ng-template matStepLabel>Categories</ng-template>
-                <mat-radio-group formControlName="categoryControl" (change)="onCategoryChange($event)">
-                  <div *ngFor="let obj of admin.Categories" class="radio-option">
-                    <mat-radio-button [value]="obj.category_Id" class="custom-radio">
-                      {{ obj.category_Name }}
-                    </mat-radio-button>
-                  </div>
-                </mat-radio-group>
-                <div class="button-container">
-                  <button mat-button matStepperNext [disabled]="firstFormGroup.invalid" class="next-button">
-                    Next
-                  </button>
-                </div>                
-              </form>
-            </mat-step>
-
-            <mat-step>
-              <ng-template matStepLabel>Images</ng-template>
-              <form [formGroup]="TripImage">
-                <div>
-                  <mat-card class="image-upload-card">
-                    <div class="image-upload-header">
-                      <mat-label>Logo Image</mat-label>
-                      <button mat-icon-button (click)="clearImage()" *ngIf="ImagePreview">
-                        <mat-icon>close</mat-icon>
-                      </button>
+            <mat-stepper #stepper>
+              <mat-step [stepControl]="firstFormGroup">
+                <form [formGroup]="firstFormGroup">
+                  <ng-template matStepLabel>Categories</ng-template>
+                  <mat-radio-group formControlName="categoryControl" (change)="onCategoryChange($event)">
+                    <div *ngFor="let obj of admin.Categories" class="radio-option">
+                      <mat-radio-button [value]="obj.category_Id" class="custom-radio">
+                        {{ obj.category_Name }}
+                      </mat-radio-button>
                     </div>
-                  
-                    <!-- File input and image preview -->
-                    <input type="file" #file formControlName="image_Name" (change)="uploadImage(file.files)" hidden>
-                    <img *ngIf="ImagePreview" [src]="ImagePreview" class="image-preview" alt="Preview Image">
-                    <button mat-stroked-button color="primary" (click)="file.click()" *ngIf="!ImagePreview">
-                      Upload Image
+                  </mat-radio-group>
+                  <div class="button-container">
+                    <button mat-button matStepperNext [disabled]="firstFormGroup.invalid" class="next-button">
+                      Next
                     </button>
-                  </mat-card>
-              </div>
-              </form>
-              <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext [disabled]="!TripImage.valid">Next</button>
-              </div>
-            </mat-step>
-
-            <mat-step [stepControl]="secondFormGroup" label="Trip Details">
-              <form [formGroup]="secondFormGroup">
-                <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="space-between start" class="form-container">
-                  <div fxFlex="50">
-                    <mat-form-field appearance="fill" class="full-width">
-                      <mat-label>Trip Name</mat-label>
-                      <input matInput formControlName="Trip_Name" required>
-                      <mat-error
-                        *ngIf="secondFormGroup.get('Trip_Name')?.invalid && secondFormGroup.get('Trip_Name')?.touched">
-                        Trip Name is required.
-                      </mat-error>
-                    </mat-form-field>
-                    <mat-form-field appearance="fill" class="full-width">
-                      <mat-label>Number of Users</mat-label>
-                      <input matInput formControlName="Max_Number_Of_Users" type="number" required>
-                      <mat-error
-                        *ngIf="secondFormGroup.get('Max_Number_Of_Users')?.invalid && secondFormGroup.get('Max_Number_Of_Users')?.touched">
-                        Number of Users is required.
-                      </mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="fill" class="full-width">
-                      <mat-label>Description</mat-label>
-                      <textarea matInput formControlName="description" required></textarea>
-                      <mat-error
-                        *ngIf="secondFormGroup.get('description')?.invalid && secondFormGroup.get('description')?.touched">
-                        Description is required.
-                      </mat-error>
-                    </mat-form-field>
                   </div>
+                </form>
+              </mat-step>
 
-                  <div fxFlex="50">
-                    <mat-form-field appearance="fill" class="full-width">
-                      <mat-label>Start Date</mat-label>
-                      <input matInput formControlName="Start_Date" type="date" required>
-                      <mat-error
-                        *ngIf="secondFormGroup.get('Start_Date')?.invalid && secondFormGroup.get('Start_Date')?.touched">
-                        Start Date is required.
-                      </mat-error>
-                    </mat-form-field>
+              <mat-step>
+                <ng-template matStepLabel>Images</ng-template>
+                <form [formGroup]="TripImage">
+                  <div>
+                    <mat-card class="image-upload-card">
+                      <div class="image-upload-header">
+                        <mat-label>Logo Image</mat-label>
+                        <button mat-icon-button (click)="clearImage()" *ngIf="ImagePreview">
+                          <mat-icon>close</mat-icon>
+                        </button>
+                      </div>
 
-                    <mat-form-field appearance="fill" class="full-width">
-                      <mat-label>End Date</mat-label>
-                      <input matInput formControlName="End_Date" type="date" required>
-                      <mat-error
-                        *ngIf="secondFormGroup.get('End_Date')?.invalid && secondFormGroup.get('End_Date')?.touched">
-                        End Date is required.
-                      </mat-error>
-                    </mat-form-field>
-
-                    
+                      <!-- File input and image preview -->
+                      <input type="file" #file formControlName="image_Name" (change)="uploadImage(file.files)" hidden>
+                      <img *ngIf="ImagePreview" [src]="ImagePreview" class="image-preview" alt="Preview Image">
+                      <button mat-stroked-button color="primary" (click)="file.click()" *ngIf="!ImagePreview">
+                        Upload Image
+                      </button>
+                    </mat-card>
                   </div>
-                </div>
-
+                </form>
                 <div>
                   <button mat-button matStepperPrevious>Back</button>
-                  <button mat-button matStepperNext [disabled]="!secondFormGroup.valid">Next</button>
+                  <button mat-button matStepperNext [disabled]="!TripImage.valid">Next</button>
                 </div>
-              </form>
-            </mat-step>
+              </mat-step>
 
-            
-            <mat-step [stepControl]="ServicesFormGroup" label="Services">
-              <form [formGroup]="ServicesFormGroup">
-                <ng-template matStepLabel>Services</ng-template>
-                <div class="add-service-section">
-                  <button mat-raised-button color="accent" (click)="toggleAddService()" 
-                          matTooltip="Click to add a new service" aria-label="Add New Service">
-                    + Add A New Service
-                  </button>
-                </div>
+              <mat-step [stepControl]="secondFormGroup" label="Trip Details">
+                <form [formGroup]="secondFormGroup">
+                  <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="space-between start" class="form-container">
+                    <div fxFlex="50">
+                      <mat-form-field appearance="fill" class="full-width">
+                        <mat-label>Trip Name</mat-label>
+                        <input matInput formControlName="Trip_Name" required>
+                        <mat-error
+                          *ngIf="secondFormGroup.get('Trip_Name')?.invalid && secondFormGroup.get('Trip_Name')?.touched">
+                          Trip Name is required.
+                        </mat-error>
+                      </mat-form-field>
+                      <mat-form-field appearance="fill" class="full-width">
+                        <mat-label>Number of Users</mat-label>
+                        <input matInput formControlName="Max_Number_Of_Users" type="number" required>
+                        <mat-error
+                          *ngIf="secondFormGroup.get('Max_Number_Of_Users')?.invalid && secondFormGroup.get('Max_Number_Of_Users')?.touched">
+                          Number of Users is required.
+                        </mat-error>
+                      </mat-form-field>
 
-                <div *ngIf="showAddServiceForm" class="new-service-form" [formGroup]="serviceFormGroup">
-                  <h3>Add New Service</h3>
-                  
-                  <mat-form-field appearance="outline" class="form-field form-field1">
-                    <mat-label>Service Name</mat-label>
-                    <input matInput formControlName="service_Name" placeholder="Enter service name">
-                  </mat-form-field>
-                  
-                  <mat-form-field appearance="outline" class="form-field form-field1">
-                    <mat-label>Service Cost</mat-label>
-                    <input matInput formControlName="service_Cost" placeholder="Enter service cost" type="number">
-                  </mat-form-field>
-            
-                  <div class="add-service-actions">
-                    <button mat-stroked-button class="cancel-button" (click)="cancelAddService()">Cancel</button>
-                    <button mat-stroked-button class="clear-button" (click)="addService()">Add Service</button>
+                      <mat-form-field appearance="fill" class="full-width">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput formControlName="description" required></textarea>
+                        <mat-error
+                          *ngIf="secondFormGroup.get('description')?.invalid && secondFormGroup.get('description')?.touched">
+                          Description is required.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div fxFlex="50">
+                      <mat-form-field appearance="fill" class="full-width">
+                        <mat-label>Start Date</mat-label>
+                        <input matInput formControlName="Start_Date" type="date" required>
+                        <mat-error
+                          *ngIf="secondFormGroup.get('Start_Date')?.invalid && secondFormGroup.get('Start_Date')?.touched">
+                          Start Date is required.
+                        </mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field appearance="fill" class="full-width">
+                        <mat-label>End Date</mat-label>
+                        <input matInput formControlName="End_Date" type="date" required>
+                        <mat-error
+                          *ngIf="secondFormGroup.get('End_Date')?.invalid && secondFormGroup.get('End_Date')?.touched">
+                          End Date is required.
+                        </mat-error>
+                      </mat-form-field>
+
+
+                    </div>
                   </div>
-                </div>
-                <div class="hint-text">Add a new service or choose from the list.</div>
 
-                <mat-divider></mat-divider>
-                
-                <h2 class="services-title">Choose Services</h2>
-                
-                <div class="service-list">
-                  <div class="service-item" *ngFor="let service of paginatedServices">
-                    <mat-checkbox 
-                      [checked]="isServiceSelected(service.service_Id)"
-                      (change)="onServiceChange($event.checked, service.service_Id)">
-                      <span class="service-name">{{ service.service_Name }}</span> 
-                      <span class="service-cost">  {{ service.service_Cost | currency }}</span>
-                    </mat-checkbox>
+                  <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext [disabled]="!secondFormGroup.valid">Next</button>
                   </div>
-                </div>
-            
-                <div class="pagination-controls">
-                  <button mat-icon-button (click)="previousPage()" [disabled]="currentPage === 1">
-                    <mat-icon>arrow_back</mat-icon>
-                  </button>
-                  <span class="pagination-text">Page {{ currentPage }} of {{ totalPages }}</span>
-                  <button mat-icon-button (click)="nextPage()" [disabled]="currentPage === totalPages">
-                    <mat-icon>arrow_forward</mat-icon>
-                  </button>
-                </div>
-                <div class="total-trip-price">
-                  <strong>Total Trip Price:</strong> {{ totalTripPrice | currency }}
-                </div>
-            
-                <div class="stepper-buttons">
-                  <button mat-button matStepperPrevious>Back</button>
-                  <button mat-raised-button color="primary" matStepperNext>Next</button>
-                </div>
-              </form>
-            </mat-step>
-            <mat-step [stepControl]="RolesFormGroup" label="Roles">
-              <form [formGroup]="RolesFormGroup">
-                <ng-template matStepLabel>Volunteer Roles</ng-template>
-                <div class="add-service-section">
-                  <button mat-raised-button color="accent" (click)="toggleAddVolunteer()" 
-                          matTooltip="Click to add a new service" aria-label="Add New Service">
-                    + Add A New Volunteer Role
-                  </button>
-                </div>
+                </form>
+              </mat-step>
 
-                <div *ngIf="showAddVolunteerRoleForm" class="new-service-form" [formGroup]="roleFormGroup">
-                  <h3>Add New Volunteer Role</h3>
+
+              <mat-step [stepControl]="ServicesFormGroup" label="Services">
+                <form [formGroup]="ServicesFormGroup">
+                  <ng-template matStepLabel>Services</ng-template>
+                  <div class="add-service-section">
+                    <button mat-raised-button color="accent" (click)="toggleAddService()"
+                      matTooltip="Click to add a new service" aria-label="Add New Service">
+                      + Add A New Service
+                    </button>
+                  </div>
+
+                  <div *ngIf="showAddServiceForm" class="new-service-form" [formGroup]="serviceFormGroup">
+                    <h3>Add New Service</h3>
+
+                    <mat-form-field appearance="outline" class="form-field form-field1">
+                      <mat-label>Service Name</mat-label>
+                      <input matInput formControlName="service_Name" placeholder="Enter service name">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="form-field form-field1">
+                      <mat-label>Service Cost</mat-label>
+                      <input matInput formControlName="service_Cost" placeholder="Enter service cost" type="number">
+                    </mat-form-field>
+
+                    <div class="add-service-actions">
+                      <button mat-stroked-button class="cancel-button" (click)="cancelAddService()">Cancel</button>
+                      <button mat-stroked-button class="clear-button" (click)="addService()">Add Service</button>
+                    </div>
+                  </div>
+                  <div class="hint-text">Add a new service or choose from the list.</div>
+
+                  <mat-divider></mat-divider>
+
+                  <h2 class="services-title">Choose Services</h2>
+
+                  <div class="service-list">
+                    <div class="service-item" *ngFor="let service of paginatedServices">
+                      <mat-checkbox [checked]="isServiceSelected(service.service_Id)"
+                        (change)="onServiceChange($event.checked, service.service_Id)">
+                        <span class="service-name">{{ service.service_Name }}</span>
+                        <span class="service-cost"> {{ service.service_Cost | currency }}</span>
+                      </mat-checkbox>
+                    </div>
+                  </div>
+
+                  <div class="pagination-controls">
+                    <button mat-icon-button (click)="previousPage()" [disabled]="currentPage === 1">
+                      <mat-icon>arrow_back</mat-icon>
+                    </button>
+                    <span class="pagination-text">Page {{ currentPage }} of {{ totalPages }}</span>
+                    <button mat-icon-button (click)="nextPage()" [disabled]="currentPage === totalPages">
+                      <mat-icon>arrow_forward</mat-icon>
+                    </button>
+                  </div>
+                  <div class="total-trip-price">
+                    <strong>Total Trip Price:</strong> {{ totalTripPrice | currency }}
+                  </div>
+
+                  <div class="stepper-buttons">
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-raised-button color="primary" matStepperNext>Next</button>
+                  </div>
+                </form>
+              </mat-step>
+              <mat-step [stepControl]="RolesFormGroup" label="Roles">
+                <form [formGroup]="RolesFormGroup">
+                  <ng-template matStepLabel>Volunteer Roles</ng-template>
+                  <div class="add-service-section">
+                    <button mat-raised-button color="accent" (click)="toggleAddVolunteer()"
+                      matTooltip="Click to add a new service" aria-label="Add New Service">
+                      + Add A New Volunteer Role
+                    </button>
+                  </div>
+
+                  <div *ngIf="showAddVolunteerRoleForm" class="new-service-form" [formGroup]="roleFormGroup">
+                    <h3>Add a new volunteer role</h3>
+
+                    <mat-form-field appearance="outline" class="form-field form-field1">
+                      <mat-label>Enter volunteer role-name</mat-label>
+                      <input matInput formControlName="role_Name" placeholder="Enter volunteer role name">
+                    </mat-form-field>
+
+                    <div class="add-service-actions">
+                      <button mat-stroked-button class="cancel-button" (click)="cancelAddVoluntter()">Cancel</button>
+                      <button mat-stroked-button class="clear-button" (click)="addVolunteer()">Add Volunteer
+                        Role</button>
+                    </div>
+                  </div>
+                  <div class="hint-text">Add a new role or choose from the list.</div>
+
+                  <mat-divider></mat-divider>
+
+                  <h2 class="services-title">Choose Roles</h2>
+
+                  <div class="service-list">
+                    <div class="service-item" *ngFor="let volunteerRole of paginatedVolunteerRoles">
+                      <mat-checkbox [checked]="isVolunteerRolelected(volunteerRole.volunteer_Role_Id)"
+                        (change)="onVolunteerRoleChange($event.checked, volunteerRole.volunteer_Role_Id)">
+                        <span class="service-name">{{ volunteerRole.role_Name }}</span>
+                        <span class="service-cost"> {{ volunteerRole.number_Of_Volunteers}}</span>
+                      </mat-checkbox>
+                    </div>
+                  </div>
+
+                  <div class="pagination-controls">
+                    <button mat-icon-button (click)="previousVolunteerPage()" [disabled]="currentVolunteerPage === 1">
+                      <mat-icon>arrow_back</mat-icon>
+                    </button>
+                    <span class="pagination-text">Page {{ currentPage }} of {{ totalPages }}</span>
+                    <button mat-icon-button (click)="nextVolunteerPage()"
+                      [disabled]="currentVolunteerPage === totalVolunteerPages">
+                      <mat-icon>arrow_forward</mat-icon>
+                    </button>
+                  </div>
+                  <div class="center-container">
+                    <div class="selected-services-list">
+                      <h2 class="services-title">Volunteer roles</h2>
+                      <div class="scrollable-services">
+                        <div *ngIf="roleEntries.length > 0; else noRolesSelected">
+                          <div class="selected-service" *ngFor="let role of roleInfo">
+                            <span class="service-name">{{ role.volunteer_Role_Name }}</span>
+                            <span class="service-cost">
+                              {{ role.number_Of_Volunteers }}
+                              <mat-icon class="volunteer-icon">person</mat-icon>
+                            </span>
+                          </div>
+                        </div>
                   
-                  <mat-form-field appearance="outline" class="form-field form-field1">
-                    <mat-label>Volunteer Role Name</mat-label>
-                    <input matInput formControlName="role_Name" placeholder="Enter volunteer role name">
-                  </mat-form-field>
+                        <ng-template #noRolesSelected>
+                          <p class="no-services-text">No roles selected.</p>
+                        </ng-template>
+                      </div>
+                    </div>
+                  </div>
                   
-                  <mat-form-field appearance="outline" class="form-field form-field1">
-                    <mat-label>Number Of Volunteers</mat-label>
-                    <input matInput formControlName="number_Of_Volunteers" placeholder="Enter number of volunteers" type="number">
-                  </mat-form-field>
-            
-                  <div class="add-service-actions">
-                    <button mat-stroked-button class="cancel-button" (click)="cancelAddVoluntter()">Cancel</button>
-                    <button mat-stroked-button class="clear-button" (click)="addVolunteer()">Add Volunteer Role</button>
+                  <div class="stepper-buttons">
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-raised-button color="primary" matStepperNext>Next</button>
                   </div>
-                </div>
-                <div class="hint-text">Add a new role or choose from the list.</div>
+                </form>
+              </mat-step>
 
-                <mat-divider></mat-divider>
-                
-                <h2 class="services-title">Choose Roles</h2>
-                
-                <div class="service-list">
-                  <div class="service-item" *ngFor="let volunteerRole of paginatedVolunteerRoles">
-                    <mat-checkbox 
-                      [checked]="isVolunteerRolelected(volunteerRole.volunteer_Role_Id)"
-                      (change)="onVolunteerRoleChange($event.checked, volunteerRole.volunteer_Role_Id)">
-                      <span class="service-name">{{ volunteerRole.role_Name }}</span> 
-                      <span class="service-cost">  {{ volunteerRole.number_Of_Volunteers}}</span>
-                    </mat-checkbox>
-                  </div>
-                </div>
-            
-                <div class="pagination-controls">
-                  <button mat-icon-button (click)="previousVolunteerPage()" [disabled]="currentVolunteerPage === 1">
-                    <mat-icon>arrow_back</mat-icon>
-                  </button>
-                  <span class="pagination-text">Page {{ currentPage }} of {{ totalPages }}</span>
-                  <button mat-icon-button (click)="nextVolunteerPage()" [disabled]="currentVolunteerPage === totalVolunteerPages">
-                    <mat-icon>arrow_forward</mat-icon>
-                  </button>
-                </div>
-            
-                <div class="stepper-buttons">
-                  <button mat-button matStepperPrevious>Back</button>
-                  <button mat-raised-button color="primary" matStepperNext>Next</button>
-                </div>
-              </form>
-            </mat-step> 
-            
-            
-            <mat-step>
-              <ng-template matStepLabel>Location</ng-template>
-              <div class="map-container">
-                <form [formGroup]="locationFormGroup" (ngSubmit)="saveLocations()" class="location-form">
-                  <mat-form-field class="full-width">
-                    <mat-label>Departure Location</mat-label>
-                    <input 
-                      matInput
-                      type="text" 
-                      id="departure" 
-                      formControlName="departure_Location" 
-                      placeholder="Enter city, street, or coordinates" 
-                      required
-                      [(ngModel)]="departurePosition" 
-                      (input)="onDepartureInputChange(locationFormGroup.value.departure_Location)" />
-                  </mat-form-field>
 
-                  <mat-form-field class="full-width">
-                    <mat-label>Destination Location</mat-label>
-                    <input 
-                      matInput
-                      type="text" 
-                      id="destination" 
-                      formControlName="destination_Location" 
-                      placeholder="Enter city, street, or coordinates" 
-                      required
-                      [(ngModel)]="distenationPosition" 
-                      (input)="onDestinationInputChange(locationFormGroup.value.destination_Location)" />
-                  </mat-form-field>
-                </form> 
-                <div class="marker-controls">
-                  <button 
-                    mat-raised-button 
-                    [ngStyle]="{
+              <mat-step>
+                <ng-template matStepLabel>Location</ng-template>
+                <div class="map-container">
+                  <form [formGroup]="locationFormGroup" (ngSubmit)="saveLocations()" class="location-form">
+                    <mat-form-field class="full-width">
+                      <mat-label>Departure Location</mat-label>
+                      <input matInput type="text" id="departure" formControlName="departure_Location"
+                        placeholder="Enter city, street, or coordinates" required [(ngModel)]="departurePosition"
+                        (input)="onDepartureInputChange(locationFormGroup.value.departure_Location)" />
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width">
+                      <mat-label>Destination Location</mat-label>
+                      <input matInput type="text" id="destination" formControlName="destination_Location"
+                        placeholder="Enter city, street, or coordinates" required [(ngModel)]="distenationPosition"
+                        (input)="onDestinationInputChange(locationFormGroup.value.destination_Location)" />
+                    </mat-form-field>
+                  </form>
+                  <div class="marker-controls">
+                    <button mat-raised-button [ngStyle]="{
                       'background-color': selectedMarker === 'departure' ? '#f14a3d' : '#c5babe',
                       'color': 'white',
                       'box-shadow': selectedMarker === 'departure' ? '0 12px 12px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.15)' : 'none'
-                    }" 
-                    (click)="selectedMarker = 'departure'">
-                    Set Departure
-                  </button>
-                  
-                  <button 
-                  mat-raised-button 
-                  [ngStyle]="{
+                    }" (click)="selectedMarker = 'departure'">
+                      Set Departure
+                    </button>
+
+                    <button mat-raised-button [ngStyle]="{
                     'background-color': selectedMarker === 'destination' ? '#f14a3d' : '#c5babe',
                     'color': 'white',
                     'box-shadow': selectedMarker === 'destination' ? '0 6px 12px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.15)' : 'none'
-                  }"
-                  (click)="selectedMarker = 'destination'">
-                  Set Destination
-                </button>                
-                </div>              
-                <google-map
-                  height="400px"
-                  width="100%"
-                  [center]="center"
-                  [zoom]="zoom"
-                  (mapClick)="addMarker($event)">
-                  
-                  <!-- Departure Marker -->
-                  <map-marker
-                    *ngIf="markerPositions.departure"
-                    [position]="markerPositions.departure"
-                    [label]="'Departure'"
-                    [title]="'Departure Location'">
-                  </map-marker>
-            
-                  <!-- Destination Marker -->
-                  <map-marker
-                    *ngIf="markerPositions.destination"
-                    [position]="markerPositions.destination"
-                    [label]="'Destination'"
-                    [title]="'Destination Location'">
-                  </map-marker>
-                </google-map>
+                  }" (click)="selectedMarker = 'destination'">
+                      Set Destination
+                    </button>
+                  </div>
+                  <google-map height="400px" width="100%" [center]="center" [zoom]="zoom"
+                    (mapClick)="addMarker($event)">
 
-                <div *ngIf="markerPositions.departure" class="marker-details">
-                  <p><strong>Departure:</strong> {{ markerPositions.departure.lat }}, {{ markerPositions.departure.lng }}</p>
+                    <!-- Departure Marker -->
+                    <map-marker *ngIf="markerPositions.departure" [position]="markerPositions.departure"
+                      [label]="'Departure'" [title]="'Departure Location'">
+                    </map-marker>
+
+                    <!-- Destination Marker -->
+                    <map-marker *ngIf="markerPositions.destination" [position]="markerPositions.destination"
+                      [label]="'Destination'" [title]="'Destination Location'">
+                    </map-marker>
+                  </google-map>
+
+                  <div *ngIf="markerPositions.departure" class="marker-details">
+                    <p><strong>Departure:</strong> {{ markerPositions.departure.lat }}, {{ markerPositions.departure.lng
+                      }}</p>
+                  </div>
+
+                  <div *ngIf="markerPositions.destination" class="marker-details">
+                    <p><strong>Destination:</strong> {{ markerPositions.destination.lat }}, {{
+                      markerPositions.destination.lng }}</p>
+                  </div>
                 </div>
-                
-                <div *ngIf="markerPositions.destination" class="marker-details">
-                  <p><strong>Destination:</strong> {{ markerPositions.destination.lat }}, {{ markerPositions.destination.lng }}</p>
+
+                <div class="navigation-buttons">
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-button matStepperNext [disabled]="!secondFormGroup.valid"
+                    (click)="onSubmit()">Create</button>
                 </div>
-              </div> 
+              </mat-step>
 
-              <div class="navigation-buttons">
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext [disabled]="!secondFormGroup.valid" (click)="onSubmit()">Create</button>
-              </div>
-            </mat-step>
-            
 
-            <mat-step >
-              <ng-template matStepLabel>Done</ng-template>
-              <p>You are now done.Trip Created</p>
-              <div>
-                <button mat-button (click)="stepper.reset()">Reset</button>
-              </div>
-            </mat-step>
-          </mat-stepper>
-        </div>
+              <mat-step>
+                <ng-template matStepLabel>Done</ng-template>
+                <p>You are now done.Trip Created</p>
+                <div>
+                  <button mat-button (click)="stepper.reset()">Reset</button>
+                </div>
+              </mat-step>
+            </mat-stepper>
+          </div>
           <div class="btn2">
-            <button mat-button (click)="back()"  style="color: black; border-radius: 20px;">Back</button>
-            </div>
-        
+            <button mat-button (click)="back()" style="color: black; border-radius: 20px;">Back</button>
+          </div>
+          <div *ngFor="let entry of roleEntries">
+            <p>Role ID: {{ entry.volunteer_Role_Id }}</p>
+            <p>Number of Volunteers: {{ entry.number_Of_Volunteers }}</p>
+          </div>
 
         </div>
       </div>
@@ -369,3 +362,26 @@
 </body>
 
 </html>
+
+
+<ng-template #callNumberDialog>
+  <mat-dialog-content class="mat-typography">
+    <h3>Number of volunteers</h3>
+    <form [formGroup]="RolesNumberFormGroup" style="padding: 30px;">
+      <div>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Number of volunteers</mat-label>
+          <input type="text" matInput placeholder="Title" formControlName="number_Of_Volunteers">
+          <mat-error
+            *ngIf="RolesFormGroup.get('number_Of_Volunteers')?.invalid && RolesFormGroup.get('number_Of_Volunteers')?.touched">
+            Please enter a positive number.
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button mat-dialog-close cdkFocusInitial (click)="save2()">Save</button>
+  </mat-dialog-actions>
+</ng-template>

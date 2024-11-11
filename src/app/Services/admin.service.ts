@@ -295,7 +295,7 @@ export class AdminService {
     try {
       const res = await this.http.get(`https://localhost:7004/api/VolunteerRoles/GetRoleByTripID/${trip_Id}`).toPromise();
       this.tripVolunteers = res;
-      console.log
+      console.log('this.tripVolunteersthis.tripVolunteers',this.tripVolunteers)
     } catch (error) {
       console.error('Error creating', error);
     }
@@ -310,6 +310,15 @@ export class AdminService {
       console.error('Error creating', error);
     }
   }
+  UpdateTrip_vrole_NumberOfVolunteers(body: any) {
+    this.http.put('https://localhost:7004/api/TripVolunteerrole/UpdateTrip_vrole_NumberOfVolunteers', body).subscribe((resp) => {
+      console.log('Updated');
+    }, err => {
+      console.log('error');
+    })
+  }
+
+
   async CreateVolunteerRoleForTrip(body: any): Promise<void> {
     try {
       console.log('Final Body:', body);
@@ -609,7 +618,7 @@ export class AdminService {
   }
   CreateTrip(body: any) {
     body.image_Name = this.displayImage;
-    console.log(body)
+    console.log('createtrip_body',body)
     this.http.post('https://localhost:7004/api/Trips/CreateTrip', body).subscribe((resp) => {
       console.log('the Trip Added');
       Swal.fire({
@@ -781,7 +790,7 @@ export class AdminService {
   GetAllMonthlyReport() {
     this.http.get('https://localhost:7004/api/MonthlyReport/MonthlyReport').subscribe(result => {
       this.MonthlyReport = result;
-      console.log(result);
+      console.log(this.MonthlyReport);
     }, err => {
       console.log(err.message);
     })
@@ -863,7 +872,6 @@ export class AdminService {
         }
       );
   }
-  
 
   display_Image1 :any ; 
   
