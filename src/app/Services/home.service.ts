@@ -108,6 +108,9 @@ CreateBooking(body: any) {
           });
         this.showAlert(resp.bookingId);
       }
+    }
+  })
+}
 
   showAlert(id: number) {
     Swal.fire({
@@ -401,15 +404,6 @@ console.log("bookingServices",this.bookingServices);
 },err=>{
       console.log(err.message);     
 })}
-
-DeleteHomePageElements(id: number) {
-  this.http.delete('https://localhost:7004/api/HomePageElements/DeleteHomePageElement/' + id).subscribe(response => {
-    console.log('deleted')
-  },
-    err => {
-      console.log('errer');
-    })
-}
 
 
   DeleteHomePageElements(id: number) {

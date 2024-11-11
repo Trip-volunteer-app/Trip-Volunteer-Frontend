@@ -21,10 +21,10 @@
                       </thead>
                       <tbody>
                         <tr *ngFor="let obj of admin.MonthlyReport">
-                          <td>{{ obj.trip_month | date: 'yyyy-MM-dd' }}</td>
-                          <td>{{ obj.totaL_SERVICE_COST }}</td>
-                          <td>{{ obj.totaL_REVENUE }}</td>
-                          <td>{{ obj.neT_REVENUE }}</td>
+                          <td>{{ obj.month_year }}</td>
+                          <td>{{ obj.cost }}</td>
+                          <td>{{ obj.total_revenue }}</td>
+                          <td>{{ obj.monthly_revenue }}</td>
                         </tr>
                       </tbody>
                     </table>
