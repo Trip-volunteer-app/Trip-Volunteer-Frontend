@@ -44,6 +44,7 @@
 
                                   <button mat-button color="primary"
                                   (click)="openEditDailog(obj)" class="action-button"
+                                    *ngIf="obj.status.toLowerCase() =='pending'"
                                   matTooltip="update statues"
                                   style="color: rgb(92, 92, 245) !important;"><i
                                       class="bi bi-pencil-square"></i>
@@ -90,26 +91,53 @@
 <ng-template #callEditDailog>
   <h2 mat-dialog-title>Update Volunteer</h2>
   <mat-dialog-content class="mat-typography">
-    <form [formGroup]="Volunteer">
-          <input type="text" matInput formControlName="login_Id" [ngModel]="pData.login_Id" (click)="disableField($event)" hidden>
-          <input type="text" matInput formControlName="trip_Id" [ngModel]="pData.trip_Id" (click)="disableField($event)" hidden>
-          <input type="text" matInput formControlName="volunteer_Role_Id" [ngModel]="pData.volunteer_Role_Id" (click)="disableField($event)" hidden>
-          <input type="text" matInput formControlName="experience" [ngModel]="pData.experience" (click)="disableField($event)" hidden>
-          <input type="text" matInput formControlName="phone_Number" [ngModel]="pData.phone_Number" (click)="disableField($event)" hidden>
-          <input type="text" matInput formControlName="email" [ngModel]="pData.email" (click)="disableField($event)" hidden>
-          <input type="text" matInput formControlName="date_Applied" [ngModel]="pData.date_Applied" (click)="disableField($event)" hidden>
-          <input type="text" matInput formControlName="notes" [ngModel]="pData.notes" (click)="disableField($event)" hidden>
-
-      <div class="example-container">
-        <mat-form-field>
-          <mat-label>Status</mat-label>
-          <mat-select formControlName="status" [(ngModel)]="pData.status">
-            <mat-option *ngFor="let status of statusList" [value]="status">{{status}}</mat-option>
-          </mat-select>
-        </mat-form-field>
+    <form [formGroup]="Volunteer">    
+      <div class="form-row">
+        <div class="container2">
+          <mat-form-field appearance="fill">
+            <mat-label>Phone Number</mat-label>
+            <input type="text" matInput formControlName="phone_Number" [ngModel]="pData.phone_Number" readonly>
+          </mat-form-field>
+        </div>
+        <div class="container2">
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input type="text" matInput formControlName="email" [ngModel]="pData.email" readonly>
+          </mat-form-field>
+        </div>
       </div>
-      
-    </form>
+      <div class="form-row">
+        <div class="container2">
+          <mat-form-field appearance="fill">
+            <mat-label>Experience</mat-label>
+            <input type="text" matInput formControlName="experience" [ngModel]="pData.experience"readonly >
+          </mat-form-field>
+        </div>
+        
+        <div class="container2">
+          <mat-form-field appearance="fill">
+            <mat-label>Notes</mat-label>
+            <input type="text" matInput formControlName="notes" [ngModel]="pData.notes" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="container2">
+          <mat-form-field appearance="fill">
+            <mat-label>Date Applied</mat-label>
+            <input type="text" matInput formControlName="date_Applied" [ngModel]="pData.date_Applied" readonly>
+          </mat-form-field>
+        </div>
+        <div class="container2">
+          <mat-form-field appearance="fill">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status" [(ngModel)]="pData.status">
+              <mat-option *ngFor="let status of statusList" [value]="status">{{status}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
   </mat-dialog-content>
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancel</button>

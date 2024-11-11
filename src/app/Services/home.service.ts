@@ -277,6 +277,15 @@ export class HomeService {
     );
   }
 
+  RoleByTripId:any;
+  GetRoleByTripId(id: number): Observable<any> {
+    const params = new HttpParams().set('id', id.toString());
+    console.log('Calling API with params:', params.toString());
+  
+    return this.http.get("https://localhost:7004/api/TripVolunteerrole/GetVolunteerRoleByTripId", { params });
+  }
+  
+
 
 
 
