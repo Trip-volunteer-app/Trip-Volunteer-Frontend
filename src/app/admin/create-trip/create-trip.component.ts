@@ -4,10 +4,11 @@ import { Router } from '@angular/router';
 import { AdminService } from 'src/app/Services/admin.service';
 /// <reference types="@types/google.maps" />
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, TemplateRef } from '@angular/core';
 import { LocationService } from '../../Services/location.service';
 import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs';
 import { ChangeDetectorRef } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -19,6 +20,8 @@ import { ChangeDetectorRef } from '@angular/core';
 export class CreateTripComponent implements OnInit {
   @ViewChild('departureInput') departureInput!: ElementRef; // Reference to input field
   @ViewChild('destinationInput') destinationInput!: ElementRef;
+  @ViewChild('callNumberDialog') numbersDialog !: TemplateRef<any>;
+
 
   currentPage: number = 1;
   itemsPerPage: number = 10;
@@ -63,6 +66,7 @@ export class CreateTripComponent implements OnInit {
     private router: Router,
     public location: LocationService,
     private http: HttpClient,
+    public dialog: MatDialog,
     private cdr: ChangeDetectorRef) { }
 
 
@@ -149,7 +153,7 @@ export class CreateTripComponent implements OnInit {
         Category_Id: this.selectedCategoryId,
         image_Name: this.TripImage.value.image_Name,
         SelectedServices: this.ServicesFormGroup.value.selectedServices,
-        SelectedVolunteerRoles: this.RolesFormGroup.value.selectedRoles,
+        SelectedVolunteerRoles: this.roleEntries,
         ...this.locationFormGroup.value,
         Trip_Price: this.totalTripPrice,
         Max_Number_Of_Volunteers: this.maxNumberOfVolunteers
@@ -372,39 +376,58 @@ async updatePaginatedVolunteerRoles(): Promise<void> {
   this.paginatedVolunteerRoles = this.admin.SortedVolunteerRoles.slice(startIndex, startIndex + this.itemsPerPage);
 }
 
+RolesNumberFormGroup: FormGroup = new FormGroup({
+  volunteer_Role_Id: new FormControl('', Validators.required),
+  number_Of_Volunteers: new FormControl('', [Validators.required, Validators.min(0)]),
+});
+
 RolesFormGroup: FormGroup = new FormGroup({
   selectedRoles: new FormControl([])
 });
-
 roleFormGroup: FormGroup = new FormGroup({
   role_Name: new FormControl('', Validators.required),
-  number_Of_Volunteers: new FormControl('', Validators.required)
 });
+role1:any ={};
+maxNumberOfVolunteers: number = 0;
 
-maxNumberOfVolunteers:number=0;
-onVolunteerRoleChange(isChecked: boolean, volunteerRoleId: number) {
-
+async onVolunteerRoleChange(isChecked: boolean, volunteerRoleId: number) {
   const selectedVolunteerRoles = this.RolesFormGroup.get('selectedRoles') as FormControl;
   const currentSelection = selectedVolunteerRoles.value as number[];
   const selectedVolunteer = this.paginatedVolunteerRoles.find(role => role.volunteer_Role_Id === volunteerRoleId);
+
   if (selectedVolunteer) {
     const volunteerCount = selectedVolunteer.number_Of_Volunteers;
-  console.log(selectedVolunteerRoles.value)
-  if (isChecked) {
+    console.log(selectedVolunteerRoles.value);
 
-    if (!currentSelection.includes(volunteerRoleId)) {
-      selectedVolunteerRoles.setValue([...currentSelection, volunteerRoleId]);
+    this.newRoleId = selectedVolunteer.volunteer_Role_Id;
+
+    if (isChecked) {
+      if (!currentSelection.includes(volunteerRoleId)) {
+        const updatedSelection = [...currentSelection, volunteerRoleId];
+        selectedVolunteerRoles.setValue(updatedSelection); // Update the form value
+        this.maxNumberOfVolunteers += volunteerCount;
+        console.log('maxy', this.maxNumberOfVolunteers)
+        this.openEditDialog(this.newRoleId);
+      }
+    } else {
+      this.roleEntries = this.roleEntries.filter(role => role.volunteer_Role_Id !== volunteerRoleId);
       this.maxNumberOfVolunteers += volunteerCount;
+
+      this.role1 = await this.admin.SortedVolunteerRoles.find((r: any) => r.volunteer_Role_Id === volunteerRoleId);
+      console.log('role1', this.role1);
+      
+      if (this.role1) {
+        this.roleInfo = this.roleInfo.filter(role => role.volunteer_Role_Name !== this.role1.role_Name);
+      } else {
+        console.error('Role not found in SortedVolunteerRoles');
+      }
+      const updatedSelection = currentSelection.filter(id => id !== volunteerRoleId);
+      selectedVolunteerRoles.setValue(updatedSelection); // Update the form value
+      this.maxNumberOfVolunteers -= volunteerCount;
     }
-  } else {
-    selectedVolunteerRoles.setValue(currentSelection.filter(id => id !== volunteerRoleId));
-    this.maxNumberOfVolunteers -= volunteerCount;
-
+    this.maxNumberOfVolunteers = this.roleEntries.reduce((total, entry) => total + Number(entry.number_Of_Volunteers), 0); // Ensure number_Of_Volunteers is treated as a number
+    console.log('maxNumberOfVolunteers (after update)', this.maxNumberOfVolunteers);
   }
-  console.log('selectedRoles', selectedVolunteerRoles.value)
-  console.log('maxNumberOfVolunteers', this.maxNumberOfVolunteers)
-
-}
 }
 
 isVolunteerRolelected(VolunteerRoleId: number): boolean {
@@ -443,30 +466,85 @@ async cancelAddVoluntter() {
     newVolunteerNumber: ''
   });
 }
+newRoleId:number =0;
 
 async addVolunteer() {
   try {
+    // Save the current list of roles
     this.previousVolunteerRoles = [...this.admin.SortedVolunteerRoles];
+
+    // Create new role and refresh the role list
     await this.admin.CreateVolunteerRoles(this.roleFormGroup.value);
     await this.admin.getAllVolunteerRoles();
     console.log('Updated Roles List:', this.admin.sortedServices);
+
+    // Find the newly added role
     const newRole: any = this.admin.SortedVolunteerRoles.find((role: any) =>
       !this.previousVolunteerRoles.some((prevRole: any) => prevRole.volunteer_Role_Id === role.volunteer_Role_Id)
     );
-    if (newRole) {
-      this.maxNumberOfVolunteers=this.maxNumberOfVolunteers + newRole.number_Of_Volunteers;
 
-      const currentSelectedRoles = this.roleFormGroup.value.selectedRoles || [];
+    if (newRole) {
+      // Update the newRoleId and maximum volunteers count
+      this.newRoleId = newRole.volunteer_Role_Id;
+      this.maxNumberOfVolunteers += newRole.number_Of_Volunteers;
+
+      // Get the currently selected roles directly from RolesFormGroup
+      const currentSelectedRoles = (this.RolesFormGroup.get('selectedRoles')?.value || []) as number[];
+
+      // Update the selectedRoles by adding the new role to the list
+      const updatedSelection = [...currentSelectedRoles, newRole.volunteer_Role_Id];
       this.RolesFormGroup.patchValue({
-        selectedRoles: [...currentSelectedRoles, newRole.volunteer_Role_Id]
+        selectedRoles: updatedSelection
       });
       console.log('Updated selected Roles:', this.RolesFormGroup.value.selectedRoles);
+
+      // Open the edit dialog for the newly added role
+      this.openEditDialog(this.newRoleId);
     }
+
+    // Update UI and pagination
     this.cdr.detectChanges();
     this.updatePaginatedVolunteerRoles();
     this.cancelAddVoluntter();
+
   } catch (error) {
     console.error('Error adding Volunteer Role:', error);
   }
 }
+
+openEditDialog(id: any) {
+  console.log('this.newRoleId', this.newRoleId)
+
+  this.RolesNumberFormGroup.controls['volunteer_Role_Id'].setValue(this.newRoleId)
+  console.log('this.newRoleId', this.newRoleId)
+
+  this.dialog.open(this.numbersDialog)
+  console.log('this.newRoleId', this.newRoleId)
+}
+roleEntries: { volunteer_Role_Id: number; number_Of_Volunteers: number }[] = [];
+roleInfo: { volunteer_Role_Name: string; number_Of_Volunteers: number }[] = [];
+
+role: any =[];
+async save2() {
+  const roleData = {
+    volunteer_Role_Id: this.RolesNumberFormGroup.get('volunteer_Role_Id')?.value,
+    number_Of_Volunteers: this.RolesNumberFormGroup.get('number_Of_Volunteers')?.value
+  };
+
+  this.roleEntries.push(roleData);
+
+  this.role = await this.admin.SortedVolunteerRoles.find((r: any) => r.volunteer_Role_Id === roleData.volunteer_Role_Id);
+  console.log('this.role',this.role)
+  const roleWithDetails = {
+    volunteer_Role_Name: this.role.role_Name,
+    number_Of_Volunteers: roleData.number_Of_Volunteers  };
+  this.RolesNumberFormGroup.reset();
+  console.log('this.role', roleWithDetails)
+    this.roleInfo.push(roleWithDetails);
+    console.log('roleInfo', this.roleInfo);
+    console.log('Saved Role Entries:', this.roleEntries);
+    this.maxNumberOfVolunteers = this.roleEntries.reduce((total, entry) => total + Number(entry.number_Of_Volunteers), 0); // Ensure number_Of_Volunteers is treated as a number
+    console.log('maxNumberOfVolunteers (after update)', this.maxNumberOfVolunteers);
+  }
+
 }

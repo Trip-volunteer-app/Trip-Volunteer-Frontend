@@ -1,41 +1,40 @@
 <div class="container-scroller">
-    <app-header></app-header>
-    <div class="container-fluid page-body-wrapper">
+  <app-header></app-header>
+  <div class="container-fluid page-body-wrapper">
       <div class="main-panel">
-        <div class="content-wrapper">
-          <div class="row">
-            <div class="col-lg-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Monthly Report Table</h4>
-                  <br><br>
-                  <div class="table-responsive">
-                    <table class="table table-dark">
-                      <thead>
-                        <tr>
-                          <th>Month</th>
-                          <th>TOTAL SERVICE COST </th>
-                          <th>TOTAL REVENUE</th>
-                          <th>NET REVENUE</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let obj of admin.MonthlyReport">
-                          <td>{{ obj.trip_month | date: 'yyyy-MM-dd' }}</td>
-                          <td>{{ obj.totaL_SERVICE_COST }}</td>
-                          <td>{{ obj.totaL_REVENUE }}</td>
-                          <td>{{ obj.neT_REVENUE }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
+          <div class="content-wrapper">
+              <div class="row">
+                  <div class="col-lg-12 grid-margin stretch-card">
+                      <div class="card">
+                          <div class="card-body">
+                              <h4 class="card-title report-title" style="color: black;">Monthly Report Table</h4>
+                              <br><br>
+                              <div class="table-responsive">
+                                  <table class="table custom-table">
+                                      <thead>
+                                          <tr>
+                                              <th style="color: black;"><b>Month</b></th>
+                                              <th style="color: black;"><b>TOTAL SERVICE COST</b></th>
+                                              <th style="color: black;"><b>TOTAL REVENUE</b></th>
+                                              <th style="color: black;"><b>NET REVENUE</b></th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr *ngFor="let obj of admin.MonthlyReport">
+                                          <td>{{ obj.month_year }}</td>
+                                          <td>{{ obj.cost }}</td>
+                                          <td>{{ obj.total_revenue }}</td>
+                                          <td>{{ obj.monthly_revenue }}</td>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+                              </div>
+                              <br>
+                          </div>
+                      </div>
                   </div>
-                  <br>
-                </div>
               </div>
-            </div>
           </div>
-        </div>
       </div>
-    </div>
   </div>
-  
+</div>

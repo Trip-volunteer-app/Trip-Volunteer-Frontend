@@ -102,6 +102,7 @@ export class HomeService {
       }
     });
   }
+
   
   updateMaxUser(id: number, res_num: number): Promise<void> {
     return this.http.put<void>(`https://localhost:7004/api/Trips/updateMaxUser?id=${id}&res_num=${res_num}`, {})
@@ -404,15 +405,6 @@ console.log("bookingServices",this.bookingServices);
       console.log(err.message);     
 })}
 
-DeleteHomePageElements(id: number) {
-  this.http.delete('https://localhost:7004/api/HomePageElements/DeleteHomePageElement/' + id).subscribe(response => {
-    console.log('deleted')
-  },
-    err => {
-      console.log('errer');
-    })
-}
-
 
   CreateHomePageElements(body: any) {
     body.hero_Image = this.imageStorage['hero_Image'];
@@ -444,7 +436,14 @@ DeleteHomePageElements(id: number) {
       }
     );
   }
-
+  DeleteHomePageElements(id: number) {
+    this.http.delete('https://localhost:7004/api/HomePageElements/DeleteHomePageElement/' + id).subscribe(response => {
+      console.log('deleted')
+    },
+      err => {
+        console.log('errer');
+      })
+  }
 
   UpdateHopmePageElements(body: any) {
     body.hero_Image = this.imageStorage['hero_Image'];
