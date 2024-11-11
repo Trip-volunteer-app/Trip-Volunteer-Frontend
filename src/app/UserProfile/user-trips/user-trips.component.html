@@ -1,5 +1,9 @@
 <app-navbar></app-navbar>
 
+
+
+
+
 <section class="hero-wrap hero-wrap-2"
     style="background-image: url('assets/Home/images/chero12.jpeg'); height: 200px; background-size: cover; background-position: center;">
     <div class="overlay" style="height: 200px;"></div>
@@ -31,6 +35,26 @@
         </div>
     </div>
 
+
+    
+    <div *ngFor="let bookingId of bookingIds; let i = index">
+      <!-- <p>Booking ID: {{ bookingId }}</p>
+      <p>Review Exists: {{ reviewExists[i] }}</p>
+      <p>Review Message: {{ reviewMessages[i] }}</p> -->
+    
+      <div *ngIf="reviewExists[i]">
+        <p>{{ reviewMessages[i] }}</p>
+        <br>
+      </div>
+     
+      <div *ngIf="!reviewExists[i]">
+        <button (click)="openDialogReview()">Submit Review</button>
+        <p>{{ reviewMessages[i] }}</p>
+        <br>
+      </div>
+    </div>
+    
+    
    
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">

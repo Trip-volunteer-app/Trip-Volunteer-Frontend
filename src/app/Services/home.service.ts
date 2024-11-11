@@ -596,4 +596,48 @@ CreateTestimonial(body: any) {
       console.log(err.message);
     })
   }
+
+  GetUserinfoForReview:any; 
+  // GetUserinfoByLoginIdForReview(id:number){ 
+  //  this.http.get('https://localhost:7004/api/UserLogin/GetUserinfoByLoginIdForReview/'+ id).subscribe(result=>{
+  // this.GetUserinfoForReview =result ;  
+  // console.log("UserInformation For Review",this.GetUserinfoForReview);
+  
+  // },err=>{
+  //       console.log(err.message);     
+  // })}
+  // In home.service.ts
+getUserinfoByLoginIdForReview(loginId: number) {
+  return this.http.get(`https://localhost:7004/api/UserLogin/GetUserinfoByLoginIdForReview/${loginId}`);  // Returns an Observable
+}
+
+
+CreateReviews(body: any) {
+  this.http.post("https://localhost:7004/api/Review/CreateReview", body).subscribe(
+    (res) => {
+
+      // Show success message using SweetAlert2
+      Swal.fire({
+        icon: 'success',
+        title: 'Review Submitted',
+        text: 'Your Review has been submitted successfully!',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'OK'
+      });
+    },
+    (err) => {
+      console.log(err.message);
+
+      // Show error message using SweetAlert2
+      Swal.fire({
+        icon: 'error',
+        title: 'Submission Failed',
+        text: 'There was an error submitting your Review. Please try again later.',
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'Retry'
+      });
+    }
+  );
+}
+
 }
