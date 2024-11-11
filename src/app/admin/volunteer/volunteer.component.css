@@ -20381,35 +20381,6 @@ div.tagsinput {
   .btn2{
     margin-top: 20px;
     display: flex;
-    -webkit-flex-direction: column;
-    flex-direction: column; }
-    @media (max-width: 991px) {
-      .main-panel {
-        margin-left: 0;
-        width: 100%; } }
-  
-  .content-wrapper {
-    background: #000000;
-    padding: 1.875rem 1.75rem;
-    width: 100%;
-    -webkit-flex-grow: 1;
-    flex-grow: 1; }
-  
-  /*# sourceMappingURL=maps/style.css.map */
-  .form-row {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  container2 {
-    flex: 1; /* Distribute space equally among containers */
-  }
-
-  mat-form-field {
-    width: 100%; /* Ensure fields take up full width of their containers */
-  }
-
      justify-content: flex-end; 
      gap: 10px;
   }
@@ -20470,4 +20441,16 @@ body {
   color: black;
 }
 
+.form-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
 
+container2 {
+  flex: 1; /* Distribute space equally among containers */
+}
+
+mat-form-field {
+  width: 100%; /* Ensure fields take up full width of their containers */
+}
