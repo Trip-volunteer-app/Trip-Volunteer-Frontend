@@ -6,6 +6,7 @@ import { HomeService } from '../Services/home.service';
 import { LocationService } from '../Services/location.service';
 
 import { FormsModule } from '@angular/forms';
+import { MoveFilterDataService } from '../Services/move-filter-data.service';
 
 
 @Component({
@@ -18,11 +19,6 @@ export class TripsComponent implements OnInit, AfterViewInit {
 @Output() openDetails= new EventEmitter();
 
 
-activeTab: string = 'trip'; // Default to 'trip' tab
-
-selectTab(tab: string) {
-  this.activeTab = tab;
-}
 
   trip_Name: string = '';
   checkInDate: Date | null = null;
@@ -37,6 +33,10 @@ selectTab(tab: string) {
     // trip_Name: string = '';
     role_Name: string = '';
 
+    tripData: any = {};
+
+    activeTab: string = 'trip';
+
 
   constructor(
     private styleService: StyleService,
@@ -45,7 +45,8 @@ selectTab(tab: string) {
     private router:Router,
     private route: ActivatedRoute,
     public location:LocationService,
-    public home:HomeService
+    public home:HomeService,
+    private tripDataService: MoveFilterDataService
   ) {}
  
 
@@ -62,7 +63,26 @@ selectTab(tab: string) {
 
   ngOnInit(): void {
 
+    this.activeTab = this.tripDataService.getActiveTab();
 
+    this.route.queryParams.subscribe(params => {
+      this.activeTab = params['tab'] || 'trip';
+    });
+    
+    this.route.queryParams.subscribe((params) => {
+      this.first_Name = params['first_Name'] || '';
+      this.last_Name = params['last_Name'] || '';
+      this.trip_Name = params['trip_Name'] || '';
+      this.role_Name = params['role_Name'] || '';
+    });
+
+    this.route.queryParams.subscribe((params) => {
+      this.trip_Name = params['trip_Name'] || '';
+      this.checkInDate = params['checkInDate'] || '';
+      this.checkOutDate = params['checkOutDate'] || '';
+      this.minPrice = params['minPrice'] || null;
+      this.maxPrice = params['maxPrice'] || null;
+    });
     this.styleService.applyFullHeight(); // Apply full height initially
     this.Trip.getALLTrips();
     this.location.GetAllLocationsWithTripId();
@@ -71,6 +91,11 @@ selectTab(tab: string) {
     this.home.AllVolunteersWithTrips();
     console.log("AllVolunteersWithTrip",this.home.AllVolunteersWithTrip);
 
+  }
+
+  selectTab(tab: string): void {
+    this.activeTab = tab;
+    this.tripDataService.setActiveTab(tab);
   }
 
   getDaysDifference(startDate: string, endDate: string): number {
@@ -115,4 +140,10 @@ selectTab(tab: string) {
   }
 
   
+
+
+
+
 }
+
+
