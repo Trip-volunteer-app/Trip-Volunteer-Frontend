@@ -28,39 +28,54 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
   total: number = 0;
   volunteerRolesWithVolunteers: any[] = [];
 
-  ngOnInit(): void {
-    this.styleService.applyFullHeight(); 
-  
+  async ngOnInit() {
+    this.styleService.applyFullHeight();
+    
+    // Fetch tripId from route parameters
     this.route.paramMap.subscribe(params => {
-      this.tripId = +params.get('tripId')!;
-      console.log("TripId:", this.tripId);
-      if (this.tripId) {
-        this.home.getTripById(this.tripId); 
-      }
-    });
-  
-    
-  
-    this.home.GetTripVolunteers(this.tripId);
-    
-  
-    if (this.tripId) {
-      this.home.getTripById(this.tripId);
-      this.home.GetVolunteerRoleByTripId(this.tripId); 
-    } else {
-      console.log('Invalid tripId, skipping volunteer role fetch');
-    }
+        this.tripId = +params.get('tripId')!;
+        console.log("TripId:", this.tripId);
 
+        if (this.tripId) {
+            // Fetch trip details based on tripId
+            this.home.getTripById(this.tripId).subscribe(tripDetails => {
+                this.home.tripDetails = tripDetails; // assuming you set the trip details here
+                console.log("tripDetails",tripDetails);
+                
+                // Fetch related data only if trip details are valid
+                if (this.home.tripDetails.category_Id) {
+                    this.home.GetReviewByCategoryId(this.home.tripDetails.category_Id);
+                    console.log("review",this.home.review);
+                    
+                    this.home.GetSimilarTrips(this.home.tripDetails.category_Id);
+                    console.log("similarTrip",this.home.similarTrip);
+
+                }
+            });
+
+            // Other dependent calls
+            this.home.GetTripVolunteers(this.tripId);
+            this.home.GetVolunteerRoleByTripId(this.tripId);
+        } else {
+            console.log('Invalid tripId, skipping fetch calls');
+        }
+    });
+
+    // Get user details from local storage
     const userFromStorage = localStorage.getItem("user");
     this.user = userFromStorage ? JSON.parse(userFromStorage) : null;
-    this.userId = Number(this.user.loginid);
+    this.userId = Number(this.user?.loginid);
 
-    this.home.GetBookingByTripId(this.tripId, this.userId);
-    this.home.GetVolunteerByTripId(this.tripId, this.userId);
-    console.log("bookingtripid", this.home.BookingByTripId);
-    console.log("volunteerbytripid", this.home.VolunteerByTripId);
+    // Fetch booking and volunteer information for the trip
+    if (this.tripId && this.userId) {
+        this.home.GetBookingByTripId(this.tripId, this.userId);
+        this.home.GetVolunteerByTripId(this.tripId, this.userId);
+    }
+    
+    console.log("BookingByTripId:", this.home.BookingByTripId);
+    console.log("VolunteerByTripId:", this.home.VolunteerByTripId);
+}
 
-  }
 
   isFutureTrip(startDate: string): boolean {
     const currentDate = new Date();
@@ -492,39 +507,6 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
-  reviews = [
-    {
-      avatarUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/1200px-User_icon_2.svg.png',
-      name: 'John Doe',
-      rating: 4,
-      feedback: 'Great trip, very well organized and fun!',
-    },
-    {
-      avatarUrl:
-        'https://m.media-amazon.com/images/M/MV5BNTc3N2EyNWItOTIwNC00ZTZmLWFlM2QtM2QzMjY2MWEzNzNjXkEyXkFqcGc@._V1_.jpg',
-      name: 'Jane Smith',
-      rating: 5,
-      feedback: 'An amazing experience, I highly recommend it!',
-    },
-  ];
-  showMoreReviews() {}
-
-  displayedColumns: string[] = ['name', 'location'];
-
-  previousTrips = [
-    { id: 1, name: 'Trip to Petra', location: 'Petra, Jordan' },
-    { id: 2, name: 'Desert Safari', location: 'Wadi Rum, Jordan' },
-    { id: 3, name: 'Exploring Amman', location: 'Amman, Jordan' },
-    { id: 4, name: 'Historical Jerash', location: 'Jerash, Jordan' },
-    { id: 5, name: 'Visit to Aqaba', location: 'Aqaba, Jordan' },
-    { id: 6, name: 'Dead Sea Retreat', location: 'Dead Sea, Jordan' },
-    { id: 7, name: 'Ajloun Castle Tour', location: 'Ajloun, Jordan' },
-    { id: 8, name: 'Mount Nebo Visit', location: 'Mount Nebo, Jordan' },
-    { id: 9, name: 'Dana Biosphere Reserve', location: 'Dana, Jordan' },
-    { id: 10, name: 'Kerak Castle Expedition', location: 'Kerak, Jordan' },
-  ];
 
   goToTripDetails(tripId: number) {
     console.log(`Navigating to trip details for trip ID: ${tripId}`);

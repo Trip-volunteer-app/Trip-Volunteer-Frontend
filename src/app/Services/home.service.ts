@@ -60,17 +60,10 @@ export class HomeService {
 
     })
   }
-  getTripById(id: number) {
+  getTripById(id: number): Observable<any>  {
     const params = new HttpParams().set('id', id.toString());
 
-    this.http.get("https://localhost:7004/api/Trips/GetAllTripInformationById", { params }).subscribe(res => {
-      this.tripDetails = res;
-      console.log("ffffff", this.tripDetails)
-
-    }, err => {
-      console.log(err.message);
-
-    })
+    return this.http.get("https://localhost:7004/api/Trips/GetAllTripInformationById", { params });
   }
 
   // 
@@ -325,7 +318,28 @@ export class HomeService {
       console.log(err.message);
     })
   }
+  // get review 
+  review:any; 
+GetReviewByCategoryId(id:number){ 
+ this.http.get('https://localhost:7004/api/Review/GetreviewBycategoryId/'+ id).subscribe(result=>{
+this.review =result ;  
+console.log("review",this.review);
 
+},err=>{
+      console.log(err.message);     
+})}
+
+//get similar Trips
+
+similarTrip:any; 
+GetSimilarTrips(id:number){ 
+ this.http.get('https://localhost:7004/api/Trips/GetAlltripsByCategory/'+ id).subscribe(result=>{
+this.similarTrip =result ;  
+console.log("similarTrip",this.similarTrip);
+
+},err=>{
+      console.log(err.message);     
+})}
   // all volunteers by trip id
   VolunteerByTripId: any;
   GetVolunteerByTripId(TripId: number, LoginId: number) {
