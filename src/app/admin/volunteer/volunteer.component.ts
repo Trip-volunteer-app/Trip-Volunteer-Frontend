@@ -17,12 +17,15 @@ export class VolunteerComponent implements OnInit {
 
   ngOnInit(): void {
     this.admin.getAllVolunteer();    
+    
     this.Volunteer.controls['experience'].disable();
     this.Volunteer.controls['phone_Number'].disable();
     this.Volunteer.controls['notes'].disable();
     this.Volunteer.controls['emergency_Contact'].disable();
     this.Volunteer.controls['date_Applied'].disable();
     this.Volunteer.controls['email'].disable();
+
+
   }
 
   openDeleteDialog(id: number) {
@@ -46,7 +49,7 @@ export class VolunteerComponent implements OnInit {
     emergency_Contact: new FormControl('', Validators.required),
     date_Applied: new FormControl('', Validators.required),
     status: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.required)
+    email: new FormControl('', Validators.required),
   });
 
   pData: any = {};
@@ -54,6 +57,8 @@ export class VolunteerComponent implements OnInit {
 
   openEditDailog(obj: any) {
     this.pData = obj;
+    console.log("PData",this.pData);
+    
     this.Volunteer.controls['volunteer_Id'].setValue(this.pData.volunteer_Id);
     this.Volunteer.controls['login_Id'].setValue(this.pData.login_Id);
     this.Volunteer.controls['trip_Id'].setValue(this.pData.trip_Id);
@@ -68,11 +73,11 @@ export class VolunteerComponent implements OnInit {
     this.dialog.open(this.EditDailog);
   }
 
-  async save2() {
+   save2(numberVolunteer:number) {
     const updatedVolunteer = this.Volunteer.value;
-    console.log("updatedVolunteer", updatedVolunteer);
-    await this.admin.GetVolunteerRoleByTripID(updatedVolunteer.trip_Id)
-    if(this.admin.tripVolunteers.volunteer_Role_Id == updatedVolunteer.volunteer_Role_Id && this.admin.tripVolunteers.number_of_volunteers>0){
+
+    if(numberVolunteer > 0){
+      
     this.admin.UpdateVolunteerStatus(updatedVolunteer).subscribe(
       response => {
         
@@ -117,6 +122,8 @@ export class VolunteerComponent implements OnInit {
       text: 'You accepted max number of volunteer for this volanteer role in this trip',
       confirmButtonText: 'OK'
     });
+    this.admin.getAllVolunteer();
+
   }
 
   }
@@ -150,7 +157,7 @@ export class VolunteerComponent implements OnInit {
   
       const emailData = {
         email: userEmail,
-        tripDetails: `Trip Name: ${tripDetails.trip_Name}, Start Date: ${tripDetails.start_Date},End Date: ${tripDetails.end_Date},Description: ${tripDetails.description}, Location: ${tripDetails.trip_Location_Id}`
+        tripDetails: `Trip Name: ${tripDetails.trip_Name}, Start Date: ${tripDetails.start_Date},End Date: ${tripDetails.end_Date},Description: ${tripDetails.description}, Location: ${tripDetails.destination_Location}`
       };
 
       

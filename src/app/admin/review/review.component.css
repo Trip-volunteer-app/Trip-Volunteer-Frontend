@@ -20496,3 +20496,8 @@ body {
         margin-bottom: 10px;
     }
 }
+.description-col {
+  max-width: 150px;     
+  white-space: nowrap;    
+  overflow: hidden;       
+}
