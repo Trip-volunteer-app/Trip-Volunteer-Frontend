@@ -24,9 +24,9 @@
         <div class="main-panel">
           <div class="content-wrapper">
            
-            <div class="row">
+            <div class="row" >
               <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
-                <div class="card">
+                <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
                   <div class="card-body">
                     <div class="row">
                       <div class="col-9">
@@ -46,7 +46,7 @@
                 </div>
               </div>
               <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
-                <div class="card">
+                <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
                   <div class="card-body">
                     <div class="row">
                       <div class="col-9">
@@ -66,7 +66,7 @@
                 </div>
               </div>
               <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
-                <div class="card">
+                <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
                   <div class="card-body">
                     <div class="row">
                       <div class="col-9">
@@ -86,7 +86,7 @@
                 </div>
               </div>
               <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
-                <div class="card">
+                <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
                   <div class="card-body">
                     <div class="row">
                       <div class="col-9">
@@ -106,13 +106,13 @@
                 </div>
               </div>
             </div>
-            <div class="row">
+            <div class="row" style="background-color: white;">
               <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Transaction History</h4>
+                    <h4 class="text-muted mb-1">Transaction History</h4>
                     <canvas id="transaction-history" class="transaction-chart"></canvas>
-                    <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+                    <div class=" d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
                       <div class="text-md-center text-xl-left">
                         <h6 class="mb-1">Transfer to Paypal</h6>
                         <p class="text-muted mb-0">07 Jan 2019, 09:12AM</p>
@@ -121,7 +121,7 @@
                         <h6 class="font-weight-bold mb-0">$236</h6>
                       </div>
                     </div>
-                    <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+                    <div class=" d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
                       <div class="text-md-center text-xl-left">
                         <h6 class="mb-1">Tranfer to Stripe</h6>
                         <p class="text-muted mb-0">07 Jan 2019, 09:12AM</p>
@@ -134,7 +134,7 @@
                 </div>
               </div>
              
-              <div class="col-md-8 grid-margin stretch-card">
+              <div class="col-md-8 grid-margin stretch-card" style="background-color: white;">
                 <div class="card"   >
                     <div class="card-body">
                         <div class="d-flex flex-row justify-content-between">
@@ -177,24 +177,32 @@
                         </div>
                     </div>
                 </div>
+            </div>          
             </div>
-            
-              
 
 
-            </div>
-            <div class="row">
+            <!-- {
+              "selectedMonth": null,
+              "selectedYear": null,
+              "month_year": "11/2024",
+              "cost": 8155,
+              "total_revenue": 9786,
+              "monthly_revenue": 1631,
+              "day": null,
+              "revenue": null
+          } -->
+
+            <div class="row" style="background-color: white;">
               <div class="col-sm-4 grid-margin">
-                <div class="card">
+                <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
                   <div class="card-body">
-                    <h5>Revenue</h5>
+                    <h5 class="text-muted mb-1">Revenue</h5>
                     <div class="row">
                       <div class="col-8 col-sm-12 col-xl-8 my-auto">
                         <div class="d-flex d-sm-block d-md-flex align-items-center">
-                          <h2 class="mb-0">$32123</h2>
-                          <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
+                          <h2 class="mb-0">$ {{this.admin.SYSMonthlyRevenue.total_revenue}}</h2>
                         </div>
-                        <h6 class="text-muted font-weight-normal">11.38% Since last month</h6>
+                        <h6 class="text-muted font-weight-normal">Since this month</h6>
                       </div>
                       <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
                         <i class="icon-lg mdi mdi-codepen text-primary ml-auto"></i>
@@ -204,16 +212,15 @@
                 </div>
               </div>
               <div class="col-sm-4 grid-margin">
-                <div class="card">
+                <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
                   <div class="card-body">
-                    <h5>Sales</h5>
+                    <h5 class="text-muted mb-1">Sales</h5>
                     <div class="row">
                       <div class="col-8 col-sm-12 col-xl-8 my-auto">
                         <div class="d-flex d-sm-block d-md-flex align-items-center">
-                          <h2 class="mb-0">$45850</h2>
-                          <p class="text-success ml-2 mb-0 font-weight-medium">+8.3%</p>
+                          <h2 class="mb-0">$ {{this.admin.SYSMonthlyRevenue.monthly_revenue}}</h2>
                         </div>
-                        <h6 class="text-muted font-weight-normal"> 9.61% Since last month</h6>
+                        <h6 class="text-muted font-weight-normal">Since this month</h6>
                       </div>
                       <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
                         <i class="icon-lg mdi mdi-wallet-travel text-danger ml-auto"></i>
@@ -223,16 +230,15 @@
                 </div>
               </div>
               <div class="col-sm-4 grid-margin">
-                <div class="card">
+                <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
                   <div class="card-body">
-                    <h5>Purchase</h5>
+                    <h5 class="text-muted mb-1">Purchase</h5>
                     <div class="row">
                       <div class="col-8 col-sm-12 col-xl-8 my-auto">
                         <div class="d-flex d-sm-block d-md-flex align-items-center">
-                          <h2 class="mb-0">$2039</h2>
-                          <p class="text-danger ml-2 mb-0 font-weight-medium">-2.1% </p>
+                          <h2 class="mb-0">$ {{this.admin.SYSMonthlyRevenue.cost}}</h2>
                         </div>
-                        <h6 class="text-muted font-weight-normal">2.27% Since last month</h6>
+                        <h6 class="text-muted font-weight-normal">Since this month</h6>
                       </div>
                       <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
                         <i class="icon-lg mdi mdi-monitor text-success ml-auto"></i>
@@ -242,168 +248,75 @@
                 </div>
               </div>
             </div>
-            <div class="row ">
+            
+            <div class="row" style="background-color: white;">
               <div class="col-12 grid-margin">
-                <div class="card">
+                <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
                   <div class="card-body">
-                    <h4 class="card-title">Order Status</h4>
-                    <div class="table-responsive">
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th>
-                              <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input">
-                                </label>
-                              </div>
-                            </th>
-                            <th> Client Name </th>
-                            <th> Order No </th>
-                            <th> Product Cost </th>
-                            <th> Project </th>
-                            <th> Payment Mode </th>
-                            <th> Start Date </th>
-                            <th> Payment Status </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>
-                              <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input">
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <img src="../../../assets/Admin2/images/faces/face1.jpg" alt="image" />
-                              <span class="pl-2">Henry Klein</span>
-                            </td>
-                            <td> 02312 </td>
-                            <td> $14,500 </td>
-                            <td> Dashboard </td>
-                            <td> Credit card </td>
-                            <td> 04 Dec 2019 </td>
-                            <td>
-                              <div class="badge badge-outline-success">Approved</div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input">
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <img src="../../../assets/Admin2/images/faces/face2.jpg" alt="image" />
-                              <span class="pl-2">Estella Bryan</span>
-                            </td>
-                            <td> 02312 </td>
-                            <td> $14,500 </td>
-                            <td> Website </td>
-                            <td> Cash on delivered </td>
-                            <td> 04 Dec 2019 </td>
-                            <td>
-                              <div class="badge badge-outline-warning">Pending</div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input">
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <img src="../../../assets/Admin2/images/faces/face5.jpg" alt="image" />
-                              <span class="pl-2">Lucy Abbott</span>
-                            </td>
-                            <td> 02312 </td>
-                            <td> $14,500 </td>
-                            <td> App design </td>
-                            <td> Credit card </td>
-                            <td> 04 Dec 2019 </td>
-                            <td>
-                              <div class="badge badge-outline-danger">Rejected</div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input">
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <img src="../../../assets/Admin2/images/faces/face3.jpg" alt="image" />
-                              <span class="pl-2">Peter Gill</span>
-                            </td>
-                            <td> 02312 </td>
-                            <td> $14,500 </td>
-                            <td> Development </td>
-                            <td> Online Payment </td>
-                            <td> 04 Dec 2019 </td>
-                            <td>
-                              <div class="badge badge-outline-success">Approved</div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input">
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <img src="../../../assets/Admin2/images/faces/face4.jpg" alt="image" />
-                              <span class="pl-2">Sallie Reyes</span>
-                            </td>
-                            <td> 02312 </td>
-                            <td> $14,500 </td>
-                            <td> Website </td>
-                            <td> Credit card </td>
-                            <td> 04 Dec 2019 </td>
-                            <td>
-                              <div class="badge badge-outline-success">Approved</div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                    <h4 class="text-muted mb-1">Users</h4>
+                    <button class="badge badge-outline-success" style="position: absolute; top: 20px; right: 30px; font-size: 15px;" (click)="openUsersComponent()">All user</button>
+
+                    <div class="table-container" style="position: relative;">
+                      
+                      <div class="table-responsive" style="margin-top: 40px;">
+                        <table class="table" style="background-color: white;">
+                          <thead>
+                            <tr>                            
+                              <th> <b>User</b> </th> <!--Image + First Name + Last Name-->
+                              <th><b>Email</b></th>
+                              <th><b>Address</b>  </th>
+                              <th> <b>Phone Number </b></th>
+                              <th> <b>Birth Date</b> </th>
+                              <th><b> Date Register</b> </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let obj of admin.FiveUsers">
+                              <td>
+                                <img class="img-xs rounded-circle" style="width: 40px; height: 40px;" [src]="obj.image_Path ? '../../../../assets/images/' + obj.image_Path : '../../../assets/default-profile.png'" alt="image not found">
+                                {{obj.first_Name}} {{obj.last_Name}}
+                              </td>                              
+                              <td>{{obj.email}}</td>
+                              <td>{{obj.address}}</td>
+                              <td>{{obj.phone_Number}}</td>
+                              <td>{{obj.birth_Date | date}}</td>     
+                              <td>{{obj.date_Register | date}}</td>                     
+                            </tr> 
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="row">
+            
+
+
+            <div class="row" style="background-color: white; max-width: 3000px; width: 1600px;">
               <div class="col-md-6 col-xl-4 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
                     <div class="d-flex flex-row justify-content-between">
-                      <h4 class="card-title">Messages</h4>
-                      <p class="text-muted mb-1 small">View all</p>
+                      <h4 class="text-muted mb-1"><b>Messages</b></h4>
+                      <p class="text-muted mb-1 small" routerLink="/admin/ContactUsMessages"> <b>View all</b></p>
                     </div>
                     <div class="preview-list">
-                      <div class="preview-item border-bottom">
+                      <div class="preview-item border-bottom" *ngFor="let obj of admin.FiveContactU">
                         <div class="preview-thumbnail">
-                          <img src="../../../assets/Admin2/images/faces/face6.jpg" alt="image" class="rounded-circle" />
+                          <img src="../../../assets/default-profile.png" alt="image" class="rounded-circle" />
                         </div>
-                        <div class="preview-item-content d-flex flex-grow">
+                        <div class="preview-item-content d-flex flex-grow" >
                           <div class="flex-grow">
                             <div class="d-flex d-md-block d-xl-flex justify-content-between">
-                              <h6 class="preview-subject">Leonard</h6>
-                              <p class="text-muted text-small">5 minutes ago</p>
+                              <h6 class="preview-subject">{{obj.full_Name}}</h6>
                             </div>
-                            <p class="text-muted">Well, it seems to be working now.</p>
+                            <h5 class="text-muted">{{obj.query}}</h5>
+                            <p>{{obj.messages}}</p>
                           </div>
                         </div>
                       </div>
-                      <div class="preview-item border-bottom">
+                      <!-- <div class="preview-item border-bottom">
                         <div class="preview-thumbnail">
                           <img src="../../../assets/Admin2/images/faces/face8.jpg" alt="image" class="rounded-circle" />
                         </div>
@@ -444,15 +357,15 @@
                             <p class="text-muted">Thanks a lot. It was easy to fix it .</p>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-md-6 col-xl-4 grid-margin stretch-card">
+              <!-- <div class="col-md-6 col-xl-4 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Portfolio Slide</h4>
+                    <h4 class="text-muted mb-1">Portfolio Slide</h4>
                     <div class="owl-carousel owl-theme full-width owl-carousel-dash portfolio-carousel" id="owl-carousel-basic">
                       <div class="item">
                         <img src="../../../assets/Admin2/images/dashboard/Rectangle.jpg" alt="">
@@ -488,11 +401,11 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
               <div class="col-md-12 col-xl-4 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">To do list</h4>
+                    <h4 class="text-muted mb-1">To do list</h4>
                     <div class="add-items d-flex">
                       <input type="text" class="form-control todo-list-input" placeholder="enter task..">
                       <button class="add btn btn-primary todo-list-add-btn">Add</button>
@@ -540,15 +453,15 @@
                 </div>
               </div>
             </div>
-            <div class="row">
+            <div class="row" style="background-color: white;">
               <div class="col-12">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Visitors by Countries</h4>
+                    <h4 class="text-muted mb-1">Visitors by Countries</h4>
                     <div class="row">
                       <div class="col-md-5">
                         <div class="table-responsive">
-                          <table class="table">
+                          <table class="table" style="background-color: white;">
                             <tbody>
                               <tr>
                                 <td>
@@ -615,12 +528,6 @@
         </div>
       </div>   
     </div>
-
-
-
-
-
-
 
 
 

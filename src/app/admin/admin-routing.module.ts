@@ -26,6 +26,7 @@ import { ManageTestimonialComponent } from './manage-testimonial/manage-testimon
 import { ViewUsersForTripsComponent } from './view-users-for-trips/view-users-for-trips.component';
 import { ManageTripServicesComponent } from './manage-trip-services/manage-trip-services.component';
 import { ManageRolesComponent } from './manage-roles/manage-roles.component';
+import { ContactUsMessagesComponent } from './contact-us-messages/contact-us-messages.component';
 
 
 const routes: Routes = [
@@ -127,6 +128,10 @@ const routes: Routes = [
   {
     path:'ManageRoles/:tripId',
     component:ManageRolesComponent
+  }  ,
+  {
+    path:'ContactUsMessages',
+    component:ContactUsMessagesComponent
   }  
 ];
 

@@ -1,4 +1,5 @@
 import { Component,OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AdminService } from 'src/app/Services/admin.service';
 
 
@@ -16,9 +17,13 @@ export class DashboardComponent implements OnInit {
   TotalNumberOfVolunteer=0;
   TotalNumberOfBooking=0;
 
-  constructor(public admin: AdminService) {}
+  constructor(public admin: AdminService,private router:Router) {}
 
   ngOnInit(): void {
+    this.admin.GetFiveUsersData();
+    this.admin.GetFiveContactU();
+    this.admin.GetSYSMonthlyRevenue();
+
     this.admin.NumberOfRegisteredUsers().subscribe(
       (resp: number) => {
         this.NumberOfRegisteredUsers = resp; 
@@ -80,7 +85,9 @@ export class DashboardComponent implements OnInit {
   }
 
 
-
+  openUsersComponent(){
+    this.router.navigate(['admin/AllUsers']);
+  }
 
 
   }
