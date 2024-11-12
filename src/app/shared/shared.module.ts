@@ -20,7 +20,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { ToastrModule } from 'ngx-toastr';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { NgChartsModule } from 'ng2-charts';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MapComponent } from './map/map.component';
@@ -28,6 +27,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { TripFilterPipe } from '../trip-filter.pipe';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { TripVolunteerFilterPipe } from '../trip-volunteer-filter.pipe';
+
 
 
 @NgModule({
@@ -53,7 +53,6 @@ import { TripVolunteerFilterPipe } from '../trip-volunteer-filter.pipe';
     ReactiveFormsModule,
     MatSelectModule,
     FormsModule, 
-    NgChartsModule,
     GoogleMapsModule,
     SweetAlert2Module,
     ToastrModule.forRoot({
@@ -106,6 +105,6 @@ import { TripVolunteerFilterPipe } from '../trip-volunteer-filter.pipe';
     MatPaginatorModule,
     TripFilterPipe,
     TripVolunteerFilterPipe
-    ]
+      ]
 })
 export class SharedModule { }

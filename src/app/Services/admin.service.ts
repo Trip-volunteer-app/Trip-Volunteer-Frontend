@@ -41,9 +41,9 @@ export class AdminService {
         showConfirmButton: false,
         timer: 2000
       });
-      this.getAllCategories();    
+      this.getAllCategories();
     }, err => {
-      
+
       Swal.fire({
         icon: 'error',
         title: 'Error!',
@@ -57,7 +57,7 @@ export class AdminService {
 
   DeleteCategories(id: number) {
     this.http.delete('https://localhost:7004/api/categories/Deletecategories/' + id).subscribe(resp => {
-      
+
       Swal.fire({
         icon: 'success',
         title: 'Deleted!',
@@ -188,7 +188,7 @@ export class AdminService {
     })
   }
 
-  
+
   // VolunteerRole
   VolunteerRole: any = [];
   getAllVolunteerRole() {
@@ -205,7 +205,7 @@ export class AdminService {
     try {
       const res = await this.http.get('https://localhost:7004/api/VolunteerRoles/GetAllVolunteerRoles').toPromise();
       this.VolunteerRoles = res;
-      this.SortedVolunteerRoles= this.VolunteerRoles.sort((a: any, b: any) => (b.volunteer_Role_Id - a.volunteer_Role_Id));
+      this.SortedVolunteerRoles = this.VolunteerRoles.sort((a: any, b: any) => (b.volunteer_Role_Id - a.volunteer_Role_Id));
       console.log('sortedServicessortedServices', this.SortedVolunteerRoles)
     } catch (error) {
       console.error('Error fetching selected element:', error);
@@ -223,7 +223,7 @@ export class AdminService {
 
   CreateVolunteerRole(body: any) {
     this.http.post('https://localhost:7004/api/VolunteerRoles/CreateVolunteerRole', body).subscribe((resp) => {
-      
+
       Swal.fire({
         icon: 'success',
         title: 'Create Volunteer Role!',
@@ -232,8 +232,8 @@ export class AdminService {
         timer: 2000
       });
       console.log('the Volunteer Role created');
-      this.getAllVolunteerRole();    
-      }, err => {
+      this.getAllVolunteerRole();
+    }, err => {
       Swal.fire({
         icon: 'error',
         title: 'Error!',
@@ -295,7 +295,7 @@ export class AdminService {
     try {
       const res = await this.http.get(`https://localhost:7004/api/VolunteerRoles/GetRoleByTripID/${trip_Id}`).toPromise();
       this.tripVolunteers = res;
-      console.log('this.tripVolunteersthis.tripVolunteers',this.tripVolunteers)
+      console.log('this.tripVolunteersthis.tripVolunteers', this.tripVolunteers)
     } catch (error) {
       console.error('Error creating', error);
     }
@@ -354,7 +354,7 @@ export class AdminService {
       console.log('the Volunteer deleted');
       this.getAllVolunteer();
     }, err => {
-      
+
       Swal.fire({
         icon: 'error',
         title: 'Error!',
@@ -566,7 +566,7 @@ export class AdminService {
     })
   }
 
-  DeleteTripVolunteerRoleForATrip(id: number, tripid:number) {
+  DeleteTripVolunteerRoleForATrip(id: number, tripid: number) {
     this.http.delete(`https://localhost:7004/api/TripVolunteerrole/Deletetrip_volunteerRoles?id=${id}&tripid=${tripid}`).subscribe(resp => {
       console.log('the Trip Volunteer Role deleted');
     }, err => {
@@ -596,7 +596,7 @@ export class AdminService {
       console.log('error');
     })
   }
- 
+
 
 
   //All Users Informations
@@ -630,7 +630,7 @@ export class AdminService {
   }
   CreateTrip(body: any) {
     body.image_Name = this.displayImage;
-    console.log('createtrip_body',body)
+    console.log('createtrip_body', body)
     this.http.post('https://localhost:7004/api/Trips/CreateTrip', body).subscribe((resp) => {
       console.log('the Trip Added');
       Swal.fire({
@@ -862,13 +862,13 @@ export class AdminService {
       .set('phone', updatedData.phone_Number)
       .set('L_id', updatedData.login_Id)
       .set('B_Day', updatedData.birth_Date);
-  
+
     if (this.display_Image1 != null && this.display_Image1 !== undefined) {
-      params = params.set('IMG', this.display_Image1); 
+      params = params.set('IMG', this.display_Image1);
     } else if (image_Path) {
-      params = params.set('IMG', image_Path); 
+      params = params.set('IMG', image_Path);
     }
-  
+
     this.http.put('https://localhost:7004/api/UserLogin/UpdateAllUserInformation', {}, { params })
       .subscribe(
         result => {
@@ -885,19 +885,19 @@ export class AdminService {
       );
   }
 
-  display_Image1 :any ; 
-  
-  uploadUserImage(file:FormData){
-    this.http.post('https://localhost:7004/api/Users/uploadImage',file).subscribe((res:any)=>{
-    this.display_Image1=res.image_Path;
-    console.log("imageprofile",res);
-    
-    },err=>{
+  display_Image1: any;
+
+  uploadUserImage(file: FormData) {
+    this.http.post('https://localhost:7004/api/Users/uploadImage', file).subscribe((res: any) => {
+      this.display_Image1 = res.image_Path;
+      console.log("imageprofile", res);
+
+    }, err => {
       console.log('error');
     })
-    
-    }
-  
+
+  }
+
 
 
   //UserData
@@ -924,7 +924,7 @@ export class AdminService {
       .subscribe(
         result => {
           console.log("Change Password successfully", result);
-  
+
           Swal.fire({
             icon: 'success',
             title: 'Password Changed Successfully',
@@ -936,7 +936,7 @@ export class AdminService {
         },
         error => {
           console.error("Error Changing Password", error.message);
-  
+
           Swal.fire({
             icon: 'error',
             title: 'Password Change Failed',
@@ -987,31 +987,31 @@ export class AdminService {
 
 
 
-updateTestimonial(body: any) {
-  this.http.put('https://localhost:7004/api/Testimonial/UpdateTestimony', body).subscribe(
-    (resp) => {
-      console.log('The testimonial was updated'); 
-      Swal.fire({
-        icon: 'success',
-        title: 'Update Successful',
-        text: 'The testimonial has been updated successfully!',
-        confirmButtonColor: '#3085d6',
-        confirmButtonText: 'OK'
-      });
-      this.getALLTestimonial();
-    },
-    (err) => {
-      console.log(err);
-      Swal.fire({
-        icon: 'error',
-        title: 'Update Failed',
-        text: 'Failed to update the testimonial. Please try again later.',
-        confirmButtonColor: '#d33',
-        confirmButtonText: 'Retry'
-      });
-    }
-  );
-}
+  updateTestimonial(body: any) {
+    this.http.put('https://localhost:7004/api/Testimonial/UpdateTestimony', body).subscribe(
+      (resp) => {
+        console.log('The testimonial was updated');
+        Swal.fire({
+          icon: 'success',
+          title: 'Update Successful',
+          text: 'The testimonial has been updated successfully!',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'OK'
+        });
+        this.getALLTestimonial();
+      },
+      (err) => {
+        console.log(err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Update Failed',
+          text: 'Failed to update the testimonial. Please try again later.',
+          confirmButtonColor: '#d33',
+          confirmButtonText: 'Retry'
+        });
+      }
+    );
+  }
 
 
 
@@ -1079,6 +1079,7 @@ updateTestimonial(body: any) {
 
 
 
+
   FiveUsers: any = [];
   GetFiveUsersData() {
     this.http.get('https://localhost:7004/api/UserLogin/GetAllUserInformation').subscribe(result => {
@@ -1135,4 +1136,60 @@ updateTestimonial(body: any) {
       })
     }
 
+}
+
+  monthlyReport: any;
+  async getMonthlyReport(month: string, year: string): Promise<void> {
+    try {
+      const res = await this.http.get(`https://localhost:7004/api/MonthlyReport/MonthlyReport/${year}/${month}`).toPromise();
+      this.monthlyReport = res;
+      console.log('monthlyReport', this.monthlyReport)
+    } catch (error) {
+      console.error('Error fetching selected element:', error);
+    }
+  }
+  // }{year} +{month}
+  years: any = [];
+  mappedYears: any = []
+  async GetDistinctTripYears(): Promise<void> {
+    try {
+      const res = await this.http.get('https://localhost:7004/api/MonthlyReport/GetDistinctTripYears').toPromise();
+      this.years = res;
+      this.mappedYears = this.years.map((item: any) => item.trip_Year);
+      console.log('Years:', this.years);
+      console.log('years', this.mappedYears)
+    } catch (error) {
+      console.error('Error fetching selected element:', error);
+    }
+  }
+  dayReport: any;
+  async GetDailyRevenueForMonth(month: string, year: string): Promise<void> {
+    try {
+      const res = await this.http.get(`https://localhost:7004/api/MonthlyReport/GetDailyRevenueForMonth/${year}/${month}`).toPromise();
+      this.dayReport = res;
+      console.log('dayReport', this.dayReport)
+    } catch (error) {
+      console.error('Error fetching selected element:', error);
+    }
+  }
+  monthReport: any;
+  async GetMonthlyRevenueForYear(year: string): Promise<void> {
+    try {
+      const res = await this.http.get(`https://localhost:7004/api/Annual/GetMonthlyRevenueForYear/${year}`).toPromise();
+      this.monthReport = res;
+      console.log('monthReport', this.monthReport)
+    } catch (error) {
+      console.error('Error fetching selected element:', error);
+    }
+  }
+  annualReport: any;
+  async GetYearlyRevenue(year: string): Promise<void> {
+    try {
+      const res = await this.http.get(`https://localhost:7004/api/Annual/GetYearlyRevenue/${year}`).toPromise();
+      this.annualReport = res;
+      console.log('annualReport', this.annualReport)
+    } catch (error) {
+      console.error('Error fetching selected element:', error);
+    }
+  }
 }
