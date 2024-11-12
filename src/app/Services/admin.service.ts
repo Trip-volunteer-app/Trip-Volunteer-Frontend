@@ -1076,6 +1076,68 @@ export class AdminService {
       console.error('Error creating', error);
     }
   }
+
+
+
+
+  FiveUsers: any = [];
+  GetFiveUsersData() {
+    this.http.get('https://localhost:7004/api/UserLogin/GetAllUserInformation').subscribe(result => {
+      // Ensure the result is an array before calling slice
+      if (Array.isArray(result)) {
+        this.FiveUsers = result.slice(0, 5);
+      } else {
+        console.error('Expected an array but received:', result);
+      }
+    }, err => {
+      console.log(err.message);
+    });
+  }
+
+
+    AllContactU: any = [];
+    GetAllContactU() {
+      this.http.get('https://localhost:7004/api/ContactU').subscribe(result => {
+        this.AllContactU = result;
+        console.log('Result',result);
+        
+      }, err => {        
+        console.log('error in print Result');
+        console.log(err.message);
+      })
+    }
+
+    FiveContactU: any = [];
+    GetFiveContactU() {
+      this.http.get('https://localhost:7004/api/ContactU').subscribe(result => {
+        if (Array.isArray(result)) {
+          this.FiveContactU = result.slice(0, 3);
+        } else {
+          console.error('Expected an array but received:', result);
+        }
+        console.log('Result',result);
+        
+      }, err => {        
+        console.log('error in print Result');
+        console.log(err.message);
+      })
+    }
+
+
+    SYSMonthlyRevenue: any = [];
+    GetSYSMonthlyRevenue() {
+      this.http.get('https://localhost:7004/api/MonthlyReport/GetSYSMonthlyRevenue').subscribe(result => {
+        this.SYSMonthlyRevenue = result;
+        console.log('Result of SYSMonthlyRevenue',result);
+        
+      }, err => {        
+        console.log('error in print SYSMonthlyRevenue');
+        console.log(err.message);
+      })
+    }
+
+}
+
   monthlyReport: any;
   async getMonthlyReport(month: string, year: string): Promise<void> {
     try {

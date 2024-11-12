@@ -1,48 +1,19 @@
 <div class="map-container">
   <form (ngSubmit)="saveLocations()">
     <label for="departure">Departure Location:</label>
-    <input 
-      type="text" 
-      id="departure" 
-      #departureInput 
-      placeholder="Enter city, street, or coordinates" 
-      required 
-      [(ngModel)]="departurePosition" 
-      name="departure" 
-      (input)="onDepartureInputChange(departureInput.value)" />
+    <input type="text"  id="departure" #departureInput  placeholder="Enter city, street, or coordinates"  required 
+      [(ngModel)]="departurePosition"   name="departure"  (input)="onDepartureInputChange(departureInput.value)" />
 
     <label for="destination">Destination Location:</label>
-    <input 
-      type="text" 
-      id="destination" 
-      #destinationInput 
-      placeholder="Enter city, street, or coordinates" 
-      required 
-      [(ngModel)]="distenationPosition" 
-      name="destination" 
-      (input)="onDestinationInputChange(destinationInput.value)" />
+    <input  type="text"  id="destination"  #destinationInput  placeholder="Enter city, street, or coordinates"  required 
+      [(ngModel)]="distenationPosition"  name="destination"  (input)="onDestinationInputChange(destinationInput.value)" />
   </form>
 
-  <google-map
-    height="400px"
-    width="400px"
-    [center]="center"
-    [zoom]="zoom"
-    (mapClick)="addMarker($event)">
+  <google-map height="400px" width="400px" [center]="center" [zoom]="zoom" (mapClick)="addMarker($event)">
     
-    <map-marker
-      *ngIf="markerPositions.departure"
-      [position]="markerPositions.departure"
-      [label]="'Departure'"
-      [title]="'Departure Location'">
-    </map-marker>
-
-    <map-marker
-      *ngIf="markerPositions.destination"
-      [position]="markerPositions.destination"
-      [label]="'Destination'"
-      [title]="'Destination Location'">
-    </map-marker>
+    <map-marker *ngIf="markerPositions.departure" [position]="markerPositions.departure" [label]="'Departure'" [title]="'Departure Location'"></map-marker>
+    <map-marker *ngIf="markerPositions.destination" [position]="markerPositions.destination" [label]="'Destination'" [title]="'Destination Location'"></map-marker>
+  
   </google-map>
 
   <div class="marker-controls">

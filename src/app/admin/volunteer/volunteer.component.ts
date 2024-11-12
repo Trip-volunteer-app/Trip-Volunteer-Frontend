@@ -28,6 +28,11 @@ export class VolunteerComponent implements OnInit {
 
   }
 
+  first_Name: string = '';
+  last_Name: string = '';
+  trip_Name: string = '';
+  role_Name: string = '';
+
   openDeleteDialog(id: number) {
     this.dialog.open(this.DeleteDailog).afterClosed().subscribe((result) => {
       if (result === 'yes') {
@@ -52,6 +57,7 @@ export class VolunteerComponent implements OnInit {
     email: new FormControl('', Validators.required),
   });
 
+  
   pData: any = {};
   statusList: string[] = ['Accepted', 'Rejected'];
 

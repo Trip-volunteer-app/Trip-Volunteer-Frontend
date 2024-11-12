@@ -20459,3 +20459,22 @@ mat-form-field {
   white-space: nowrap;    
   overflow: hidden;       
 }
+
+
+
+input.form-control {
+  max-width: 300px;
+  width: 100%; /* Ensures inputs take full available space within their container */
+  padding-left: 30px; /* Adds padding to the left side to make space for the icon */
+  padding: 8px; /* Optional: Adjust padding inside input fields */
+  border: 2px solid #000; /* Bold border for the input field */
+  transition: box-shadow 0.3s ease; /* Smooth transition for the shadow */
+
+}
+
+input.form-control:focus {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Adds shadow on focus */
+  border-color: #f15d30 ; /* Optional: Change border color on focus */
+}
+
+
