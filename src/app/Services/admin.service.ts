@@ -272,7 +272,7 @@ export class AdminService {
       console.log('the Volunteer Role Updated');
       Swal.fire({
         icon: 'success',
-        title: 'Deleted!',
+        title: 'success!',
         text: 'The Volunteer Role has been updated successfully.',
         showConfirmButton: false,
         timer: 2000
@@ -301,6 +301,7 @@ export class AdminService {
     }
   }
 
+  
   async CreateTripVRoleForVRolesList(body: any): Promise<void> {
     try {
       console.log('Final Body:', body);
@@ -364,7 +365,9 @@ export class AdminService {
     })
   }
 
-
+  UpdateVolunteerStatus(volunteer: any): Observable<any> {
+    return this.http.put('https://localhost:7004/api/Volunteers/UpdateVolunteerStatus', volunteer); 
+  }
   updateVolunteer(volunteer: any): Observable<any> {
     return this.http.put('https://localhost:7004/api/Volunteers/UpdateVolunteer', volunteer);  // Ensure this returns an observable
   }
@@ -374,7 +377,16 @@ export class AdminService {
     return this.http.post('https://localhost:7004/api/Volunteers/send-email', emailData);  // Ensure this returns an observable
   }
 
-
+  updateNumberOfVolunteer(volunteer: any) {
+    this.http.put<void>('https://localhost:7004/api/TripVolunteerrole/updateNumberOfVolunteer', volunteer).subscribe(
+      result => {
+        console.log("Successfully updated number of volunteers");
+      },
+      err => {
+        console.log(err.message);
+      }
+    );
+  }
 
 
 

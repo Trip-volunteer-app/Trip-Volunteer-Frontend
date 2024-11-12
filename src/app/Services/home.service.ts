@@ -60,17 +60,10 @@ export class HomeService {
 
     })
   }
-  getTripById(id: number) {
+  getTripById(id: number): Observable<any>  {
     const params = new HttpParams().set('id', id.toString());
 
-    this.http.get("https://localhost:7004/api/Trips/GetAllTripInformationById", { params }).subscribe(res => {
-      this.tripDetails = res;
-      console.log("ffffff", this.tripDetails)
-
-    }, err => {
-      console.log(err.message);
-
-    })
+    return this.http.get("https://localhost:7004/api/Trips/GetAllTripInformationById", { params });
   }
 
   // 
@@ -184,6 +177,7 @@ export class HomeService {
       console.log(err.message);
     })
   }
+ 
 //volunteer Role
 
   async UpdatePaymentStatus(body: any): Promise<void> {
@@ -277,6 +271,15 @@ export class HomeService {
     );
   }
 
+  RoleByTripId:any;
+  GetRoleByTripId(id: number): Observable<any> {
+    const params = new HttpParams().set('id', id.toString());
+    console.log('Calling API with params:', params.toString());
+  
+    return this.http.get("https://localhost:7004/api/TripVolunteerrole/GetVolunteerRoleByTripId", { params });
+  }
+  
+
 
 
 
@@ -316,7 +319,28 @@ export class HomeService {
       console.log(err.message);
     })
   }
+  // get review 
+  review:any; 
+GetReviewByCategoryId(id:number){ 
+ this.http.get('https://localhost:7004/api/Review/GetreviewBycategoryId/'+ id).subscribe(result=>{
+this.review =result ;  
+console.log("review",this.review);
 
+},err=>{
+      console.log(err.message);     
+})}
+
+//get similar Trips
+
+similarTrip:any; 
+GetSimilarTrips(id:number){ 
+ this.http.get('https://localhost:7004/api/Trips/GetAlltripsByCategory/'+ id).subscribe(result=>{
+this.similarTrip =result ;  
+console.log("similarTrip",this.similarTrip);
+
+},err=>{
+      console.log(err.message);     
+})}
   // all volunteers by trip id
   VolunteerByTripId: any;
   GetVolunteerByTripId(TripId: number, LoginId: number) {
@@ -579,4 +603,48 @@ CreateTestimonial(body: any) {
       console.log(err.message);
     })
   }
+
+  GetUserinfoForReview:any; 
+  // GetUserinfoByLoginIdForReview(id:number){ 
+  //  this.http.get('https://localhost:7004/api/UserLogin/GetUserinfoByLoginIdForReview/'+ id).subscribe(result=>{
+  // this.GetUserinfoForReview =result ;  
+  // console.log("UserInformation For Review",this.GetUserinfoForReview);
+  
+  // },err=>{
+  //       console.log(err.message);     
+  // })}
+  // In home.service.ts
+getUserinfoByLoginIdForReview(loginId: number) {
+  return this.http.get(`https://localhost:7004/api/UserLogin/GetUserinfoByLoginIdForReview/${loginId}`);  // Returns an Observable
+}
+
+
+CreateReviews(body: any) {
+  this.http.post("https://localhost:7004/api/Review/CreateReview", body).subscribe(
+    (res) => {
+
+      // Show success message using SweetAlert2
+      Swal.fire({
+        icon: 'success',
+        title: 'Review Submitted',
+        text: 'Your Review has been submitted successfully!',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'OK'
+      });
+    },
+    (err) => {
+      console.log(err.message);
+
+      // Show error message using SweetAlert2
+      Swal.fire({
+        icon: 'error',
+        title: 'Submission Failed',
+        text: 'There was an error submitting your Review. Please try again later.',
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'Retry'
+      });
+    }
+  );
+}
+
 }

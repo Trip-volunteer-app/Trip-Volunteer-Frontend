@@ -140,21 +140,17 @@
           <mat-tab class="tab" label="Review" >
             <ng-template matTabContent>
               <div class="review-section">
-                <div class="review-card" *ngFor="let review of reviews; let i = index" [hidden]="i >= 10">
+                <div class="review-card" *ngFor="let review of this.home.review; let i = index" [hidden]="i >= 10">
                   <div class="review-header">
-                    <img class="review-avatar" [src]="review.avatarUrl" alt="{{ review.name }}" />
+                    <img class="review-avatar" src="../../assets/images/{{review.image_Path}}" alt="{{ review.first_Name }}" />
                     <div class="review-info">
-                      <p class="review-name">{{ review.name }}</p>
+                      <p class="review-name">{{ review.first_Name }} {{ review.last_Name }}</p>
                       <div class="review-stars">
-                        <mat-icon *ngFor="let star of [1,2,3,4,5]" [class.filled]="star <= review.rating">star</mat-icon>
+                        <mat-icon *ngFor="let star of [1,2,3,4,5]" [class.filled]="star <= review.rate">star</mat-icon>
                       </div>
                     </div>
                   </div>
                   <p class="review-feedback">{{ review.feedback }}</p>
-                </div>
-              
-                <div class="show-more">
-                  <a href="#" (click)="showMoreReviews()">View more reviews</a>
                 </div>
               </div>
             </ng-template>
@@ -162,26 +158,24 @@
           
           <mat-tab class="tab" label="Similar Trips">
             <ng-template matTabContent>
-              <div class="Similar-trips">
-                <mat-table [dataSource]="previousTrips" class="mat-elevation-z8">
-                  <ng-container matColumnDef="name">
-                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                    <mat-cell *matCellDef="let trip"> 
-                      <a href="#" (click)="goToTripDetails(trip.id)">{{ trip.name }}</a>
-                    </mat-cell>
-                  </ng-container>
-          
-                  <ng-container matColumnDef="location">
-                    <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-                    <mat-cell *matCellDef="let trip"> {{ trip.location }} </mat-cell>
-                  </ng-container>
-          
-                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                </mat-table>
+              <div class="similar-trips-column">
+                <div *ngFor="let trip of home.similarTrip" class="trip-item">
+                  <mat-card class="trip-card" (click)="goToTripDetails(trip.trip_Id)">
+                    <mat-card-title>
+                      <span class="trip-link">{{ trip.trip_Name }}</span>
+                    </mat-card-title>
+                    <mat-card-content>
+                      <p class="trip-location">Location: {{ trip.destination_Location }}</p>
+                    </mat-card-content>
+                  </mat-card>
+                </div>
               </div>
             </ng-template>
           </mat-tab>
+          
+          
+          
+          
           
         </mat-tab-group>
       </div>
@@ -229,7 +223,7 @@
               <div fxLayout="row" fxLayoutGap="20px">
                 <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;">
                   <mat-label>Number of Reservations</mat-label>
-                  <input type="number" matInput formControlName="numberOfUser" (change)="this.updateTotalAmount();">
+                  <input type="number" matInput formControlName="numberOfUser" (change)="this.updateTotalAmount();" [readonly]="!isSeatsAvailable()">
                 </mat-form-field>
   
                 <mat-form-field appearance="fill" style="width: 300px !important;">
@@ -250,7 +244,7 @@
               <div fxLayout="row">
                 <mat-form-field appearance="fill" style="width: 620px !important; height: 200px;" >
                   <mat-label>Note</mat-label>
-                  <textarea matInput formControlName="note" ></textarea>
+                  <textarea matInput formControlName="note" [readonly]="!isSeatsAvailable()"></textarea>
                 </mat-form-field>
               </div>
             </div>
@@ -261,14 +255,23 @@
           </form>
         </mat-tab>
   
-        <mat-tab label="Volunteer" *ngIf="this.home.VolunteerRoleByTripId?.length > 0">
+        <mat-tab label="Volunteer" >
+
+          <mat-dialog-content *ngIf="!isVolunteerAvailable">
+            <div class="alert-box">
+              <p>
+                We get max number of volunteer .Search for other trip!
+              </p>
+            </div>
+          </mat-dialog-content>
+
           <form [formGroup]="volanteerForm">
             <h3>Volunteer</h3>
             
             <div fxLayout="row" fxLayoutGap="20px">
-              <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;">
+              <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;" >
                 <mat-label>Email</mat-label>
-                <input type="text" matInput formControlName="email">
+                <input type="text" matInput formControlName="email" >
               </mat-form-field>
 
               <mat-form-field appearance="fill" style="width: 300px !important;">
@@ -280,12 +283,12 @@
             <div fxLayout="row" fxLayoutGap="20px">
               <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;">
                 <mat-label>Emergency Contant</mat-label>
-                <input type="text" matInput formControlName="emergency_Contact" >
+                <input type="text" matInput formControlName="emergency_Contact"  >
               </mat-form-field>
 
               <mat-form-field appearance="fill" style="width: 300px !important;">
                 <mat-label>Experience (if any)</mat-label>
-                <input type="text" matInput formControlName="experience" >
+                <input type="text" matInput formControlName="experience"  >
               </mat-form-field>
             </div>
 
@@ -293,7 +296,7 @@
               <mat-form-field style="width: 620px !important;">
                 <mat-label>Volunteer Role</mat-label>
                 <mat-select formControlName="volunteer_Role_Id">
-                  <mat-option type="number" *ngFor="let role of this.home.VolunteerRoleByTripId" [value]="role.volunteer_Role_Id"  >
+                  <mat-option type="number" *ngFor="let role of volunteerRolesWithVolunteers" [value]="role.volunteer_Role_Id"  >
                     {{role.role_Name}}
                   </mat-option>
                 </mat-select>
@@ -303,13 +306,13 @@
             <div fxLayout="row">
               <mat-form-field appearance="fill" style="width: 620px !important; height: 200px;">
                 <mat-label>Note</mat-label>
-                <textarea matInput formControlName="notes"></textarea>
+                <textarea matInput formControlName="notes" ></textarea>
               </mat-form-field>
             </div>
 
              <mat-dialog-actions align="end">
               <button mat-button mat-dialog-close (click)="clear()">Cancel</button>
-              <button mat-button  cdkFocusInitial (click)="volunteerBooking()" style="background-color: #ff5722;color: white;">Send</button>
+              <button mat-button  cdkFocusInitial (click)="volunteerBooking()" *ngIf="isVolunteerAvailable" style="background-color: #ff5722;color: white;">Send</button>
             </mat-dialog-actions>
           </form>
         </mat-tab>

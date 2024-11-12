@@ -16,7 +16,6 @@
                                         <table class="table table-light" style="background-color: white;">
                                             <thead>
                                                 <tr>
-                                                    <th style="color: black;"><b>#</b></th>
                                                     <th style="color: black;"><b>Header</b></th>
                                                     <th style="color: black;"><b>Hero Image</b></th>
                                                     <th style="color: black;"><b>Image 2</b></th>
@@ -26,7 +25,6 @@
                                             </thead>
                                             <tbody>
                                                 <tr *ngFor="let obj of contact.contactElements">
-                                                    <td>{{ obj.contactus_Elements_Id }}</td>
                                                     <td>{{ obj.header }}</td>
                                                     <td><img src="../../../assets/images/{{ obj.hero_Img }}"
                                                             alt="Image 1"></td>

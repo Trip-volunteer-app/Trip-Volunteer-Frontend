@@ -325,3 +325,35 @@ table td, table th {
 
 
 
+/* Main container for similar trips - column layout */
+.similar-trips-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+}
+
+/* Individual trip item container for full-width display */
+.trip-item {
+  width: 100%;
+}
+
+/* Trip card styling */
+.trip-card {
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer; /* Makes the entire card clickable */
+}
+
+.trip-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Styling for the trip location text */
+.trip-location {
+  color: #666;
+  font-size: 0.9rem;
+}

@@ -22,9 +22,6 @@
                                                     <thead>
                                                         <tr>
                                                             <th
-                                                                style="position: sticky; top: 0; left: 0; background: #f0f0f0; z-index: 10;">
-                                                                #</th>
-                                                            <th
                                                                 style="position: sticky; top: 0; left: 33px; background: #f0f0f0; z-index: 10;">
                                                                 Select</th>
                                                             <th>Hero Image</th>
@@ -37,10 +34,7 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr *ngFor="let obj of about.AboutUsElements">
-                                                            <td
-                                                                style="position: sticky; left: 0; background: #f0f0f0; z-index: 10;">
-                                                                {{ obj.aboutus_Page_Id }}</td>
-                                                            <td
+                                                         <td
                                                                 style="position: sticky; left: 33px; background: #f0f0f0; z-index: 10;">
                                                                 <mat-radio-group [(ngModel)]="selectedElementId"
                                                                     (change)="onElementSelect(obj.aboutus_Page_Id)">
@@ -55,9 +49,9 @@
                                                             <td style="position: sticky; right: 0; background: #f0f0f0; z-index: 0;">
                                                                 
                                                                 
-                                                            <button (click)="openEditDailog(obj)" style="background-color: white; border: none;" 
+                                                            <button (click)="openEditDailog(obj)" style="background-color: #f0f0f0; border: none;" 
                                                                 ><i class="bi bi-pencil-square" style="color: blue; border: none; font-size: 20px;" ></i></button>
-                                                            <button (click)="openDeleteDialog(obj.contactus_Elements_Id)" style="background-color: white; border: none;"
+                                                            <button (click)="openDeleteDialog(obj.contactus_Elements_Id)" style="background-color: #f0f0f0; border: none;"
                                                                ><i class="bi bi-trash-fill" style="color: red; border: none; font-size: 20px;" ></i>
                                                             </button>
 
