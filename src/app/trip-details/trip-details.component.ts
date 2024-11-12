@@ -38,16 +38,16 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
 
         if (this.tripId) {
             // Fetch trip details based on tripId
-            this.home.getTripById(this.tripId).subscribe(tripDetails => {
+            this.home.getTripById(this.tripId).subscribe(async tripDetails => {
                 this.home.tripDetails = tripDetails; // assuming you set the trip details here
                 console.log("tripDetails",tripDetails);
                 
                 // Fetch related data only if trip details are valid
                 if (this.home.tripDetails.category_Id) {
-                    this.home.GetReviewByCategoryId(this.home.tripDetails.category_Id);
+                    await this.home.GetReviewByCategoryId(this.home.tripDetails.category_Id);
                     console.log("review",this.home.review);
                     
-                    this.home.GetSimilarTrips(this.home.tripDetails.category_Id);
+                   await this.home.GetSimilarTrips(this.home.tripDetails.category_Id);
                     console.log("similarTrip",this.home.similarTrip);
 
                 }
@@ -509,7 +509,7 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
   }
 
   goToTripDetails(tripId: number) {
-    console.log(`Navigating to trip details for trip ID: ${tripId}`);
+    this.router.navigate(['tripDetails/',tripId]);
     // Implement the logic to navigate to the trip details
   }
 }

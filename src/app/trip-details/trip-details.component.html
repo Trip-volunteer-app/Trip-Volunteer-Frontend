@@ -142,7 +142,7 @@
               <div class="review-section">
                 <div class="review-card" *ngFor="let review of this.home.review; let i = index" [hidden]="i >= 10">
                   <div class="review-header">
-                    <img class="review-avatar" [src]="review.image_Path" alt="{{ review.first_Name }}" />
+                    <img class="review-avatar" src="../../assets/images/{{review.image_Path}}" alt="{{ review.first_Name }}" />
                     <div class="review-info">
                       <p class="review-name">{{ review.first_Name }} {{ review.last_Name }}</p>
                       <div class="review-stars">
@@ -158,20 +158,23 @@
           
           <mat-tab class="tab" label="Similar Trips">
             <ng-template matTabContent>
-              <div class="Similar-trips">
+              <div class="similar-trips-column">
                 <div *ngFor="let trip of home.similarTrip" class="trip-item">
-                  <mat-card class="trip-card">
+                  <mat-card class="trip-card" (click)="goToTripDetails(trip.trip_Id)">
                     <mat-card-title>
-                      <a  (click)="goToTripDetails(trip.trip_Id)">{{ trip.trip_Name }}</a>
+                      <span class="trip-link">{{ trip.trip_Name }}</span>
                     </mat-card-title>
                     <mat-card-content>
-                      <p>Location: {{ trip.destination_Location }}</p>
+                      <p class="trip-location">Location: {{ trip.destination_Location }}</p>
                     </mat-card-content>
                   </mat-card>
                 </div>
               </div>
             </ng-template>
           </mat-tab>
+          
+          
+          
           
           
         </mat-tab-group>

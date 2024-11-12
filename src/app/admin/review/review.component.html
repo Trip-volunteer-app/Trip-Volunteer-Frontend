@@ -16,26 +16,24 @@
                       <table class="table table-light" style="background-color: white;">
                         <thead>
                           <tr>
-                            <th style="color: black;"><b># </b> </th> 
-                            <th style="color: black;"><b>VOLUNTEER_ID</b> </th>
-                            <th style="color: black;"><b>BOOKING_ID</b>  </th>
-                            <th style="color: black;"><b>FEEDBACK</b>  </th>
-                            <th style="color: black;"><b>RATE</b>  </th>
-                            <th style="color: black;"> <b>CREATE_AT</b> </th>
+                            <th style="color: black;"><b>Trip Name </b>  </th>
+                            <th style="color: black;"><b>User Name</b>  </th>
+                            <th style="color: black;"><b>Feedback</b>  </th>
+                            <th style="color: black;"><b>Rate</b>  </th>
+                            <th style="color: black;"> <b>Create Date</b> </th>
                             <th style="color: black;"> <b>Operations</b> </th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let obj of admin.Review">
-                            <td>{{obj.REVIEW_ID}}</td>
-                            <td>{{obj.VOLUNTEER_ID}}</td>
-                            <td>{{obj.BOOKING_ID}}</td>
-                            <td>{{obj.FEEDBACK}}</td>
-                            <td>{{obj.REVIEW_ID}}</td>
-                            <td>{{obj.CREATE_AT}}</td>
+                          <tr *ngFor="let obj of admin.Review"> 
+                            <td>{{obj.trip_Name}}</td>
+                            <td >{{obj.first_Name}} {{obj.last_Name}}</td>
+                            <td class="description-col" matTooltip="{{ obj.feedback }}">{{obj.feedback}}</td>
+                            <td>{{obj.rate}}</td>
+                            <td>{{obj.create_At}}</td>
                             <td> 
-                                <button (click)="openDeleteDialog(obj.REVIEW_ID)" style="border: none;">
-                                  <i class="bi bi-trash-fill" style="color: red; font-size: 20px;"></i>
+                                <button (click)="openDeleteDialog(obj.review_Id)" style="border: none; background-color: white;">
+                                  <i class="bi bi-trash-fill" style="color: red; font-size: 20px; background-color: white;"></i>
 
                                 </button>                      
                             </td>                          

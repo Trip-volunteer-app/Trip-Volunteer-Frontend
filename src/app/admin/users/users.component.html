@@ -16,7 +16,6 @@
                       <table class="table table-light" style="background-color: white;">
                         <thead>
                           <tr>
-                            <th style="color: black;"><b>#</b></th> 
                             <th style="color: black;"><b>First Name</b></th>
                             <th style="color: black;"><b>Last Name</b></th>
                             <th style="color: black;"><b>Image</b></th>
@@ -28,7 +27,6 @@
                         </thead>
                         <tbody>
                           <tr *ngFor="let obj of admin.AllUsers">
-                            <td>{{obj.login_Id}}</td>
                             <td>{{obj.first_Name}}</td>
                             <td>{{obj.last_Name}}</td>
                             <td><img [src]="'../../../assets/images/' + obj.image_Path" alt="empty"></td>

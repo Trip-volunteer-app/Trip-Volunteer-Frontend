@@ -16,14 +16,12 @@
                       <table class="table custom-table">
                         <thead>
                           <tr>
-                            <th style="color: black;"><b>#</b></th>
                             <th style="color: black;"><b>Category Name</b></th>
                             <th style="color: black;"><b>Operations</b></th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr *ngFor="let obj of admin.Categories">
-                            <td> {{obj.category_Id }}</td>
                             <td>{{ obj.category_Name }}</td>
                             <td > 
                               <button class="btn btn-edit" (click)="openEditDailog(obj)" style="background-color: white;">

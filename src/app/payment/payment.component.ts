@@ -22,9 +22,9 @@ export class PaymentComponent implements OnInit{
     private route: ActivatedRoute,
     public dialog: MatDialog,
   ) {}
-   ngOnInit(): void {
+  async ngOnInit() {
     
-    this.route.paramMap.subscribe( params => {
+    await this.route.paramMap.subscribe( params => {
       this.id = +params.get('id')!;
       console.log("id:", this.id);
       if (this.id) {
@@ -41,6 +41,11 @@ export class PaymentComponent implements OnInit{
   }
 
   this.home.getALLBank();
+
+   await this.home.getTripById(this.home.BookingPayment.tripId).subscribe(async tripDetails => {
+    this.home.tripDetails = tripDetails; 
+    });
+    console.log("tripDetails",this.home.tripDetails);
 
   }
   selectedCardIndex: number | null = null;

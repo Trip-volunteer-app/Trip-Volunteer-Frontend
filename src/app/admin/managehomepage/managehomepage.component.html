@@ -19,7 +19,6 @@
                                         <table class="table table-light table-hover table-bordered table-stripped" style="background-color: white; ">
                                             <thead>
                                                 <tr>
-                                                    <th style="color: black;"><b>#</b></th>
                                                     <th style="color: black;"><b>Hero Image</b></th>
                                                     <th style="color: black;"><b>Logo Image</b></th>
                                                     <th style="color: black;"><b>Header</b></th>
@@ -31,7 +30,6 @@
                                             </thead>
                                             <tbody>
                                                 <tr *ngFor="let obj of home.homePageElements">
-                                                    <td>{{ obj.home_Page_Id }}</td>
                                                     <td><img src="../../../assets/images/{{ obj.hero_Image }}"
                                                             alt="Hero"></td>
                                                     <td><img src="../../../assets/images/{{ obj.logo_Image }}"
