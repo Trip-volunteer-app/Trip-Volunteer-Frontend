@@ -31,7 +31,10 @@ import { ManageTestimonialComponent } from './manage-testimonial/manage-testimon
 import { ViewUsersForTripsComponent } from './view-users-for-trips/view-users-for-trips.component';
 import { ManageTripServicesComponent } from './manage-trip-services/manage-trip-services.component';
 import { ManageRolesComponent } from './manage-roles/manage-roles.component';
+import { NgChartsModule } from 'ng2-charts';
+
 // import { TripFilterPipe } from '../trip-filter.pipe';
+
 
 
 @NgModule({
@@ -58,7 +61,8 @@ import { ManageRolesComponent } from './manage-roles/manage-roles.component';
     ManagehomepageComponent,        
     UsersComponent,
     ProfileComponent,  
-    ManageTestimonialComponent, ViewUsersForTripsComponent, ManageTripServicesComponent, ManageRolesComponent
+    ManageTestimonialComponent, ViewUsersForTripsComponent, ManageTripServicesComponent, ManageRolesComponent,
+    
   ],
   imports: [
     CommonModule,
@@ -66,7 +70,8 @@ import { ManageRolesComponent } from './manage-roles/manage-roles.component';
     MatStepperModule,
     MatListModule,
     SharedModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    NgChartsModule
   ]
 })
 export class AdminModule { }
