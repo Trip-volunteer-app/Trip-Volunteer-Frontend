@@ -1,9 +1,19 @@
 
   <div class="container-scroller">
+    <!-- partial:partials/_sidebar.html -->
+
+
     <app-header></app-header>
+
+
+    <!-- partial -->
     <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_navbar.html -->
+
+      <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
+
           <div class="row">
             <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
               <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
@@ -12,6 +22,7 @@
                     <div class="col-9">
                       <div class="d-flex align-items-center align-self-start">
                         <h3 class="mb-0">{{NumberOfRegisteredUsers}}</h3>
+                        <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> -->
                       </div>
                     </div>
                     <div class="col-3">
@@ -31,6 +42,7 @@
                     <div class="col-9">
                       <div class="d-flex align-items-center align-self-start">
                         <h3 class="mb-0">{{NumberOfTrips}}</h3>
+                        <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+11%</p> -->
                       </div>
                     </div>
                     <div class="col-3">
@@ -50,6 +62,7 @@
                     <div class="col-9">
                       <div class="d-flex align-items-center align-self-start">
                         <h3 class="mb-0">{{TotalNumberOfVolunteer}}</h3>
+                        <!-- <p class="text-danger ml-2 mb-0 font-weight-medium">-2.4%</p> -->
                       </div>
                     </div>
                     <div class="col-3">
@@ -69,6 +82,7 @@
                     <div class="col-9">
                       <div class="d-flex align-items-center align-self-start">
                         <h3 class="mb-0">{{TotalNumberOfBooking}}</h3>
+                        <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> -->
                       </div>
                     </div>
                     <div class="col-3">
@@ -121,24 +135,30 @@
                   </div>
                   <div class="row">
                     <div class="col-12">
+                      <!-- Add scrollable area with inline scrollbar styles -->
                       <div class="preview-list"
                         style="max-height: 300px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #000 #333;">
                         <style>
                           .preview-list::-webkit-scrollbar {
                             width: 8px;
+                            /* width of the scrollbar */
                           }
 
                           .preview-list::-webkit-scrollbar-track {
                             background: #333;
+                            /* background of the scrollbar track */
                           }
 
                           .preview-list::-webkit-scrollbar-thumb {
                             background: #000;
+                            /* color of the scrollbar thumb */
                             border-radius: 10px;
+                            /* rounded corners for the thumb */
                           }
 
                           .preview-list::-webkit-scrollbar-thumb:hover {
                             background: #555;
+                            /* color of the thumb on hover */
                           }
                         </style>
                         <br>
@@ -161,26 +181,13 @@
 
 
 
-            <div class="row" style="background-color: white;">
-              <div class="col-sm-4 grid-margin">
-                <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
-                  <div class="card-body">
-                    <h5 class="text-muted mb-1">Total Revenue</h5>
-                    <div class="row">
-                      <div class="col-8 col-sm-12 col-xl-8 my-auto">
-                        <div class="d-flex d-sm-block d-md-flex align-items-center">
-                          <h2 class="mb-0">$ {{this.admin.SYSMonthlyRevenue.total_revenue}}</h2>
-                        </div>
-                        <h6 class="text-muted font-weight-normal">Since this month</h6>
-                      </div>
-                      <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
-                        <i class="icon-lg mdi mdi-codepen text-primary ml-auto"></i>
+           
 
-<!--           <div class="row" style="background-color: white;">
+          <div class="row" style="background-color: white;">
             <div class="col-sm-4 grid-margin">
               <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
                 <div class="card-body">
-                  <h5 class="text-muted mb-1">Revenue</h5>
+                  <h5 class="text-muted mb-1">Total Revenue</h5>
                   <div class="row">
                     <div class="col-8 col-sm-12 col-xl-8 my-auto">
                       <div class="d-flex d-sm-block d-md-flex align-items-center">
@@ -189,31 +196,17 @@
                       <h6 class="text-muted font-weight-normal">Since this month</h6>
                     </div>
                     <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
-                      <i class="icon-lg mdi mdi-codepen text-primary ml-auto"></i>-->
+                      <i class="icon-lg mdi mdi-codepen text-primary ml-auto"></i>
                     </div>
                   </div>
                 </div>
-              </div> 
-
-              <div class="col-sm-4 grid-margin">
-                <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
-                  <div class="card-body">
-                    <h5 class="text-muted mb-1">Monthly Revenue</h5>
-                    <div class="row">
-                      <div class="col-8 col-sm-12 col-xl-8 my-auto">
-                        <div class="d-flex d-sm-block d-md-flex align-items-center">
-                          <h2 class="mb-0">$ {{this.admin.SYSMonthlyRevenue.monthly_revenue}}</h2>
-                        </div>
-                        <h6 class="text-muted font-weight-normal">Since this month</h6>
-                      </div>
-                      <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
-                        <i class="icon-lg mdi mdi-wallet-travel text-danger ml-auto"></i>
-
-            
-<!--             <div class="col-sm-4 grid-margin">
+              </div>
+            </div>
+              
+            <div class="col-sm-4 grid-margin">
               <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
                 <div class="card-body">
-                  <h5 class="text-muted mb-1">Sales</h5>
+                  <h5 class="text-muted mb-1">Monthly Revenue</h5>
                   <div class="row">
                     <div class="col-8 col-sm-12 col-xl-8 my-auto">
                       <div class="d-flex d-sm-block d-md-flex align-items-center">
@@ -223,31 +216,17 @@
                       <h6 class="text-muted font-weight-normal">Since this month</h6>
                     </div>
                     <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
-                      <i class="icon-lg mdi mdi-wallet-travel text-danger ml-auto"></i> -->
+                      <i class="icon-lg mdi mdi-wallet-travel text-danger ml-auto"></i>
                     </div>
                   </div>
                 </div>
               </div>
-
-              <div class="col-sm-4 grid-margin">
-                <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
-                  <div class="card-body">
-                    <h5 class="text-muted mb-1">Cost</h5>
-                    <div class="row">
-                      <div class="col-8 col-sm-12 col-xl-8 my-auto">
-                        <div class="d-flex d-sm-block d-md-flex align-items-center">
-                          <h2 class="mb-0">$ {{this.admin.SYSMonthlyRevenue.cost}}</h2>
-                        </div>
-                        <h6 class="text-muted font-weight-normal">Since this month</h6>
-                      </div>
-                      <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
-                        <i class="icon-lg mdi mdi-monitor text-success ml-auto"></i>
-
             </div>
-<!--             <div class="col-sm-4 grid-margin">
+              
+            <div class="col-sm-4 grid-margin">
               <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
                 <div class="card-body">
-                  <h5 class="text-muted mb-1">Purchase</h5>
+                  <h5 class="text-muted mb-1">Cost</h5>
                   <div class="row">
                     <div class="col-8 col-sm-12 col-xl-8 my-auto">
                       <div class="d-flex d-sm-block d-md-flex align-items-center">
@@ -257,14 +236,14 @@
                       <h6 class="text-muted font-weight-normal">Since this month</h6>
                     </div>
                     <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
-                      <i class="icon-lg mdi mdi-monitor text-success ml-auto"></i>-->
+                      <i class="icon-lg mdi mdi-monitor text-success ml-auto"></i>
                     </div>
                   </div>
                 </div>
-              </div> 
+              </div>
             </div>
           </div>
-
+        
           <div class="row" style="background-color: white;">
             <div class="col-12 grid-margin">
               <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
@@ -547,5 +526,3 @@
         </div>
       </div>
     </div>
-  </div>
-
