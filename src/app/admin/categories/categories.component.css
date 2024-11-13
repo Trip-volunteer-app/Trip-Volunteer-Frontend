@@ -20489,3 +20489,6 @@ body {
         margin-bottom: 10px;
     }
 }
+.container-scroller{
+  background-color: var(--admin-background-color);
+}
