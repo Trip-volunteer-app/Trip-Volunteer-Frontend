@@ -17882,12 +17882,12 @@ div.tagsinput {
 /* Tables */
 .table, .jsgrid .jsgrid-table {
   margin-bottom: 0;
-  color: #6c7293; }
+  color: #2d2d2d; }
   .table thead th, .jsgrid .jsgrid-table thead th {
     border-top: 0;
     border-bottom-width: 1px;
     font-weight: 500;
-    color: #6c7293; }
+    color: #2d2d2d; }
     .table thead th i, .jsgrid .jsgrid-table thead th i {
       margin-left: 0.325rem; }
   .table th, .jsgrid .jsgrid-table th,
@@ -20449,5 +20449,58 @@ font-size: 24px; /* Adjust the size */
 color: #3f51b5; /* Choose a color that fits your design */
 margin-right: 10px; /* Space between icon and input */
 }
+.container-scroller{
+  background-color: var(--admin-background-color);
+}
+/* Outer border for the table */
+.table-light-bordered {
+  border: 1px solid #dcdcdc; /* Light gray border around the entire table */
+  border-collapse: collapse; /* Ensures that borders collapse correctly */
+  width: 100%; /* Optional: makes the table stretch across the container */
+  background-color: #fafafa; /* Very light gray background for the table */
+}
 
+/* Styling for table cells, no internal borders */
+.table-light-bordered th,
+.table-light-bordered td {
+  padding: 8px 12px;  /* Optional: adjust padding for better spacing */
+  text-align: center;
+  border: none; /* Remove borders between columns */
+}
+
+/* Header styling */
+.table-light-bordered th {
+  text-align: center; /* Center-aligns the header text */
+  background-color: white; /* White background for the header */
+  color: black; /* Ensures header text is black */
+  padding: 16px 12px; /* Increases the height of the header */
+  font-weight: bold; /* Optional: makes the header text bold */
+}
+
+/* Row hover effect */
+.table-light-bordered tbody tr:hover {
+  background-color: #f1f1f1; /* Light gray background on hover */
+  transition: background-color 0.3s ease; /* Smooth transition effect */
+}
+
+/* No borders on individual table rows or columns */
+.table-light-bordered tbody tr {
+  background-color: white; /* Ensures rows have a white background */
+}
+
+.table-light-bordered tbody td:first-child,
+.table-light-bordered tbody th:first-child {
+  border-left: none; /* Optional: remove border on the left-most column */
+}
+th{ 
+  border:1px solid #9f9f9f !important; 
+  background-color: #efefef;
+}
+table { 
+  border:1px solid #9f9f9f;
+  text-align: center;
+}
 /*# sourceMappingURL=maps/style.css.map */
+table td + td {
+   border-left:1px solid #d5d5d5;
+  }

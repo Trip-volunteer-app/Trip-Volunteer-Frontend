@@ -21245,3 +21245,6 @@
   flex-grow: 1;
   margin-left: 10px;
 }
+.container-scroller{
+  background-color: var(--admin-background-color);
+}

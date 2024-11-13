@@ -30810,7 +30810,7 @@ div.tagsinput span.tag a {
 }
 
 .container-scroller {
-  background-color: var(--admin-background-color);
+  background-color: var(--admin-background-color) !important;
 }
 
 /*# sourceMappingURL=maps/style.css.map */
@@ -30909,4 +30909,7 @@ div.tagsinput span.tag a {
 }
 .mat-mdc-button.mat-unthemed {
   --mdc-text-button-label-text-color: var(--admin-background-color);
+}
+.container-scroller{
+  background-color: var(--admin-background-color);
 }
