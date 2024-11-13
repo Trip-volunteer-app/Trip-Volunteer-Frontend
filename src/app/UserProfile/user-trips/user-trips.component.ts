@@ -61,7 +61,7 @@ export class UserTripsComponent implements OnInit {
       }
     }
   }
-  
+ 
   // New Method to Check Reviews Existence for All Booking IDs
   checkReviewsExistence(bookingIds: number[]): void {
     this.http.get(`https://localhost:7004/api/Review/GetreviewByBookingID/${bookingIds[0]}`).subscribe(
