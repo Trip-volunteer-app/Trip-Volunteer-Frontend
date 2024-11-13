@@ -7,6 +7,7 @@ import { LocationService } from '../Services/location.service';
 
 import { FormsModule } from '@angular/forms';
 import { MoveFilterDataService } from '../Services/move-filter-data.service';
+import { AdminService } from '../Services/admin.service';
 
 
 @Component({
@@ -46,6 +47,7 @@ export class TripsComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     public location:LocationService,
     public home:HomeService,
+    public admin: AdminService,
     private tripDataService: MoveFilterDataService
   ) {}
  
@@ -91,8 +93,31 @@ export class TripsComponent implements OnInit, AfterViewInit {
     this.home.AllVolunteersWithTrips();
     console.log("AllVolunteersWithTrip",this.home.AllVolunteersWithTrip);
 
+    const userFromStorage = localStorage.getItem("user");
+    const user = userFromStorage ? JSON.parse(userFromStorage) : null;
+  
+    const userId = Number(user?.loginid);
+    this.home.GetUserinfo(userId).subscribe(
+      (userDataArray) => {      
+          this.checkUnpaidBookings(userDataArray);
+      },
+      (error) => {
+        console.error("Failed to retrieve user information", error);
+      }
+    );
+    
   }
 
+  hasUnpaidBookings:boolean=false;
+  private checkUnpaidBookings(bookings: any) {
+    this.hasUnpaidBookings = bookings.bookings.some(
+     ( booking:any )=> booking.payment_Status && booking.payment_Status.toLowerCase() !== 'paid'
+    );
+  }
+  goPayment(){
+    this.router.navigate(['UserTrips']);
+
+  }
   selectTab(tab: string): void {
     this.activeTab = tab;
     this.tripDataService.setActiveTab(tab);
