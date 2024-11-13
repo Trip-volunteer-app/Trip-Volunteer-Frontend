@@ -103,11 +103,14 @@
           <span class="text-danger" *ngIf="Password.hasError('required')">Password is required</span>
         </div>
 
+
         <section class="example-section">
           <mat-checkbox class="example-margin" id="rememberMe" [(ngModel)]="rememberMe" name="rememberMe">Remember
             me</mat-checkbox>
         </section>
-        <div id="recaptcha" class="g-recaptcha"></div>
+        <div class="field input-field recaptcha-wrapper ">
+          <div id="recaptcha" class="g-recaptcha"></div>
+        </div>
 
         <div class="form-link">
           <a href="#" class="forgot-pass" (click)="openForgotPasswordDialog(); $event.preventDefault()">Forgot

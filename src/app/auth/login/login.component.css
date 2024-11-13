@@ -323,5 +323,15 @@ a.google span{
   }
 
   
+  .recaptcha-wrapper {
+        padding-left: 47px;
+        margin-bottom:30px;
+        padding-right: 47px;
+
+  }
   
-  
+  .g-recaptcha {
+    transform: scale(0.9);
+    transform-origin: 0 0;
+  }
+    

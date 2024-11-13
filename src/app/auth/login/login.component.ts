@@ -172,7 +172,7 @@ onRecaptchaVerified(response: string): void {
     const recaptchaResponse = grecaptcha.getResponse();
 
   if (!recaptchaResponse) {
-    this.toastr.error('Please verify that you\'re not a ropot');
+    this.toastr.error('Please verify that you\'re not a robot');
     return;
   }
     if (this.Email.valid && this.Password.valid) {
