@@ -39,6 +39,16 @@ export class LocationService {
       console.error('Error fetching location info:', error);
     }
   }
+
+  getCurrentLocation(): Promise<GeolocationPosition> {
+    return new Promise((resolve, reject) => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      } else {
+        reject(new Error("Geolocation is not supported by this browser."));
+      }
+    });
+  }
   CreateLocation(body: any){
     this.http.post('https://localhost:7004/api/Location/CREATElocation/', body).subscribe(
       (response) => {

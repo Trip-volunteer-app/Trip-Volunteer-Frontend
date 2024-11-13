@@ -1136,7 +1136,7 @@ export class AdminService {
       })
     }
 
-}
+
 
   monthlyReport: any;
   async getMonthlyReport(month: string, year: string): Promise<void> {
@@ -1192,4 +1192,14 @@ export class AdminService {
       console.error('Error fetching selected element:', error);
     }
   }
+    testemonyCounts: any ={}
+    async GetTestimonyStatusCounts(): Promise<void> {
+      try {
+        const res = await this.http.get(`https://localhost:7004/api/Testimonial/GetTestimonyStatusCounts`).toPromise();
+        this.testemonyCounts = res;
+        console.log('testemonyCounts', this.testemonyCounts);
+      } catch (error) {
+        console.error('Error fetching selected element:', error);
+      }
+    }
 }

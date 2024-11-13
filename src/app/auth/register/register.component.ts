@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators,AbstractControl  } from '@angular/forms';
 import { AuthService } from 'src/app/Services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { LocationService } from 'src/app/Services/location.service';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private router: Router, public auth: AuthService, private toastr: ToastrService) {}
+  constructor(private router: Router, public auth: AuthService, private toastr: ToastrService, public location :LocationService) {}
 
   // registerForms: FormGroup = new FormGroup({
   //   FIRST_NAME: new FormControl('', [Validators.required]),
@@ -96,5 +97,23 @@ export class RegisterComponent implements OnInit {
     } else {
       console.log('Form is invalid!');
     }
+  }
+  onAddressFocus() {
+    this.location.getCurrentLocation()
+      .then(position => {
+        const { latitude, longitude } = position.coords;
+        this.fetchAddressFromCoordinates(latitude, longitude);
+      })
+      .catch(error => {
+        alert("Location access was denied or an error occurred.");
+        console.error(error);
+      });
+  }
+
+  // Fetch the address from backend API
+  async fetchAddressFromCoordinates(lat: number, lon: number) {
+    await this.location.getLocationInfo(lat, lon)
+        this.registerForms.patchValue({ Address: this.location.locationdetails });
+
   }
 }

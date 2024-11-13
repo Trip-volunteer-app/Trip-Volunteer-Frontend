@@ -1,187 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Corona Admin</title>
-    <!-- plugins:css -->
-   
-  </head>
-  <body>
-    <div class="container-scroller" >
-      <!-- partial:partials/_sidebar.html -->
-     
 
-  <app-header></app-header>
-  
-  
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Corona Admin</title>
+  <!-- plugins:css -->
+
+</head>
+
+<body>
+  <div class="container-scroller">
+    <!-- partial:partials/_sidebar.html -->
+
+
+    <app-header></app-header>
+
+
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_navbar.html -->
+
       <!-- partial -->
-      <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_navbar.html -->
-        
-        <!-- partial -->
-        <div class="main-panel">
-          <div class="content-wrapper">
-           
-            <div class="row" >
-              <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
-                <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-9">
-                        <div class="d-flex align-items-center align-self-start">
-                          <h3 class="mb-0" >{{NumberOfRegisteredUsers}}</h3>
-                          <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> -->
-                        </div>
-                      </div>
-                      <div class="col-3">
-                        <div class="icon icon-box-success ">
-                          <span class="mdi mdi-arrow-top-right icon-item"></span>
-                        </div>
+      <div class="main-panel">
+        <div class="content-wrapper">
+
+          <div class="row">
+            <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+              <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-9">
+                      <div class="d-flex align-items-center align-self-start">
+                        <h3 class="mb-0">{{NumberOfRegisteredUsers}}</h3>
+                        <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> -->
                       </div>
                     </div>
-                    <h6 class="text-muted font-weight-normal"># Register User</h6>
+                    <div class="col-3">
+                      <div class="icon icon-box-success ">
+                        <span class="mdi mdi-arrow-top-right icon-item"></span>
+                      </div>
+                    </div>
                   </div>
+                  <h6 class="text-muted font-weight-normal"># Register User</h6>
                 </div>
               </div>
-              <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
-                <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-9">
-                        <div class="d-flex align-items-center align-self-start">
-                          <h3 class="mb-0"   >{{NumberOfTrips}}</h3>
-                          <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+11%</p> -->
-                        </div>
-                      </div>
-                      <div class="col-3">
-                        <div class="icon icon-box-success">
-                          <span class="mdi mdi-arrow-top-right icon-item"></span>
-                        </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+              <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-9">
+                      <div class="d-flex align-items-center align-self-start">
+                        <h3 class="mb-0">{{NumberOfTrips}}</h3>
+                        <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+11%</p> -->
                       </div>
                     </div>
-                    <h6 class="text-muted font-weight-normal"># Trip</h6>
+                    <div class="col-3">
+                      <div class="icon icon-box-success">
+                        <span class="mdi mdi-arrow-top-right icon-item"></span>
+                      </div>
+                    </div>
                   </div>
+                  <h6 class="text-muted font-weight-normal"># Trip</h6>
                 </div>
               </div>
-              <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
-                <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-9">
-                        <div class="d-flex align-items-center align-self-start">
-                          <h3 class="mb-0"   >{{TotalNumberOfVolunteer}}</h3>
-                          <!-- <p class="text-danger ml-2 mb-0 font-weight-medium">-2.4%</p> -->
-                        </div>
-                      </div>
-                      <div class="col-3">
-                        <div class="icon icon-box-success">
-                          <span class="mdi mdi-arrow-top-right icon-item"></span>
-                        </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+              <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-9">
+                      <div class="d-flex align-items-center align-self-start">
+                        <h3 class="mb-0">{{TotalNumberOfVolunteer}}</h3>
+                        <!-- <p class="text-danger ml-2 mb-0 font-weight-medium">-2.4%</p> -->
                       </div>
                     </div>
-                    <h6 class="text-muted font-weight-normal"># Total Volunteers</h6>
+                    <div class="col-3">
+                      <div class="icon icon-box-success">
+                        <span class="mdi mdi-arrow-top-right icon-item"></span>
+                      </div>
+                    </div>
                   </div>
+                  <h6 class="text-muted font-weight-normal"># Total Volunteers</h6>
                 </div>
               </div>
-              <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
-                <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-9">
-                        <div class="d-flex align-items-center align-self-start">
-                          <h3 class="mb-0"   >{{TotalNumberOfBooking}}</h3>
-                          <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> -->
-                        </div>
-                      </div>
-                      <div class="col-3">
-                        <div class="icon icon-box-success ">
-                          <span class="mdi mdi-arrow-top-right icon-item"></span>
-                        </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+              <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-9">
+                      <div class="d-flex align-items-center align-self-start">
+                        <h3 class="mb-0">{{TotalNumberOfBooking}}</h3>
+                        <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> -->
                       </div>
                     </div>
-                    <h6 class="text-muted font-weight-normal"># Beneficiaries Serviced</h6>
+                    <div class="col-3">
+                      <div class="icon icon-box-success ">
+                        <span class="mdi mdi-arrow-top-right icon-item"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <h6 class="text-muted font-weight-normal"># Beneficiaries Serviced</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="background-color: white;">
+            <div class="col-md-4 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Testimonial status History</h4>
+                  <div routerLink="/admin/ManageTestimonial" class="chart-container">
+                    <canvas id="testimonyPieChart"></canvas>
+                  </div>
+                  <div class=" d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+                    <div class="text-md-center text-xl-left">
+                      <h6 class="mb-1">Transfer to Paypal</h6>
+                      <p class="text-muted mb-0">07 Jan 2019, 09:12AM</p>
+                    </div>
+                    <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
+                      <h6 class="font-weight-bold mb-0">$236</h6>
+                    </div>
+                  </div>
+                  <div class=" d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+                    <div class="text-md-center text-xl-left">
+                      <h6 class="mb-1">Tranfer to Stripe</h6>
+                      <p class="text-muted mb-0">07 Jan 2019, 09:12AM</p>
+                    </div>
+                    <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
+                      <h6 class="font-weight-bold mb-0">$593</h6>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="row" style="background-color: white;">
-              <div class="col-md-4 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="text-muted mb-1">Transaction History</h4>
-                    <canvas id="transaction-history" class="transaction-chart"></canvas>
-                    <div class=" d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
-                      <div class="text-md-center text-xl-left">
-                        <h6 class="mb-1">Transfer to Paypal</h6>
-                        <p class="text-muted mb-0">07 Jan 2019, 09:12AM</p>
-                      </div>
-                      <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
-                        <h6 class="font-weight-bold mb-0">$236</h6>
-                      </div>
-                    </div>
-                    <div class=" d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
-                      <div class="text-md-center text-xl-left">
-                        <h6 class="mb-1">Tranfer to Stripe</h6>
-                        <p class="text-muted mb-0">07 Jan 2019, 09:12AM</p>
-                      </div>
-                      <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
-                        <h6 class="font-weight-bold mb-0">$593</h6>
+
+            <div class="col-md-8 grid-margin stretch-card" style="background-color: white;">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-row justify-content-between">
+                    <h4 class="text-muted mb-1">Trip Name</h4>
+                    <p class="text-muted mb-1"># Max Reservations of User</p>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <!-- Add scrollable area with inline scrollbar styles -->
+                      <div class="preview-list"
+                        style="max-height: 300px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #000 #333;">
+                        <style>
+                          .preview-list::-webkit-scrollbar {
+                            width: 8px;
+                            /* width of the scrollbar */
+                          }
+
+                          .preview-list::-webkit-scrollbar-track {
+                            background: #333;
+                            /* background of the scrollbar track */
+                          }
+
+                          .preview-list::-webkit-scrollbar-thumb {
+                            background: #000;
+                            /* color of the scrollbar thumb */
+                            border-radius: 10px;
+                            /* rounded corners for the thumb */
+                          }
+
+                          .preview-list::-webkit-scrollbar-thumb:hover {
+                            background: #555;
+                            /* color of the thumb on hover */
+                          }
+                        </style>
+                        <br>
+                        <div class="preview-item-content d-sm-flex flex-grow"
+                          *ngFor="let obj of admin.TripsWithMaxReservations">
+                          <div class="flex-grow">
+                            <h6 class="preview-subject">{{obj.trip_Name}}</h6>
+                          </div>
+                          <div class="mr-auto text-sm-right pt-2 pt-sm-0" style="padding-right: 20px;">
+                            <p class="text-muted">{{obj.max_Number_Of_Users}}</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-             
-              <div class="col-md-8 grid-margin stretch-card" style="background-color: white;">
-                <div class="card"   >
-                    <div class="card-body">
-                        <div class="d-flex flex-row justify-content-between">
-                            <h4 class="text-muted mb-1">Trip Name</h4>
-                            <p class="text-muted mb-1"># Max Reservations of User</p>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <!-- Add scrollable area with inline scrollbar styles -->
-                                <div class="preview-list" style="max-height: 300px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #000 #333;">
-                                    <style>
-                                        .preview-list::-webkit-scrollbar {
-                                            width: 8px; /* width of the scrollbar */
-                                        }
-            
-                                        .preview-list::-webkit-scrollbar-track {
-                                            background: #333; /* background of the scrollbar track */
-                                        }
-            
-                                        .preview-list::-webkit-scrollbar-thumb {
-                                            background: #000; /* color of the scrollbar thumb */
-                                            border-radius: 10px; /* rounded corners for the thumb */
-                                        }
-            
-                                        .preview-list::-webkit-scrollbar-thumb:hover {
-                                            background: #555; /* color of the thumb on hover */
-                                        }
-                                    </style>
-                                    <br>
-                                    <div class="preview-item-content d-sm-flex flex-grow" *ngFor="let obj of admin.TripsWithMaxReservations">
-                                        <div class="flex-grow">
-                                            <h6 class="preview-subject">{{obj.trip_Name}}</h6>
-                                        </div>
-                                        <div class="mr-auto text-sm-right pt-2 pt-sm-0" style="padding-right: 20px;">
-                                            <p class="text-muted">{{obj.max_Number_Of_Users}}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>          
             </div>
+          </div>
 
 
-            <!-- {
+          <!-- {
               "selectedMonth": null,
               "selectedYear": null,
               "month_year": "11/2024",
@@ -192,131 +203,135 @@
               "revenue": null
           } -->
 
-            <div class="row" style="background-color: white;">
-              <div class="col-sm-4 grid-margin">
-                <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
-                  <div class="card-body">
-                    <h5 class="text-muted mb-1">Revenue</h5>
-                    <div class="row">
-                      <div class="col-8 col-sm-12 col-xl-8 my-auto">
-                        <div class="d-flex d-sm-block d-md-flex align-items-center">
-                          <h2 class="mb-0">$ {{this.admin.SYSMonthlyRevenue.total_revenue}}</h2>
-                        </div>
-                        <h6 class="text-muted font-weight-normal">Since this month</h6>
+          <div class="row" style="background-color: white;">
+            <div class="col-sm-4 grid-margin">
+              <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
+                <div class="card-body">
+                  <h5 class="text-muted mb-1">Revenue</h5>
+                  <div class="row">
+                    <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                      <div class="d-flex d-sm-block d-md-flex align-items-center">
+                        <h2 class="mb-0">$ {{this.admin.SYSMonthlyRevenue.total_revenue}}</h2>
                       </div>
-                      <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
-                        <i class="icon-lg mdi mdi-codepen text-primary ml-auto"></i>
-                      </div>
+                      <h6 class="text-muted font-weight-normal">Since this month</h6>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-4 grid-margin">
-                <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
-                  <div class="card-body">
-                    <h5 class="text-muted mb-1">Sales</h5>
-                    <div class="row">
-                      <div class="col-8 col-sm-12 col-xl-8 my-auto">
-                        <div class="d-flex d-sm-block d-md-flex align-items-center">
-                          <h2 class="mb-0">$ {{this.admin.SYSMonthlyRevenue.monthly_revenue}}</h2>
-                        </div>
-                        <h6 class="text-muted font-weight-normal">Since this month</h6>
-                      </div>
-                      <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
-                        <i class="icon-lg mdi mdi-wallet-travel text-danger ml-auto"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-4 grid-margin">
-                <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
-                  <div class="card-body">
-                    <h5 class="text-muted mb-1">Purchase</h5>
-                    <div class="row">
-                      <div class="col-8 col-sm-12 col-xl-8 my-auto">
-                        <div class="d-flex d-sm-block d-md-flex align-items-center">
-                          <h2 class="mb-0">$ {{this.admin.SYSMonthlyRevenue.cost}}</h2>
-                        </div>
-                        <h6 class="text-muted font-weight-normal">Since this month</h6>
-                      </div>
-                      <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
-                        <i class="icon-lg mdi mdi-monitor text-success ml-auto"></i>
-                      </div>
+                    <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                      <i class="icon-lg mdi mdi-codepen text-primary ml-auto"></i>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            
-            <div class="row" style="background-color: white;">
-              <div class="col-12 grid-margin">
-                <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
-                  <div class="card-body">
-                    <h4 class="text-muted mb-1">Users</h4>
-                    <button class="badge badge-outline-success" style="position: absolute; top: 20px; right: 30px; font-size: 15px;" (click)="openUsersComponent()">All user</button>
-
-                    <div class="table-container" style="position: relative;">
-                      
-                      <div class="table-responsive" style="margin-top: 40px;">
-                        <table class="table" style="background-color: white;">
-                          <thead>
-                            <tr>                            
-                              <th> <b>User</b> </th> <!--Image + First Name + Last Name-->
-                              <th><b>Email</b></th>
-                              <th><b>Address</b>  </th>
-                              <th> <b>Phone Number </b></th>
-                              <th> <b>Birth Date</b> </th>
-                              <th><b> Date Register</b> </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor="let obj of admin.FiveUsers">
-                              <td>
-                                <img class="img-xs rounded-circle" style="width: 40px; height: 40px;" [src]="obj.image_Path ? '../../../../assets/images/' + obj.image_Path : '../../../assets/default-profile.png'" alt="image not found">
-                                {{obj.first_Name}} {{obj.last_Name}}
-                              </td>                              
-                              <td>{{obj.email}}</td>
-                              <td>{{obj.address}}</td>
-                              <td>{{obj.phone_Number}}</td>
-                              <td>{{obj.birth_Date | date}}</td>     
-                              <td>{{obj.date_Register | date}}</td>                     
-                            </tr> 
-                          </tbody>
-                        </table>
+            <div class="col-sm-4 grid-margin">
+              <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
+                <div class="card-body">
+                  <h5 class="text-muted mb-1">Sales</h5>
+                  <div class="row">
+                    <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                      <div class="d-flex d-sm-block d-md-flex align-items-center">
+                        <h2 class="mb-0">$ {{this.admin.SYSMonthlyRevenue.monthly_revenue}}</h2>
                       </div>
+                      <h6 class="text-muted font-weight-normal">Since this month</h6>
+                    </div>
+                    <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                      <i class="icon-lg mdi mdi-wallet-travel text-danger ml-auto"></i>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            
-
-
-            <div class="row" style="background-color: white; max-width: 3000px; width: 1600px;">
-              <div class="col-md-6 col-xl-4 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex flex-row justify-content-between">
-                      <h4 class="text-muted mb-1"><b>Messages</b></h4>
-                      <p class="text-muted mb-1 small" routerLink="/admin/ContactUsMessages"> <b>View all</b></p>
+            <div class="col-sm-4 grid-margin">
+              <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
+                <div class="card-body">
+                  <h5 class="text-muted mb-1">Purchase</h5>
+                  <div class="row">
+                    <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                      <div class="d-flex d-sm-block d-md-flex align-items-center">
+                        <h2 class="mb-0">$ {{this.admin.SYSMonthlyRevenue.cost}}</h2>
+                      </div>
+                      <h6 class="text-muted font-weight-normal">Since this month</h6>
                     </div>
-                    <div class="preview-list">
-                      <div class="preview-item border-bottom" *ngFor="let obj of admin.FiveContactU">
-                        <div class="preview-thumbnail">
-                          <img src="../../../assets/default-profile.png" alt="image" class="rounded-circle" />
-                        </div>
-                        <div class="preview-item-content d-flex flex-grow" >
-                          <div class="flex-grow">
-                            <div class="d-flex d-md-block d-xl-flex justify-content-between">
-                              <h6 class="preview-subject">{{obj.full_Name}}</h6>
-                            </div>
-                            <h5 class="text-muted">{{obj.query}}</h5>
-                            <p>{{obj.messages}}</p>
+                    <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                      <i class="icon-lg mdi mdi-monitor text-success ml-auto"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" style="background-color: white;">
+            <div class="col-12 grid-margin">
+              <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
+                <div class="card-body">
+                  <h4 class="text-muted mb-1">Users</h4>
+                  <button class="badge badge-outline-success"
+                    style="position: absolute; top: 20px; right: 30px; font-size: 15px;"
+                    (click)="openUsersComponent()">All user</button>
+
+                  <div class="table-container" style="position: relative;">
+
+                    <div class="table-responsive" style="margin-top: 40px;">
+                      <table class="table" style="background-color: white;">
+                        <thead>
+                          <tr>
+                            <th> <b>User</b> </th> <!--Image + First Name + Last Name-->
+                            <th><b>Email</b></th>
+                            <th><b>Address</b> </th>
+                            <th> <b>Phone Number </b></th>
+                            <th> <b>Birth Date</b> </th>
+                            <th><b> Date Register</b> </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let obj of admin.FiveUsers">
+                            <td>
+                              <img class="img-xs rounded-circle" style="width: 40px; height: 40px;"
+                                [src]="obj.image_Path ? '../../../../assets/images/' + obj.image_Path : '../../../assets/default-profile.png'"
+                                alt="image not found">
+                              {{obj.first_Name}} {{obj.last_Name}}
+                            </td>
+                            <td>{{obj.email}}</td>
+                            <td>{{obj.address}}</td>
+                            <td>{{obj.phone_Number}}</td>
+                            <td>{{obj.birth_Date | date}}</td>
+                            <td>{{obj.date_Register | date}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="row" style="background-color: white; max-width: 3000px; width: 1600px;">
+            <div class="col-md-6 col-xl-4 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-row justify-content-between">
+                    <h4 class="text-muted mb-1"><b>Messages</b></h4>
+                    <p class="text-muted mb-1 small" routerLink="/admin/ContactUsMessages"> <b>View all</b></p>
+                  </div>
+                  <div class="preview-list">
+                    <div class="preview-item border-bottom" *ngFor="let obj of admin.FiveContactU">
+                      <div class="preview-thumbnail">
+                        <img src="../../../assets/default-profile.png" alt="image" class="rounded-circle" />
+                      </div>
+                      <div class="preview-item-content d-flex flex-grow">
+                        <div class="flex-grow">
+                          <div class="d-flex d-md-block d-xl-flex justify-content-between">
+                            <h6 class="preview-subject">{{obj.full_Name}}</h6>
                           </div>
+                          <h5 class="text-muted">{{obj.query}}</h5>
+                          <p>{{obj.messages}}</p>
                         </div>
                       </div>
-                      <!-- <div class="preview-item border-bottom">
+                    </div>
+                    <!-- <div class="preview-item border-bottom">
                         <div class="preview-thumbnail">
                           <img src="../../../assets/Admin2/images/faces/face8.jpg" alt="image" class="rounded-circle" />
                         </div>
@@ -358,11 +373,11 @@
                           </div>
                         </div>
                       </div> -->
-                    </div>
                   </div>
                 </div>
               </div>
-              <!-- <div class="col-md-6 col-xl-4 grid-margin stretch-card">
+            </div>
+            <!-- <div class="col-md-6 col-xl-4 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
                     <h4 class="text-muted mb-1">Portfolio Slide</h4>
@@ -402,136 +417,132 @@
                   </div>
                 </div>
               </div> -->
-              <div class="col-md-12 col-xl-4 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="text-muted mb-1">To do list</h4>
-                    <div class="add-items d-flex">
-                      <input type="text" class="form-control todo-list-input" placeholder="enter task..">
-                      <button class="add btn btn-primary todo-list-add-btn">Add</button>
-                    </div>
-                    <div class="list-wrapper">
-                      <ul class="d-flex flex-column-reverse text-white todo-list todo-list-custom">
-                        <li>
-                          <div class="form-check form-check-primary">
-                            <label class="form-check-label">
-                              <input class="checkbox" type="checkbox"> Create invoice </label>
-                          </div>
-                          <i class="remove mdi mdi-close-box"></i>
-                        </li>
-                        <li>
-                          <div class="form-check form-check-primary">
-                            <label class="form-check-label">
-                              <input class="checkbox" type="checkbox"> Meeting with Alita </label>
-                          </div>
-                          <i class="remove mdi mdi-close-box"></i>
-                        </li>
-                        <li class="completed">
-                          <div class="form-check form-check-primary">
-                            <label class="form-check-label">
-                              <input class="checkbox" type="checkbox" checked> Prepare for presentation </label>
-                          </div>
-                          <i class="remove mdi mdi-close-box"></i>
-                        </li>
-                        <li>
-                          <div class="form-check form-check-primary">
-                            <label class="form-check-label">
-                              <input class="checkbox" type="checkbox"> Plan weekend outing </label>
-                          </div>
-                          <i class="remove mdi mdi-close-box"></i>
-                        </li>
-                        <li>
-                          <div class="form-check form-check-primary">
-                            <label class="form-check-label">
-                              <input class="checkbox" type="checkbox"> Pick up kids from school </label>
-                          </div>
-                          <i class="remove mdi mdi-close-box"></i>
-                        </li>
-                      </ul>
-                    </div>
+            <div class="col-md-12 col-xl-4 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="text-muted mb-1">To do list</h4>
+                  <div class="add-items d-flex">
+                    <input type="text" class="form-control todo-list-input" placeholder="enter task..">
+                    <button class="add btn btn-primary todo-list-add-btn">Add</button>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="row" style="background-color: white;">
-              <div class="col-12">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="text-muted mb-1">Visitors by Countries</h4>
-                    <div class="row">
-                      <div class="col-md-5">
-                        <div class="table-responsive">
-                          <table class="table" style="background-color: white;">
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <i class="flag-icon flag-icon-us"></i>
-                                </td>
-                                <td>USA</td>
-                                <td class="text-right"> 1500 </td>
-                                <td class="text-right font-weight-medium"> 56.35% </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <i class="flag-icon flag-icon-de"></i>
-                                </td>
-                                <td>Germany</td>
-                                <td class="text-right"> 800 </td>
-                                <td class="text-right font-weight-medium"> 33.25% </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <i class="flag-icon flag-icon-au"></i>
-                                </td>
-                                <td>Australia</td>
-                                <td class="text-right"> 760 </td>
-                                <td class="text-right font-weight-medium"> 15.45% </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <i class="flag-icon flag-icon-gb"></i>
-                                </td>
-                                <td>United Kingdom</td>
-                                <td class="text-right"> 450 </td>
-                                <td class="text-right font-weight-medium"> 25.00% </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <i class="flag-icon flag-icon-ro"></i>
-                                </td>
-                                <td>Romania</td>
-                                <td class="text-right"> 620 </td>
-                                <td class="text-right font-weight-medium"> 10.25% </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <i class="flag-icon flag-icon-br"></i>
-                                </td>
-                                <td>Brasil</td>
-                                <td class="text-right"> 230 </td>
-                                <td class="text-right font-weight-medium"> 75.00% </td>
-                              </tr>
-                            </tbody>
-                          </table>
+                  <div class="list-wrapper">
+                    <ul class="d-flex flex-column-reverse text-white todo-list todo-list-custom">
+                      <li>
+                        <div class="form-check form-check-primary">
+                          <label class="form-check-label">
+                            <input class="checkbox" type="checkbox"> Create invoice </label>
                         </div>
+                        <i class="remove mdi mdi-close-box"></i>
+                      </li>
+                      <li>
+                        <div class="form-check form-check-primary">
+                          <label class="form-check-label">
+                            <input class="checkbox" type="checkbox"> Meeting with Alita </label>
+                        </div>
+                        <i class="remove mdi mdi-close-box"></i>
+                      </li>
+                      <li class="completed">
+                        <div class="form-check form-check-primary">
+                          <label class="form-check-label">
+                            <input class="checkbox" type="checkbox" checked> Prepare for presentation </label>
+                        </div>
+                        <i class="remove mdi mdi-close-box"></i>
+                      </li>
+                      <li>
+                        <div class="form-check form-check-primary">
+                          <label class="form-check-label">
+                            <input class="checkbox" type="checkbox"> Plan weekend outing </label>
+                        </div>
+                        <i class="remove mdi mdi-close-box"></i>
+                      </li>
+                      <li>
+                        <div class="form-check form-check-primary">
+                          <label class="form-check-label">
+                            <input class="checkbox" type="checkbox"> Pick up kids from school </label>
+                        </div>
+                        <i class="remove mdi mdi-close-box"></i>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="background-color: white;">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="text-muted mb-1">Visitors by Countries</h4>
+                  <div class="row">
+                    <div class="col-md-5">
+                      <div class="table-responsive">
+                        <table class="table" style="background-color: white;">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <i class="flag-icon flag-icon-us"></i>
+                              </td>
+                              <td>USA</td>
+                              <td class="text-right"> 1500 </td>
+                              <td class="text-right font-weight-medium"> 56.35% </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <i class="flag-icon flag-icon-de"></i>
+                              </td>
+                              <td>Germany</td>
+                              <td class="text-right"> 800 </td>
+                              <td class="text-right font-weight-medium"> 33.25% </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <i class="flag-icon flag-icon-au"></i>
+                              </td>
+                              <td>Australia</td>
+                              <td class="text-right"> 760 </td>
+                              <td class="text-right font-weight-medium"> 15.45% </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <i class="flag-icon flag-icon-gb"></i>
+                              </td>
+                              <td>United Kingdom</td>
+                              <td class="text-right"> 450 </td>
+                              <td class="text-right font-weight-medium"> 25.00% </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <i class="flag-icon flag-icon-ro"></i>
+                              </td>
+                              <td>Romania</td>
+                              <td class="text-right"> 620 </td>
+                              <td class="text-right font-weight-medium"> 10.25% </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <i class="flag-icon flag-icon-br"></i>
+                              </td>
+                              <td>Brasil</td>
+                              <td class="text-right"> 230 </td>
+                              <td class="text-right font-weight-medium"> 75.00% </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
-                      <div class="col-md-7">
-                        <div id="audience-map" class="vector-map"></div>
-                      </div>
+                    </div>
+                    <div class="col-md-7">
+                      <div id="audience-map" class="vector-map"></div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          
-          </div>                
+          </div>
+
         </div>
-      </div>   
+      </div>
     </div>
+  </div>
+</body>
 
-
-
-
-  </body>
 </html>
-

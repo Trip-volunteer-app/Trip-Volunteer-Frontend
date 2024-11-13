@@ -20394,7 +20394,23 @@ color: #3f51b5; /* Choose a color that fits your design */
 margin-right: 10px; /* Space between icon and input */
 }
 
+canvas {
+  max-width: 400px;
+  margin: 0 auto;
+}
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
 
+canvas {
+  width: 100%;
+  height: auto;
+}
 td img {
   display: inline-block;
   vertical-align: middle; /* Ensures the image aligns with the text */
