@@ -20424,3 +20424,6 @@ th, td {
 th:nth-child(2), td:nth-child(2) {
   width: auto; /* Adjust width of the "User" column */
 }
+.container-scroller{
+  background-color: var(--admin-background-color);
+}
