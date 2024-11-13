@@ -20440,3 +20440,6 @@ body {
   background-color: #f1f4f5 !important;
   color: black;
 }
+.container-scroller{
+  background-color: var(--admin-background-color);
+}

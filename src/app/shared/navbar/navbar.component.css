@@ -58,3 +58,30 @@
     font-size: 5px; /* Smaller icon size */
     color: #ffffff;
 }
+  /* Global alert styling */
+  .global-alert {
+    background-color: #ffc107; /* Bootstrap warning color */
+    color: #333;
+    text-align: center;
+    padding: 1em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+  }
+  
+  .global-alert.hidden {
+    transform: translateY(-100%);
+  }
+  
+  .global-alert .alert-message {
+    display: inline-block;
+    margin-right: 1em;
+  }
+  
+  .global-alert .btn-dismiss {
+    color: #fff;
+    background-color: #6c757d;
+    border: none;
+    padding: 0.5em 1em;
+    font-size: 0.9em;
+    cursor: pointer;
+  }

@@ -58,18 +58,20 @@
                     <tbody>
                       <tr
                         *ngFor="let obj of admin.Trip | tripFilter: trip_Name : checkInDate : checkOutDate: minPrice : maxPrice">
-                        <td class="description-col" matTooltip="{{ obj.trip_Name }}"> {{obj.trip_Name}} </td>
+                        <td class="description-col" matTooltip="{{ obj.trip_Name }}">
+                          {{ obj.trip_Name.trim().length > 20 ? (obj.trip_Name.trim() | slice:0:15) + '...' : obj.trip_Name.trim() }}
+                        </td>                        
                         <td> {{obj.trip_Price}} </td>
                         <td class="description-col"
                           matTooltip="Departure: {{ obj.departure_Location }}, Destination: {{ obj.destination_Location }}">
-                          Departure: {{ obj.departure_Location }}... <br>
-                          Destination: {{ obj.destination_Location }}...
+                          Departure: {{ obj.departure_Location | slice:0:7 }}... <br>
+                          Destination: {{ obj.destination_Location | slice:0:6}}...
                         </td>
                         <td> {{obj.start_Date | date }} </td>
                         <td> {{obj.end_Date | date }} </td>
                         <td> {{obj.max_Number_Of_Users}} </td>
                         <td> {{obj.max_Number_Of_Volunteers}} </td>
-                        <td class="description-col" matTooltip="{{ obj.description }}"> {{obj.description}} </td>
+                        <td class="description-col" matTooltip="{{ obj.description }}"> {{obj.description | slice:0:18}}... </td>
                         <td>
                           <button mat-button color="primary" (click)="ManageTrip(obj.trip_Id)" class="action-button"
                             matTooltip="manage this trip" style="color: rgb(92, 92, 245) !important;"><i

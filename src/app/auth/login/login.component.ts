@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, Validators,FormGroup,FormBuilder } from '@angular/forms';
 import { AuthService } from 'src/app/Services/auth.service';
@@ -6,14 +6,17 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
 import {  Router } from '@angular/router';
 // import {SocialAuthService,GoogleLoginProvider,SocialUser} from '@abacritt/angularx-social-login';
+declare var grecaptcha: any;
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent implements OnInit {
 
+  private recaptchaSiteKey = '6LfZuXwqAAAAALrLkIWcx2WT5nKuaU0-59aQhjfV'; // Your reCAPTCHA site key
 
   loginForm!: FormGroup;
 
@@ -47,14 +50,21 @@ export class LoginComponent implements OnInit {
     private http: HttpClient,
     private rout:Router,
     private formBuilder: FormBuilder,
+    private renderer: Renderer2
     // private socialAuthService: SocialAuthService
   ) {}
 
   ngOnInit(): void {
-
     this.loginForm = this.formBuilder.group({email: ['', Validators.required],password: ['', Validators.required],});
-
-    // this.socialAuthService.authState.subscribe((user) => {
+    if (typeof grecaptcha !== 'undefined') {
+      // Render the reCAPTCHA if it hasn’t been rendered yet
+      setTimeout(() => {
+        grecaptcha.render('recaptcha', {
+          'sitekey': '6LfZuXwqAAAAALrLkIWcx2WT5nKuaU0-59aQhjfV'
+        });
+      }, 0);
+    }
+      // this.socialAuthService.authState.subscribe((user) => {
 
     //   this.socialUser = user;
 
@@ -70,6 +80,8 @@ export class LoginComponent implements OnInit {
     if (storedEmail) this.email = storedEmail;
     if (storedPassword) this.password = storedPassword;
   }
+  
+  recaptchaResponse: string='';
 
   onSubmit(): void {
     if (this.rememberMe) {
@@ -81,7 +93,7 @@ export class LoginComponent implements OnInit {
       localStorage.removeItem('password');
       localStorage.removeItem('rememberMe');
     }
-    console.log('Form submitted with:', { email: this.email, password: this.password, rememberMe: this.rememberMe });
+    console.log('Form submitted with:', { email: this.email, password: this.password, rememberMe: this.rememberMe,recaptchaResponse: this.recaptchaResponse });
   }
 
   openForgotPasswordDialog() {
@@ -147,21 +159,32 @@ export class LoginComponent implements OnInit {
       alert("Failed to update password. Please try again.");
     });
   }
-  
+
+onRecaptchaVerified(response: string): void {
+  this.recaptchaResponse = response; // Set the reCAPTCHA response when verified
+  this.login(); // Call login once reCAPTCHA is verified
+}
+
   
 
   
   login() {
+    const recaptchaResponse = grecaptcha.getResponse();
+
+  if (!recaptchaResponse) {
+    this.toastr.error('Please verify that you\'re not a robot');
+    return;
+  }
     if (this.Email.valid && this.Password.valid) {
       const emailValue = this.Email.value;
       const passwordValue = this.Password.value;
       console.log('befor call auth');
       
 
-      this.auth.login(emailValue, passwordValue);
+      this.auth.login(emailValue, passwordValue, recaptchaResponse);
       console.log('after call auth');
 
-      console.log("emailpassword", emailValue, passwordValue);
+      console.log("emailpassword", emailValue, passwordValue, recaptchaResponse);
     } else {
       this.toastr.error('Please enter valid email and password');
     }
@@ -178,6 +201,23 @@ export class LoginComponent implements OnInit {
 
     // this.socialAuthService.signOut();
 
+  }
+  loadRecaptcha(): void {
+    if (document.getElementById('recaptcha-script')) return;
+
+    const script = this.renderer.createElement('script');
+    script.src = 'https://www.google.com/recaptcha/api.js';
+    script.id = 'recaptcha-script';
+    script.async = true;
+    script.defer = true;
+
+    this.renderer.appendChild(document.head, script);
+
+    script.onload = () => {
+      grecaptcha.render('recaptcha', {
+        'sitekey': this.recaptchaSiteKey
+      });
+    };
   }
 }
 

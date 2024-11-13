@@ -22,9 +22,9 @@ export class PaymentComponent implements OnInit{
     private route: ActivatedRoute,
     public dialog: MatDialog,
   ) {}
-  async ngOnInit() {
+   ngOnInit(): void {
     
-    await this.route.paramMap.subscribe( params => {
+     this.route.paramMap.subscribe( params => {
       this.id = +params.get('id')!;
       console.log("id:", this.id);
       if (this.id) {
@@ -41,12 +41,6 @@ export class PaymentComponent implements OnInit{
   }
 
   this.home.getALLBank();
-
-   await this.home.getTripById(this.home.BookingPayment.tripId).subscribe(async tripDetails => {
-    this.home.tripDetails = tripDetails; 
-    });
-    console.log("tripDetails",this.home.tripDetails);
-
   }
   selectedCardIndex: number | null = null;
   selectedCard: any = null;
@@ -149,15 +143,15 @@ export class PaymentComponent implements OnInit{
 
   async pay(obj: any): Promise<void> {
     try {
-      // Check if BankCard information is available
-      if (!this.home || !this.home.BankCard) {
+      // Check if the trip has available spots
+      if (this.home.BookingPayment?.max_number_of_users <= 0) {
         Swal.fire({
-          title: 'Error!',
-          text: 'Your visa Card information is missing.',
-          icon: 'error',
+          title: 'Sorry!',
+          text: 'The trip is full. No more reservations can be made.',
+          icon: 'warning',
           confirmButtonText: 'Ok!',
         });
-        console.error("BankCard information is missing.");
+        console.error("The trip is full.");
         return;
       }
   
@@ -165,11 +159,23 @@ export class PaymentComponent implements OnInit{
       if (this.home.BookingPayment?.payment_Status === 'paid') {
         Swal.fire({
           title: 'Error!',
-          text: 'You already paid.',
+          text: 'You have already paid for this booking.',
           icon: 'error',
           confirmButtonText: 'Ok!',
         });
-        console.error("You already paid.");
+        console.error("Payment already made.");
+        return;
+      }
+  
+      // Check if BankCard information is available
+      if (!this.home || !this.home.BankCard) {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Your Visa card information is missing.',
+          icon: 'error',
+          confirmButtonText: 'Ok!',
+        });
+        console.error("BankCard information is missing.");
         return;
       }
   
@@ -220,7 +226,7 @@ export class PaymentComponent implements OnInit{
         console.error("Error updating balance:", error);
         throw new Error("Failed to update balance.");
       });
-
+  
       const email = localStorage.getItem('email');
       const emailData = {
         booking_Id: this.id,
@@ -232,19 +238,19 @@ export class PaymentComponent implements OnInit{
         Destination_Location: this.home.tripDetails?.Destination_Location,
         Services: this.home.tripDetails?.services,
       };
-
+  
       await this.home.UpdatePaymentStatus(emailData).catch(error => {
         console.error("Error updating payment status:", error);
         throw new Error("Failed to update payment status.");
       });
-
-     const id =this.home.BookingPayment.trip_Id;
-     const res_num=this.home.BookingPayment.numberOfUser;
-      await this.home.updateMaxUser(id,res_num).catch(error => {
+  
+      const id = this.home.BookingPayment.trip_Id;
+      const res_num = this.home.BookingPayment.numberOfUser;
+      await this.home.updateMaxUser(id, res_num).catch(error => {
         console.error("Error updating Max User:", error);
         throw new Error("Failed to update Max User.");
       });
-
+  
       // Show success message
       Swal.fire({
         title: 'Success!',
@@ -252,8 +258,7 @@ export class PaymentComponent implements OnInit{
         icon: 'success',
         confirmButtonText: 'Ok!',
       });
-
-
+  
     } catch (error) {
       console.error("Error in pay function:", error);
       Swal.fire({
@@ -264,7 +269,7 @@ export class PaymentComponent implements OnInit{
       });
     }
   }
-
+  
   // private async fetchLatestPaymentStatus() {
   //    this.home.GetBookingById(this.id);
   //    await  this.sendEmail(this.home.BookingPayment?.payment_Status);

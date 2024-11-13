@@ -8,12 +8,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.gstatic.com">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEGmmofoNnuXXtkx6CxIIMgzk1Tkq5kKk"></script>
-
 </head>
 <body class="mat-typography">
+  
+  <!-- Script to render the reCAPTCHA widget -->
+  <script>
+    if (document.body.classList.contains('login-page')) {
+      // Load the reCAPTCHA script if it's on the login page
+      var script = document.createElement('script');
+      script.src = 'https://www.google.com/recaptcha/api.js';
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+
+      // Render reCAPTCHA when the script is loaded
+      script.onload = function() {
+        grecaptcha.render('recaptcha', {
+          'sitekey' : '6LfZuXwqAAAAALrLkIWcx2WT5nKuaU0-59aQhjfV'
+        });
+      };
+    }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEGmmofoNnuXXtkx6CxIIMgzk1Tkq5kKk"></script>
   <app-root></app-root>
   <!-- dashboard scripts -->
 </body>

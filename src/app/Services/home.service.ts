@@ -414,6 +414,12 @@ console.log("UserInformation",this.UserInformation);
 },err=>{
       console.log(err.message);     
 })}
+
+ 
+GetUserinfo(id:number):Observable<any[]>{ 
+return this.http.get<any[]>('https://localhost:7004/api/UserLogin/GetUserinfoByLoginId/'+ id)
+}
+
 //user login information
 bookingServices:any; 
 GetBookingServiceByBookingId(id:number){ 

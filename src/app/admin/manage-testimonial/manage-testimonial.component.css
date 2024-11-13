@@ -20508,3 +20508,6 @@ margin-right: 70px;
 button i {
   font-size: 20px; /* Adjust icon size if needed */
 }
+.container-scroller{
+  background-color: var(--admin-background-color);
+}

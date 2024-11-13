@@ -54,7 +54,34 @@ export class UserTripsComponent implements OnInit {
       }
     }
   }
+
+ 
+  // New Method to Check Reviews Existence for All Booking IDs
+  checkReviewsExistence(bookingIds: number[]): void {
+    this.http.get(`https://localhost:7004/api/Review/GetreviewByBookingID/${bookingIds[0]}`).subscribe(
+      (result: any) => {
+        console.log('API Response:', result);
   
+        // Loop through the result and update reviewExists and reviewMessages arrays
+        this.bookingIds.forEach((bookingId, index) => {
+          const reviewData = result.find((review: any) => review.booking_Id === bookingId);
+  
+          if (reviewData && reviewData.exists === true) {
+            this.reviewExists[index] = true;
+            this.reviewMessages[index] = 'Review already exists';
+          } else {
+            this.reviewExists[index] = false;
+            this.reviewMessages[index] = 'Review not yet submitted. You can submit now.';
+          }
+        });
+      },
+      (err: any) => {
+        console.error('Error checking reviews existence:', err.message);
+      }
+    );
+  }
+  
+
 
 
   

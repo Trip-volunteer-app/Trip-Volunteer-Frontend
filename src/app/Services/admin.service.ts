@@ -1196,6 +1196,7 @@ export class AdminService {
   }
 
 
+
   display_Image :any ; 
 uploadAttachment(file:FormData){
 this.http.post('https://localhost:7004/api/categories/uploadImage',file).subscribe((resp:any)=>{
@@ -1207,5 +1208,17 @@ this.http.post('https://localhost:7004/api/categories/uploadImage',file).subscri
   
 })
 }
+
+
+    testemonyCounts: any ={}
+    async GetTestimonyStatusCounts(): Promise<void> {
+      try {
+        const res = await this.http.get(`https://localhost:7004/api/Testimonial/GetTestimonyStatusCounts`).toPromise();
+        this.testemonyCounts = res;
+        console.log('testemonyCounts', this.testemonyCounts);
+      } catch (error) {
+        console.error('Error fetching selected element:', error);
+      }
+    }
 
 }
