@@ -202,6 +202,45 @@
     </section>
           
 
+
+    <section class="ftco-section">
+      <div class="container">
+          <div class="row justify-content-center pb-4">
+              <div class="col-md-12 heading-section text-center ftco-animate">
+                  <span class="subheading">Explore the Jordan of Tourism</span>
+                  <h2 class="mb-4">our category</h2>
+              </div>
+          </div>
+          <div class="container" >
+            <div class="row d-flex" >
+              <div *ngFor="let obj of home.GetCategoryWithImageAndTrips" class="col-md-4 d-flex ">
+                <div class="blog-entry justify-content-end" >
+                  <a href="blog-single.html" class="block-20"
+                    [style.backgroundImage]="'url(../../assets/images/' + obj.images + ')'">
+                  </a>
+                  <div class="text">
+                    <!-- <div class="d-flex align-items-center mb-4 topp">
+                      <div class="one">
+                        <span class="day">11</span>
+                      </div>
+                      <div class="two">
+                        <span class="yr">2020</span>
+                        <span class="mos">September</span>
+                      </div>
+                    </div> -->
+                    <h3 class="heading subheading" style="color: #f15d30 ;">{{obj.category_Name}}</h3>
+                    <p>{{obj.text}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+      </div>
+  </section>
+
+
+
     <section class=" img ftco-select-destination" style="background-image: url(assets/Home/images/bg_3.jpg);">
         <div class="container">
             <div class="row justify-content-center pb-4">
@@ -271,7 +310,6 @@
         </div>
     </section>
 
-
       <section class="ftco-section">
         <div class="container">
           <div class="row justify-content-center pb-4">
@@ -290,7 +328,7 @@
                   </a>
                   <!-- fallback template -->
                   <ng-template #fallback>
-                    <div class="img" [ngStyle]="{'background-image': 'url(../../assets/images/d56b3a7d-a020-4a7f-b670-c96c627071c4_chero12.jpeg)'}">
+                    <div class="img" [ngStyle]="{'background-image': 'url(../../assets/images/' + obj.image_Name + ')'}">
                       <span class="price">${{obj.trip_Price}}/Person</span>
                     </div>
                   </ng-template>
@@ -702,81 +740,7 @@
        
 <app-testimonial-element></app-testimonial-element>
 
-    <section class="ftco-section">
-        <div class="container">
-            <div class="row justify-content-center pb-4">
-                <div class="col-md-12 heading-section text-center ftco-animate">
-                    <span class="subheading">Our Blog</span>
-                    <h2 class="mb-4">Recent Post</h2>
-                </div>
-            </div>
-            <div class="row d-flex">
-                <div class="col-md-4 d-flex ftco-animate">
-                    <div class="blog-entry justify-content-end">
-                        <a href="blog-single.html" class="block-20"
-                            style="background-image: url('assets/Home/images/image_1.jpg');">
-                        </a>
-                        <div class="text">
-                            <div class="d-flex align-items-center mb-4 topp">
-                                <div class="one">
-                                    <span class="day">11</span>
-                                </div>
-                                <div class="two">
-                                    <span class="yr">2020</span>
-                                    <span class="mos">September</span>
-                                </div>
-                            </div>
-                            <h3 class="heading"><a href="#">Most Popular Place In This World</a></h3>
-                            <!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p> -->
-                            <p><a href="#" class="btn btn-primary">Read more</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 d-flex ftco-animate">
-                    <div class="blog-entry justify-content-end">
-                        <a href="blog-single.html" class="block-20"
-                            style="background-image: url('assets/Home/images/image_2.jpg');">
-                        </a>
-                        <div class="text">
-                            <div class="d-flex align-items-center mb-4 topp">
-                                <div class="one">
-                                    <span class="day">11</span>
-                                </div>
-                                <div class="two">
-                                    <span class="yr">2020</span>
-                                    <span class="mos">September</span>
-                                </div>
-                            </div>
-                            <h3 class="heading"><a href="#">Most Popular Place In This World</a></h3>
-                            <!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p> -->
-                            <p><a href="#" class="btn btn-primary">Read more</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 d-flex fadeIn ftco-animated">
-                    <div class="blog-entry">
-                        <a href="blog-single.html" class="block-20"
-                            style="background-image: url('assets/Home/images/image_3.jpg');">
-                        </a>
-                        <div class="text">
-                            <div class="d-flex align-items-center mb-4 topp">
-                                <div class="one">
-                                    <span class="day">11</span>
-                                </div>
-                                <div class="two">
-                                    <span class="yr">2020</span>
-                                    <span class="mos">September</span>
-                                </div>
-                            </div>
-                            <h3 class="heading"><a href="#">Most Popular Place In This World</a></h3>
-                            <!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p> -->
-                            <p><a href="#" class="btn btn-primary">Read more</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+   
 
     <section class="ftco-intro ftco-section ftco-no-pt">
         <div class="container">

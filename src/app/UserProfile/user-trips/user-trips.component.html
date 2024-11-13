@@ -20,6 +20,15 @@
 
 <div class="container rounded bg-white mt-4 mb-4 p-4">
 
+
+  <div *ngIf="this.home.reviewExists?.includes(false)">
+    <div class="global-alert alert alert-warning">
+      <span class="alert-message">You have a trip not reviewed. Please add your review.</span>
+    </div>
+  </div>
+
+
+
     <div class="card mb-4">
         <div class="card-body text-center">
             <img class="rounded-circle mb-3 mx-auto" width="100px"
@@ -36,26 +45,6 @@
     </div>
 
 
-    
-    <div *ngFor="let bookingId of bookingIds; let i = index">
-      <!-- <p>Booking ID: {{ bookingId }}</p>
-      <p>Review Exists: {{ reviewExists[i] }}</p>
-      <p>Review Message: {{ reviewMessages[i] }}</p> -->
-    
-      <div *ngIf="reviewExists[i]">
-        <p>{{ reviewMessages[i] }}</p>
-        <br>
-      </div>
-     
-      <div *ngIf="!reviewExists[i]">
-        <button (click)="openDialogReview()">Submit Review</button>
-        <p>{{ reviewMessages[i] }}</p>
-        <br>
-      </div>
-    </div>
-    
-    
-   
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">
             <h4>Your Trips Booking</h4>
@@ -74,6 +63,11 @@
                             </span>
                         </div>
                         <div>
+                          <div *ngFor="let bookingId of this.home.bookingIds; let i = index">
+                            <div *ngIf="!this.home.reviewExists[i]">
+                              <button *ngIf="booking.booking_Id === bookingId" class="btn btn-danger btn-sm mr-2" (click)="openDialogReview(booking)">Review</button>
+                            </div>
+                          </div>
                             <button *ngIf="booking.payment_Status.toLowerCase() === 'not paid'" class="btn btn-danger btn-sm mr-2"
                                 (click)="deleteBooking(booking.booking_Id)">
                                 Delete
@@ -136,6 +130,44 @@
           </div>
         </div>
       </ng-template>
+
+
+      <ng-template #callReviewFormDailog>
+        <div class="modal-body">
+          <h4 class="modal-title text-center">Review Form</h4>
+      
+          <form [formGroup]="Review" class="review-form">
+            <!-- Star Rating Section -->
+            <div class="star-rating">
+              <mat-label>RATE</mat-label>
+              <div class="stars">
+                <mat-icon
+                  *ngFor="let star of stars; let i = index"
+                  (click)="setRating(i + 1)"
+                  [ngClass]="{'filled-star': i < rating}"
+                  class="star-icon"
+                >
+                  star
+                </mat-icon>
+              </div>
+            </div>
+      
+            <!-- Feedback Input Field -->
+            <div class="example-container">
+              <mat-form-field appearance="outline" class="input-field">
+                <mat-label>FEEDBACK</mat-label>
+                <textarea matInput formControlName="feedback" rows="4" placeholder="Write your feedback here..."></textarea>
+              </mat-form-field>
+            </div>
+      
+            <!-- Save Button -->
+            <button class="btn btn-primary save-button" (click)="save()">Save</button>
+          </form>
+        </div>
+      </ng-template>
+      
+
+
 
     <div class="card mb-4">
         <div class="card-header bg-secondary text-white">

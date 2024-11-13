@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit , AfterViewInit {
     this.home.GetAcceptedTestimonies();
     this.home.GetSelectedHomeElement();
     this.home.getTopRatedTrips();
+    this.home.GetAllCategoryWithImageAndTrips();
 
   }
 
@@ -113,6 +114,9 @@ navigateToTripPage(tab: string) {
     }
   });
 }
+
+
+
 }
 
 

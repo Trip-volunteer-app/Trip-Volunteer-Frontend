@@ -15,7 +15,6 @@ import { PaymentComponent } from './payment/payment.component';
 import { TestimonalComponent } from './testimonal/testimonal.component';
 import { TestimonialElementComponent } from './testimonial-element/testimonial-element.component';
 import { ReviewComponent } from './admin/review/review.component';
-import { ReviewFormComponent } from './review-form/review-form.component';
 
 const routes: Routes = [
   {
@@ -65,10 +64,6 @@ const routes: Routes = [
   {
     path:"TestimonialElement",
     component:TestimonialElementComponent
-  },
-  {
-    path:"ReviewForm",
-    component:ReviewFormComponent
   }
 
 ];
