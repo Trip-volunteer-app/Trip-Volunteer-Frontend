@@ -44,18 +44,24 @@ export class NavbarComponent implements OnInit {
     const userId = Number(user?.loginid);
 
     if (userId !== null) {
-      this.home.getUserinfoByLoginIdForReview(userId).subscribe((userInfo: any) => {
-        if (userInfo.bookings && userInfo.bookings.length > 0) {
-          this.checkUnpaidBookings(userInfo.bookings);
-        } else {
-          console.error('No bookings found for user');
-        }
-      });
+      this.home.GetUserinfoByLoginId(userId);
     } else {
       console.error('Login ID is null');
     }
     }
 
+    // if (userId !== null) {
+    //   this.home.getUserinfoByLoginIdForReview(userId).subscribe((userInfo: any) => {
+    //     if (userInfo.bookings && userInfo.bookings.length > 0) {
+    //       this.checkUnpaidBookings(userInfo.bookings);
+    //     } else {
+    //       console.error('No bookings found for user');
+    //     }
+    //   });
+    // } else {
+    //   console.error('Login ID is null');
+    // }
+    // }
 
     hasUnpaidBookings:boolean =false
     private checkUnpaidBookings(bookings: any[]) {
