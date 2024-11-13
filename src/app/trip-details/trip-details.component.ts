@@ -346,6 +346,7 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
   selectedService: number[] = [];
   bookingreq: any;
   Booking() {
+    if (this.BookingTrip.valid) {
     Swal.fire({
       title: 'Are you sure?',
       text: 'Do you want to proceed with the booking?',
@@ -356,7 +357,6 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
       confirmButtonText: 'Yes, book it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        if (this.BookingTrip.valid) {
           // Check if there's an existing reservation or volunteer request
           if (this.home.BookingByTripId == null) {
             if (this.home.VolunteerByTripId == null) {
@@ -430,19 +430,22 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
               text: 'Please check your reservations.',
             });
           }
-        } else {
-          // Form validation failed
-          Swal.fire({
-            icon: 'warning',
-            title: 'Incomplete Form',
-            text: 'Please complete all required fields in the booking form.',
-          });
+        
         }
       }
+    );
+  } else {
+    // Form validation failed
+    Swal.fire({
+      icon: 'warning',
+      title: 'Incomplete Form',
+      text: 'Please complete all required fields in the booking form.',
     });
   }
+}
 
   volunteerBooking() {
+    if(this.volanteerForm.valid){
     Swal.fire({
       title: 'Are you sure?',
       text: 'Do you want to proceed with the booking?',
@@ -479,6 +482,8 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
                   // User confirmed to proceed with booking, override volunteer request
                   this.home.BookingVolunteer(this.volanteerForm.value);
                   this.dialogRef.close();
+                }else{
+                  this.dialogRef.close();
                 }
               });
             } else {
@@ -497,15 +502,17 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
               text: 'Please check your reservations.',
             });
           }
-        } else {
-          Swal.fire({
-            icon: 'warning',
-            title: 'Incomplete Form',
-            text: 'Please complete all required fields in the volunteer form.',
-          });
         }
       }
-    });
+    
+    }) }else {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Incomplete Form',
+        text: 'Please complete all required fields in the volunteer form.',
+      });
+    };
+  
   }
 
   goToTripDetails(tripId: number) {

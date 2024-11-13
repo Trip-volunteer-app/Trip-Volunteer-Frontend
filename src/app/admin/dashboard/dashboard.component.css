@@ -20427,3 +20427,39 @@ th:nth-child(2), td:nth-child(2) {
 .container-scroller{
   background-color: var(--admin-background-color);
 }
+.card {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card h5 {
+  font-size: 1.25rem;
+}
+
+#rateChart, #revenueChart1, #revenueChart2 {
+  border-radius: 8px;
+}
+/* Ensure the card height is consistent */
+.chart-card {
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart-card .card-body {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.chart-card canvas {
+  width: 100% !important;
+  height: 400px !important; /* Ensure same height for all charts */
+}
+.chart-container{
+  padding: 0px !important;
+}

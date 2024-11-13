@@ -1202,4 +1202,36 @@ export class AdminService {
         console.error('Error fetching selected element:', error);
       }
     }
+    totalUsersPerCategory: any ={}
+    async GetTotalUsersPerCategory(): Promise<void> {
+      try {
+        const res = await this.http.get(`https://localhost:7004/api/categories/GetTotalUsersPerCategory`).toPromise();
+        this.totalUsersPerCategory = res;
+        console.log('totalUsersPerCategory', this.totalUsersPerCategory);
+      } catch (error) {
+        console.error('Error fetching selected element:', error);
+      }
+    }
+
+    averageRatingPerCategory: any ={}
+    async GetAverageRatingPerCategory(): Promise<void> {
+      try {
+        const res = await this.http.get(`https://localhost:7004/api/categories/GetAverageRatingPerCategory`).toPromise();
+        this.averageRatingPerCategory = res;
+        console.log('averageRatingPerCategory', this.averageRatingPerCategory);
+      } catch (error) {
+        console.error('Error fetching selected element:', error);
+      }
+    }
+      netRevenuePerCategory: any ={}
+    async GetNetRevenuePerCategory(): Promise<void> {
+      try {
+        const res = await this.http.get(`https://localhost:7004/api/categories/GetNetRevenuePerCategory`).toPromise();
+        this.netRevenuePerCategory = res;
+        console.log('netRevenuePerCategory', this.netRevenuePerCategory);
+      } catch (error) {
+        console.error('Error fetching selected element:', error);
+      }
+    }
+
 }
