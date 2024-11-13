@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AdminService } from 'src/app/Services/admin.service';
 import { ChartOptions, ChartData, ChartType } from 'chart.js';
-import { Router } from '@angular/router';
 
 import { Chart } from 'chart.js';
 
@@ -24,7 +24,12 @@ export class DashboardComponent implements OnInit {
   constructor(public admin: AdminService, private router: Router) { }
 
   ngOnInit(): void {
+    this.admin.GetFiveUsersData();
+    this.admin.GetFiveContactU();
+    this.admin.GetSYSMonthlyRevenue();
     this.fetchDataAndRenderChart();
+
+
     this.admin.NumberOfRegisteredUsers().subscribe(
       (resp: number) => {
         this.NumberOfRegisteredUsers = resp;
@@ -83,8 +88,16 @@ export class DashboardComponent implements OnInit {
 
 
 
-
+    
   }
+
+
+  openUsersComponent(){
+    this.router.navigate(['admin/AllUsers']);
+  }
+
+
+  
   async fetchDataAndRenderChart() {
     await this.admin.GetTestimonyStatusCounts()
     const chartData = [this.admin.testemonyCounts[0].rejected_Count, this.admin.testemonyCounts[0].pending_Count, this.admin.testemonyCounts[0].accepted_Count];

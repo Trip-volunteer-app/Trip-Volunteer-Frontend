@@ -18,6 +18,7 @@
                           <tr>
                             <th style="color: black;"><b>First Name</b></th>
                             <th style="color: black;"><b>Last Name</b></th>
+                            <th style="color: black;"><b>EMAIL</b></th>
                             <th style="color: black;"><b>Image</b></th>
                             <th style="color: black;"><b>Addres</b></th>
                             <th style="color: black;"><b>Phone Number</b></th>
@@ -26,11 +27,12 @@
                           </tr>
                         </thead>
                         <tbody>
+
                           <tr *ngFor="let obj of admin.AllUsers">
                             <td>{{obj.first_Name}}</td>
                             <td>{{obj.last_Name}}</td>
-                            <td><img [src]="'../../../assets/images/' + obj.image_Path" alt="empty"></td>
-                            <!-- <td>{{obj.image_Path}}</td> -->
+                            <td>{{obj.email}}</td>
+                            <img class="img-xs rounded-circle"  [src]="obj.image_Path ? '../../../../assets/images/' + obj.image_Path : '../../../assets/default-profile.png'"  alt="image not found">                            
                             <td>{{obj.address}}</td>
                             <td>{{obj.phone_Number}}</td>
                             <td>{{obj.birth_Date | date}}</td>     

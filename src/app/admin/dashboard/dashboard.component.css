@@ -20411,3 +20411,16 @@ canvas {
   width: 100%;
   height: auto;
 }
+td img {
+  display: inline-block;
+  vertical-align: middle; /* Ensures the image aligns with the text */
+  margin-right: 5px; /* Adds some spacing between the image and text */
+}
+
+
+th, td {
+  padding: 10px;
+}
+th:nth-child(2), td:nth-child(2) {
+  width: auto; /* Adjust width of the "User" column */
+}
