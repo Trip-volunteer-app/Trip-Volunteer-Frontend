@@ -121,6 +121,55 @@
   </div>
 </section>
 
+
+
+
+
+
+
+
+<section class="ftco-section">
+  <div class="container">
+    <div class="row justify-content-center pb-4">
+      <div class="col-md-12 heading-section text-center ftco-animate">
+        <span class="subheading">Explore the Jordan of Tourism</span>
+        <h2 class="mb-4">Our Team</h2>
+      </div>
+    </div>
+
+    <!-- Include FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <div class="container">
+      <div class="row d-flex justify-content-center">
+        <!-- Card 1 -->
+        <div class="col-md-3 d-flex justify-content-center" *ngFor="let obj of home.AllTeam">
+          <div class="blog-entry card" style="width: 400px; height: 400px;">
+            <a href="blog-single.html" class="block-20" style="background-image: url('../../assets/default-profile.png'); height: 500px; background-size: cover;"></a>
+            <div class="text" style="height: 150px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+              <h3 class="heading subheading" style="color: #f15d30;">{{ obj.name }}</h3>
+              <p>{{ obj.position }}</p>
+              <div class="social-icons">
+                <!-- LinkedIn Link from Database -->
+                <a [href]="obj.linkedinlink" target="_blank" *ngIf="obj.linkedinlink">
+                  <i class="fab fa-linkedin" style="font-size: 20px; color: #0e76a8; margin-right: 10px;"></i>
+                </a>
+                <!-- GitHub Link from Database -->
+                <a [href]="obj.linkeningithub" target="_blank" *ngIf="obj.linkeningithub">
+                  <i class="fab fa-github" style="font-size: 20px; color: #333;"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
 <section class="ftco-intro ftco-section ftco-no-pt">
   <div class="container">
     <div class="row justify-content-center">

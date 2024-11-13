@@ -28,19 +28,17 @@
                                                 <thead>
                                                     <tr>
                                                         <th style="color: black;"><b>Year</b></th>
-                                                        <th style="color: black;"><b>TOTAL COST</b></th>
                                                         <th style="color: black;"><b>TOTAL REVENUE</b></th>
+                                                        <th style="color: black;"><b>TOTAL COST</b></th>
                                                         <th style="color: black;"><b>NET REVENUE</b></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
                                                         <td>{{ selectedYear }}</td>
-                                                        <td>{{ admin.annualReport[0].total_Revenue | currency }}
-                                                        </td>
+                                                        <td>{{ admin.annualReport[0].total_Revenue | currency }}</td>
                                                         <td>{{ admin.annualReport[0].cost | currency }}</td>
-                                                        <td>{{ admin.annualReport[0].monthly_Revenue | currency }}
-                                                        </td>
+                                                        <td>{{ admin.annualReport[0].net_Revenue | currency }}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>

@@ -32,6 +32,8 @@ export class AdminService {
 
 
   CreateCategories(body: any) {
+
+    body.image= this.display_Image;
     this.http.post('https://localhost:7004/api/categories/CREATEcategories', body).subscribe((resp) => {
       console.log('the Categories created');
       Swal.fire({
@@ -1192,6 +1194,22 @@ export class AdminService {
       console.error('Error fetching selected element:', error);
     }
   }
+
+
+
+  display_Image :any ; 
+uploadAttachment(file:FormData){
+this.http.post('https://localhost:7004/api/categories/uploadImage',file).subscribe((resp:any)=>{
+  //object course table 
+
+  this.display_Image=resp.imagename;
+},err=>{
+  console.log('Error');
+  
+})
+}
+
+
     testemonyCounts: any ={}
     async GetTestimonyStatusCounts(): Promise<void> {
       try {
@@ -1202,4 +1220,5 @@ export class AdminService {
         console.error('Error fetching selected element:', error);
       }
     }
+
 }

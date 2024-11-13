@@ -17,12 +17,16 @@
                         <thead>
                           <tr>
                             <th style="color: black;"><b>Category Name</b></th>
+                            <!-- <th style="color: black;"><b>Images</b></th> -->
+                            <th style="color: black;"><b>Text</b></th>
                             <th style="color: black;"><b>Operations</b></th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr *ngFor="let obj of admin.Categories">
                             <td>{{ obj.category_Name }}</td>
+                            <!-- <td><img src="../../../assets/images/{{obj.images}}" width="100" height="100"></td> -->
+                            <td>{{ obj.text }}</td>
                             <td > 
                               <button class="btn btn-edit" (click)="openEditDailog(obj)" style="background-color: white;">
                                 <i class="bi bi-pencil-square" style="color: blue; font-size: 20px;" ></i>
@@ -56,6 +60,26 @@
               <input type="text" matInput formControlName="category_Name">
             </mat-form-field>
           </div>
+
+          <!-- <div class="example-container">
+            <mat-form-field>
+              <mat-label>Category images</mat-label>
+              <input type="text" matInput formControlName="img">
+              <input type="file" #file  formControleName="images" (change)="uploadImage(file.files)"> 
+
+            </mat-form-field>
+          </div> -->
+
+
+
+          <div class="example-container">
+            <mat-form-field>
+              <mat-label>Category text</mat-label>
+              <input type="text" matInput formControlName="text">
+            </mat-form-field>
+          </div>
+          
+
         </form>
       </mat-dialog-content>
       <mat-dialog-actions align="end">
@@ -83,6 +107,18 @@
             <mat-form-field>
               <mat-label>Category Name</mat-label>
               <input type="text" matInput formControlName="category_Name" [(ngModel)]="pData.category_Name">
+            </mat-form-field>
+          </div>  
+          <!-- <div class="example-container">
+            <mat-form-field>
+              <mat-label>Category images</mat-label>
+              <input type="text" matInput formControlName="images" [(ngModel)]="pData.images">
+            </mat-form-field>
+          </div>   -->
+          <div class="example-container">
+            <mat-form-field>
+              <mat-label>Category text</mat-label>
+              <input type="text" matInput formControlName="text" [(ngModel)]="pData.text">
             </mat-form-field>
           </div>     
         </form>
