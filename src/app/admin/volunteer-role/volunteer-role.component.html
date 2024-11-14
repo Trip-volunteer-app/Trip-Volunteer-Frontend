@@ -1,119 +1,102 @@
-<div class="container-scroller">
-      <app-header></app-header>
-      <div class="container-fluid page-body-wrapper">
-        <div class="main-panel">
-          <div class="content-wrapper">       
-            <div class="row">
-              <div class="col-lg-12 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title"  style="color: black;">Volunteer Role Table</h4>
-                    <button mat-button (click)="openCreateDialog()" style="color:rgb(0,193,83) ; font-size: 30px !important; margin-left: 880px;">
-                      <i class="bi bi-plus-circle-fill fs-1"></i>
-                    </button>
+<div class="adminStyles">
+  <div class="container-scroller">
+    <app-header></app-header>
+    <div class="container-fluid page-body-wrapper">
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title" style="color: black;">Volunteer Role Table</h4>
+                  <button mat-button (click)="openCreateDialog()"
+                    style="color:rgb(0,193,83) ; font-size: 30px !important; margin-left: 880px;">
+                    <i class="bi bi-plus-circle-fill fs-1"></i>
+                  </button>
 
-                    <!-- <button (click)="openCreateDialog()" style="background-color: rgb(100, 250, 100);">Add Volunteer Role</button> -->
-                    <br><br>                 
-                    <div class="table-responsive">
-                      <table class="table table-light" style="background-color: white;">
-                        <thead>
-                          <tr>
-                            <th  style="color: black;"><b>Volunteer Role Name</b></th>
-                            <th  style="color: black;"><b>Operations</b></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let obj of admin.VolunteerRole">
-                            <td> {{obj.role_Name}} </td>
-                            <td> 
+                  <!-- <button (click)="openCreateDialog()" style="background-color: rgb(100, 250, 100);">Add Volunteer Role</button> -->
+                  <br><br>
+                  <div class="table-responsive">
+                    <table class="table table-light" style="background-color: white;">
+                      <thead>
+                        <tr>
+                          <th style="color: black;"><b>Volunteer Role Name</b></th>
+                          <th style="color: black;"><b>Operations</b></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let obj of admin.VolunteerRole">
+                          <td> {{obj.role_Name}} </td>
+                          <td>
 
-                              <button mat-button color="primary"
-                              (click)="openEditDailog(obj)" class="action-button"
-                              matTooltip="update volunteer role"
-                              style="color: rgb(92, 92, 245) !important;"><i
-                                  class="bi bi-pencil-square"></i>
-                                </button>
-                              <button mat-button
-                                  (click)="openDeleteDialog(obj.volunteer_Role_Id)"
-                                  matTooltip="Delete this volunteer role" class="action-button"
-                                  style="color: rgb(247, 88, 88) !important;"><i
-                                      class="bi bi-trash-fill"></i>
-                              </button>
+                            <button mat-button color="primary" (click)="openEditDailog(obj)" class="action-button"
+                              matTooltip="update volunteer role" style="color: rgb(92, 92, 245) !important;"><i
+                                class="bi bi-pencil-square"></i>
+                            </button>
+                            <button mat-button (click)="openDeleteDialog(obj.volunteer_Role_Id)"
+                              matTooltip="Delete this volunteer role" class="action-button"
+                              style="color: rgb(247, 88, 88) !important;"><i class="bi bi-trash-fill"></i>
+                            </button>
 
 
-                                <!-- <button (click)="openEditDailog(obj)" style="background-color: rgb(92, 92, 245);">Edit</button>
+                            <!-- <button (click)="openEditDailog(obj)" style="background-color: rgb(92, 92, 245);">Edit</button>
                                 <button (click)="openDeleteDialog(obj.volunteer_Role_Id)" style="background-color: rgb(247, 88, 88);">Delete</button>  -->
-                            </td>                          
-                          </tr>                                                 
-                        </tbody>
-                      </table>
-                    </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
-              </div>          
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
-
-
-
-
-
-<!-- Create Volunteer Role -->
-<ng-template #callCreateDailog>
-<mat-dialog-content class="mat-typography" >
-  <h1>Create Volunteer Role</h1>
-  <form [formGroup]="VolunteerRole">
-    <div class="example-container">
-        <mat-form-field>
-          <mat-label>Volunteer Role Name</mat-label>
-          <input type="text" matInput  formControlName="role_Name">
-        </mat-form-field>
-      </div>    
-</form>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="save()">Create</button>
-</mat-dialog-actions>
-</ng-template>
-
-
-
-
-
-
-<!-- Delete Volunteer Role -->
-<ng-template #callDeleteDailog>
-    <h1 mat-dialog-title>Delete Course</h1>
-  <div mat-dialog-content>Are you sure you went to delete this item ?</div>
-  <div mat-dialog-actions>
-      <button mat-button mat-dialog-close="yes">Yes</button>
-    <button mat-button mat-dialog-close="no">No</button>
   </div>
-</ng-template>
-
-
-
-
-<!-- Edit Volunteer Role -->
-<ng-template #callEditDailog>
+  <!-- Create Volunteer Role -->
+  <ng-template #callCreateDailog>
+    <mat-dialog-content class="mat-typography">
+      <h1>Create Volunteer Role</h1>
+      <form [formGroup]="VolunteerRole">
+        <div class="example-container">
+          <mat-form-field>
+            <mat-label>Volunteer Role Name</mat-label>
+            <input type="text" matInput formControlName="role_Name">
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="save()">Create</button>
+    </mat-dialog-actions>
+  </ng-template>
+  <!-- Delete Volunteer Role -->
+  <ng-template #callDeleteDailog>
+    <h1 mat-dialog-title>Delete Course</h1>
+    <div mat-dialog-content>Are you sure you went to delete this item ?</div>
+    <div mat-dialog-actions>
+      <button mat-button mat-dialog-close="yes">Yes</button>
+      <button mat-button mat-dialog-close="no">No</button>
+    </div>
+  </ng-template>
+  <!-- Edit Volunteer Role -->
+  <ng-template #callEditDailog>
     <h2 mat-dialog-title>Update Volunteer Role</h2>
     <mat-dialog-content class="mat-typography">
-    <form [formGroup]="VolunteerRole2">
+      <form [formGroup]="VolunteerRole2">
         <div class="example-container">
-            <mat-form-field>
-              <mat-label>Volunteer Role Name</mat-label>
-              <input type="text" matInput  formControlName="role_Name" [(ngModel)]="pData.role_Name">
-            </mat-form-field>
-          </div>
-    </form>
+          <mat-form-field>
+            <mat-label>Volunteer Role Name</mat-label>
+            <input type="text" matInput formControlName="role_Name" [(ngModel)]="pData.role_Name">
+          </mat-form-field>
+        </div>
+      </form>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button mat-button mat-dialog-close>Cancel</button>
       <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="save2()">Save</button>
     </mat-dialog-actions>
   </ng-template>
+</div>

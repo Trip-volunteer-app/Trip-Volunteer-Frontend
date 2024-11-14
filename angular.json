@@ -45,6 +45,7 @@
               "src/assets/Home/css/owl.theme.default.min.css",
               "src/assets/Home/css/owl.carousel.min.css",
               "src/assets/Home/css/animate.css",
+              "src/assets/Admin/adminStyles.scss",
               "src/styles.css"
             ],
             "scripts": [

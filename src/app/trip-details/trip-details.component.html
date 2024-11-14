@@ -21,7 +21,7 @@
     <mat-dialog-content *ngIf="!isFutureTrip(home.tripDetails.start_Date)">
       <div class="alert-box">
         <p>
-          The trip has already passed.Search for other trip!
+          The trip has already passed .Please pick another trip!
         </p>
       </div>
     </mat-dialog-content>
@@ -211,7 +211,7 @@
           <mat-dialog-content *ngIf="!isSeatsAvailable()">
             <div class="alert-box">
               <p>
-                The trip seat full .Search for other trip!
+                Trip seats are full .Search for other trip!
               </p>
             </div>
           </mat-dialog-content>
@@ -220,15 +220,29 @@
             <h3 style="margin-top: 20px;">Booking Trip</h3>
             <div class="example-container" fxLayout="column" fxLayoutGap="20px">
               
-              <div fxLayout="row" fxLayoutGap="20px">
+              <div style="display: flex; flex-direction: row;" fxLayoutGap="20px">
+                <div style="display: flex; flex-direction: column;">
                 <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;">
                   <mat-label>Number of Reservations</mat-label>
                   <input type="number" matInput formControlName="numberOfUser" (change)="this.updateTotalAmount();" [readonly]="!isSeatsAvailable()">
+
+
                 </mat-form-field>
+                <span class="number-of-users" style="color: red; font-size: 12px;" *ngIf="BookingTrip.get('numberOfUser')?.errors?.['nonZero'] && BookingTrip.get('numberOfUser')?.touched">
+                  Number of users must be greater than zero.
+                </span>
+                </div>
   
                 <mat-form-field appearance="fill" style="width: 300px !important;">
                   <mat-label>Total Amount</mat-label>
-                  <input type="number" matInput formControlName="total_Amount" [(ngModel)]="total" readonly>
+                  <input
+                    type="number"
+                    matInput
+                    formControlName="total_Amount"
+                    [(ngModel)]="total"
+                    readonly
+                    style="color: #cccccc; border: none; cursor: not-allowed;"
+                  >
                 </mat-form-field>
               </div>
   

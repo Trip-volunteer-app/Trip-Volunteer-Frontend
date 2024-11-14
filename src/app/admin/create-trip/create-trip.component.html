@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<body>
+<div class="adminStyles">
   <div class="container-scroller">
 
     <app-header></app-header>
-    <!-- partial -->
     <div class="container-fluid page-body-wrapper">
-      <!-- partial:../../partials/_navbar.html -->
-
-      <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-
           <div class="custom-stepper">
             <mat-stepper #stepper>
               <mat-step [stepControl]="firstFormGroup">
@@ -45,7 +37,6 @@
                         </button>
                       </div>
 
-                      <!-- File input and image preview -->
                       <input type="file" #file formControlName="image_Name" (change)="uploadImage(file.files)" hidden>
                       <img *ngIf="ImagePreview" [src]="ImagePreview" class="image-preview" alt="Preview Image">
                       <button mat-stroked-button color="primary" (click)="file.click()" *ngIf="!ImagePreview">
@@ -248,21 +239,20 @@
                             </span>
                           </div>
                         </div>
-                  
+
                         <ng-template #noRolesSelected>
                           <p class="no-services-text">No roles selected.</p>
                         </ng-template>
                       </div>
                     </div>
                   </div>
-                  
+
                   <div class="stepper-buttons">
                     <button mat-button matStepperPrevious>Back</button>
                     <button mat-raised-button color="primary" matStepperNext>Next</button>
                   </div>
                 </form>
               </mat-step>
-
 
               <mat-step>
                 <ng-template matStepLabel>Location</ng-template>
@@ -302,12 +292,10 @@
                   <google-map height="400px" width="100%" [center]="center" [zoom]="zoom"
                     (mapClick)="addMarker($event)">
 
-                    <!-- Departure Marker -->
                     <map-marker *ngIf="markerPositions.departure" [position]="markerPositions.departure"
                       [label]="'Departure'" [title]="'Departure Location'">
                     </map-marker>
 
-                    <!-- Destination Marker -->
                     <map-marker *ngIf="markerPositions.destination" [position]="markerPositions.destination"
                       [label]="'Destination'" [title]="'Destination Location'">
                     </map-marker>
@@ -331,7 +319,6 @@
                 </div>
               </mat-step>
 
-
               <mat-step>
                 <ng-template matStepLabel>Done</ng-template>
                 <p>You are now done.Trip Created</p>
@@ -342,46 +329,35 @@
             </mat-stepper>
           </div>
           <div class="btn2">
-            <button mat-button (click)="back()" style="color: black; border-radius: 20px;">Back</button>
+            <button mat-button (click)="back()" class ="back-button">Back</button>
           </div>
           <div *ngFor="let entry of roleEntries">
             <p>Role ID: {{ entry.volunteer_Role_Id }}</p>
             <p>Number of Volunteers: {{ entry.number_Of_Volunteers }}</p>
           </div>
-
         </div>
       </div>
-      <!-- content-wrapper ends -->
-      <!-- partial:../../partials/_footer.html -->
-
-      <!-- partial -->
     </div>
-    <!-- main-panel ends -->
   </div>
-
-</body>
-
-</html>
-
-
-<ng-template #callNumberDialog>
-  <mat-dialog-content class="mat-typography">
-    <h3>Number of volunteers</h3>
-    <form [formGroup]="RolesNumberFormGroup" style="padding: 30px;">
-      <div>
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Number of volunteers</mat-label>
-          <input type="text" matInput placeholder="Title" formControlName="number_Of_Volunteers">
-          <mat-error
-            *ngIf="RolesFormGroup.get('number_Of_Volunteers')?.invalid && RolesFormGroup.get('number_Of_Volunteers')?.touched">
-            Please enter a positive number.
-          </mat-error>
-        </mat-form-field>
-      </div>
-    </form>
-  </mat-dialog-content>
-  <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button mat-dialog-close cdkFocusInitial (click)="save2()">Save</button>
-  </mat-dialog-actions>
-</ng-template>
+  <ng-template #callNumberDialog>
+    <mat-dialog-content class="mat-typography">
+      <h3>Number of volunteers</h3>
+      <form [formGroup]="RolesNumberFormGroup" style="padding: 30px;">
+        <div>
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Number of volunteers</mat-label>
+            <input type="text" matInput placeholder="Title" formControlName="number_Of_Volunteers">
+            <mat-error
+              *ngIf="RolesFormGroup.get('number_Of_Volunteers')?.invalid && RolesFormGroup.get('number_Of_Volunteers')?.touched">
+              Please enter a positive number.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button mat-dialog-close cdkFocusInitial (click)="save2()">Save</button>
+    </mat-dialog-actions>
+  </ng-template>
+</div>

@@ -39,7 +39,6 @@ export class CategoriesComponent implements OnInit {
 
 
   openDeleteDialog(id: number) {
-    //open ng-template (callDeleteDailog) 
     const dialogRef = this.dialog.open(this.DeleteDailog).afterClosed().subscribe((result) => {
       if (result != undefined) {
         if (result == 'yes')
@@ -60,7 +59,6 @@ export class CategoriesComponent implements OnInit {
   pData: any = {};
   openEditDailog(obj: any) {
     this.pData = obj;
-    console.log(this.pData);
     this.Category2.controls['category_Id'].setValue(this.pData.category_Id)
     this.dialog.open(this.EditDailog)
   }

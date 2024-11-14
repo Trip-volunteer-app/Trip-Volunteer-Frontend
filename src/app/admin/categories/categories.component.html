@@ -1,46 +1,42 @@
-    <div class="container-scroller">
-      <app-header></app-header>
-      <div class="container-fluid page-body-wrapper">
-        <div class="main-panel">
-          <div class="content-wrapper">
-            <div class="row">
-              <div class="col-lg-12 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title report-title" style="color: black;">Categories Table</h4>
-                    <button mat-button (click)="openCreateDialog()" style="color:rgb(0,193,83) ; font-size: 30px !important; margin-left: 880px;">
-                      <i class="bi bi-plus-circle-fill fs-1"></i>
-                    </button>
-                    <br><br>                 
-                    <div class="table-responsive">
-                      <table class="table custom-table">
-                        <thead>
-                          <tr>
-                            <th style="color: black;"><b>Category Name</b></th>
-                            <!-- <th style="color: black;"><b>Images</b></th> -->
-                            <th style="color: black;"><b>Text</b></th>
-                            <th style="color: black;"><b>Operations</b></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let obj of admin.Categories">
-                            <td>{{ obj.category_Name }}</td>
-                            <!-- <td><img src="../../../assets/images/{{obj.images}}" width="100" height="100"></td> -->
-                            <td>{{ obj.text }}</td>
-                            <td > 
-                              <button class="btn btn-edit" (click)="openEditDailog(obj)" style="background-color: white;">
-                                <i class="bi bi-pencil-square" style="color: blue; font-size: 20px;" ></i>
-                              </button>
-                              <button class="btn btn-delete" (click)="openDeleteDialog(obj.category_Id)" style="background-color: white;">
-                                <i class="bi bi-trash-fill" style="color: red; font-size: 20px;"></i>
-                              </button> 
-                            </td>                          
-                          </tr>                                                 
-                        </tbody>
-                      </table>
-                    </div>
-                    
+<div class="adminStyles">
+  <div class="container-scroller">
+    <app-header></app-header>
+    <div class="container-fluid page-body-wrapper">
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title report-title category-header">Categories Table</h4>
+                  <button mat-button (click)="openCreateDialog()">
+                    <i class="bi bi-plus-circle-fill fs-1 create-button"></i>
+                  </button>
+                  <br><br>
+                  <div class="table-responsive">
+                    <table class="table custom-table">
+                      <thead>
+                        <tr>
+                          <th class="t-header"><b>Category Name</b></th>
+                          <th class="t-header"><b>Operations</b></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let obj of admin.Categories">
+                          <td>{{ obj.category_Name }}</td>
+                          <td>
+                            <button class="btn btn-edit edit-button" (click)="openEditDailog(obj)">
+                              <i class="bi bi-pencil-square"></i>
+                            </button>
+                            <button class="btn btn-delete" (click)="openDeleteDialog(obj.category_Id)">
+                              <i class="bi bi-trash-fill trash-button"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
+
                 </div>
               </div>
             </div>
@@ -48,84 +44,52 @@
         </div>
       </div>
     </div>
+  </div>
+  <!-- Create Categories Dialog -->
+  <ng-template #callCreateDailog>
+    <mat-dialog-content class="mat-typography" #CreateCategories>
+      <h1>Create Categories</h1>
+      <form [formGroup]="Category">
+        <div class="example-container">
+          <mat-form-field>
+            <mat-label>Category Name</mat-label>
+            <input type="text" matInput formControlName="category_Name">
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="save()">Create</button>
+    </mat-dialog-actions>
+  </ng-template>
 
-    <!-- Create Categories Dialog -->
-    <ng-template #callCreateDailog>
-      <mat-dialog-content class="mat-typography" #CreateCategories>
-        <h1>Create Categories</h1>
-        <form [formGroup]="Category">
-          <div class="example-container">
-            <mat-form-field>
-              <mat-label>Category Name</mat-label>
-              <input type="text" matInput formControlName="category_Name">
-            </mat-form-field>
-          </div>
+  <!-- Delete Categories Dialog -->
+  <ng-template #callDeleteDailog>
+    <h1 mat-dialog-title>Delete Category</h1>
+    <div mat-dialog-content>Are you sure you want to delete this item?</div>
+    <div mat-dialog-actions>
+      <button mat-button mat-dialog-close="yes">Yes</button>
+      <button mat-button mat-dialog-close="no">No</button>
+    </div>
+  </ng-template>
 
-          <!-- <div class="example-container">
-            <mat-form-field>
-              <mat-label>Category images</mat-label>
-              <input type="text" matInput formControlName="img">
-              <input type="file" #file  formControleName="images" (change)="uploadImage(file.files)"> 
-
-            </mat-form-field>
-          </div> -->
-
-
-
-          <div class="example-container">
-            <mat-form-field>
-              <mat-label>Category text</mat-label>
-              <input type="text" matInput formControlName="text">
-            </mat-form-field>
-          </div>
-          
-
-        </form>
-      </mat-dialog-content>
-      <mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close>Cancel</button>
-        <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="save()">Create</button>
-      </mat-dialog-actions>
-    </ng-template>
-
-    <!-- Delete Categories Dialog -->
-    <ng-template #callDeleteDailog>
-      <h1 mat-dialog-title>Delete Category</h1>
-      <div mat-dialog-content>Are you sure you want to delete this item?</div>
-      <div mat-dialog-actions>
-        <button mat-button mat-dialog-close="yes">Yes</button>
-        <button mat-button mat-dialog-close="no">No</button>
-      </div>
-    </ng-template>
-
-    <!-- Edit Categories Dialog -->
-    <ng-template #callEditDailog>
-      <h2 mat-dialog-title>Update Category</h2>
-      <mat-dialog-content class="mat-typography">
-        <form [formGroup]="Category">
-          <div class="example-container">
-            <mat-form-field>
-              <mat-label>Category Name</mat-label>
-              <input type="text" matInput formControlName="category_Name" [(ngModel)]="pData.category_Name">
-            </mat-form-field>
-          </div>  
-          <!-- <div class="example-container">
-            <mat-form-field>
-              <mat-label>Category images</mat-label>
-              <input type="text" matInput formControlName="images" [(ngModel)]="pData.images">
-            </mat-form-field>
-          </div>   -->
-          <div class="example-container">
-            <mat-form-field>
-              <mat-label>Category text</mat-label>
-              <input type="text" matInput formControlName="text" [(ngModel)]="pData.text">
-            </mat-form-field>
-          </div>     
-        </form>
-      </mat-dialog-content>
-      <mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close>Cancel</button>
-        <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="save2()">Save</button>
-      </mat-dialog-actions>
-    </ng-template>
-
+  <!-- Edit Categories Dialog -->
+  <ng-template #callEditDailog>
+    <h2 mat-dialog-title>Update Category</h2>
+    <mat-dialog-content class="mat-typography">
+      <form [formGroup]="Category">
+        <div class="example-container">
+          <mat-form-field>
+            <mat-label>Category Name</mat-label>
+            <input type="text" matInput formControlName="category_Name" [(ngModel)]="pData.category_Name">
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="save2()">Save</button>
+    </mat-dialog-actions>
+  </ng-template>
+</div>

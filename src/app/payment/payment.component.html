@@ -74,7 +74,12 @@
   <div class="payment-dialog">
   <form class="payment-form" [formGroup]="cardForm">
     <label for="total_amount">Total Amount</label>
-    <input type="number" formControlName="total_amount" [(ngModel)]="this.home.BookingPayment.total_Amount" readonly />
+    <input class="total-amount-inactive"
+      type="number"
+      formControlName="total_amount"
+      [(ngModel)]="this.home.BookingPayment.total_Amount"
+      readonly
+    />
     
     <label for="card-number">Card Number</label>
     <input type="text" formControlName="card_number"  maxlength="19" [(ngModel)]="this.pData.card_Number" readonly  />
@@ -89,7 +94,7 @@
     <input type="text"formControlName="cardholder_name" [(ngModel)]="this.pData.cardholder_Name" readonly  />
 
 <div mat-dialog-actions>
-  <button class="btn" mat-button mat-dialog-close="yes" (click)="onConfirm()">Payment Now!</button>
+  <button class="btn" mat-button mat-dialog-close="yes" (click)="onConfirm()">Pay Now!</button>
   <button class="btn2" mat-button mat-dialog-close="no" (click)="onCancel()">No</button>
 </div>
 

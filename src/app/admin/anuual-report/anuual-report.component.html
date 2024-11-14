@@ -1,85 +1,84 @@
-<div class="container-scroller">
-    <app-header></app-header>
-    <div class="container-fluid page-body-wrapper">
-        <div class="main-panel">
-            <div class="content-wrapper">
-                <div class="row">
-                    <div class="col-lg-12 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title report-title">Annual Report</h4>
-                                <br><br>
-                                <div class="table-responsive">
-
-                                    <div class="report-container">
-                                        <div class="dropdown-group">
-                                            <div class="dropdown">
-                                                <label for="yearDropdown">Select Year</label>
-                                                <select id="yearDropdown" [(ngModel)]="selectedYear"
-                                                    (ngModelChange)="onYearChange()">
-                                                    <option *ngFor="let year of years" [value]="year">{{ year }}
-                                                    </option>
-                                                </select>
+<div class="adminStyles">
+    <div class="container-scroller">
+        <app-header></app-header>
+        <div class="container-fluid page-body-wrapper">
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="row">
+                        <div class="col-lg-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title report-title" id="report-title">Annual Report</h4>
+                                    <br><br>
+                                    <div class="table-responsive">
+                                        <div class="report-container">
+                                            <div class="dropdown-group">
+                                                <div class="dropdown">
+                                                    <label for="yearDropdown">Select Year</label>
+                                                    <select id="yearDropdown" [(ngModel)]="selectedYear"
+                                                        (ngModelChange)="onYearChange()">
+                                                        <option *ngFor="let year of years" [value]="year">{{ year }}
+                                                        </option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="table-responsive"
-                                            *ngIf="admin.annualReport && admin.annualReport.length > 0 && hasNonZeroRevenue()">
-                                            <table class="table custom-table">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="color: black;"><b>Year</b></th>
-                                                        <th style="color: black;"><b>TOTAL REVENUE</b></th>
-                                                        <th style="color: black;"><b>TOTAL COST</b></th>
-                                                        <th style="color: black;"><b>NET REVENUE</b></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>{{ selectedYear }}</td>
-                                                        <td>{{ admin.annualReport[0].total_Revenue | currency }}</td>
-                                                        <td>{{ admin.annualReport[0].cost | currency }}</td>
-                                                        <td>{{ admin.annualReport[0].net_Revenue | currency }}</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                        <div class="chart-container"
-                                            *ngIf="admin.annualReport && admin.annualReport.length > 0 && hasNonZeroRevenue(); else noData">
-
-                                            <div id="chart" *ngIf="admin.annualReport[0].total_revenue !== 0">
-                                                <canvas baseChart [datasets]="barChartData.datasets"
-                                                    [labels]="barChartLabels" [options]="barChartOptions"
-                                                    [legend]="barChartLegend"></canvas>
+                                            <div class="table-responsive"
+                                                *ngIf="admin.annualReport && admin.annualReport.length > 0 && hasNonZeroRevenue()">
+                                                <table class="table custom-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="t-header"><b>Year</b></th>
+                                                            <th class="t-header"><b>TOTAL COST</b></th>
+                                                            <th class="t-header"><b>TOTAL REVENUE</b></th>
+                                                            <th class="t-header"><b>NET REVENUE</b></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>{{ selectedYear }}</td>
+                                                            <td>{{ admin.annualReport[0].total_Revenue | currency }}
+                                                            </td>
+                                                            <td>{{ admin.annualReport[0].cost | currency }}</td>
+                                                            <td>{{ admin.annualReport[0].monthly_Revenue | currency }}
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
+                                            <div class="chart-container"
+                                                *ngIf="admin.annualReport && admin.annualReport.length > 0 && hasNonZeroRevenue(); else noData">
 
-                                        </div>
-
-                                        <ng-template #noData>
-                                            <p class="no-data">No data available for the selected year.
-                                            </p>
-                                        </ng-template>
-
-                                        <div class="chart-container" id="MonthlyRevenueChart"
-                                            *ngIf="admin.annualReport && admin.annualReport.length > 0 && hasNonZeroRevenue()">
-                                            <canvas baseChart [datasets]="MonthlyRevenueChartData.datasets"
-                                                [labels]="MonthlyRevenueChartData.labels"
-                                                [options]="MonthlyRevenueChartOptions" [legend]="true"
-                                                [type]="'line'"></canvas>
-                                        </div>
-                                        <div class="pdf-buttons"
-                                        *ngIf="admin.annualReport && admin.annualReport.length > 0 && hasNonZeroRevenue()">
-                                            <button class="btn-download btn-download-pdf"
-                                                (click)="generatePDF()">Download PDF</button>
-                                            <button class="btn-download btn-download-excel"
-                                                (click)="exportToExcel()">Download
-                                                Excel</button>
+                                                <div id="chart" *ngIf="admin.annualReport[0].total_revenue !== 0">
+                                                    <canvas baseChart [datasets]="barChartData.datasets"
+                                                        [labels]="barChartLabels" [options]="barChartOptions"
+                                                        [legend]="barChartLegend"></canvas>
+                                                </div>
+                                            </div>
+                                            <ng-template #noData>
+                                                <p class="no-data">No data available for the selected year.
+                                                </p>
+                                            </ng-template>
+                                            <div class="chart-container" id="MonthlyRevenueChart"
+                                                *ngIf="admin.annualReport && admin.annualReport.length > 0 && hasNonZeroRevenue()">
+                                                <canvas baseChart [datasets]="MonthlyRevenueChartData.datasets"
+                                                    [labels]="MonthlyRevenueChartData.labels"
+                                                    [options]="MonthlyRevenueChartOptions" [legend]="true"
+                                                    [type]="'line'"></canvas>
+                                            </div>
+                                            <div class="pdf-buttons"
+                                                *ngIf="admin.annualReport && admin.annualReport.length > 0 && hasNonZeroRevenue()">
+                                                <button class="btn-download btn-download-pdf"
+                                                    (click)="generatePDF()">Download PDF</button>
+                                                <button class="btn-download btn-download-excel"
+                                                    (click)="exportToExcel()">Download
+                                                    Excel</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <br>
                         </div>
-                        <br>
                     </div>
                 </div>
             </div>

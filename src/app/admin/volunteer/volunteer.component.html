@@ -1,185 +1,178 @@
-   <div class="container-scroller">
-      <app-header></app-header>
-      <div class="container-fluid page-body-wrapper">
-        <div class="main-panel">
-          <div class="content-wrapper">
-            <div class="row">
-              <div class="col-lg-12 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title" style="color: black;">Volunteer Table</h4>
-                    <br><br>                 
-                   
-                    <div class="table-responsive">
-                      <div class="row no-gutters">
-                       
-                            <input type="text" class="form-control" placeholder="First Name" [(ngModel)]="first_Name" hidden>
-                            <input type="text" class="form-control" placeholder="Last Name" [(ngModel)]="last_Name" hidden>
-                          
-                      
-                        <div >
-                          <div class="form-group m-0">
-                            <div class="input-group">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="bi bi-search"></i></span> <!-- Search icon -->
-                              </div>
-                              <input type="text" class="form-control" placeholder="Trip Name" [(ngModel)]="trip_Name" style="margin-right: 30px;">
+<div class="adminStyles">
+  <div class="container-scroller">
+    <app-header></app-header>
+    <div class="container-fluid page-body-wrapper">
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title" style="color: black;">Volunteer Table</h4>
+                  <br><br>
+                  <div class="table-responsive">
+                    <div class="row no-gutters">
+                      <input type="text" class="form-control" placeholder="First Name" [(ngModel)]="first_Name" hidden>
+                      <input type="text" class="form-control" placeholder="Last Name" [(ngModel)]="last_Name" hidden>
+                      <div>
+                        <div class="form-group m-0">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="bi bi-search"></i></span> <!-- Search icon -->
                             </div>
+                            <input type="text" class="form-control" placeholder="Trip Name" [(ngModel)]="trip_Name"
+                              style="margin-right: 30px;">
                           </div>
                         </div>
-                      
-                        <div >
-                          <div class="form-group m-0">
-                            <div class="input-group">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="bi bi-search"></i></span> <!-- Search icon -->
-                              </div>
-                              <input type="text" class="form-control" placeholder="Volunteer Role" [(ngModel)]="role_Name" >
-                            </div>
-                          </div>
-                        </div>
-
                       </div>
-                      
-                      <br><br>
 
-                      <table class="table table-light" style="background-color: white;">
-                        <thead>
-                          <tr>
-                            <th class="description-col"  style=" color: black;"> <b>Trip Name</b> </th>
-                            <th style=" color: black;"> <b>Volunteer Role</b> </th>
-                            <th class="description-col"style=" color: black;"> <b>Email</b> </th>
-                            <th style=" color: black;"> <b>Phone Number</b> </th>
-                            <th style=" color: black;"> <b>Emergency Contact </b></th>
-                            <th class="description-col" style=" color: black;"> <b>Experience</b> </th>
-                            <th class="description-col" style=" color: black;"> <b>Notes</b> </th>
-                            <th style=" color: black;"> <b>Date Applied</b> </th>
-                            <th style=" color: black;"> <b>Status</b> </th>
-                            <th style=" color: black;"> <b>Operations</b> </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let obj of admin.Volunteer | tripVolunteerFilter : first_Name: last_Name : trip_Name: role_Name">
-                                <th class="description-col" matTooltip="{{ obj.trip_Name }}"> {{obj.trip_Name}}</th>
-                                <th> {{obj.role_Name}}</th>
-                                <th class="description-col" matTooltip="{{ obj.email }}"> {{obj.email}} </th>
-                                <th> {{obj.phone_Number}} </th>
-                                <th> {{obj.emergency_Contact}} </th>
-                                <th class="description-col" matTooltip="{{ obj.experience }}"> {{obj.experience}} </th>
-                                <th class="description-col" matTooltip="{{ obj.notes }}"> {{obj.notes}}</th>
-                                <th> {{obj.date_Applied |date}}</th>
-                                <th> {{obj.status}}</th>
-                                <td> 
+                      <div>
+                        <div class="form-group m-0">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="bi bi-search"></i></span> <!-- Search icon -->
+                            </div>
+                            <input type="text" class="form-control" placeholder="Volunteer Role"
+                              [(ngModel)]="role_Name">
+                          </div>
+                        </div>
+                      </div>
 
-                                  <button mat-button color="primary"
-                                  (click)="openEditDailog(obj)" class="action-button"
-                                    *ngIf="obj.status.toLowerCase() =='pending'"
-                                  matTooltip="update statues"
-                                  style="color: rgb(92, 92, 245) !important;"><i
-                                      class="bi bi-pencil-square"></i>
-                                    </button>
-                              <button mat-button
-                                  (click)="openDeleteDialog(obj.volunteer_Id)"
-                                  matTooltip="Delete this volunteer" class="action-button"
-                                  style="color: rgb(247, 88, 88) !important;"><i
-                                      class="bi bi-trash-fill"></i>
-                              </button>
-
-
-                                    <!-- <button (click)="openDeleteDialog(obj.volunteer_Id)" style="background-color: rgb(247, 88, 88);">Delete</button> 
-                                    <button (click)="openEditDailog(obj)" style="background-color: rgb(247, 88, 88);">Edit States</button>  -->
-                                </td>  
-                          </tr>                                                 
-                        </tbody>
-                      </table>
                     </div>
+
+                    <br><br>
+
+                    <table class="table table-light" style="background-color: white;">
+                      <thead>
+                        <tr>
+                          <th class="description-col" style=" color: black;"> <b>Trip Name</b> </th>
+                          <th style=" color: black;"> <b>Volunteer Role</b> </th>
+                          <th class="description-col" style=" color: black;"> <b>Email</b> </th>
+                          <th style=" color: black;"> <b>Phone Number</b> </th>
+                          <th style=" color: black;"> <b>Emergency Contact </b></th>
+                          <th class="description-col" style=" color: black;"> <b>Experience</b> </th>
+                          <th class="description-col" style=" color: black;"> <b>Notes</b> </th>
+                          <th style=" color: black;"> <b>Date Applied</b> </th>
+                          <th style=" color: black;"> <b>Status</b> </th>
+                          <th style=" color: black;"> <b>Operations</b> </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="let obj of admin.Volunteer | tripVolunteerFilter : first_Name: last_Name : trip_Name: role_Name">
+                          <th class="description-col" matTooltip="{{ obj.trip_Name }}"> {{obj.trip_Name}}</th>
+                          <th> {{obj.role_Name}}</th>
+                          <th class="description-col" matTooltip="{{ obj.email }}"> {{obj.email}} </th>
+                          <th> {{obj.phone_Number}} </th>
+                          <th> {{obj.emergency_Contact}} </th>
+                          <th class="description-col" matTooltip="{{ obj.experience }}"> {{obj.experience}} </th>
+                          <th class="description-col" matTooltip="{{ obj.notes }}"> {{obj.notes}}</th>
+                          <th> {{obj.date_Applied |date}}</th>
+                          <th> {{obj.status}}</th>
+                          <td>
+
+                            <button mat-button color="primary" (click)="openEditDailog(obj)" class="action-button"
+                              *ngIf="obj.status.toLowerCase() =='pending'" matTooltip="update statues"
+                              style="color: rgb(92, 92, 245) !important;"><i class="bi bi-pencil-square"></i>
+                            </button>
+                            <button mat-button (click)="openDeleteDialog(obj.volunteer_Id)"
+                              matTooltip="Delete this volunteer" class="action-button"
+                              style="color: rgb(247, 88, 88) !important;"><i class="bi bi-trash-fill"></i>
+                            </button>
+
+
+                            <!-- <button (click)="openDeleteDialog(obj.volunteer_Id)" style="background-color: rgb(247, 88, 88);">Delete</button> 
+                                    <button (click)="openEditDailog(obj)" style="background-color: rgb(247, 88, 88);">Edit States</button>  -->
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
-              </div>      
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
-
-
-
-
-<!-- Delete Volunteer Role -->
-<ng-template #callDeleteDailog>
-    <h1 mat-dialog-title>Delete Volunteer</h1>
-  <div mat-dialog-content>Are you sure you went to delete this item ?</div>
-  <div mat-dialog-actions>
-      <button mat-button mat-dialog-close="yes">Yes</button>
-    <button mat-button mat-dialog-close="no">No</button>
   </div>
-</ng-template>
 
 
-<ng-template #callEditDailog>
-  <h2 mat-dialog-title>Update Volunteer</h2>
-  
-  <mat-dialog-content class="mat-typography">
-    <form [formGroup]="Volunteer">
-      
-      <div class="form-row">
-        <div class="container2">
-          <mat-form-field appearance="fill">
-            <mat-label>Phone Number</mat-label>
-            <input type="text" matInput formControlName="phone_Number" [ngModel]="pData.phone_Number" readonly>
-          </mat-form-field>
-        </div>
-        
-        <div class="container2">
-          <mat-form-field appearance="fill">
-            <mat-label>Email</mat-label>
-            <input type="text" matInput formControlName="email" [ngModel]="pData.email" readonly>
-          </mat-form-field>
-        </div>
-      </div>
-      
-      <div class="form-row">
-        <div class="container2">
-          <mat-form-field appearance="fill">
-            <mat-label>Experience</mat-label>
-            <input type="text" matInput formControlName="experience" [ngModel]="pData.experience" readonly>
-          </mat-form-field>
-        </div>
-        
-        <div class="container2">
-          <mat-form-field appearance="fill">
-            <mat-label>Notes</mat-label>
-            <input type="text" matInput formControlName="notes" [ngModel]="pData.notes" readonly>
-          </mat-form-field>
-        </div>
-      </div>
 
-      <div class="form-row">
-        <div class="container2">
-          <mat-form-field appearance="fill">
-            <mat-label>Date Applied</mat-label>
-            <input type="text" matInput formControlName="date_Applied" [ngModel]="pData.date_Applied" readonly>
-          </mat-form-field>
-        </div>
-        
-        <div class="container2">
-          <mat-form-field appearance="fill">
-            <mat-label>Status</mat-label>
-            <mat-select formControlName="status" [(ngModel)]="pData.status">
-              <mat-option *ngFor="let status of statusList" [value]="status">{{status}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-      
-    </form> 
 
-  </mat-dialog-content>
-  
-  <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="save2(pData.number_Of_Volunteers)">Save</button>
-  </mat-dialog-actions>
-</ng-template>
 
+  <!-- Delete Volunteer Role -->
+  <ng-template #callDeleteDailog>
+    <h1 mat-dialog-title>Delete Volunteer</h1>
+    <div mat-dialog-content>Are you sure you went to delete this item ?</div>
+    <div mat-dialog-actions>
+      <button mat-button mat-dialog-close="yes">Yes</button>
+      <button mat-button mat-dialog-close="no">No</button>
+    </div>
+  </ng-template>
+
+
+  <ng-template #callEditDailog>
+    <h2 mat-dialog-title>Update Volunteer</h2>
+
+    <mat-dialog-content class="mat-typography">
+      <form [formGroup]="Volunteer">
+
+        <div class="form-row">
+          <div class="container2">
+            <mat-form-field appearance="fill">
+              <mat-label>Phone Number</mat-label>
+              <input type="text" matInput formControlName="phone_Number" [ngModel]="pData.phone_Number" readonly>
+            </mat-form-field>
+          </div>
+
+          <div class="container2">
+            <mat-form-field appearance="fill">
+              <mat-label>Email</mat-label>
+              <input type="text" matInput formControlName="email" [ngModel]="pData.email" readonly>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="container2">
+            <mat-form-field appearance="fill">
+              <mat-label>Experience</mat-label>
+              <input type="text" matInput formControlName="experience" [ngModel]="pData.experience" readonly>
+            </mat-form-field>
+          </div>
+
+          <div class="container2">
+            <mat-form-field appearance="fill">
+              <mat-label>Notes</mat-label>
+              <input type="text" matInput formControlName="notes" [ngModel]="pData.notes" readonly>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="container2">
+            <mat-form-field appearance="fill">
+              <mat-label>Date Applied</mat-label>
+              <input type="text" matInput formControlName="date_Applied" [ngModel]="pData.date_Applied" readonly>
+            </mat-form-field>
+          </div>
+
+          <div class="container2">
+            <mat-form-field appearance="fill">
+              <mat-label>Status</mat-label>
+              <mat-select formControlName="status" [(ngModel)]="pData.status">
+                <mat-option *ngFor="let status of statusList" [value]="status">{{status}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button [mat-dialog-close]="true" cdkFocusInitial
+        (click)="save2(pData.number_Of_Volunteers)">Save</button>
+    </mat-dialog-actions>
+  </ng-template>
+</div>

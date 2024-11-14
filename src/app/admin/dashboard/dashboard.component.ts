@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/Services/admin.service';
 import { ChartOptions, ChartData, ChartType } from 'chart.js';
-
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Chart } from 'chart.js';
+
+
 
 
 @Component({
@@ -24,12 +26,18 @@ export class DashboardComponent implements OnInit {
   constructor(public admin: AdminService, private router: Router) { }
 
   ngOnInit(): void {
+    this.fetchDataAndRenderUserChart();
     this.admin.GetFiveUsersData();
     this.admin.GetFiveContactU();
     this.admin.GetSYSMonthlyRevenue();
+    this.admin.GetNetRevenuePerCategory();
+    this.admin.GetAverageRatingPerCategory();
+    this.fetchDataAndRenderChartNetRevenue();
     this.fetchDataAndRenderChart();
-
-
+    this.admin.GetTotalUsersPerCategory();
+    this.fetchDataAndRenderChart2();
+    this.fetchDataAndRenderChartaverageRatingPerCategory();
+    this.admin.CalculatePaidBookingPercentage();
     this.admin.NumberOfRegisteredUsers().subscribe(
       (resp: number) => {
         this.NumberOfRegisteredUsers = resp;
@@ -55,16 +63,7 @@ export class DashboardComponent implements OnInit {
         console.error('Error fetching the number of Trips:', err);
       }
     );
-
-
-
-
-
     console.log(this.admin.GetAllTripsWithMaxReservations());
-
-
-
-
     this.admin.TotalNumberOfVolunteer().subscribe(
       (resp: number) => {
         this.TotalNumberOfVolunteer = resp;
@@ -74,9 +73,6 @@ export class DashboardComponent implements OnInit {
       }
     );
 
-
-
-
     this.admin.TotalNumberOfBooking().subscribe(
       (resp: number) => {
         this.TotalNumberOfBooking = resp;
@@ -85,19 +81,14 @@ export class DashboardComponent implements OnInit {
         console.error('Error fetching the number of Payment:', err);
       }
     );
-
-
-
-    
   }
 
 
-  openUsersComponent(){
+  openUsersComponent() {
     this.router.navigate(['admin/AllUsers']);
   }
 
 
-  
   async fetchDataAndRenderChart() {
     await this.admin.GetTestimonyStatusCounts()
     const chartData = [this.admin.testemonyCounts[0].rejected_Count, this.admin.testemonyCounts[0].pending_Count, this.admin.testemonyCounts[0].accepted_Count];
@@ -140,8 +131,254 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  async fetchDataAndRenderChart2() {
+    await this.admin.GetTotalUsersPerCategory()
+    const chartData = this.admin.totalUsersPerCategory.map((item: any) => item.total_users || 0);
+    const labels = this.admin.totalUsersPerCategory.map((item: any) => item.category_Name || 'Unknown');
+    console.log('55555555555555555555', chartData)
+    this.renderChart2(chartData, labels);
+  }
+
+  renderChart2(chartData: number[], labels: string[]) {
+    new Chart('myChart', {
+      type: 'doughnut', // Change to 'pie' for a pie chart instead
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Number of Users',
+            data: chartData,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(255, 206, 86, 0.6)',
+              'rgba(75, 192, 192, 0.6)',
+              'rgba(153, 102, 255, 0.6)',
+              'rgba(255, 159, 64, 0.6)',
+              'rgba(199, 199, 199, 0.6)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(199, 199, 199, 1)'
+            ],
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: {
+              font: {
+                size: 10 // Adjust font size for the legend
+              },
+              boxWidth: 10 // Adjust the size of the colored box
+            }
+          },
+          // Only add data labels for this specific chart
+          datalabels: {
+            display: true, // Enable data labels only for this chart
+            color: '#000',
+            font: {
+              size: 12 // Adjust font size for the numbers on chart slices
+            },
+            formatter: (value) => value // Display the value on each chart slice
+          }
+        }
+      }
+    });
+  }
+
+  async fetchDataAndRenderChartaverageRatingPerCategory() {
+    await this.admin.GetAverageRatingPerCategory()
+    const chartData = this.admin.averageRatingPerCategory.map((item: any) => item.avg_category_rating || 0);
+    const labels = this.admin.averageRatingPerCategory.map((item: any) => {
+      const categoryName = item.category_Name || 'Unknown';
+      return categoryName.split(' ')[0]; // Take the first part before the space
+    });
+    console.log('444444444445555555555', chartData)
+    this.renderChartaverageRatingPerCategory(chartData, labels);
+  }
+
+  renderChartaverageRatingPerCategory(chartData: number[], labels: string[]) {
+    new Chart('rateChart', {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Rating',
+            data: chartData,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(255, 206, 86, 0.6)',
+              'rgba(75, 192, 192, 0.6)',
+              'rgba(153, 102, 255, 0.6)',
+              'rgba(255, 159, 64, 0.6)',
+              'rgba(199, 199, 199, 0.6)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(199, 199, 199, 1)'
+            ],
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top'
+          }
+        }
+      }
+    });
+  }
+
+
   onClick() {
     this.router.navigate(['/ManageTestimonial']);
   }
+  async fetchDataAndRenderChartNetRevenue() {
+    await this.admin.GetNetRevenuePerCategory();
+    const chartData = this.admin.netRevenuePerCategory.map((item: any) => item.net_revenue || 0);
+    const labels = this.admin.netRevenuePerCategory.map((item: any) => item.category_Name || 'Unknown');
+    console.log('revenuechart', chartData);
+    this.renderChartNetRevenue(chartData, labels);
+  }
 
+  renderChartNetRevenue(chartData: number[], labels: string[]) {
+    new Chart('revenueChart', {
+      type: 'pie',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Net Revenue',
+            data: chartData,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(255, 206, 86, 0.6)',
+              'rgba(75, 192, 192, 0.6)',
+              'rgba(153, 102, 255, 0.6)',
+              'rgba(255, 159, 64, 0.6)',
+              'rgba(199, 199, 199, 0.6)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(199, 199, 199, 1)'
+            ],
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: {
+              font: {
+                size: 10 // Adjust font size for the legend
+              },
+              boxWidth: 10 // Adjust the size of the colored box
+            }
+          },
+          // Only add data labels for this specific chart
+          datalabels: {
+            display: true, // Enable data labels only for this chart
+            color: '#000',
+            font: {
+              size: 12 // Adjust font size for the numbers on chart slices
+            },
+            formatter: (value) => value // Display the value on each chart slice
+          }
+        }
+      }
+    });
+  }
+  async fetchDataAndRenderUserChart() {
+    await this.admin.CalculatePaidBookingPercentage();
+    const chartData = [this.admin.PaidBookingPercentage.percentage, 100 - this.admin.PaidBookingPercentage.percentage
+    ];
+    const labels = ['Booked users', 'Unbooked Users'];
+    console.log('booking', chartData);
+    this.renderUserChart(chartData, labels);
+  }
+
+  renderUserChart(chartData: number[], labels: string[]) {
+    new Chart('bookingChart', {
+      type: 'pie',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Percent of booked users',
+            data: chartData,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(255, 206, 86, 0.6)',
+              'rgba(75, 192, 192, 0.6)',
+              'rgba(153, 102, 255, 0.6)',
+              'rgba(255, 159, 64, 0.6)',
+              'rgba(199, 199, 199, 0.6)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(199, 199, 199, 1)'
+            ],
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: {
+              font: {
+                size: 10
+              },
+              boxWidth: 10
+            }
+          },
+          datalabels: {
+            display: true,
+            color: '#000',
+            font: {
+              size: 12
+            },
+            formatter: (value) => value
+          }
+        }
+      }
+    });
+  }
 }

@@ -1,4 +1,4 @@
-import { Component,AfterViewInit,OnInit  } from '@angular/core';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/Services/admin.service';
 
@@ -9,25 +9,24 @@ import { AdminService } from 'src/app/Services/admin.service';
 })
 
 export class HeaderComponent implements OnInit {
-  
-  
+
+
   isCollapsed = false;
   isCollapse = false;
   isCollaps = false;
 
 
-  constructor(private router:Router,public admin:AdminService){}
+  constructor(private router: Router, public admin: AdminService) { }
 
   ngOnInit(): void {
     const userFromStorage = localStorage.getItem("user");
     const user = userFromStorage ? JSON.parse(userFromStorage) : null;
 
     const userId = Number(user.loginid);
-     this.admin.GetUserByLoginId(userId);
-    }
+    this.admin.GetUserByLoginId(userId);
+  }
 
-  userProfile():void
-  {
+  userProfile(): void {
     this.router.navigate(['userProfile']);
   }
 
@@ -38,23 +37,11 @@ export class HeaderComponent implements OnInit {
 
   toggleSidebar() {
     this.menu = !this.menu;
-}
+  }
 
-  logout(){
+  logout() {
     this.router.navigate(['security/login']);
     localStorage.clear();
 
   }
-
 }
-
-
-
-
-
-
-
-
-
-
-
