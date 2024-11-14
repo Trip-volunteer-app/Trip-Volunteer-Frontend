@@ -1,16 +1,13 @@
-/* General Styles */
 body {
   font-family: Arial, sans-serif;
   color: black;
 }
 
-/* Card Title */
 .report-title {
   color: black;
   font-weight: bold;
 }
 
-/* Button Styles */
 .btn {
   padding: 10px 15px;
   border: none;
@@ -18,7 +15,6 @@ body {
   cursor: pointer;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .btn {
     padding: 8px 10px;
@@ -36,7 +32,6 @@ body {
   }
 }
 
-/* Change text color to white and background to red on hover */
 .table-hover tbody tr:hover {
   background-color: #f1f4f5 !important;
   color: black;
@@ -50,12 +45,10 @@ body {
 
 container2 {
   flex: 1;
-  /* Distribute space equally among containers */
 }
 
 mat-form-field {
   width: 100%;
-  /* Ensure fields take up full width of their containers */
 }
 
 .description-col {
@@ -67,20 +60,31 @@ mat-form-field {
 input.form-control {
   max-width: 300px;
   width: 100%;
-  /* Ensures inputs take full available space within their container */
   padding-left: 30px;
-  /* Adds padding to the left side to make space for the icon */
   padding: 8px;
-  /* Optional: Adjust padding inside input fields */
   border: 2px solid #000;
-  /* Bold border for the input field */
   transition: box-shadow 0.3s ease;
-  /* Smooth transition for the shadow */
 }
 
 input.form-control:focus {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  /* Adds shadow on focus */
   border-color: #f15d30;
-  /* Optional: Change border color on focus */
 }
+
+.page-body-wrapper{
+  background-color: #2E2E2E;
+}
+
+
+
+th, td {
+  color: black;
+}
+
+.description-col {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+

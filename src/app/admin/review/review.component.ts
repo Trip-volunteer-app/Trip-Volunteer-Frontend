@@ -23,13 +23,11 @@ export class ReviewComponent implements OnInit{
 
 
   openDeleteDialog(id:number){
-    //open ng-template (callDeleteDailog) 
   const dialogRef=  this.dialog.open(this.DeleteDailog).afterClosed().subscribe((result)=>{
     if(result!=undefined){
       if(result=='yes')
         this.admin.DeleteReview(id);
-      else if(result=='no')
-        console.log('Thank you ');
+      
         
     }
   })

@@ -1,16 +1,13 @@
-/* General Styles */
 body {
   font-family: Arial, sans-serif;
   color: black;
 }
 
-/* Card Title */
 .report-title {
   color: black;
   font-weight: bold;
 }
 
-/* Button Styles */
 .btn {
   padding: 10px 15px;
   border: none;
@@ -22,9 +19,7 @@ body {
   background-color: #3fd33f;
   color: white;
   float: right;
-  /* Align button to the right */
   margin-bottom: 15px;
-  /* Add some space below the button */
   margin-right: 70px;
 }
 
@@ -38,7 +33,6 @@ body {
   color: white;
 }
 
-/* Custom Table Styles */
 .custom-table {
   background-color: white;
   color: black;
@@ -46,7 +40,6 @@ body {
   border-collapse: collapse;
 }
 
-/* Dark Table Header */
 .custom-table thead {
   color: white;
 }
@@ -57,7 +50,6 @@ body {
   border-bottom: 2px solid #444;
 }
 
-/* Table Body Styling */
 .custom-table tbody tr {
   border-bottom: 1px solid #ddd;
 }
@@ -67,27 +59,21 @@ body {
   text-align: left;
 }
 
-/* Table Row Hover Effect */
 .custom-table tbody tr:hover {
   background-color: #f1f1f1;
 }
 
-/* Mat-Form Field Styling */
 .example-container mat-form-field {
   width: 100%;
 }
 
 .trip-image {
   width: 200px;
-  /* Adjust this to make the image larger */
   height: 200px;
-  /* Ensure the height and width are the same for a square shape */
   object-fit: cover;
-  /* Ensures the image covers the entire area without distortion */
 }
 
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .btn {
     padding: 8px 10px;
@@ -104,3 +90,31 @@ body {
     margin-bottom: 10px;
   }
 }
+
+
+
+th, td {
+  color: black;
+}
+
+.description-col {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.trash{
+  color: rgb(247, 88, 88) !important;}
+  
+  .pencil{
+  color: rgb(92, 92, 245) !important;
+  }
+.person{
+  color: rgb(92, 245, 120) !important;}
+
+  .plus{
+    color: rgb(0,193,83) !important; 
+    font-size: 30px !important;
+    margin-left: 900px;
+  }

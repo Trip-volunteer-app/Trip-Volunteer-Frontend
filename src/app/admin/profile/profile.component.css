@@ -183,3 +183,13 @@ input.form-control:focus {
 .btn-custom-primary:hover {
   background-color: #d54e27;
 }
+
+
+.passButton{
+  border-color: #f15d30; 
+  color: #f15d30;
+}
+
+.container-scroller{
+  background-color: #F9F9F9;
+}
