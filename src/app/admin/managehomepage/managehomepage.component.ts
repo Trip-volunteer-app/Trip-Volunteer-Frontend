@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./managehomepage.component.css']
 })
 export class ManagehomepageComponent implements OnInit {
-  selectedElementId: number | null = null; // Initialize selected element ID
+  selectedElementId: number | null = null;
   heroImagePreview: string | ArrayBuffer | null | undefined = null;
   logoImagePreview: string | ArrayBuffer | null | undefined = null;
 
@@ -29,9 +29,7 @@ export class ManagehomepageComponent implements OnInit {
     await this.home.GetSelectedHomeElement();
     if (this.home.selectedHome) {
       this.selectedElementId = this.home.selectedHome.home_Page_Id;
-      console.log(this.selectedElementId);
     } else {
-      console.error('No selected element found');
     }
   }
 
@@ -52,14 +50,11 @@ export class ManagehomepageComponent implements OnInit {
   }
 
   openDeleteDialog(id: number) {
-    console.log(id);
     const dailogRef = this.dialog.open(this.deleteDialog).afterClosed().subscribe((res) => {
       if (res != undefined) {
-        console.log(res)
         if (res == 'yes')
           this.home.DeleteHomePageElements(id);
-      } else if (res == 'no')
-        console.log('Thank you');
+      }
     }
     );
   }
@@ -83,7 +78,6 @@ export class ManagehomepageComponent implements OnInit {
     this.pData = obj;
     this.home.imageStorage['hero_Image'] = this.pData.hero_Image;
     this.home.imageStorage['logo_Image'] = this.pData.logo_Image;
-    console.log(this.pData);
     this.UpdateHomeElements.controls['home_Page_Id'].setValue(this.pData.home_Page_Id)
     this.dialog.open(this.updateDialog)
   }
@@ -93,7 +87,7 @@ export class ManagehomepageComponent implements OnInit {
       title: 'Are you sure?',
       text: 'Do you want to proceed with the Update?',
       icon: 'warning',
-      showCancelButton: true,  // Adds a cancel button for confirmation
+      showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, update'
@@ -105,7 +99,6 @@ export class ManagehomepageComponent implements OnInit {
   }
 
   uploadImage(file: any, apiPath: string, imageNum: string) {
-    console.log(file.length === 0);
     if (file.length === 0) return;
     let fileToUpload = <File>file[0];
     const formData = new FormData();
@@ -139,12 +132,12 @@ export class ManagehomepageComponent implements OnInit {
     const control = this.CreateHomeElements.get('hero_Image');
     control?.reset();
     control?.markAsTouched();
-}
+  }
 
-clearLogoImage(): void {
+  clearLogoImage(): void {
     this.logoImagePreview = null;
     const control = this.CreateHomeElements.get('logo_Image');
     control?.reset();
     control?.markAsTouched();
-}
+  }
 }

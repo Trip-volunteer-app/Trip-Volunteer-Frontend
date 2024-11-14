@@ -173,3 +173,89 @@
   background: #f0f0f0;
   z-index: 11;
 }
+
+.edit-button {
+  background-color: #f0f0f0;
+  border: none;
+}
+
+.i-update-button {
+  color: blue;
+  border: none;
+  font-size: 20px;
+}
+
+.delete-button {
+  background-color: #f0f0f0;
+  border: none;
+}
+
+.i-delete-button {
+  color: red;
+  border: none;
+  font-size: 20px;
+}
+
+.th-actions-tab {
+  position: sticky;
+  right: 0;
+  top: 0;
+  background: #f0f0f0;
+}
+
+.about-id-td {
+  position: sticky;
+  left: 0;
+  background: #f0f0f0;
+  z-index: 10;
+}
+
+.about-page-td {
+  position: sticky;
+  left: 33px;
+  background: #f0f0f0;
+  z-index: 10;
+}
+
+.actions2 {
+  position: sticky;
+  right: 0;
+  background: #f0f0f0;
+}
+
+.td2-dialog{
+  position: sticky; right: 0; background: #f0f0f0;
+}
+.edit-button {
+  background-color: white;
+  border: none;
+}
+
+.i-edit {
+  color: blue;
+  border: none;
+  font-size: 20px;
+}
+
+.delete-button {
+  background-color: white;
+  border: none;
+}
+
+.i-delete {
+  color: red;
+  border: none;
+  font-size: 20px;
+}
+
+.form-group-about {
+  padding: 30px;
+}
+
+.form-row{
+  margin-left: 40px;
+}
+
+.labet-about{
+  display: block;
+}

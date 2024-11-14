@@ -15,7 +15,6 @@ export class ManageaboutComponent implements OnInit {
   @ViewChild('callCreateDailog') createDialog !: TemplateRef<any>;
   @ViewChild('callUpdateDailog') updateDialog !: TemplateRef<any>;
 
-  // Define tab views
   tabViews = [
     { label: 'Images', columns: ['hero_image', 'image1', 'image2', 'image3', 'image4', 'image5', 'image6'] },
     { label: 'Content', columns: ['title', 'header', 'text1'] },
@@ -90,7 +89,7 @@ export class ManageaboutComponent implements OnInit {
   }
 
   onElementSelect(id: number) {
-    this.selectedElementId = id; // Update the selected element ID
+    this.selectedElementId = id;
     this.about.UpdateSelectedAboutus(id);
   }
 

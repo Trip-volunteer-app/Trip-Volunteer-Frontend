@@ -9,7 +9,7 @@ import { ContactusService } from 'src/app/Services/contactus.service';
   styleUrls: ['./managecontact.component.css']
 })
 export class ManagecontactComponent implements OnInit {
-  selectedElementId: number | null = null; // Initialize selected element ID
+  selectedElementId: number | null = null;
 
   @ViewChild('callDeleteDialog') deleteDialog !: TemplateRef<any>;
   @ViewChild('callCreateDailog') createDialog !: TemplateRef<any>;
@@ -26,9 +26,6 @@ export class ManagecontactComponent implements OnInit {
     await this.contact.GetSelectedElement(); 
     if (this.contact.selectedContactElements) {
       this.selectedElementId = this.contact.selectedContactElements.contactus_Elements_Id;
-      console.log(this.selectedElementId);
-    } else {
-      console.error('No selected element found');
     }
   }
 
@@ -44,19 +41,14 @@ export class ManagecontactComponent implements OnInit {
 
   save() {
     this.contact.createContactUsElements(this.CreateContact.value)
-    console.log(this.CreateContact.value);
   }
   
   openDeleteDialog(id: number) {
-    console.log(id);
     const dailogRef = this.dialog.open(this.deleteDialog).afterClosed().subscribe((res) => {
       if (res != undefined) {
-        console.log(res)
         if (res == 'yes')
           this.contact.deleteContactUsElements(id);
-      } else if (res == 'no')
-        console.log('Thank you');
-    }
+      }}
     );
   }
 
@@ -77,7 +69,6 @@ export class ManagecontactComponent implements OnInit {
     this.pData = obj;
     this.contact.imageStorage['image1']=this.pData.image1;
     this.contact.imageStorage['hero_Img']=this.pData.hero_Img;
-    console.log(this.pData);
     this.UpdateContact.controls['contactus_Elements_Id'].setValue(this.pData.contactus_Elements_Id)
     this.dialog.open(this.updateDialog)
   }
@@ -87,7 +78,6 @@ export class ManagecontactComponent implements OnInit {
   }
 
   uploadImage(file: any, apiPath: string, imageNum: string) {
-    console.log(file.length === 0);
     if (file.length === 0) return;
     let fileToUpload = <File>file[0];
     const formData = new FormData();

@@ -1,16 +1,13 @@
-/* General Styles */
 body {
   font-family: Arial, sans-serif;
   color: black;
 }
 
-/* Card Title */
 .report-title {
   color: black;
   font-weight: bold;
 }
 
-/* Button Styles */
 .btn {
   padding: 10px 15px;
   border: none;
@@ -18,7 +15,6 @@ body {
   cursor: pointer;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .btn {
     padding: 8px 10px;
@@ -36,8 +32,44 @@ body {
   }
 }
 
-/* Change text color to white and background to red on hover */
 .table-hover tbody tr:hover {
   background-color: #f1f4f5 !important;
   color: black;
+}
+
+.page-body-wrapper {
+  background-color: #2E2E2E;
+}
+
+.home-th {
+  color: black;
+}
+
+.cont {
+  margin-bottom: 10px;
+}
+
+.card-title {
+  color: black;
+}
+
+.create-button {
+  color: rgb(0, 193, 83);
+  font-size: 30px !important;
+}
+
+.table {
+  background-color: white;
+}
+
+.edit-action {
+  color: rgb(92, 92, 245) !important;
+}
+
+.delete-action {
+  color: rgb(247, 88, 88) !important;
+}
+
+.create-form {
+  padding: 30px;
 }
