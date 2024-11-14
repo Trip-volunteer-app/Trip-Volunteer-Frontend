@@ -15,14 +15,6 @@ import { HomeService } from '../Services/home.service';
 export class ContactComponent implements OnInit, AfterViewInit {
   isSubmitting: boolean = false;
 
-
-  // CreateContact: FormGroup = new FormGroup({
-  //   full_Name: new FormControl(''),
-  //   email: new FormControl(''),
-  //   query: new FormControl(''),
-  //   messages: new FormControl('')
-  // });
-
   CreateContact: FormGroup = new FormGroup({
     full_Name: new FormControl('', [
       Validators.required,
@@ -50,20 +42,18 @@ export class ContactComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef,
     private sanitizer: DomSanitizer,
     public admin: AdminService,
-    public toast : ToastrService,
-    public home:HomeService
+    public toast: ToastrService,
+    public home: HomeService
   ) { }
 
   ngOnInit(): void {
-    // Fetch contact elements and website info during initialization
     this.contact.GetSelectedElement();
     this.contact.GetSelectedWebsiteInfo();
-    this.styleService.applyFullHeight(); // Apply full height initially
+    this.styleService.applyFullHeight();
     this.home.GetAllTeam();
   }
 
   ngAfterViewInit(): void {
-    // Apply styles and initialize components after view initialization
     this.styleService.applyFullHeight();
     this.styleService.initCarousels();
     this.styleService.handleDropdownHover();
@@ -72,47 +62,27 @@ export class ContactComponent implements OnInit, AfterViewInit {
     this.styleService.initContentAnimations();
     this.styleService.initMagnificPopup();
     this.styleService.initDatePickers();
-    this.cdr.detectChanges(); // Detect changes after initializations
-    
+    this.cdr.detectChanges();
   }
 
   sanitizeInput(input: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(input);
   }
 
+  onSubmit(): void {
+    if (this.CreateContact.valid) {
+      const formData = this.CreateContact.value;
+      this.contact.createContactForm(formData);
+      this.CreateContact.reset();
+      const email = formData.email;
+      this.sendEmailNotification(email);
+    }
+  }
 
-
-onSubmit(): void {
-if (this.CreateContact.valid) {
-  const formData = this.CreateContact.value;
-  console.log('Form Data:', formData);
-
-  // Send form data to createContactForm
-  this.contact.createContactForm(formData);
-
-  // Reset the form
-  this.CreateContact.reset();
-
-  // Retrieve the email from the form group
-  const email = formData.email;
-
-  // Send the email notification with the extracted email
-  this.sendEmailNotification(email);
-}
-}
-
-sendEmailNotification(email: string) {
-this.contact.sendEmailContact(email).subscribe(response => {
-  console.log("Contact us email sent successfully", response);
-  this.toast.success('Successufly Send Contact');
-}, error => {
-  console.error("Error sending Contact us email", error);
-});
-}
-
-
-
-
-
-
+  sendEmailNotification(email: string) {
+    this.contact.sendEmailContact(email).subscribe(response => {
+      this.toast.success('Successufly Send Contact');
+    }, error => {
+    });
+  }
 }

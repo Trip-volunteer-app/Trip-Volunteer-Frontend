@@ -30,13 +30,10 @@ export class LocationService {
   
       if (meaningfulAddress) {
         this.locationdetails = meaningfulAddress.formatted_address;
-        console.log(this.locationdetails);
       } else {
         this.locationdetails = res.results[0]?.formatted_address || 'Address not found';
-        console.log('No meaningful address found.');
       }
     } catch (error) {
-      console.error('Error fetching location info:', error);
     }
   }
 
@@ -59,7 +56,6 @@ export class LocationService {
           showConfirmButton: false,
           timer: 2000
         });
-        console.log('Created successfully');
       },
       (err) => {
         Swal.fire({
@@ -68,7 +64,6 @@ export class LocationService {
           text: 'An error occurred while Created the location. Please try again.',
           confirmButtonText: 'OK'
         });
-        console.error('Error occurred while creating', err);
       }
     );
   }
@@ -77,15 +72,11 @@ export class LocationService {
     try {
       const res = await this.http.get('https://localhost:7004/api/Location/GetLocationByTripId/'+ id).toPromise();
       this.locationByTripID= res;
-      console.log('fetched')
-      console.log(this.locationByTripID)
     } catch (error) {
-      console.error('Error fetching selected element:', error);
     }
   }
   
   UpdateAbout(body:any){
-    console.log('body:', body);
     this.http.put('https://localhost:7004/api/Location/UPDATElocation',body).subscribe(
       response => {
         Swal.fire({
@@ -95,7 +86,6 @@ export class LocationService {
           showConfirmButton: false,
           timer: 2000
         });
-        console.log('Updated successfully');
       },
       err => {
         Swal.fire({
@@ -104,7 +94,6 @@ export class LocationService {
           text: 'An error occurred while updating the element. Please try again.',
           confirmButtonText: 'OK'
         });
-        console.error('Error occurred', err);
       }
     );
   }
@@ -113,9 +102,7 @@ export class LocationService {
     try {
       const res = await this.http.get('https://localhost:7004/api/Location/GetAllLocationsWithTripId').toPromise();
       this.locationsWithTripId = res;
-      console.log(this.locationsWithTripId);
     } catch (error) {
-      console.error('Error fetching selected element:', error);
     }
   }
 }

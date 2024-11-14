@@ -30,11 +30,9 @@ td{
 .input-container {
   display: flex;
   gap: 10px;
-  /* Space between each input group */
   margin-bottom: 15px;
 }
 
-/* Wrapper for each label-input pair */
 .input-wrapper {
   display: flex;
   flex-direction: column;

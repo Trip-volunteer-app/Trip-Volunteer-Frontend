@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CreateTripComponent } from './create-trip.component';
 
 describe('CreateTripComponent', () => {

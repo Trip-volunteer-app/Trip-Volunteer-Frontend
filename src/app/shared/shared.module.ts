@@ -61,25 +61,6 @@ import { TripVolunteerFilterPipe } from '../trip-volunteer-filter.pipe';
       preventDuplicates: true,
     })
   ],
-    
-    // SocialLoginModule
-
-  // providers: [
-  //   {
-  //     provide: 'SocialAuthServiceConfig',
-  //     useValue: {
-  //       autoLogin: false,
-  //       providers: [
-  //         {
-  //           id: GoogleLoginProvider.PROVIDER_ID,
-  //           provider: new GoogleLoginProvider('947293798017-kqgorh6ss138fl5r03qg1h8qvugrgstn.apps.googleusercontent.com'),
-  //         },
-  //       ],
-  //     } as SocialAuthServiceConfig,
-  //   },
-  // ],
-
-  // ],
 
   exports: [
     FooterComponent,

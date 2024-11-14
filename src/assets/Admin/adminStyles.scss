@@ -29643,4 +29643,21 @@
     .t-header {
         color: black;
     }
+
+    .container-scroller {
+        max-height: 100vh;
+        max-height: 100vw;
+    }
+
+    .container-fluid {
+        max-height: 100vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .content-wrapper {
+        max-height: 100vh;
+        overflow-y: auto;
+        overflow-x: auto;
+    }
 }

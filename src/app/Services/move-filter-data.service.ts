@@ -4,11 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class MoveFilterDataService {
-
   constructor() { }
-
   private tripData: any = {};
-
   setTripData(data: any) {
     this.tripData = data;
   }

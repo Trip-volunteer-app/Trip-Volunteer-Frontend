@@ -1,4 +1,5 @@
-<section class="testimony-section" [ngStyle]="{'background-image': 'url(../../assets/Home/images/' + home.selectedAboutus.feedback_background + ')'}">
+<section class="testimony-section"
+  [ngStyle]="{'background-image': 'url(../../assets/Home/images/' + home.selectedAboutus.feedback_background + ')'}">
   <div class="overlay"></div>
   <div class="container">
     <div class="row justify-content-center pb-4">
@@ -7,28 +8,21 @@
         <h2 class="mb-4">{{home.selectedAboutus.feedbackHeader}}</h2>
       </div>
     </div>
-
     <div class="row testimonial-carousel" style="height: 400px;">
       <div class="col-md-12 position-relative">
-        
         <button class="carousel-button left-button" (click)="scrollLeft()">&#10094;</button>
-        
         <div class="carousel-container" #carouselContainer>
-          <div class="testimonial-card" *ngFor="let obj of visibleTestimonials; let i = index" 
-               [ngClass]="{'active-testimonial': i === 1}">
+          <div class="testimonial-card" *ngFor="let obj of visibleTestimonials; let i = index"
+            [ngClass]="{'active-testimonial': i === 1}">
             <div class="testimonial-content">
-              
               <div class="testimonial-rating">
                 <ng-container *ngFor="let star of getStarsArray(obj.rating)">
                   <span class="star" [ngClass]="{'full': star === 'full', 'empty': star === 'empty'}">&#9733;</span>
                 </ng-container>
               </div>
-              
-
               <p class="testimonial-text">{{obj.feedback}}</p>
-              
               <div class="testimonial-user">
-                <div class="user-image"  [ngStyle]="{
+                <div class="user-image" [ngStyle]="{
                   'background-image': obj.image_Path 
                     ? 'url(../../../assets/images/' + obj.image_Path + ')'
                     : 'url(../../assets/default-profile.png)'
@@ -42,16 +36,14 @@
             </div>
           </div>
         </div>
-        
         <button class="carousel-button right-button" (click)="scrollRight()">&#10095;</button>
-
       </div>
     </div>
-
     <div class="container">
       <div class="row justify-content-center pb-4">
         <div class="col-md-7 text-center">
-          <button class="btn btn-primary" style="margin-top: 70px;" (click)="openTestimonialDialog()" [disabled]="!isTokenPresent()">Add Testimonial</button>
+          <button class="btn btn-primary" style="margin-top: 70px;" (click)="openTestimonialDialog()"
+            [disabled]="!isTokenPresent()">Add Testimonial</button>
         </div>
       </div>
     </div>

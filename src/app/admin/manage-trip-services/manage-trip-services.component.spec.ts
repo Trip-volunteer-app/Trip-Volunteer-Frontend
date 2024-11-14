@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ManageTripServicesComponent } from './manage-trip-services.component';
 
 describe('ManageTripServicesComponent', () => {

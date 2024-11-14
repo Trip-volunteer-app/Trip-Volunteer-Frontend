@@ -9,19 +9,15 @@ import { AdminService } from 'src/app/Services/admin.service';
 })
 
 export class HeaderComponent implements OnInit {
-
-
   isCollapsed = false;
   isCollapse = false;
   isCollaps = false;
-
 
   constructor(private router: Router, public admin: AdminService) { }
 
   ngOnInit(): void {
     const userFromStorage = localStorage.getItem("user");
     const user = userFromStorage ? JSON.parse(userFromStorage) : null;
-
     const userId = Number(user.loginid);
     this.admin.GetUserByLoginId(userId);
   }
@@ -30,11 +26,7 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['userProfile']);
   }
 
-
-
   menu = true;
-
-
   toggleSidebar() {
     this.menu = !this.menu;
   }
@@ -42,6 +34,5 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.router.navigate(['security/login']);
     localStorage.clear();
-
   }
 }
