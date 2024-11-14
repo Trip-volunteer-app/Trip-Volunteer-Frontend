@@ -5,136 +5,137 @@
     <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
       <div class="col-md-9 ftco-animate pb-5 text-center">
         <p class="breadcrumbs">
-                <span class="mr-2">
-                  <a routerLink="/home">Home<i class="fa fa-chevron-right"></i></a>
-                 </span> 
-                <span class="mr-2" >
-                 <a routerLink="/Trips" style="color: #f15d30 !important;">Trips  <i  class="fa fa-chevron-right" style="color: #f15d30 !important;"></i></a>
-                </span>
-              </p>
+          <span class="mr-2">
+            <a routerLink="/home">Home<i class="fa fa-chevron-right"></i></a>
+          </span>
+          <span class="mr-2">
+            <a routerLink="/Trips" style="color: #f15d30 !important;">Trips <i class="fa fa-chevron-right"
+                style="color: #f15d30 !important;"></i></a>
+          </span>
+        </p>
         <h1 class="mb-0 bread">Trips</h1>
       </div>
     </div>
   </div>
 </section>
-
 <div *ngIf="hasUnpaidBookings" class="global-alert alert alert-warning">
   <span class="alert-message">You have unpaid bookings. Please complete your payment.</span>
   <button class="btn btn-dismiss" (click)="goPayment()">Go Pay</button>
 </div>
 <br><br><br>
-
 <section class="ftco-section ftco-no-pb ftco-no-pt">
   <div class="container">
-      <div class="row">
-          <div class="col-md-12">
-              <div class="ftco-search d-flex justify-content-center">
-                  <div class="row">
-                      <div class="col-md-12 nav-link-wrap">
-                <div class="nav nav-pills text-center" id="v-pills-tab-2" role="tablist" aria-orientation="vertical" style=" box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);" [ngClass]="{'show active': activeTab === 'trip'}">
-                  <a class="nav-link" [ngClass]="{ 'active': activeTab === 'trip' }" 
-                    (click)="selectTab('trip')">Trip</a>
-                  <a class="nav-link" [ngClass]="{ 'active': activeTab === 'volunteer' }"
-                    (click)="selectTab('volunteer')">Volunteer</a>
-                </div>
-                      </div>
-                      <div class="col-md-12 tab-wrap" >
-                          <div class="tab-content" id="v-pills-tabContent">
-                              <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" style=" box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);"
-                                  aria-labelledby="v-pills-1-tab" [ngClass]="{'show active': activeTab === 'trip'}" *ngIf="activeTab === 'trip'">
-                                  <div class="search-property-1" >
-
-                                    <div class="row no-gutters">
-                                      <div class="col-lg d-flex">
-                                        <div class="form-group p-4 border-0">
-                                          <label>Trip Name</label>
-                                          <input type="text" class="form-control" placeholder="Search place" [(ngModel)]="trip_Name">
-                                        </div>
-                                      </div>
-                                      <div class="col-lg d-flex">
-                                        <div class="form-group p-4">
-                                          <label>Check-in Date</label>
-                                          <input type="date" class="form-control" [(ngModel)]="checkInDate">
-                                        </div>
-                                      </div>
-                                      <div class="col-lg d-flex">
-                                        <div class="form-group p-4">
-                                          <label>Check-out Date</label>
-                                          <input type="date" class="form-control" [(ngModel)]="checkOutDate">
-                                        </div>
-                                      </div>
-                                      <div class="col-lg d-flex">
-                                        <div class="form-group p-4">
-                                          <label>Min Price</label>
-                                          <input type="number" class="form-control" placeholder="Min Price"  [(ngModel)]="minPrice">
-                                        </div>
-                                      </div>
-                                      <div class="col-lg d-flex">
-                                        <div class="form-group p-4">
-                                          <label>Max Price</label>
-                                          <input type="number" class="form-control" placeholder="Max Price"  [(ngModel)]="maxPrice">
-                                        </div>
-                                      </div>
-                                    </div>
-                                    </div>
-                              </div>
-
-                              <!-- ******************************************************************************************* -->
-                              <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab"  [ngClass]="{'show active': activeTab === 'volunteer'}" *ngIf="activeTab === 'volunteer'">
-                                <div class="row no-gutters">
-                                  <div class="col-lg d-flex">
-                                    <div class="form-group p-4 border-0">
-                                      <label>First Name</label>
-                                      <input type="text" class="form-control" placeholder="First Name" [(ngModel)]="first_Name">
-                                    </div>
-                                  </div>
-                                  <div class="col-lg d-flex">
-                                    <div class="form-group p-4">
-                                      <label>Last Name</label>
-                                      <input type="text" class="form-control" placeholder="Last Name" [(ngModel)]="last_Name">
-                                    </div>
-                                  </div>
-                                  <div class="col-lg d-flex">
-                                    <div class="form-group p-4">
-                                      <label>Trip Name</label>
-                                      <input type="text" class="form-control" placeholder="Trip Name" [(ngModel)]="trip_Name">
-                                    </div>
-                                  </div>
-                                  <div class="col-lg d-flex">
-                                    <div class="form-group p-4">
-                                      <label>Volunteer Role</label>
-                                      <input type="text" class="form-control" placeholder="Volunteer Role" [(ngModel)]="role_Name">
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              
-                              <section>
-                                <app-map></app-map>
-                              </section>
-                          </div>
-                      </div>
-                  </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="ftco-search d-flex justify-content-center">
+          <div class="row">
+            <div class="col-md-12 nav-link-wrap">
+              <div class="nav nav-pills text-center" id="v-pills-tab-2" role="tablist" aria-orientation="vertical"
+                style=" box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);"
+                [ngClass]="{'show active': activeTab === 'trip'}">
+                <a class="nav-link" [ngClass]="{ 'active': activeTab === 'trip' }" (click)="selectTab('trip')">Trip</a>
+                <a class="nav-link" [ngClass]="{ 'active': activeTab === 'volunteer' }"
+                  (click)="selectTab('volunteer')">Volunteer</a>
               </div>
+            </div>
+            <div class="col-md-12 tab-wrap">
+              <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel"
+                  style=" box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);" aria-labelledby="v-pills-1-tab"
+                  [ngClass]="{'show active': activeTab === 'trip'}" *ngIf="activeTab === 'trip'">
+                  <div class="search-property-1">
+
+                    <div class="row no-gutters">
+                      <div class="col-lg d-flex">
+                        <div class="form-group p-4 border-0">
+                          <label>Trip Name</label>
+                          <input type="text" class="form-control" placeholder="Search place" [(ngModel)]="trip_Name">
+                        </div>
+                      </div>
+                      <div class="col-lg d-flex">
+                        <div class="form-group p-4">
+                          <label>Check-in Date</label>
+                          <input type="date" class="form-control" [(ngModel)]="checkInDate">
+                        </div>
+                      </div>
+                      <div class="col-lg d-flex">
+                        <div class="form-group p-4">
+                          <label>Check-out Date</label>
+                          <input type="date" class="form-control" [(ngModel)]="checkOutDate">
+                        </div>
+                      </div>
+                      <div class="col-lg d-flex">
+                        <div class="form-group p-4">
+                          <label>Min Price</label>
+                          <input type="number" class="form-control" placeholder="Min Price" [(ngModel)]="minPrice">
+                        </div>
+                      </div>
+                      <div class="col-lg d-flex">
+                        <div class="form-group p-4">
+                          <label>Max Price</label>
+                          <input type="number" class="form-control" placeholder="Max Price" [(ngModel)]="maxPrice">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ******************************************************************************************* -->
+                <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab"
+                  [ngClass]="{'show active': activeTab === 'volunteer'}" *ngIf="activeTab === 'volunteer'">
+                  <div class="row no-gutters">
+                    <div class="col-lg d-flex">
+                      <div class="form-group p-4 border-0">
+                        <label>First Name</label>
+                        <input type="text" class="form-control" placeholder="First Name" [(ngModel)]="first_Name">
+                      </div>
+                    </div>
+                    <div class="col-lg d-flex">
+                      <div class="form-group p-4">
+                        <label>Last Name</label>
+                        <input type="text" class="form-control" placeholder="Last Name" [(ngModel)]="last_Name">
+                      </div>
+                    </div>
+                    <div class="col-lg d-flex">
+                      <div class="form-group p-4">
+                        <label>Trip Name</label>
+                        <input type="text" class="form-control" placeholder="Trip Name" [(ngModel)]="trip_Name">
+                      </div>
+                    </div>
+                    <div class="col-lg d-flex">
+                      <div class="form-group p-4">
+                        <label>Volunteer Role</label>
+                        <input type="text" class="form-control" placeholder="Volunteer Role" [(ngModel)]="role_Name">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <section>
+                  <app-map></app-map>
+                </section>
+              </div>
+            </div>
           </div>
+        </div>
       </div>
+    </div>
   </div>
 </section>
-
-
-
 <section class="ftco-section" *ngIf="activeTab === 'volunteer'">
   <div class="container">
-    <div class="row" >
-      <div *ngFor="let obj of home.AllVolunteersWithTrip | tripVolunteerFilter : first_Name: last_Name : trip_Name: role_Name" class="col-md-4">
+    <div class="row">
+      <div
+        *ngFor="let obj of home.AllVolunteersWithTrip | tripVolunteerFilter : first_Name: last_Name : trip_Name: role_Name"
+        class="col-md-4">
         <div class="project-wrap">
           <a>
             <div class="img" [ngStyle]="{'background-image': 'url(../../assets/default-profile.png)'}">
             </div>
           </a>
-          <!-- fallback template -->
           <ng-template #fallback>
-            <div class="img" [ngStyle]="{'background-image': 'url(../../assets/images/d56b3a7d-a020-4a7f-b670-c96c627071c4_chero12.jpeg)'}">
+            <div class="img"
+              [ngStyle]="{'background-image': 'url(../../assets/images/d56b3a7d-a020-4a7f-b670-c96c627071c4_chero12.jpeg)'}">
             </div>
           </ng-template>
           <div class="text p-4">
@@ -142,32 +143,33 @@
             <h5 class="title">{{obj.role_Name}}</h5>
             <p class="location"><span class="fa fa-map-marker"></span> {{obj.trip_Name}}</p>
             <ul class="read-more-wrapper">
-              <li><a (click)="showDetails(obj.trip_Id)" class="read-more-link">Read more <i class="bi bi-chevron-right"></i></a></li>
+              <li><a (click)="showDetails(obj.trip_Id)" class="read-more-link">Read more <i
+                    class="bi bi-chevron-right"></i></a></li>
             </ul>
           </div>
         </div>
       </div>
-      
+
     </div>
   </div>
 </section>
 
-
-
-<!-- ******************************************************************************************  -->
 <section class="ftco-section" *ngIf="activeTab === 'trip'">
   <div class="container">
     <div class="row">
-      <div *ngFor="let obj of getPaginatedTrips() | tripFilter: trip_Name : checkInDate : checkOutDate: minPrice : maxPrice" class="col-md-4">
+      <div
+        *ngFor="let obj of getPaginatedTrips() | tripFilter: trip_Name : checkInDate : checkOutDate: minPrice : maxPrice"
+        class="col-md-4">
         <div class="project-wrap">
           <a *ngIf="obj.images.length > 0; else fallback">
-            <div class="img" [ngStyle]="{'background-image': 'url(../../assets/images/' + obj.images[0].image_Name + ')'}">
+            <div class="img"
+              [ngStyle]="{'background-image': 'url(../../assets/images/' + obj.images[0].image_Name + ')'}">
               <span class="price">${{obj.trip_Price}}/Person</span>
             </div>
           </a>
-          <!-- fallback template -->
           <ng-template #fallback>
-            <div class="img" [ngStyle]="{'background-image': 'url(../../assets/images/d56b3a7d-a020-4a7f-b670-c96c627071c4_chero12.jpeg)'}">
+            <div class="img"
+              [ngStyle]="{'background-image': 'url(../../assets/images/d56b3a7d-a020-4a7f-b670-c96c627071c4_chero12.jpeg)'}">
               <span class="price">${{obj.trip_Price}}/Person</span>
             </div>
           </ng-template>
@@ -176,12 +178,12 @@
             <h5 class="title">{{obj.trip_Name}}</h5>
             <p class="location"><span class="fa fa-map-marker"></span> {{obj.destination_Location}}</p>
             <ul class="read-more-wrapper">
-              <li><a (click)="showDetails(obj.trip_Id)" class="read-more-link">Read more <i class="bi bi-chevron-right"></i></a></li>
+              <li><a (click)="showDetails(obj.trip_Id)" class="read-more-link">Read more <i
+                    class="bi bi-chevron-right"></i></a></li>
             </ul>
           </div>
         </div>
       </div>
-      
     </div>
 
     <div class="row mt-5">

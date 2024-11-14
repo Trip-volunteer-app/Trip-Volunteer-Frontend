@@ -1,47 +1,41 @@
 <app-navbar></app-navbar>
 
-<!-- Hero Section -->
 <section class="hero-wrap hero-wrap-2"
-    style="background-image: url('assets/Home/images/chero12.jpeg'); height: 300px; background-size: cover; background-position: center;">
-    <div class="overlay" style="height: 300px;"></div>
-    <div class="container" style="height: 300px;">
-        <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
-            <div class="col-md-9 text-center" style="margin-bottom: 20px;">
-                <p class="breadcrumbs">
-                  <span class="mr-2">
-                    <a routerLink="/UserTrips">User trips<i class="fa fa-chevron-right"></i></a>
-                   </span> 
-                  <span class="mr-2" >
-                   <a routerLink="/userProfile" style="color: #f15d30 !important;">User Profile  <i  class="fa fa-chevron-right" style="color: #f15d30 !important;"></i></a>
-                  </span>
-                  
-                  </p>
-            </div>
-        </div>
-    </div>
-</section>
+  style="background-image: url('assets/Home/images/chero12.jpeg'); height: 300px; background-size: cover; background-position: center;">
+  <div class="overlay" style="height: 300px;"></div>
+  <div class="container" style="height: 300px;">
+    <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
+      <div class="col-md-9 text-center" style="margin-bottom: 20px;">
+        <p class="breadcrumbs">
+          <span class="mr-2">
+            <a routerLink="/UserTrips">User trips<i class="fa fa-chevron-right"></i></a>
+          </span>
+          <span class="mr-2">
+            <a routerLink="/userProfile" style="color: #f15d30 !important;">User Profile <i class="fa fa-chevron-right"
+                style="color: #f15d30 !important;"></i></a>
+          </span>
 
-<!-- Profile and Settings Container -->
-<div class="container mt-5 mb-5">
-  <div class="row">
-    
-    <!-- Profile Picture and Actions -->
-    <div class="col-md-3">
-      <div class="card p-4 text-center">
-        <img 
-          class="rounded-circle mb-3 mx-auto" 
-          width="150px" 
-          [src]="this.admin.UserInformation.image_Path ? '../../../assets/images/' + this.admin.UserInformation.image_Path : '../../../assets/default-profile.png'"
-          style="border: 3px solid #f15d30;" 
-          alt="User Profile Picture">
-          
-        <h5 class="font-weight-bold">{{ this.admin.UserInformation.first_Name }} {{ this.admin.UserInformation.last_Name }}</h5>
-        <p class="text-muted">{{ this.admin.UserInformation.email }}</p>
-        <button class="btn btn-primary btn-sm w-100 mt-3" (click)="YourTripsAndFavorites()">Your Trips & Favorites</button>
+        </p>
       </div>
     </div>
-    
-    
+  </div>
+</section>
+
+<div class="container mt-5 mb-5">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card p-4 text-center">
+        <img class="rounded-circle mb-3 mx-auto" width="150px"
+          [src]="this.admin.UserInformation.image_Path ? '../../../assets/images/' + this.admin.UserInformation.image_Path : '../../../assets/default-profile.png'"
+          style="border: 3px solid #f15d30;" alt="User Profile Picture">
+
+        <h5 class="font-weight-bold">{{ this.admin.UserInformation.first_Name }} {{ this.admin.UserInformation.last_Name
+          }}</h5>
+        <p class="text-muted">{{ this.admin.UserInformation.email }}</p>
+        <button class="btn btn-primary btn-sm w-100 mt-3" (click)="YourTripsAndFavorites()">Your Trips &
+          Favorites</button>
+      </div>
+    </div>
     <!-- Profile Settings Form -->
     <div class="col-md-5">
       <div class="card p-4">
@@ -50,24 +44,29 @@
           <div class="row mb-3">
             <div class="col-md-6">
               <label class="form-label">First Name</label>
-              <input type="text" class="form-control" formControlName="first_Name" [(ngModel)]="this.admin.UserInformation.first_Name">
+              <input type="text" class="form-control" formControlName="first_Name"
+                [(ngModel)]="this.admin.UserInformation.first_Name">
             </div>
             <div class="col-md-6">
               <label class="form-label">Last Name</label>
-              <input type="text" class="form-control" formControlName="last_Name" [(ngModel)]="this.admin.UserInformation.last_Name">
+              <input type="text" class="form-control" formControlName="last_Name"
+                [(ngModel)]="this.admin.UserInformation.last_Name">
             </div>
           </div>
           <div class="mb-3">
             <label class="form-label">Email</label>
-            <input type="text" class="form-control" formControlName="email" [(ngModel)]="this.admin.UserInformation.email">
+            <input type="text" class="form-control" formControlName="email"
+              [(ngModel)]="this.admin.UserInformation.email">
           </div>
           <div class="mb-3">
             <label class="form-label">Mobile Number</label>
-            <input type="text" class="form-control" formControlName="phone_Number" [(ngModel)]="this.admin.UserInformation.phone_Number">
+            <input type="text" class="form-control" formControlName="phone_Number"
+              [(ngModel)]="this.admin.UserInformation.phone_Number">
           </div>
           <div class="mb-3">
             <label class="form-label">Address</label>
-            <input type="text" class="form-control" formControlName="address" [(ngModel)]="this.admin.UserInformation.address">
+            <input type="text" class="form-control" formControlName="address"
+              [(ngModel)]="this.admin.UserInformation.address">
           </div>
           <div class="mb-3">
             <label class="form-label">Birth Date</label>
@@ -75,18 +74,18 @@
           </div>
           <div class="mb-3">
             <label class="form-label">Image</label>
-            <input type="file" class="form-control" #file formControlName="image_Path" (change)="uploadImage(file.files)">
+            <input type="file" class="form-control" #file formControlName="image_Path"
+              (change)="uploadImage(file.files)">
           </div>
           <div class="mb-3">
             <label class="form-label">Date Registered</label>
             <input type="text" class="form-control" [value]="this.admin.UserInformation.date_Register | date" readonly>
           </div>
-          <button type="button" class="btn btn-primary w-100 mt-4" (click)="openConfirmPassDailog()">Save Profile</button>
+          <button type="button" class="btn btn-primary w-100 mt-4" (click)="openConfirmPassDailog()">Save
+            Profile</button>
         </form>
       </div>
     </div>
-    
-    <!-- Password Management Section -->
     <div class="col-md-4">
       <div class="card p-4">
         <div class="d-flex justify-content-between align-items-center">
@@ -96,15 +95,20 @@
         <form *ngIf="isPasswordFormVisible" [formGroup]="changePassword">
           <div class="form-group">
             <label for="oldPassword">Old Password</label>
-            <input type="password" id="oldPassword" class="form-control" placeholder="Old Password" formControlName="oldPassword">
-            <span *ngIf="changePassword.get('oldPassword')?.invalid && changePassword.get('oldPassword')?.touched" class="text-danger">
+            <input type="password" id="oldPassword" class="form-control" placeholder="Old Password"
+              formControlName="oldPassword">
+            <span *ngIf="changePassword.get('oldPassword')?.invalid && changePassword.get('oldPassword')?.touched"
+              class="text-danger">
               Old password is required
             </span>
           </div>
           <div class="form-group">
             <label for="newPassword">New Password</label>
-            <input type="password" id="newPassword" class="form-control" placeholder="New Password" formControlName="newPassword">
-            <span *ngIf="changePassword.get('newPassword')?.hasError('required') && changePassword.get('newPassword')?.touched" class="text-danger">
+            <input type="password" id="newPassword" class="form-control" placeholder="New Password"
+              formControlName="newPassword">
+            <span
+              *ngIf="changePassword.get('newPassword')?.hasError('required') && changePassword.get('newPassword')?.touched"
+              class="text-danger">
               New password is required
             </span>
             <span *ngIf="changePassword.get('newPassword')?.hasError('minlength')" class="text-danger">
@@ -116,20 +120,18 @@
           </div>
           <div class="form-group">
             <label for="confirmPassword">Confirm New Password</label>
-            <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm New Password" formControlName="confirmPassword">
+            <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm New Password"
+              formControlName="confirmPassword">
             <span *ngIf="changePassword.hasError('passwordsMismatch')" class="text-danger">
               Passwords do not match
             </span>
           </div>
           <div class="mt-4">
-          <button 
-          class="btn w-100 mb-3" 
-          style="border-color: #f15d30; background-color: #f15d30; color: white;" 
-          (click)="changedPassword()"
-        >
-          <i class="fa fa-key me-2"></i>Change Password
-        </button>  
-        </div>      
+            <button class="btn w-100 mb-3" style="border-color: #f15d30; background-color: #f15d30; color: white;"
+              (click)="changedPassword()">
+              <i class="fa fa-key me-2"></i>Change Password
+            </button>
+          </div>
         </form>
       </div>
     </div>
@@ -148,7 +150,8 @@
       </div>
       <div class="d-flex justify-content-end mt-4">
         <button type="button" class="btn btn-secondary me-2" mat-dialog-close>Cancel</button>
-        <button type="button" class="btn btn-primary" mat-dialog-close (click)="saveProfile()" [disabled]="passwordForm.invalid">Confirm</button>
+        <button type="button" class="btn btn-primary" mat-dialog-close (click)="saveProfile()"
+          [disabled]="passwordForm.invalid">Confirm</button>
       </div>
     </form>
   </div>

@@ -17,7 +17,6 @@ import { ChangeDetectorRef } from '@angular/core';
 export class ManageTripServicesComponent implements OnInit {
   @ViewChild('callUpdateDialog') updateDialog !: TemplateRef<any>;
 
-
   tripId!: number;
   showAddServiceForm = false;
   selectedServices: any[] = [];
@@ -31,7 +30,6 @@ export class ManageTripServicesComponent implements OnInit {
   selectedServicesDetails: any[] = [];
   servicesNotInTrip: any[] = [];
 
-
   constructor(
     public admin: AdminService,
     public location: LocationService,
@@ -42,7 +40,6 @@ export class ManageTripServicesComponent implements OnInit {
     private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-
     this.route.paramMap.subscribe(async params => {
       this.tripId = +params.get('tripId')!;
       await this.admin.GetServicesByTripID(this.tripId);
@@ -54,7 +51,6 @@ export class ManageTripServicesComponent implements OnInit {
       this.updatePaginatedServices();
     });
   }
-
 
   ServicesFormGroup: FormGroup = new FormGroup({
     selectedServices: new FormControl([])
@@ -113,7 +109,6 @@ export class ManageTripServicesComponent implements OnInit {
     this.paginatedServices = this.servicesNotInTrip.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
-
   onServiceChange(isChecked: boolean, serviceId: number) {
     const selectedServices = this.ServicesFormGroup.get('selectedServices') as FormControl;
     const currentSelection = selectedServices.value as number[];
@@ -150,7 +145,6 @@ export class ManageTripServicesComponent implements OnInit {
     }
   }
 
-
   updateSelectedServicesDetails() {
     const selectedServiceIds = this.ServicesFormGroup.value.selectedServices || [];
     this.selectedServicesDetails = this.admin.sortedServices.filter((service: any) =>
@@ -164,13 +158,15 @@ export class ManageTripServicesComponent implements OnInit {
     this.UpdateServicesFormGroup.controls['service_Id'].setValue(this.pData.service_Id)
     this.dialog.open(this.updateDialog)
   }
+
   updateCurrentTripService() {
     this.updateService();
   }
+
   updateAllTripsServices() {
     this.admin.updateServices(this.UpdateServicesFormGroup.value);
-
   }
+
   updateServiceForATrip: any = {};
   async updateService() {
     try {
@@ -197,6 +193,7 @@ export class ManageTripServicesComponent implements OnInit {
     } catch (error) {
     }
   }
+
   async Save() {
     const selectedServicesWithTripId = {
       SelectedServices: this.ServicesFormGroup.value.selectedServices,
@@ -209,17 +206,16 @@ export class ManageTripServicesComponent implements OnInit {
     this.updateSelectedServicesDetails();
     await this.admin.getAllServices;
     await this.admin.GetServicesByTripID(this.tripId);
-
     this.servicesNotInTrip = this.admin.sortedServices.filter((service: any) =>
       !this.admin.tripServices.some((tripService: any) => tripService.service_Id === service.service_Id)
     );
   }
-  return(){
+
+  return() {
     this.router.navigate(['admin/TripsInformation']);
   }
-  back(id:number){
-    this.router.navigate(['admin/ManageTrips/', id]);
 
+  back(id: number) {
+    this.router.navigate(['admin/ManageTrips/', id]);
   }
 }
-

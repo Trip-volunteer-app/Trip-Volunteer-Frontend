@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/Services/admin.service';
-import { ChartOptions, ChartData, ChartType } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Chart } from 'chart.js';
-
-
-
 
 @Component({
   selector: 'app-dashboard',
@@ -15,8 +11,6 @@ import { Chart } from 'chart.js';
 })
 export class DashboardComponent implements OnInit {
   chart: any;
-
-
   NumberOfRegisteredUsers: number = 0;
   NumberOfTrips: number = 0;
   NumberOfFinishedTrips: number = 0;
@@ -38,38 +32,26 @@ export class DashboardComponent implements OnInit {
     this.fetchDataAndRenderChart2();
     this.fetchDataAndRenderChartaverageRatingPerCategory();
     this.admin.CalculatePaidBookingPercentage();
+    this.admin.GetTestimonyStatusCounts();
     this.admin.NumberOfRegisteredUsers().subscribe(
       (resp: number) => {
         this.NumberOfRegisteredUsers = resp;
-        console.log('NumberOfRegisteredUsers', resp);
-
       },
       err => {
-        console.error('Error fetching the number of registered users:', err);
       }
-
     );
-
-
-
-
     this.admin.NumberOfTrips().subscribe(
       (resp: number) => {
         this.NumberOfTrips = resp;
-        console.log('NumberOfTrips', resp);
-
       },
       err => {
-        console.error('Error fetching the number of Trips:', err);
       }
     );
-    console.log(this.admin.GetAllTripsWithMaxReservations());
     this.admin.TotalNumberOfVolunteer().subscribe(
       (resp: number) => {
         this.TotalNumberOfVolunteer = resp;
       },
       err => {
-        console.error('Error fetching the number of Volunteers:', err);
       }
     );
 
@@ -78,21 +60,17 @@ export class DashboardComponent implements OnInit {
         this.TotalNumberOfBooking = resp;
       },
       err => {
-        console.error('Error fetching the number of Payment:', err);
       }
     );
   }
-
 
   openUsersComponent() {
     this.router.navigate(['admin/AllUsers']);
   }
 
-
   async fetchDataAndRenderChart() {
     await this.admin.GetTestimonyStatusCounts()
     const chartData = [this.admin.testemonyCounts[0].rejected_Count, this.admin.testemonyCounts[0].pending_Count, this.admin.testemonyCounts[0].accepted_Count];
-    console.log('chartData', chartData)
     this.renderChart(chartData);
   }
 
@@ -135,13 +113,12 @@ export class DashboardComponent implements OnInit {
     await this.admin.GetTotalUsersPerCategory()
     const chartData = this.admin.totalUsersPerCategory.map((item: any) => item.total_users || 0);
     const labels = this.admin.totalUsersPerCategory.map((item: any) => item.category_Name || 'Unknown');
-    console.log('55555555555555555555', chartData)
     this.renderChart2(chartData, labels);
   }
 
   renderChart2(chartData: number[], labels: string[]) {
     new Chart('myChart', {
-      type: 'doughnut', // Change to 'pie' for a pie chart instead
+      type: 'doughnut',
       data: {
         labels: labels,
         datasets: [
@@ -177,19 +154,18 @@ export class DashboardComponent implements OnInit {
             position: 'top',
             labels: {
               font: {
-                size: 10 // Adjust font size for the legend
+                size: 10
               },
-              boxWidth: 10 // Adjust the size of the colored box
+              boxWidth: 10
             }
           },
-          // Only add data labels for this specific chart
           datalabels: {
-            display: true, // Enable data labels only for this chart
+            display: true,
             color: '#000',
             font: {
-              size: 12 // Adjust font size for the numbers on chart slices
+              size: 12
             },
-            formatter: (value) => value // Display the value on each chart slice
+            formatter: (value) => value
           }
         }
       }
@@ -201,9 +177,8 @@ export class DashboardComponent implements OnInit {
     const chartData = this.admin.averageRatingPerCategory.map((item: any) => item.avg_category_rating || 0);
     const labels = this.admin.averageRatingPerCategory.map((item: any) => {
       const categoryName = item.category_Name || 'Unknown';
-      return categoryName.split(' ')[0]; // Take the first part before the space
+      return categoryName.split(' ')[0];
     });
-    console.log('444444444445555555555', chartData)
     this.renderChartaverageRatingPerCategory(chartData, labels);
   }
 
@@ -257,7 +232,6 @@ export class DashboardComponent implements OnInit {
     await this.admin.GetNetRevenuePerCategory();
     const chartData = this.admin.netRevenuePerCategory.map((item: any) => item.net_revenue || 0);
     const labels = this.admin.netRevenuePerCategory.map((item: any) => item.category_Name || 'Unknown');
-    console.log('revenuechart', chartData);
     this.renderChartNetRevenue(chartData, labels);
   }
 
@@ -299,19 +273,18 @@ export class DashboardComponent implements OnInit {
             position: 'top',
             labels: {
               font: {
-                size: 10 // Adjust font size for the legend
+                size: 10
               },
-              boxWidth: 10 // Adjust the size of the colored box
+              boxWidth: 10
             }
           },
-          // Only add data labels for this specific chart
           datalabels: {
-            display: true, // Enable data labels only for this chart
+            display: true,
             color: '#000',
             font: {
-              size: 12 // Adjust font size for the numbers on chart slices
+              size: 12
             },
-            formatter: (value) => value // Display the value on each chart slice
+            formatter: (value) => value
           }
         }
       }
@@ -322,7 +295,6 @@ export class DashboardComponent implements OnInit {
     const chartData = [this.admin.PaidBookingPercentage.percentage, 100 - this.admin.PaidBookingPercentage.percentage
     ];
     const labels = ['Booked users', 'Unbooked Users'];
-    console.log('booking', chartData);
     this.renderUserChart(chartData, labels);
   }
 

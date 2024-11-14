@@ -4,6 +4,8 @@ import { HomeService } from '../Services/home.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, Validators, AbstractControl, ValidationErrors, ValidatorFn, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatTabGroup } from '@angular/material/tabs';
+
 import Swal from 'sweetalert2';
 
 @Component({
@@ -23,6 +25,7 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
   ) { }
   @ViewChild('callBookingDailog') BookingDailog!: TemplateRef<any>;
   @ViewChild('callAuthDailog') AuthDailog!: TemplateRef<any>;
+  @ViewChild('tabGroup') tabGroup!: MatTabGroup;
 
   tripId!: number;
   total: number = 0;
@@ -31,49 +34,35 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
   async ngOnInit() {
     this.styleService.applyFullHeight();
 
-    // Fetch tripId from route parameters
     this.route.paramMap.subscribe(params => {
       this.tripId = +params.get('tripId')!;
-      console.log("TripId:", this.tripId);
 
       if (this.tripId) {
-        // Fetch trip details based on tripId
         this.home.getTripById(this.tripId).subscribe(async tripDetails => {
-          this.home.tripDetails = tripDetails; // assuming you set the trip details here
-          console.log("tripDetails", tripDetails);
+          this.home.tripDetails = tripDetails;
 
-          // Fetch related data only if trip details are valid
           if (this.home.tripDetails.category_Id) {
             await this.home.GetReviewByCategoryId(this.home.tripDetails.category_Id);
-            console.log("review", this.home.review);
 
             await this.home.GetSimilarTrips(this.home.tripDetails.category_Id);
-            console.log("similarTrip", this.home.similarTrip);
 
           }
         });
 
-        // Other dependent calls
         this.home.GetTripVolunteers(this.tripId);
         this.home.GetVolunteerRoleByTripId(this.tripId);
       } else {
-        console.log('Invalid tripId, skipping fetch calls');
       }
     });
 
-    // Get user details from local storage
     const userFromStorage = localStorage.getItem("user");
     this.user = userFromStorage ? JSON.parse(userFromStorage) : null;
     this.userId = Number(this.user?.loginid);
 
-    // Fetch booking and volunteer information for the trip
     if (this.tripId && this.userId) {
       this.home.GetBookingByTripId(this.tripId, this.userId);
       this.home.GetVolunteerByTripId(this.tripId, this.userId);
     }
-
-    console.log("BookingByTripId:", this.home.BookingByTripId);
-    console.log("VolunteerByTripId:", this.home.VolunteerByTripId);
   }
 
 
@@ -106,16 +95,15 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
     return seatsAvailable;
   }
   ngAfterViewInit(): void {
-    // Initialize various styles and functionalities after view initialization
-    this.styleService.applyFullHeight(); // Ensure height recalculates
-    this.styleService.initCarousels(); // Initialize carousels
-    this.styleService.handleDropdownHover(); // Manage dropdown hover effects
-    this.styleService.handleScrollAnimations(); // Set up scroll-based animations
-    this.styleService.initCounters(); // Initialize counters
-    this.styleService.initContentAnimations(); // Apply content animations
-    this.styleService.initMagnificPopup(); // Set up image popups
-    this.styleService.initDatePickers(); // Initialize date pickers
-    this.cdr.detectChanges(); // Detect changes after all initializations
+    this.styleService.applyFullHeight();
+    this.styleService.initCarousels();
+    this.styleService.handleDropdownHover();
+    this.styleService.handleScrollAnimations();
+    this.styleService.initCounters();
+    this.styleService.initContentAnimations();
+    this.styleService.initMagnificPopup();
+    this.styleService.initDatePickers();
+    this.cdr.detectChanges();
 
     const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
     this.isFavorite = favorites.some(
@@ -179,7 +167,7 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
   nonZeroValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value;
-      return value > 0 ? null : { nonZero: true }; // Return an error if value is zero
+      return value > 0 ? null : { nonZero: true };
     };
   }
 
@@ -234,13 +222,11 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
         (sum, role) => sum + (role.number_Of_Volunteers || 0),
         0
       );
-      console.log('Total number of volunteers:', this.totalVolunteers);
 
       this.isVolunteerAvailable = this.totalVolunteers > 0;
-      return this.isVolunteerAvailable;  // Return true or false based on the availability
+      return this.isVolunteerAvailable;
     } catch (err) {
-      console.error('Error fetching roles:', err);
-      return false;  // Return false if there is an error
+      return false;
     }
   }
 
@@ -250,10 +236,6 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
       this.home.GetRoleByTripId(this.tripId).subscribe((roles: any[]) => {
         this.volunteerRolesWithVolunteers = roles.filter(
           (role) => role.number_Of_Volunteers > 0
-        );
-        console.log(
-          'volunteerRolesWithVolunteers',
-          this.volunteerRolesWithVolunteers
         );
 
       });
@@ -276,7 +258,6 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
       this.BookingTrip.controls['trip_Id'].setValue(this.pData.trip_Id);
       this.BookingTrip.controls['login_Id'].setValue(this.userId);
 
-      //volunteer
       this.volanteerForm.controls['trip_Id'].setValue(this.pData.trip_Id);
       this.volanteerForm.controls['login_Id'].setValue(this.userId);
 
@@ -298,18 +279,15 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
 
   check(isChecked: boolean, id: number) {
     if (isChecked) {
-      // Add id to selectedService if it's not already present
       if (!this.selectedService.includes(id)) {
         this.selectedService.push(id);
       }
     } else {
-      // Remove id from selectedService if unchecked
       this.selectedService = this.selectedService.filter(
         (serviceId) => serviceId !== id
       );
     }
 
-    console.log('Selected Service IDs:', this.selectedService);
     this.updateTotalAmount();
   }
 
@@ -317,27 +295,17 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
     const tripCost = this.pData.trip_Price;
     const numberOfUsers = this.BookingTrip.controls['numberOfUser'].value;
 
-    // Calculate total service costs based on selected services
     const selectedServiceCosts = this.selectedService.reduce(
       (total, serviceId) => {
         const service = this.pData.services.find(
           (s: any) => s.service_Id === serviceId
         );
         const serviceCost = service ? service.service_Cost : 0;
-        console.log(`Service ID: ${serviceId}, Cost: ${serviceCost}`);
         return total + serviceCost;
       },
       0
     );
-
-    console.log(`Selected Service Costs: ${selectedServiceCosts}`);
-
-    // Calculate total amount
     const totalAmount = (tripCost + selectedServiceCosts) * numberOfUsers;
-
-    console.log('Trip Cost:', tripCost);
-    console.log('Number of Users:', numberOfUsers);
-    console.log('Total Amount:', totalAmount);
 
     this.BookingTrip.controls['total_Amount'].setValue(totalAmount);
   }
@@ -416,7 +384,6 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
           }
         });
       } else {
-        // Volunteer status is not 'pending'
         Swal.fire({
           icon: 'warning',
           title: 'You already have a volunteer reservation for this trip',
@@ -424,16 +391,13 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
         });
       }
     } else {
-      // User already has a booking on this trip
       Swal.fire({
         icon: 'warning',
         title: 'You already have a booking for this trip',
         text: 'Please check your reservations.',
       });
     }
-
   }
-
 
   volunteerBooking() {
     if (this.volanteerForm.valid) {
@@ -450,7 +414,6 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
           if (this.volanteerForm.valid) {
             if (this.home.VolunteerByTripId == null) {
               if (this.home.BookingByTripId == null) {
-                // No existing booking or volunteer request, proceed to create booking
                 this.home.BookingVolunteer(this.volanteerForm.value);
                 this.dialogRef.close();
               } else if (
@@ -458,7 +421,6 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
                 this.home.BookingByTripId.payment_Status.toLowerCase() ==
                 'not paid'
               ) {
-                // Volunteer request is pending, confirm with the user before proceeding
                 Swal.fire({
                   title: 'You have a reservation not paid for this trip!',
                   text: 'If you proceed with the booking volunteer request, your reservation will be canceled. Do you want to continue?',
@@ -470,7 +432,6 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
                 }).then((volunteerResult) => {
                   if (volunteerResult.isConfirmed) {
                     this.home.Deletebooking(this.home.BookingByTripId.booking_Id);
-                    // User confirmed to proceed with booking, override volunteer request
                     this.home.BookingVolunteer(this.volanteerForm.value);
                     this.dialogRef.close();
                   } else {
@@ -485,7 +446,6 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
                 });
               }
             } else {
-              // User already has a booking on this trip
               Swal.fire({
                 icon: 'warning',
                 title:
@@ -509,6 +469,8 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
 
   goToTripDetails(tripId: number) {
     this.router.navigate(['tripDetails/', tripId]);
-    // Implement the logic to navigate to the trip details
+    if (this.tabGroup) {
+      this.tabGroup.selectedIndex = 0;
+    }
   }
 }

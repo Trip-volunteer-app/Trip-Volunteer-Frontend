@@ -1,82 +1,81 @@
 body {
-    background:#f15d30;
+  background: #f15d30;
 
 }
 
 .form-control:focus {
-    box-shadow: none;
-    border-color: #f15d30;
+  box-shadow: none;
+  border-color: #f15d30;
 
 }
 
 .profile-button {
-    background:#f15d30;
-    ;
-    box-shadow: none;
-    border: none
+  background: #f15d30;
+  ;
+  box-shadow: none;
+  border: none
 }
 
 .profile-button:hover {
-    background: #f15d30;
+  background: #f15d30;
 
 }
 
 .profile-button:focus {
-    background:   #f15d30;;
-    box-shadow: none
+  background: #f15d30;
+  ;
+  box-shadow: none
 }
 
 .profile-button:active {
-    background:   #f15d30;;
-    box-shadow: none
+  background: #f15d30;
+  ;
+  box-shadow: none
 }
 
 .back:hover {
-    color:   #f15d30;;
-    cursor: pointer
+  color: #f15d30;
+  ;
+  cursor: pointer
 }
 
 .labels {
-    font-size: 11px
+  font-size: 11px
 }
 
 .add-experience:hover {
-    background: #f15d30;
-    ;
-    color: #fff;
-    cursor: pointer;
-    border: solid 1px #f15d30;
-
+  background: #f15d30;
+  ;
+  color: #fff;
+  cursor: pointer;
+  border: solid 1px #f15d30;
 }
 
-
-
-
 .btn-outline-secondary {
-    color: #555;
-    border-color: #ccc;
-  }
-  
-  .btn-outline-secondary:hover {
-    background-color: #f5f5f5;
-    border-color: #bbb;
-  }
-  
-  .btn-custom-primary {
-    background-color: #f15d30;
-    color: #fff;
-  }
-  
-  .btn-custom-primary:hover {
-    background-color: #d54e27;
-  }
-  .add-experience {
-    cursor: pointer;
-    padding: 5PX;
-    transition: color 0.3s ease;
-  }
-  
-  .add-experience:hover {
-    color: white; 
-  }
-  
+  color: #555;
+  border-color: #ccc;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #f5f5f5;
+  border-color: #bbb;
+}
+
+.btn-custom-primary {
+  background-color: #f15d30;
+  color: #fff;
+}
+
+.btn-custom-primary:hover {
+  background-color: #d54e27;
+}
+
+.add-experience {
+  cursor: pointer;
+  padding: 5PX;
+  transition: color 0.3s ease;
+}
+
+.add-experience:hover {
+  color: white;
+}

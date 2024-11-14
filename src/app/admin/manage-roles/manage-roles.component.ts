@@ -17,9 +17,6 @@ export class ManageRolesComponent implements OnInit {
   @ViewChild('callDeleteDialog') deleteDialog !: TemplateRef<any>;
   @ViewChild('callNumberDialog') numbersDialog !: TemplateRef<any>;
 
-
-
-
   tripId!: number;
   showAddRoleForm = false;
   selectedRoles: any[] = [];
@@ -32,7 +29,10 @@ export class ManageRolesComponent implements OnInit {
   itemsPerPage: number = 8;
   totalPages: number = 0;
   selectedRolesDetails: any[] = [];
-
+  newRoleId: number = 0;
+  roleEntries: { volunteer_Role_Id: number; number_Of_Volunteers: number }[] = [];
+  roleInfo: { volunteer_Role_Name: string; number_Of_Volunteers: number }[] = [];
+  role: any = [];
 
   constructor(
     public admin: AdminService,
@@ -43,7 +43,6 @@ export class ManageRolesComponent implements OnInit {
     private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-
     this.route.paramMap.subscribe(async params => {
       this.tripId = +params.get('tripId')!;
       await this.admin.GetVolunteerRoleByTripID(this.tripId);
@@ -57,11 +56,9 @@ export class ManageRolesComponent implements OnInit {
     });
   }
 
-
   RolesFormGroup: FormGroup = new FormGroup({
     selectedRoles: new FormControl([])
   });
-
 
   roleFormGroup: FormGroup = new FormGroup({
     role_Name: new FormControl('', Validators.required),
@@ -73,9 +70,6 @@ export class ManageRolesComponent implements OnInit {
     number_Of_Volunteers: new FormControl('', Validators.required)
   });
 
-
-
-
   toggleAddRole() {
     this.showAddRoleForm = !this.showAddRoleForm;
   }
@@ -86,9 +80,7 @@ export class ManageRolesComponent implements OnInit {
       newRoleName: ''
     });
   }
-  newRoleId: number = 0;
   pushToIntry: { volunteer_Role_Id: number; number_Of_Volunteers: number } = { volunteer_Role_Id: 0, number_Of_Volunteers: 0 };
-
   async addRole() {
     try {
       this.previousRoles = [...this.admin.SortedVolunteerRoles];
@@ -105,17 +97,13 @@ export class ManageRolesComponent implements OnInit {
       await this.admin.CreateVolunteerRoleForTrip(createVolunteer);
       this.pushToIntry.number_Of_Volunteers = createVolunteer.number_Of_Volunteers;
       this.roleInfo.push(objforDetails);
-
       await this.admin.getAllVolunteerRoles();
-
       this.RolesNotInTrip = this.admin.SortedVolunteerRoles.filter((role: any) =>
         !this.admin.tripVolunteers.some((tripVolunteers: any) => tripVolunteers.volunteer_Role_Id === role.volunteer_Role_Id)
       );
-
       const newVolunteerRole: any = this.admin.SortedVolunteerRoles.find((role: any) =>
         !this.previousRoles.some((prevRole: any) => prevRole.volunteer_Role_Id === role.volunteer_Role_Id)
       );
-
       if (newVolunteerRole) {
         this.newRoleId = newVolunteerRole.volunteer_Role_Id;
         this.pushToIntry.volunteer_Role_Id = newVolunteerRole.volunteer_Role_Id;
@@ -129,26 +117,21 @@ export class ManageRolesComponent implements OnInit {
       this.cdr.detectChanges()
       await this.updatePaginatedRoles();
       this.cancelAddRole();
-
     } catch (error) {
       console.error('Error adding role:', error);
     }
-
     this.calculateMaxNumberOfVolunteers();
   }
-
 
   async updatePaginatedRoles(): Promise<void> {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     this.paginatedRoles = this.RolesNotInTrip.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
-
   maxNumberOfVolunteers: number = 0;
   onVolunteerRoleChange(isChecked: boolean, volunteerId: number) {
     const selectedRoles = this.RolesFormGroup.get('selectedRoles') as FormControl;
     const currentSelection = selectedRoles.value as number[];
-
     if (isChecked) {
       if (!currentSelection.includes(volunteerId)) {
         selectedRoles.setValue([...currentSelection, volunteerId]);
@@ -161,8 +144,8 @@ export class ManageRolesComponent implements OnInit {
       this.roleInfo = this.roleInfo.filter(info => info.volunteer_Role_Name !== this.getRoleNameById(volunteerId));
     }
     this.updateselectedRolesDetails();
-
   }
+
   roleToremove: any;
   getRoleNameById(volunteerId: number): string {
     this.roleToremove = this.admin.SortedVolunteerRoles.find((r: any) => r.volunteer_Role_Id === volunteerId);
@@ -172,6 +155,7 @@ export class ManageRolesComponent implements OnInit {
   isVolunteerRoleSelected(volunteerId: number): boolean {
     return (this.RolesFormGroup.get('selectedRoles')?.value as number[]).includes(volunteerId);
   }
+
   nextPage(): void {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
@@ -185,13 +169,13 @@ export class ManageRolesComponent implements OnInit {
       this.updatePaginatedRoles();
     }
   }
+
   goToPage(page: number): void {
     if (page > 0 && page <= this.totalPages) {
       this.currentPage = page;
       this.updatePaginatedRoles();
     }
   }
-
 
   updateselectedRolesDetails() {
     const selectedVolunteerRolesIds = this.RolesFormGroup.value.selectedRoles || [];
@@ -200,7 +184,6 @@ export class ManageRolesComponent implements OnInit {
     );
     this.calculateMaxNumberOfVolunteers();
   }
-  roleEntries: { volunteer_Role_Id: number; number_Of_Volunteers: number }[] = [];
 
   pData: any;
   openEditDialog(obj: any) {
@@ -208,14 +191,17 @@ export class ManageRolesComponent implements OnInit {
     this.UpdateRolesFormGroup.controls['trip_Volunteerroles_Id'].setValue(this.pData)
     this.dialog.open(this.updateDialog)
   }
+
   updateCurrentTripVolunteerRole() {
     this.updateRole();
   }
+
   async updateAllTripsRoles() {
     this.admin.UpdateTrip_vrole_NumberOfVolunteers(this.UpdateRolesFormGroup.value);
     await this.admin.GetVolunteerRoleByTripID(this.tripId)
     this.calculateMaxNumberOfVolunteers();
   }
+
   updateRoleForATrip: any = {};
   async updateRole() {
     try {
@@ -245,6 +231,7 @@ export class ManageRolesComponent implements OnInit {
     await this.admin.GetVolunteerRoleByTripID(this.tripId)
     this.calculateMaxNumberOfVolunteers();
   }
+
   async Save() {
     const selectedRolesWithTripId = {
       SelectedVolunteerRoles: this.roleEntries,
@@ -262,13 +249,15 @@ export class ManageRolesComponent implements OnInit {
     );
     this.calculateMaxNumberOfVolunteers();
   }
+
   return() {
     this.router.navigate(['admin/TripsInformation']);
   }
+
   back(id: number) {
     this.router.navigate(['admin/ManageTrips/', id]);
-
   }
+
   async openDeleteDialog(id: number) {
     const dailogRef = this.dialog.open(this.deleteDialog).afterClosed().subscribe(async (res) => {
       if (res != undefined) {
@@ -288,30 +277,25 @@ export class ManageRolesComponent implements OnInit {
     this.maxNumberOfVolunteers = this.admin.tripVolunteers.reduce(
       (total: any, trip: any) => total + (trip.number_Of_Volunteers || 0),
       0
-
     );
   }
+
   RolesNumberFormGroup: FormGroup = new FormGroup({
     volunteer_Role_Id: new FormControl('', Validators.required),
     number_Of_Volunteers: new FormControl('', [Validators.required, Validators.min(0)]),
   });
+
   openNumberDialog(id: any) {
-
     this.RolesNumberFormGroup.controls['volunteer_Role_Id'].setValue(this.newRoleId)
-
     this.dialog.open(this.numbersDialog)
   }
-  roleInfo: { volunteer_Role_Name: string; number_Of_Volunteers: number }[] = [];
 
-  role: any = [];
   async save2() {
     const roleData = {
       volunteer_Role_Id: this.RolesNumberFormGroup.get('volunteer_Role_Id')?.value,
       number_Of_Volunteers: this.RolesNumberFormGroup.get('number_Of_Volunteers')?.value
     };
-
     this.roleEntries.push(roleData);
-
     this.role = await this.admin.SortedVolunteerRoles.find((r: any) => r.volunteer_Role_Id === roleData.volunteer_Role_Id);
     const roleWithDetails = {
       volunteer_Role_Name: this.role.role_Name,

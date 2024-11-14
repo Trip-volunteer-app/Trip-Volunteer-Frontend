@@ -1,10 +1,9 @@
-
 <div class="adminStyles">
-  <div class="container-scroller" style="max-height: 100vh; ">
+  <div class="container-scroller">
     <app-header></app-header>
-    <div class="container-fluid page-body-wrapper" style="background-color: #2E2E2E;">
+    <div class="container-fluid page-body-wrapper">
       <div class="main-panel">
-        <div class="content-wrapper" style="max-height: 100vh; overflow-y: auto; overflow-x: hidden;">
+        <div class="content-wrapper">
           <div class="row">
             <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
               <div class="card dashboard-cards">
@@ -93,26 +92,16 @@
                   </div>
                   <div class=" d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
                     <div class="text-md-center text-xl-left">
-                      <h6 class="mb-1">Transfer to Paypal</h6>
-                      <p class="text-muted mb-0">07 Jan 2019, 09:12AM</p>
+                      <h6 class="mb-1">Total number of</h6>
+                      <p class="text-muted mb-0"> testimonies</p>
                     </div>
                     <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
-                      <h6 class="font-weight-bold mb-0">$236</h6>
-                    </div>
-                  </div>
-                  <div class=" d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
-                    <div class="text-md-center text-xl-left">
-                      <h6 class="mb-1">Tranfer to Stripe</h6>
-                      <p class="text-muted mb-0">07 Jan 2019, 09:12AM</p>
-                    </div>
-                    <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
-                      <h6 class="font-weight-bold mb-0">$593</h6>
+                      <h6 class="font-weight-bold mb-0">{{admin.testemonyCounts[0].total_Count}}</h6>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-
             <div class="col-md-8 grid-margin stretch-card container-chart1">
               <div class="card">
                 <div class="card-body">
@@ -140,9 +129,9 @@
               </div>
             </div>
           </div>
-          <div class="row" style="background-color: white;">
+          <div class="row">
             <div class="col-sm-4 grid-margin">
-              <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
+              <div class="card">
                 <div class="card-body">
                   <h5 class="text-muted mb-1">Total Revenue</h5>
                   <div class="row">
@@ -159,16 +148,14 @@
                 </div>
               </div>
             </div>
-
             <div class="col-sm-4 grid-margin">
-              <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
+              <div class="card">
                 <div class="card-body">
                   <h5 class="text-muted mb-1">Monthly Revenue</h5>
                   <div class="row">
                     <div class="col-8 col-sm-12 col-xl-8 my-auto">
                       <div class="d-flex d-sm-block d-md-flex align-items-center">
                         <h2 class="mb-0">$ {{this.admin.SYSMonthlyRevenue.monthly_revenue}}</h2>
-
                       </div>
                       <h6 class="text-muted font-weight-normal">Since this month</h6>
                     </div>
@@ -179,16 +166,14 @@
                 </div>
               </div>
             </div>
-
             <div class="col-sm-4 grid-margin">
-              <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
+              <div class="card">
                 <div class="card-body">
                   <h5 class="text-muted mb-1">Cost</h5>
                   <div class="row">
                     <div class="col-8 col-sm-12 col-xl-8 my-auto">
                       <div class="d-flex d-sm-block d-md-flex align-items-center">
                         <h2 class="mb-0">$ {{this.admin.SYSMonthlyRevenue.cost}}</h2>
-
                       </div>
                       <h6 class="text-muted font-weight-normal">Since this month</h6>
                     </div>
@@ -200,20 +185,15 @@
               </div>
             </div>
           </div>
-
-          <div class="row" style="background-color: white;">
+          <div class="row">
             <div class="col-12 grid-margin">
-              <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
+              <div class="card">
                 <div class="card-body">
                   <h4 class="text-muted mb-1">Users</h4>
-                  <button class="badge badge-outline-success"
-                    style="position: absolute; top: 20px; right: 30px; font-size: 15px;"
-                    (click)="openUsersComponent()">All user</button>
-
-                  <div class="table-container" style="position: relative;">
-
-                    <div class="table-responsive" style="margin-top: 40px;">
-                      <table class="table" style="background-color: white;">
+                  <button class="badge badge-outline-success" (click)="openUsersComponent()">All user</button>
+                  <div class="table-container">
+                    <div class="table-responsive">
+                      <table class="table">
                         <thead>
                           <tr>
                             <th> <b>User</b> </th>
@@ -227,7 +207,7 @@
                         <tbody>
                           <tr *ngFor="let obj of admin.FiveUsers">
                             <td>
-                              <img class="img-xs rounded-circle" style="width: 40px; height: 40px;"
+                              <img class="img-xs rounded-circle"
                                 [src]="obj.image_Path ? '../../../../assets/images/' + obj.image_Path : '../../../assets/default-profile.png'"
                                 alt="image not found">
                               {{obj.first_Name}} {{obj.last_Name}}
@@ -246,8 +226,7 @@
               </div>
             </div>
           </div>
-
-          <div class="row" style="background-color: white; max-width: 3000px; width: 1600px;">
+          <div class="row row2">
             <div class="col-md-6 col-xl-4 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
@@ -277,33 +256,30 @@
             <div class="col-md-4 mb-3">
               <div class="card h-100">
                 <h4 class="text-muted mb-1 ">Percentage of users who have ever made a booking.</h4>
-
                 <div class="card-body">
-                  <div class="chart-container" style="width: 100%; max-width: 800px; margin: 0px; padding:0px;">
+                  <div class="chart-container chart-container-2">
                     <canvas id="bookingChart" width="700" height="400"></canvas>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="row" style="background-color: white;">
+          <div class="row">
             <div class="col-md-4 mb-3">
               <div class="card h-100">
                 <h4 class="text-muted mb-1 chart-text">Categories average rate.</h4>
                 <div class="card-body">
-                  <div class="chart-container"
-                    style="width: 100%; height: 100%; max-width: 800px; margin: 0px; padding:0px;">
+                  <div class="chart-container chart-container-2">
                     <canvas id="rateChart" width="700" height="650"></canvas>
                   </div>
                 </div>
               </div>
             </div>
-
             <div class="col-md-4 mb-3">
               <div class="card h-100">
                 <h4 class="text-muted mb-1 chart-text">Net revenue per category.</h4>
                 <div class="card-body">
-                  <div class="chart-container" style="width: 100%; max-width: 800px; margin: 0px; padding:0px;">
+                  <div class="chart-container chart-container-2">
                     <canvas id="revenueChart" width="700" height="400"></canvas>
                   </div>
                 </div>
@@ -313,14 +289,13 @@
               <div class="card h-100">
                 <h4 class="text-muted mb-1 chart-text">Number of bookings per category</h4>
                 <div class="add-items d-flex">
-                  <div style="width: 100%; max-width: 700px; margin: auto; padding-top: 20px;">
+                  <div>
                     <canvas id="myChart" width="700" height="400"></canvas>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>

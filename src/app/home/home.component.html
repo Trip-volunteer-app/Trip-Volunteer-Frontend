@@ -28,15 +28,12 @@
                   Volunteer
                 </a>
               </div>
-
             </div>
             <div class="col-md-12 tab-wrap">
               <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show" id="v-pills-1" role="tabpanel"
                   [ngClass]="{'show active': activeTab === 'trip'}">
-
                   <div class="search-property-1">
-
                     <form (ngSubmit)="onSearch()">
                       <div class="row no-gutters">
                         <div class="col-lg d-flex">
@@ -79,11 +76,8 @@
                         </div>
                       </div>
                     </form>
-
-
                   </div>
                 </div>
-
                 <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab"
                   [ngClass]="{'show active': activeTab === 'volunteer'}">
                   <form>
@@ -122,7 +116,6 @@
                       </div>
                     </div>
                   </form>
-
                 </div>
                 <section>
                 </section>
@@ -134,9 +127,6 @@
     </div>
   </div>
 </section>
-
-
-
 <section class="ftco-section services-section">
   <div class="container">
     <div class="row d-flex">
@@ -199,21 +189,6 @@
     </div>
   </div>
 </section>
-
-<!-- 
-<section class=" img ftco-select-destination" style="background-image: url(assets/Home/images/bg_3.jpg);">
-  <div class="container">
-    <div class="row justify-content-center pb-4">
-      <div class="col-md-12 heading-section text-center">
-        <span class="subheading">Pacific Provide Places</span>
-        <h2 class="mb-4">Select Your Destination</h2>
-      </div>
-    </div>
-  </div>
-</section> -->
-
-
-      
 <section class="ftco-section">
   <div class="container">
     <div class="row justify-content-center pb-4">
@@ -230,15 +205,6 @@
               [style.backgroundImage]="'url(../../assets/images/' + obj.images + ')'">
             </a>
             <div class="text">
-              <!-- <div class="d-flex align-items-center mb-4 topp">
-                      <div class="one">
-                        <span class="day">11</span>
-                      </div>
-                      <div class="two">
-                        <span class="yr">2020</span>
-                        <span class="mos">September</span>
-                      </div>
-                    </div> -->
               <h3 class="heading subheading" style="color: #f15d30 ;">{{obj.category_Name}}</h3>
               <p>{{obj.text}}</p>
             </div>
@@ -246,13 +212,8 @@
         </div>
       </div>
     </div>
-
   </div>
 </section>
-
-
-
-
 <section class="ftco-section">
   <div class="container">
     <div class="row justify-content-center pb-4">
@@ -269,7 +230,6 @@
               <span class="price">${{obj.trip_Price}}/Person</span>
             </div>
           </a>
-          <!-- fallback template -->
           <ng-template #fallback>
             <div class="img" [ngStyle]="{'background-image': 'url(../../assets/images/' + obj.image_Name + ')'}">
               <span class="price">${{obj.trip_Price}}/Person</span>
@@ -284,98 +244,21 @@
                     class="bi bi-chevron-right"></i></a></li>
             </ul>
           </div>
-
         </div>
-
       </div>
     </div>
   </div>
 </section>
-
-
-
-<!-- <section class="ftco-section">
-  <div class="container">
-    <div class="row justify-content-center pb-4">
-      <div class="col-md-12 heading-section text-center ftco-animate">
-        <span class="subheading">Our Blog</span>
-        <h2 class="mb-4">Recent Post</h2>
-      </div>
-    </div>
-    <div class="row d-flex">
-      <div class="col-md-4 d-flex ftco-animate">
-        <div class="blog-entry justify-content-end">
-          <a href="blog-single.html" class="block-20" style="background-image: url('assets/Home/images/image_1.jpg');">
-          </a>
-          <div class="text">
-            <div class="d-flex align-items-center mb-4 topp">
-              <div class="one">
-                <span class="day">11</span>
-              </div>
-              <div class="two">
-                <span class="yr">2020</span>
-                <span class="mos">September</span>
-              </div>
-            </div>
-            <h3 class="heading"><a href="#">Most Popular Place In This World</a></h3>
-            <p><a href="#" class="btn btn-primary">Read more</a></p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 d-flex ftco-animate">
-        <div class="blog-entry justify-content-end">
-          <a href="blog-single.html" class="block-20" style="background-image: url('assets/Home/images/image_2.jpg');">
-          </a>
-          <div class="text">
-            <div class="d-flex align-items-center mb-4 topp">
-              <div class="one">
-                <span class="day">11</span>
-              </div>
-              <div class="two">
-                <span class="yr">2020</span>
-                <span class="mos">September</span>
-              </div>
-            </div>
-            <h3 class="heading"><a href="#">Most Popular Place In This World</a></h3>
-            <p><a href="#" class="btn btn-primary">Read more</a></p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 d-flex fadeIn ftco-animated">
-        <div class="blog-entry">
-          <a href="blog-single.html" class="block-20" style="background-image: url('assets/Home/images/image_3.jpg');">
-          </a>
-          <div class="text">
-            <div class="d-flex align-items-center mb-4 topp">
-              <div class="one">
-                <span class="day">11</span>
-              </div>
-              <div class="two">
-                <span class="yr">2020</span>
-                <span class="mos">September</span>
-              </div>
-            </div>
-            <h3 class="heading"><a href="#">Most Popular Place In This World</a></h3>
-            <p><a href="#" class="btn btn-primary">Read more</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> -->
-
 <section class="ftco-section ftco-about img"
   style="background-image: url(../../assets/images/{{home.selectedAboutus.image6}});">
   <div class="overlay"></div>
   <div class="container py-md-5">
     <div class="row py-md-5">
       <div class="col-md d-flex align-items-center justify-content-center">
-
       </div>
     </div>
   </div>
 </section>
-
 <section class="ftco-section ftco-about ftco-no-pt img">
   <div class="container">
     <div class="row d-flex">
@@ -403,9 +286,7 @@
     </div>
   </div>
 </section>
-
 <app-testimonial-element></app-testimonial-element>
-
 <br>
 <section class="ftco-intro ftco-section ftco-no-pt">
   <div class="container">

@@ -14,21 +14,20 @@ export class TestimonalComponent implements OnInit {
     case: new FormControl(''),
     status: new FormControl(''),
     feedback: new FormControl(''),
-    rating: new FormControl('') // Keep this for storing the rating
+    rating: new FormControl('')
   });
 
-  stars: number[] = [1, 2, 3, 4, 5]; // 5 stars
-  rating: number = 0; // Current rating
+  stars: number[] = [1, 2, 3, 4, 5];
+  rating: number = 0;
 
-  constructor(public home: HomeService, public admin: AdminService, private cd: ChangeDetectorRef) {}
+  constructor(public home: HomeService, public admin: AdminService, private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    // Initialization code if needed
   }
 
   setRating(rating: number) {
     this.rating = rating;
-    this.Testimonal.patchValue({ rating: rating }); // Update the form control with the selected rating
+    this.Testimonal.patchValue({ rating: rating });
   }
 
   save() {
@@ -38,27 +37,14 @@ export class TestimonalComponent implements OnInit {
     if (tokenString) {
       const token = JSON.parse(tokenString);
       loginId = token.loginid;
-    } else {
-      console.log('Token not found in local storage.');
     }
 
-    // Ensure loginId is not null or undefined
     if (loginId) {
       this.Testimonal.patchValue({ login_Id: loginId, status: 'Pending' });
-    } else {
-      console.log('loginId is null or undefined');
     }
-
-    console.log('Form data before saving:', this.Testimonal.value);
-
-    // Check if form is valid before submitting
     if (this.Testimonal.valid) {
       this.home.CreateTestimonial(this.Testimonal.value);
-    } else {
-      console.log('Form is invalid:', this.Testimonal.errors);
     }
-
-    // Trigger change detection manually
     this.cd.detectChanges();
   }
 }

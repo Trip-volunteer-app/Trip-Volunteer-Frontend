@@ -1,286 +1,248 @@
-
-
 <app-navbar></app-navbar>
-
 <section class="hero-wrap hero-wrap-2"
-    style="background-image: url('assets/Home/images/chero12.jpeg'); height: 300px; background-size: cover; background-position: center;">
-    <div class="overlay" style="height: 300px;"></div>
-    <div class="container" style="height: 300px;">
-        <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
-            <div class="col-md-9 text-center" style="margin-bottom: 20px;">
-                <p class="breadcrumbs">
-                  <span class="mr-2">
-                    <a routerLink="/userProfile">User Profile<i class="fa fa-chevron-right"></i></a>
-                   </span> 
-                  <span class="mr-2" >
-                   <a routerLink="/UserTrips" style="color: #f15d30 !important;">User Trips  <i  class="fa fa-chevron-right" style="color: #f15d30 !important;"></i></a>
-                  </span>
-                  </p>
-            </div>
-        </div>
+  style="background-image: url('assets/Home/images/chero12.jpeg'); height: 300px; background-size: cover; background-position: center;">
+  <div class="overlay" style="height: 300px;"></div>
+  <div class="container" style="height: 300px;">
+    <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
+      <div class="col-md-9 text-center" style="margin-bottom: 20px;">
+        <p class="breadcrumbs">
+          <span class="mr-2">
+            <a routerLink="/userProfile">User Profile<i class="fa fa-chevron-right"></i></a>
+          </span>
+          <span class="mr-2">
+            <a routerLink="/UserTrips" style="color: #f15d30 !important;">User Trips <i class="fa fa-chevron-right"
+                style="color: #f15d30 !important;"></i></a>
+          </span>
+        </p>
+      </div>
     </div>
+  </div>
 </section>
-
 <div class="container rounded bg-white mt-4 mb-4 p-4">
-
-
-
   <div *ngIf="this.home.reviewExists?.includes(false)">
     <div class="global-alert alert alert-warning">
       <span class="alert-message">You have a trip not reviewed. Please add your review.</span>
     </div>
   </div>
-
-
-
-    <div class="card mb-4">
-        <div class="card-body text-center">
-            <img class="rounded-circle mb-3 mx-auto" width="100px"
-                [src]="this.home.UserInformation.image_Path ? '../../../assets/images/' + this.home.UserInformation.image_Path : '../../../assets/default-profile.png'"
-                style="border: 2px solid #f15d30;" alt="Profile Picture">
-
-            <h5 class="font-weight-bold">{{ this.home.UserInformation.first_Name }} {{
-                this.home.UserInformation.last_Name }}</h5>
-            <p class="text-muted">{{ this.home.UserInformation.email }}</p>
-
-            <button class="btn btn-outline-secondary btn-sm mt-3" (click)="YourTripsAndFavorites()">Profile
-                Settings</button>
-        </div>
+  <div class="card mb-4">
+    <div class="card-body text-center">
+      <img class="rounded-circle mb-3 mx-auto" width="100px"
+        [src]="this.home.UserInformation.image_Path ? '../../../assets/images/' + this.home.UserInformation.image_Path : '../../../assets/default-profile.png'"
+        style="border: 2px solid #f15d30;" alt="Profile Picture">
+      <h5 class="font-weight-bold">{{ this.home.UserInformation.first_Name }} {{
+        this.home.UserInformation.last_Name }}</h5>
+      <p class="text-muted">{{ this.home.UserInformation.email }}</p>
+      <button class="btn btn-outline-secondary btn-sm mt-3" (click)="YourTripsAndFavorites()">Profile
+        Settings</button>
     </div>
-
-
-    <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-            <h4>Your Trips Booking</h4>
-        </div>
-        <div class="card-body">
-            <div *ngIf="this.home.UserInformation.bookings.length > 0; else noBookings">
-                <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center"
-                        *ngFor="let booking of this.home.UserInformation.bookings">
-                        <div>
-                            <strong>{{ booking.trip_Name }}</strong><br>
-                            <span class="text-muted">Payment:</span>
-                            <span class="status-span"
-                                [ngClass]="booking.payment_Status.toLowerCase() === 'not paid' ? 'payment-Not-Paid' : 'payment-paid'">
-                                {{ booking.payment_Status }}
-                            </span>
-                        </div>
-                        <div>
-                          <div *ngFor="let bookingId of this.home.bookingIds; let i = index">
-                            <div *ngIf="!this.home.reviewExists[i]">
-                              <button *ngIf="booking.booking_Id === bookingId" class="btn btn-danger btn-sm mr-2" (click)="openDialogReview(booking)">Review</button>
-                            </div>
-                          </div>
-                            <button *ngIf="booking.payment_Status.toLowerCase() === 'not paid'" class="btn btn-danger btn-sm mr-2"
-                                (click)="deleteBooking(booking.booking_Id)">
-                                Delete
-                            </button>
-                            <button class="btn btn-link btn-sm" (click)="openDetailsBookDialog(booking)">Details</button>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <ng-template #noBookings>
-                <p class="text-muted">No bookings found.</p>
-            </ng-template>
-        </div>
+  </div>
+  <div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+      <h4>Your Trips Booking</h4>
     </div>
-
-    <ng-template #callDetailsBookDailog>
-        <div class="modal-body">
-          <h4 class="modal-title text-center">Booking Details</h4>
-          
-          <div class="booking-section mb-4">
-            <h5>Booking Information</h5>
-            <div class="row">
-              <div class="col-md-6"><strong>Booking Date:</strong> {{ selectedBooking.create_At| date }}</div>
-              <div class="col-md-6"><strong>Total Amount:</strong> ${{ selectedBooking.total_Amount}}</div>
+    <div class="card-body">
+      <div *ngIf="this.home.UserInformation.bookings.length > 0; else noBookings">
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center"
+            *ngFor="let booking of this.home.UserInformation.bookings">
+            <div>
+              <strong>{{ booking.trip_Name }}</strong><br>
+              <span class="text-muted">Payment:</span>
+              <span class="status-span"
+                [ngClass]="booking.payment_Status.toLowerCase() === 'not paid' ? 'payment-Not-Paid' : 'payment-paid'">
+                {{ booking.payment_Status }}
+              </span>
             </div>
-            <div class="row">
-              <div class="col-md-6"><strong>Nunber of reservation:</strong> {{ selectedBooking.numberOfUser }}</div>              
-            </div>
-          </div>
-      
-          <div class="trip-section mb-4">
-            <h5>Trip Details</h5>
-            <div class="row">
-              <div class="col-md-6"><strong>Trip Name:</strong> {{ selectedBooking.trip_Name }}</div>
-              <div class="col-md-6"><strong>Price:</strong> ${{ selectedBooking.trip_Price }}</div>
-            </div>
-            <div class="row">
-              <div class="col-md-6"><strong>Departure Location:</strong> {{ selectedBooking.departure_Location }}</div>
-              <div class="col-md-6"><strong>Destination:</strong> {{ selectedBooking.destination_Location }}</div>
-            </div>
-            <div class="row">
-              <div class="col-md-6"><strong>Date of Departure:</strong> {{ selectedBooking.start_Date |date }}</div>
-              <div class="col-md-6"><strong>Date of Return:</strong> {{ selectedBooking.end_Date |date }}</div>
-            </div>
-          </div>
-      
-          <div class="services-section mb-4">
-            <h5>My Services</h5>
-            <ul class="list-group">
-              <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let service of this.home.bookingServices">
-                {{ service.service_Name }}
-                <span >${{ service.service_Cost }}</span>
-              </li>
-            </ul>
-          </div>
-      
-          <div class="d-flex justify-content-end mt-4">
-            <button type="button" class="btn btn-secondary me-2" style="margin-right: 20px;" mat-dialog-close>Cancel</button>
-            <button type="button" class="btn btn-primary" *ngIf="selectedBooking.payment_Status.toLowerCase() === 'not paid'" mat-dialog-close (click)="goPayment(selectedBooking.booking_Id)">Payment</button>
-          </div>
-        </div>
-      </ng-template>
-
-
-      <ng-template #callReviewFormDailog>
-        <div class="modal-body">
-          <h4 class="modal-title text-center">Review Form</h4>
-      
-          <form [formGroup]="Review" class="review-form">
-            <!-- Star Rating Section -->
-            <div class="star-rating">
-              <mat-label>RATE</mat-label>
-              <div class="stars">
-                <mat-icon
-                  *ngFor="let star of stars; let i = index"
-                  (click)="setRating(i + 1)"
-                  [ngClass]="{'filled-star': i < rating}"
-                  class="star-icon"
-                >
-                  star
-                </mat-icon>
+            <div>
+              <div *ngFor="let bookingId of this.home.bookingIds; let i = index">
+                <div *ngIf="!this.home.reviewExists[i]">
+                  <button *ngIf="booking.booking_Id === bookingId" class="btn btn-danger btn-sm mr-2"
+                    (click)="openDialogReview(booking)">Review</button>
+                </div>
               </div>
+              <button *ngIf="booking.payment_Status.toLowerCase() === 'not paid'" class="btn btn-danger btn-sm mr-2"
+                (click)="deleteBooking(booking.booking_Id)">
+                Delete
+              </button>
+              <button class="btn btn-link btn-sm" (click)="openDetailsBookDialog(booking)">Details</button>
             </div>
-      
-            <!-- Feedback Input Field -->
-            <div class="example-container">
-              <mat-form-field appearance="outline" class="input-field">
-                <mat-label>FEEDBACK</mat-label>
-                <textarea matInput formControlName="feedback" rows="4" placeholder="Write your feedback here..."></textarea>
-              </mat-form-field>
-            </div>
-      
-            <!-- Save Button -->
-            <button class="btn btn-primary save-button" (click)="save()">Save</button>
-          </form>
-        </div>
+          </li>
+        </ul>
+      </div>
+      <ng-template #noBookings>
+        <p class="text-muted">No bookings found.</p>
       </ng-template>
-      
-
-
-
-    <div class="card mb-4">
-        <div class="card-header bg-secondary text-white">
-            <h4>Your Volunteer Booking</h4>
+    </div>
+  </div>
+  <ng-template #callDetailsBookDailog>
+    <div class="modal-body">
+      <h4 class="modal-title text-center">Booking Details</h4>
+      <div class="booking-section mb-4">
+        <h5>Booking Information</h5>
+        <div class="row">
+          <div class="col-md-6"><strong>Booking Date:</strong> {{ selectedBooking.create_At| date }}</div>
+          <div class="col-md-6"><strong>Total Amount:</strong> ${{ selectedBooking.total_Amount}}</div>
         </div>
-        <div class="card-body">
-            <div *ngIf="this.home.UserInformation.volunteer.length > 0; else noVolunteer">
-                <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center"
-                        *ngFor="let volunteer of this.home.UserInformation.volunteer">
-                        <div>
-                            <strong>{{ volunteer.trip_Name }}</strong><br>
-                            <span class="text-muted">Status:</span>
-                            <span class="status-span"
-                                [ngClass]="volunteer.status.toLowerCase() === 'pending' ? 'status-pending' :
+        <div class="row">
+          <div class="col-md-6"><strong>Nunber of reservation:</strong> {{ selectedBooking.numberOfUser }}</div>
+        </div>
+      </div>
+      <div class="trip-section mb-4">
+        <h5>Trip Details</h5>
+        <div class="row">
+          <div class="col-md-6"><strong>Trip Name:</strong> {{ selectedBooking.trip_Name }}</div>
+          <div class="col-md-6"><strong>Price:</strong> ${{ selectedBooking.trip_Price }}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-6"><strong>Departure Location:</strong> {{ selectedBooking.departure_Location }}</div>
+          <div class="col-md-6"><strong>Destination:</strong> {{ selectedBooking.destination_Location }}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-6"><strong>Date of Departure:</strong> {{ selectedBooking.start_Date |date }}</div>
+          <div class="col-md-6"><strong>Date of Return:</strong> {{ selectedBooking.end_Date |date }}</div>
+        </div>
+      </div>
+      <div class="services-section mb-4">
+        <h5>My Services</h5>
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center"
+            *ngFor="let service of this.home.bookingServices">
+            {{ service.service_Name }}
+            <span>${{ service.service_Cost }}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="d-flex justify-content-end mt-4">
+        <button type="button" class="btn btn-secondary me-2" style="margin-right: 20px;"
+          mat-dialog-close>Cancel</button>
+        <button type="button" class="btn btn-primary"
+          *ngIf="selectedBooking.payment_Status.toLowerCase() === 'not paid'" mat-dialog-close
+          (click)="goPayment(selectedBooking.booking_Id)">Payment</button>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #callReviewFormDailog>
+    <div class="modal-body">
+      <h4 class="modal-title text-center">Review Form</h4>
+      <form [formGroup]="Review" class="review-form">
+        <div class="star-rating">
+          <mat-label>RATE</mat-label>
+          <div class="stars">
+            <mat-icon *ngFor="let star of stars; let i = index" (click)="setRating(i + 1)"
+              [ngClass]="{'filled-star': i < rating}" class="star-icon">
+              star
+            </mat-icon>
+          </div>
+        </div>
+        <div class="example-container">
+          <mat-form-field appearance="outline" class="input-field">
+            <mat-label>FEEDBACK</mat-label>
+            <textarea matInput formControlName="feedback" rows="4" placeholder="Write your feedback here..."></textarea>
+          </mat-form-field>
+        </div>
+        <button class="btn btn-primary save-button" (click)="save()">Save</button>
+      </form>
+    </div>
+  </ng-template>
+  <div class="card mb-4">
+    <div class="card-header bg-secondary text-white">
+      <h4>Your Volunteer Booking</h4>
+    </div>
+    <div class="card-body">
+      <div *ngIf="this.home.UserInformation.volunteer.length > 0; else noVolunteer">
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center"
+            *ngFor="let volunteer of this.home.UserInformation.volunteer">
+            <div>
+              <strong>{{ volunteer.trip_Name }}</strong><br>
+              <span class="text-muted">Status:</span>
+              <span class="status-span" [ngClass]="volunteer.status.toLowerCase() === 'pending' ? 'status-pending' :
                                 volunteer.status.toLowerCase() === 'approved' ? 'status-approved' :
                                 'status-other'">
-                                {{ volunteer.status }}
-                            </span>
-                        </div>
-                        <div>
-                            <button *ngIf="volunteer.status === 'pending'  || volunteer.status.toLowerCase() === 'rejected'" class="btn btn-danger btn-sm mr-2"
-                                (click)="deleteVolunteer(volunteer.volunteer_Id)">
-                                Delete
-                            </button>
-                            <button class="btn btn-link btn-sm" (click)="openDetailsVolunteerDailog(volunteer)">Details</button>
-                        </div>
-                    </li>
-                </ul>
+                {{ volunteer.status }}
+              </span>
             </div>
-            <ng-template #noVolunteer>
-                <p class="text-muted">No volunteer bookings found.</p>
-            </ng-template>
-        </div>
+            <div>
+              <button *ngIf="volunteer.status === 'pending'  || volunteer.status.toLowerCase() === 'rejected'"
+                class="btn btn-danger btn-sm mr-2" (click)="deleteVolunteer(volunteer.volunteer_Id)">
+                Delete
+              </button>
+              <button class="btn btn-link btn-sm" (click)="openDetailsVolunteerDailog(volunteer)">Details</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <ng-template #noVolunteer>
+        <p class="text-muted">No volunteer bookings found.</p>
+      </ng-template>
     </div>
+  </div>
 
-    <ng-template #callDetailsVolunteerDailog>
-      <div class="modal-body">
-        <h4 class="modal-title text-center">Volunteer Details</h4>
-        
-        <div class="booking-section mb-4">
-          <h5>Booking Information</h5>
-          <div class="row">
-            <div class="col-md-6"><strong>Booking Date:</strong> {{ selectedVolunteer.date_Applied| date }}</div>
-            <div class="col-md-6"><strong>Total Amount:</strong> {{ selectedVolunteer.status}}</div>
-          </div>
-        </div>
-    
-        <div class="trip-section mb-4">
-          <h5>Trip Details</h5>
-          <div class="row">
-            <div class="col-md-6"><strong>Trip Name:</strong> {{ selectedVolunteer.trip_Name }}</div>
-          </div>
-          <div class="row">
-            <div class="col-md-6"><strong>Departure Location:</strong> {{ selectedVolunteer.departure_Location }}</div>
-            <div class="col-md-6"><strong>Destination:</strong> {{ selectedVolunteer.destination_Location }}</div>
-          </div>
-          <div class="row">
-            <div class="col-md-6"><strong>Date of Departure:</strong> {{ selectedVolunteer.start_Date |date }}</div>
-            <div class="col-md-6"><strong>Date of Return:</strong> {{ selectedVolunteer.end_Date |date }}</div>
-          </div>
-        </div>
-    
-        <div class="services-section mb-4">
-          <h5>My Volunteer Role</h5>
-          <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              {{ selectedVolunteer.role_Name }}
-            </li>
-          </ul>
-        </div>
-    
-        <div class="d-flex justify-content-end mt-4">
-          <button type="button" class="btn btn-primary" mat-dialog-close>Ok</button>
+  <ng-template #callDetailsVolunteerDailog>
+    <div class="modal-body">
+      <h4 class="modal-title text-center">Volunteer Details</h4>
+      <div class="booking-section mb-4">
+        <h5>Booking Information</h5>
+        <div class="row">
+          <div class="col-md-6"><strong>Booking Date:</strong> {{ selectedVolunteer.date_Applied| date }}</div>
+          <div class="col-md-6"><strong>Total Amount:</strong> {{ selectedVolunteer.status}}</div>
         </div>
       </div>
-    </ng-template>
-
-    <div class="card mb-4">
-      <div class="card-header bg-secondary text-white">
-        <h4>Your Favorite Trips</h4>
-      </div>
-      <div class="card-body">
-        <div *ngIf="favorites.length > 0; else noFavorites">
-          <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let favorite of favorites">
-              <div>
-                <strong>{{ favorite.name }}</strong><br>
-                <span class="text-muted">Location:</span> {{ favorite.location }}
-              </div>
-              <div>
-                <button class="btn btn-link btn-sm text-danger" (click)="removeFavorite(favorite.tripId)">
-                  Remove
-                </button>
-                <button class="btn btn-link btn-sm text-primary" (click)="goToDetails(favorite.tripId)">
-                 Details
-                </button>
-              </div>
-            </li>
-          </ul>
+      <div class="trip-section mb-4">
+        <h5>Trip Details</h5>
+        <div class="row">
+          <div class="col-md-6"><strong>Trip Name:</strong> {{ selectedVolunteer.trip_Name }}</div>
         </div>
-        <ng-template #noFavorites>
-          <p class="text-muted">No favorite trips added yet.</p>
-        </ng-template>
+        <div class="row">
+          <div class="col-md-6"><strong>Departure Location:</strong> {{ selectedVolunteer.departure_Location }}</div>
+          <div class="col-md-6"><strong>Destination:</strong> {{ selectedVolunteer.destination_Location }}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-6"><strong>Date of Departure:</strong> {{ selectedVolunteer.start_Date |date }}</div>
+          <div class="col-md-6"><strong>Date of Return:</strong> {{ selectedVolunteer.end_Date |date }}</div>
+        </div>
+      </div>
+      <div class="services-section mb-4">
+        <h5>My Volunteer Role</h5>
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ selectedVolunteer.role_Name }}
+          </li>
+        </ul>
+      </div>
+      <div class="d-flex justify-content-end mt-4">
+        <button type="button" class="btn btn-primary" mat-dialog-close>Ok</button>
       </div>
     </div>
-    
-    
-    
-  
+  </ng-template>
 
+  <div class="card mb-4">
+    <div class="card-header bg-secondary text-white">
+      <h4>Your Favorite Trips</h4>
+    </div>
+    <div class="card-body">
+      <div *ngIf="favorites.length > 0; else noFavorites">
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center"
+            *ngFor="let favorite of favorites">
+            <div>
+              <strong>{{ favorite.name }}</strong><br>
+              <span class="text-muted">Location:</span> {{ favorite.location }}
+            </div>
+            <div>
+              <button class="btn btn-link btn-sm text-danger" (click)="removeFavorite(favorite.tripId)">
+                Remove
+              </button>
+              <button class="btn btn-link btn-sm text-primary" (click)="goToDetails(favorite.tripId)">
+                Details
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <ng-template #noFavorites>
+        <p class="text-muted">No favorite trips added yet.</p>
+      </ng-template>
+    </div>
+  </div>
 </div>

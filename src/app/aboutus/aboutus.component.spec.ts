@@ -1,7 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { AboutusComponent } from './aboutus.component';
-import { NavbarComponent } from '../shared/navbar/navbar.component';
 describe('AboutusComponent', () => {
   let component: AboutusComponent;
   let fixture: ComponentFixture<AboutusComponent>;

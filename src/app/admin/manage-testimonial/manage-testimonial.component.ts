@@ -3,16 +3,15 @@ import { AdminService } from 'src/app/Services/admin.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
 
-
 @Component({
   selector: 'app-manage-testimonial',
   templateUrl: './manage-testimonial.component.html',
   styleUrls: ['./manage-testimonial.component.css']
 })
+
 export class ManageTestimonialComponent implements OnInit {
   @ViewChild('callDeleteDailog') DeleteDailog !: TemplateRef<any>;
   @ViewChild('callEditDailog') EditDailog !: TemplateRef<any>;
-
 
   constructor(public admin: AdminService, public dialog: MatDialog) { }
 
@@ -29,8 +28,8 @@ export class ManageTestimonialComponent implements OnInit {
           console.log('Thank you ');
       }
     })
-
   }
+
   Testimonial: FormGroup = new FormGroup({
     testimonial_Id: new FormControl(''),
     login_Id: new FormControl('', Validators.required),

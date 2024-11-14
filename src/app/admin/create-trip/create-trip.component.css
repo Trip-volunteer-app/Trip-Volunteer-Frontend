@@ -338,14 +338,11 @@ button {
 .button-container {
   display: flex;
   justify-content: flex-end;
-  /* Align button to the right */
   margin-top: 16px;
-  /* Add some space above the button */
 }
 
 .next-button {
   background-color: #3f51b5;
-  /* Customize background color */
   color: white;
   padding: 8px 16px;
   font-weight: bold;
@@ -355,12 +352,10 @@ button {
 
 .next-button:hover {
   background-color: #303f9f;
-  /* Darker shade on hover */
 }
 
 .next-button:disabled {
   background-color: #bdbdbd;
-  /* Disabled color */
   cursor: not-allowed;
 }
 
@@ -403,16 +398,12 @@ button {
 
 .map-container i {
   font-size: 24px;
-  /* Adjust the size */
   color: #3f51b5;
-  /* Choose a color that fits your design */
   margin-right: 10px;
-  /* Space between icon and input */
 }
 
 .selected-button {
   border: 2px solid #1976D2;
-  /* Change to your desired color */
   color: #f14a3d;
 }
 
@@ -420,8 +411,6 @@ button {
   display: flex;
   justify-content: flex-end;
   margin-top: 30px;
-
-
 }
 
 .services-title {
@@ -701,9 +690,7 @@ button {
 
 .scrollable-services {
   max-height: 200px;
-  /* Set a max height to keep it compact */
   overflow-y: auto;
-  /* Enables scroll if content overflows */
   border: 1px solid #ddd;
   padding: 10px;
   border-radius: 5px;
@@ -735,9 +722,7 @@ button {
 
 .service-cost {
   margin-right: 30px;
-  /* Space between cost and edit icon */
   white-space: nowrap;
-  /* Keeps the cost in a single line */
 }
 
 .edit-icon {
@@ -798,4 +783,7 @@ button[mat-raised-button][color="accent"] {
 .back-button {
   color: black;
   border-radius: 20px;
+}
+.page-body-wrapper{
+  background-color: #2E2E2E;
 }

@@ -54,7 +54,6 @@
         <span class="menu-title">Manages Trips</span>
       </a>
     </li>
-
     <li class="nav-item menu-items">
       <a class="nav-link" (click)="isCollapse = !isCollapse">
         <span class="menu-icon">
@@ -73,7 +72,6 @@
         </ul>
       </div>
     </li>
-
     <li class="nav-item menu-items">
       <a class="nav-link" (click)="isCollaps = !isCollaps">
         <span class="menu-icon">
@@ -89,8 +87,6 @@
         </ul>
       </div>
     </li>
-
-
     <li class="nav-item menu-items">
       <a class="nav-link" routerLink="/admin/AllUsers">
         <span class="menu-icon">
@@ -99,7 +95,6 @@
         <span class="menu-title">All Users</span>
       </a>
     </li>
-
     <li class="nav-item menu-items">
       <a class="nav-link" routerLink="/admin/ContactUsMessages">
         <span class="menu-icon">
@@ -108,7 +103,6 @@
         <span class="menu-title">All ContactUs</span>
       </a>
     </li>
-
     <li class="nav-item menu-items">
       <a class="nav-link" routerLink="/admin/ManageReview">
         <span class="menu-icon">
@@ -117,7 +111,6 @@
         <span class="menu-title">All Reviews</span>
       </a>
     </li>
-
     <li class="nav-item menu-items">
       <a class="nav-link" routerLink="/admin/ManageTestimonial">
         <span class="menu-icon">
@@ -126,9 +119,6 @@
         <span class="menu-title">All Testimonial</span>
       </a>
     </li>
-
-
-
     <li class="nav-item menu-items">
       <a class="nav-link" (click)="isCollapsed = !isCollapsed">
         <span class="menu-icon">
@@ -140,24 +130,14 @@
       <div [ngClass]="{'collapse': !isCollapsed, 'show': isCollapsed}">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" routerLink="/admin/ManageCategories">Categories</a></li>
-          <!-- <li class="nav-item"><a class="nav-link" routerLink="/admin/TripsInformation">Trips</a></li> -->
           <li class="nav-item"> <a class="nav-link" routerLink="/admin/ManageServices">Service</a></li>
           <li class="nav-item"> <a class="nav-link" routerLink="/admin/ManageVolunteer">Volunteers</a></li>
           <li class="nav-item"> <a class="nav-link" routerLink="/admin/ManageVolunteerRole">Volunteer Roles</a></li>
-          <!-- <li class="nav-item"> <a class="nav-link" routerLink="/admin/ManageReview">Review</a></li> -->
-          <!-- <li class="nav-item"> <a class="nav-link" routerLink="/admin/AllUsers">Users</a></li> -->
-          <!-- <li class="nav-item"> <a class="nav-link" routerLink="/admin/ManageTestimonial">Testimonial</a></li> -->
-          <!-- <li class="nav-item"> <a class="nav-link" routerLink="/admin/ContactUsMessages">ContactUs Messages</a></li> -->
-
-
         </ul>
       </div>
     </li>
-
-
   </ul>
 </nav>
-
 <nav class="navbar p-0 fixed-top d-flex flex-row">
   <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
     <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../../../assets/Admin2/images/logo-mini.svg"
@@ -167,20 +147,16 @@
     <button class="navbar-toggler navbar-toggler align-self-center" type="button" (click)="menu = !menu">
       <span class="mdi mdi-menu"></span>
     </button>
-
     <ul class="navbar-nav navbar-nav-right">
       <li class="nav-item dropdown d-none d-lg-block">
         <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown"
           aria-expanded="false" routerLink="/admin/CreateTrip">+ Create New Trip</a>
       </li>
-
-
       <li class="nav-item nav-settings d-none d-lg-block">
         <a class="nav-link" routerLink="/home">
           <i class="mdi mdi-home" style="font-size: 38px;"></i>
         </a>
       </li>
-    
       <li class="nav-item dropdown">
         <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
           <div class="navbar-profile">

@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { AnuualReportComponent } from './anuual-report.component';
 
 describe('AnuualReportComponent', () => {

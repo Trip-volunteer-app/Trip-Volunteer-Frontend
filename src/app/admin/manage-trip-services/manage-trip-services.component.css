@@ -7,8 +7,6 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 30px;
-
-
 }
 
 .services-title {
@@ -370,4 +368,16 @@ button[mat-raised-button][color="accent"] {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+}
+
+.page-body-wrapper {
+  background-color: #2E2E2E;
+}
+
+.container-scroller{
+  background-color: #2E2E2E;
+}
+
+.update-service-form{
+  padding: 30px;
 }

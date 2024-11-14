@@ -128,3 +128,38 @@ td:nth-child(2) {
   text-align: center;
   margin-top: 30px;
 }
+.page-body-wrapper{
+  background-color: #2E2E2E;
+}
+.card{
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;
+}
+
+.badge-outline-success{
+  position: absolute; top: 20px; right: 30px; font-size: 15px;
+}
+
+.table-container{
+  position: relative;
+}
+.table-responsive{
+  margin-top: 40px;
+}
+.table{
+  background-color: white;
+}
+.row{
+  background-color: white;
+}
+.rounded-circle{
+  background-color: white;
+}
+.row2{
+  background-color: white; max-width: 3000px; width: 1600px;
+}
+.chart-container-2{
+  width: 100%; max-width: 800px; margin: 0px; padding:0px;
+}
+.add-items{
+  width: 100%; max-width: 700px; margin: auto; padding-top: 20px;
+}

@@ -48,9 +48,8 @@
     transition: transform 0.3s ease;
     
   }
-    /* Global alert styling */
 .global-alert {
-  background-color: #fdce41; /* Bootstrap warning color */
+  background-color: #fdce41;
   color: #333;
   text-align: center;
   padding: 1em;

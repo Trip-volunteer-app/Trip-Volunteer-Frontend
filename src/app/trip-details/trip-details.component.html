@@ -1,23 +1,25 @@
 <app-navbar></app-navbar>
-<section class="hero-wrap hero-wrap-2 " style="background-image: url('assets/Home/images/chero12.jpeg');height: 300px; background-size: cover; background-position: center;">
-    <div class="overlay" style="height: 300px;"></div>
-    <div class="container" style="height: 300px;">
-      <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
-        <div class="col-md-9 ftco-animate pb-5 text-center" >
-          <p class="breadcrumbs"><span class="mr-2"><a routerLink="/Trips">Trips <i
-                  class="fa fa-chevron-right"></i></a></span> <span style="color: #f15d30 !important;">Trip Details <i class="fa fa-chevron-right" style="color: #f15d30 !important;"></i></span>
-          </p>
-          <h1 class="mb-0 bread">Trip Details</h1>
-        </div>
+<section class="hero-wrap hero-wrap-2 "
+  style="background-image: url('assets/Home/images/chero12.jpeg');height: 300px; background-size: cover; background-position: center;">
+  <div class="overlay" style="height: 300px;"></div>
+  <div class="container" style="height: 300px;">
+    <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
+      <div class="col-md-9 ftco-animate pb-5 text-center">
+        <p class="breadcrumbs"><span class="mr-2"><a routerLink="/Trips">Trips <i
+                class="fa fa-chevron-right"></i></a></span> <span style="color: #f15d30 !important;">Trip Details <i
+              class="fa fa-chevron-right" style="color: #f15d30 !important;"></i></span>
+        </p>
+        <h1 class="mb-0 bread">Trip Details</h1>
       </div>
     </div>
-  </section>
- 
+  </div>
+</section>
 <mat-card class="image-slider-container">
   <div class="example-button-row">
+    <button mat-raised-button *ngIf="isFutureTrip(home.tripDetails.start_Date)"
+      (click)="openBookingDailog(home.tripDetails)"
+      style="background-color: #ff5722; color: white;">Reserve/Volunteer</button>
 
-    <button mat-raised-button *ngIf="isFutureTrip(home.tripDetails.start_Date)" (click)="openBookingDailog(home.tripDetails)" style="background-color: #ff5722; color: white;">Reserve/Volunteer</button>
-   
     <mat-dialog-content *ngIf="!isFutureTrip(home.tripDetails.start_Date)">
       <div class="alert-box">
         <p>
@@ -25,314 +27,265 @@
         </p>
       </div>
     </mat-dialog-content>
-   
-    <button mat-icon-button 
-    [color]="isFavorite ? 'warn' : 'default'" 
-    (click)="toggleFavorite()"
-    aria-label="Icon button with a heart icon">
-<mat-icon style="font-size: 26px;">{{ isFavorite ? 'favorite' : 'favorite_border' }}</mat-icon>
-</button>
+
+    <button mat-icon-button [color]="isFavorite ? 'warn' : 'default'" (click)="toggleFavorite()"
+      aria-label="Icon button with a heart icon">
+      <mat-icon style="font-size: 26px;">{{ isFavorite ? 'favorite' : 'favorite_border' }}</mat-icon>
+    </button>
   </div>
-  
-    <mat-card-content>
-      <div class="slider">
-        <div class="slide" *ngFor="let image of home.tripDetails.images; let i = index" [class.active]="i === currentSlide">
-          <img src="../../assets/images/{{image.image_Name}}" alt="TripImage" />
-        </div>
-      
+
+  <mat-card-content>
+    <div class="slider">
+      <div class="slide" *ngFor="let image of home.tripDetails.images; let i = index"
+        [class.active]="i === currentSlide">
+        <img src="../../assets/images/{{image.image_Name}}" alt="TripImage" />
+      </div>
+
       <div class="controls" *ngIf="home.tripDetails.images.length > 1">
         <button mat-icon-button (click)="prevSlide()">
-          &lt; 
+          &lt;
         </button>
         <button mat-icon-button (click)="nextSlide()">
           &gt;
         </button>
       </div>
     </div>
-      <div class="card-body">
-        <mat-tab-group animationDuration="1ms" [color]="'warn'" >
-          <mat-tab class="tab" label="Details" >
-            <ng-template matTabContent>
-              <div class="trip-details-container">
-                <h2 class="trip-title">{{home.tripDetails.trip_Name}}</h2>
-                
-                <p class="trip-location-duration">
-                  <span class="trip-location"><i class="bi bi-geo-alt colored-icon"></i>{{home.tripDetails.destination_Location}}</span> | 
-                  <span class="trip-duration"><i class="bi bi-calendar colored-icon"></i> {{getDaysDifference(home.tripDetails.start_Date , home.tripDetails.end_Date)}} days</span>
-                </p>
-                
-                <p class="trip-date">
-                  <strong>From:</strong> {{home.tripDetails.start_Date |date:'mediumDate' }} &nbsp; <strong>To:</strong> {{home.tripDetails.end_Date |date:'mediumDate'}}
-                </p>
-                
-                <p class="trip-type">
-                  <i class="bi bi-compass colored-icon"></i> Tourist Trip
-                </p>
-                
-                <p class="trip-price">
-                  <i class="bi bi-currency-dollar colored-icon"></i> {{home.tripDetails.trip_Price}}
-                </p>
-                
-                <p class="trip-booking">
-                  <i class="bi bi-person colored-icon"></i> Remaining <strong>{{this.home.tripDetails.max_Number_Of_Users}}</strong> seats
-                </p>
-                
-                <div class="trip-services">
-                  <p><i class="bi bi-bell colored-icon"></i> <strong>Services:</strong></p>
-                  <ul>
-                    <li *ngFor="let service of home.tripDetails.services; let i = index">Service {{i + 1}} : {{service.service_Name}} _ {{service.service_Cost}}$</li>
-                  </ul>
-                </div>
-
-                <div class="trip-booking">
-                  <p><i class="bi bi-person colored-icon"></i> <strong>Volunteer:</strong></p>
-                
-                  <!-- Check if there are volunteers -->
-                  <table *ngIf="home.GetTripVolunteer && home.GetTripVolunteer.length > 0; else noVolunteers">
-                    <thead>
-                      <tr>
-                        <th>Volunteer #</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role Name</th>
-                        <th>Experience</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let Volunteer of home.GetTripVolunteer; let i = index">
-                        <td>{{i + 1}}</td>
-                        <td>{{Volunteer.first_name}} {{Volunteer.last_name}}</td>
-                        <td>{{Volunteer.email}}</td>
-                        <td>{{Volunteer.rolE_NAMES}}</td>
-                        <td>{{Volunteer.experience}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                
-                  <!-- Fallback message if no volunteers -->
-                  <ng-template #noVolunteers>
-                    <p class="no-volunteers">Not found Accepted volunteer for this Trip</p>
-                  </ng-template>
-                </div>
-                
-                
-<br><br>                
-                
-                <div class="trip-booking">
-                  <p><i class="bi bi-person colored-icon"></i> <strong>Volunteer Role:</strong></p>
-                  <ul *ngIf="home.VolunteerRoleByTripId && home.VolunteerRoleByTripId.length > 0; else noRoleVolunteers">
-                    <li *ngFor="let VolunteerRole of home.VolunteerRoleByTripId; let i = index">Volunteer Role {{i + 1}} :  {{VolunteerRole.role_Name}} </li>
-                  </ul>
-
-                  <ng-template #noRoleVolunteers>
-                    <p>Not found Role volunteer for this Trip</p>
-                  </ng-template>
-                </div>
-
-                <p class="trip-description">
-                  {{home.tripDetails.description}}
-                </p>
-
+    <div class="card-body">
+      <mat-tab-group #tabGroup animationDuration="1ms" [color]="'warn'">
+        <mat-tab class="tab" label="Details">
+          <ng-template matTabContent>
+            <div class="trip-details-container">
+              <h2 class="trip-title">{{home.tripDetails.trip_Name}}</h2>
+              <p class="trip-location-duration">
+                <span class="trip-location"><i
+                    class="bi bi-geo-alt colored-icon"></i>{{home.tripDetails.destination_Location}}</span> |
+                <span class="trip-duration"><i class="bi bi-calendar colored-icon"></i>
+                  {{getDaysDifference(home.tripDetails.start_Date , home.tripDetails.end_Date)}} days</span>
+              </p>
+              <p class="trip-date">
+                <strong>From:</strong> {{home.tripDetails.start_Date |date:'mediumDate' }} &nbsp; <strong>To:</strong>
+                {{home.tripDetails.end_Date |date:'mediumDate'}}
+              </p>
+              <p class="trip-type">
+                <i class="bi bi-compass colored-icon"></i> Tourist Trip
+              </p>
+              <p class="trip-price">
+                <i class="bi bi-currency-dollar colored-icon"></i> {{home.tripDetails.trip_Price}}
+              </p>
+              <p class="trip-booking">
+                <i class="bi bi-person colored-icon"></i> Remaining
+                <strong>{{this.home.tripDetails.max_Number_Of_Users}}</strong> seats
+              </p>
+              <div class="trip-services">
+                <p><i class="bi bi-bell colored-icon"></i> <strong>Services:</strong></p>
+                <ul>
+                  <li *ngFor="let service of home.tripDetails.services; let i = index">Service {{i + 1}} :
+                    {{service.service_Name}} _ {{service.service_Cost}}$</li>
+                </ul>
               </div>
-            </ng-template>
-          </mat-tab>
-          
-          <mat-tab class="tab" label="Review" >
-            <ng-template matTabContent>
-              <div class="review-section">
-                <div class="review-card" *ngFor="let review of this.home.review; let i = index" [hidden]="i >= 10">
-                  <div class="review-header">
-                    <img class="review-avatar" src="../../assets/images/{{review.image_Path}}" alt="{{ review.first_Name }}" />
-                    <div class="review-info">
-                      <p class="review-name">{{ review.first_Name }} {{ review.last_Name }}</p>
-                      <div class="review-stars">
-                        <mat-icon *ngFor="let star of [1,2,3,4,5]" [class.filled]="star <= review.rate">star</mat-icon>
-                      </div>
+              <div class="trip-booking">
+                <p><i class="bi bi-person colored-icon"></i> <strong>Volunteer:</strong></p>
+                <table *ngIf="home.GetTripVolunteer && home.GetTripVolunteer.length > 0; else noVolunteers">
+                  <thead>
+                    <tr>
+                      <th>Volunteer #</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Role Name</th>
+                      <th>Experience</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let Volunteer of home.GetTripVolunteer; let i = index">
+                      <td>{{i + 1}}</td>
+                      <td>{{Volunteer.first_name}} {{Volunteer.last_name}}</td>
+                      <td>{{Volunteer.email}}</td>
+                      <td>{{Volunteer.rolE_NAMES}}</td>
+                      <td>{{Volunteer.experience}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <ng-template #noVolunteers>
+                  <p class="no-volunteers">Not found Accepted volunteer for this Trip</p>
+                </ng-template>
+              </div>
+              <br><br>
+              <div class="trip-booking">
+                <p><i class="bi bi-person colored-icon"></i> <strong>Volunteer Role:</strong></p>
+                <ul *ngIf="home.VolunteerRoleByTripId && home.VolunteerRoleByTripId.length > 0; else noRoleVolunteers">
+                  <li *ngFor="let VolunteerRole of home.VolunteerRoleByTripId; let i = index">Volunteer Role {{i + 1}} :
+                    {{VolunteerRole.role_Name}} </li>
+                </ul>
+                <ng-template #noRoleVolunteers>
+                  <p>Not found Role volunteer for this Trip</p>
+                </ng-template>
+              </div>
+              <p class="trip-description">
+                {{home.tripDetails.description}}
+              </p>
+            </div>
+          </ng-template>
+        </mat-tab>
+        <mat-tab class="tab" label="Review">
+          <ng-template matTabContent>
+            <div class="review-section">
+              <div class="review-card" *ngFor="let review of this.home.review; let i = index" [hidden]="i >= 10">
+                <div class="review-header">
+                  <img class="review-avatar" src="../../assets/images/{{review.image_Path}}"
+                    alt="{{ review.first_Name }}" />
+                  <div class="review-info">
+                    <p class="review-name">{{ review.first_Name }} {{ review.last_Name }}</p>
+                    <div class="review-stars">
+                      <mat-icon *ngFor="let star of [1,2,3,4,5]" [class.filled]="star <= review.rate">star</mat-icon>
                     </div>
                   </div>
-                  <p class="review-feedback">{{ review.feedback }}</p>
                 </div>
+                <p class="review-feedback">{{ review.feedback }}</p>
               </div>
-            </ng-template>
-          </mat-tab>
-          
-          <mat-tab class="tab" label="Similar Trips">
-            <ng-template matTabContent>
-              <div class="similar-trips-column">
-                <div *ngFor="let trip of home.similarTrip" class="trip-item">
-                  <mat-card class="trip-card" (click)="goToTripDetails(trip.trip_Id)">
-                    <mat-card-title>
-                      <span class="trip-link">{{ trip.trip_Name }}</span>
-                    </mat-card-title>
-                    <mat-card-content>
-                      <p class="trip-location">Location: {{ trip.destination_Location }}</p>
-                    </mat-card-content>
-                  </mat-card>
-                </div>
+            </div>
+          </ng-template>
+        </mat-tab>
+        <mat-tab class="tab" label="Similar Trips">
+          <ng-template matTabContent>
+            <div class="similar-trips-column">
+              <div *ngFor="let trip of home.similarTrip" class="trip-item">
+                <mat-card class="trip-card" *ngIf="trip.trip_Id !== tripId" (click)="goToTripDetails(trip.trip_Id)">
+                  <mat-card-title>
+                    <span class="trip-link">{{ trip.trip_Name }}</span>
+                  </mat-card-title>
+                  <mat-card-content>
+                    <p class="trip-location">Location: {{ trip.destination_Location }}</p>
+                  </mat-card-content>
+                </mat-card>
               </div>
-            </ng-template>
-          </mat-tab>
-          
-          
-          
-          
-          
-        </mat-tab-group>
-      </div>
-
-    </mat-card-content>
-  </mat-card>
-
-  <app-footer></app-footer>
-  
-  <ng-template #callAuthDailog>
-    <div class="Dbutton">
-    <button mat-button  mat-dialog-close="no" class="close-button">
+            </div>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </mat-card-content>
+</mat-card>
+<app-footer></app-footer>
+<ng-template #callAuthDailog>
+  <div class="Dbutton">
+    <button mat-button mat-dialog-close="no" class="close-button">
       <mat-icon>close</mat-icon>
     </button>
   </div>
   <div mat-dialog-content>Please Login/Register to booking trip</div>
   <div mat-dialog-actions>
-      <button mat-button mat-dialog-close="no" (click)="goLogin()">Login</button>
+    <button mat-button mat-dialog-close="no" (click)="goLogin()">Login</button>
     <button mat-button mat-dialog-close="no" (click)="goRegiter()">Register</button>
   </div>
 </ng-template>
-
-  
-
-   
-
-  <ng-template #callBookingDailog>
-    <mat-dialog-content class="mat-typography" style="max-height: 90vh !important; ">
-      <mat-tab-group>
-  
-        <mat-tab label="Booking" style="width: 500px !important; height: 600px !important;" >
-
-          <mat-dialog-content *ngIf="!isSeatsAvailable()">
-            <div class="alert-box">
-              <p>
-                Trip seats are full .Search for other trip!
-              </p>
-            </div>
-          </mat-dialog-content>
-
-          <form [formGroup]="BookingTrip">
-            <h3 style="margin-top: 20px;">Booking Trip</h3>
-            <div class="example-container" fxLayout="column" fxLayoutGap="20px">
-              
-              <div style="display: flex; flex-direction: row;" fxLayoutGap="20px">
-                <div style="display: flex; flex-direction: column;">
+<ng-template #callBookingDailog>
+  <mat-dialog-content class="mat-typography" style="max-height: 90vh !important; ">
+    <mat-tab-group>
+      <mat-tab label="Booking" style="width: 500px !important; height: 600px !important;">
+        <mat-dialog-content *ngIf="!isSeatsAvailable()">
+          <div class="alert-box">
+            <p>
+              Trip seats are full .Search for other trip!
+            </p>
+          </div>
+        </mat-dialog-content>
+        <form [formGroup]="BookingTrip">
+          <h3 style="margin-top: 20px;">Booking Trip</h3>
+          <div class="example-container" fxLayout="column" fxLayoutGap="20px">
+            <div style="display: flex; flex-direction: row;" fxLayoutGap="20px">
+              <div style="display: flex; flex-direction: column;">
                 <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;">
                   <mat-label>Number of Reservations</mat-label>
-                  <input type="number" matInput formControlName="numberOfUser" (change)="this.updateTotalAmount();" [readonly]="!isSeatsAvailable()">
-
-
+                  <input type="number" matInput formControlName="numberOfUser" (change)="this.updateTotalAmount();"
+                    [readonly]="!isSeatsAvailable()">
                 </mat-form-field>
-                <span class="number-of-users" style="color: red; font-size: 12px;" *ngIf="BookingTrip.get('numberOfUser')?.errors?.['nonZero'] && BookingTrip.get('numberOfUser')?.touched">
+                <span class="number-of-users" style="color: red; font-size: 12px;"
+                  *ngIf="BookingTrip.get('numberOfUser')?.errors?.['nonZero'] && BookingTrip.get('numberOfUser')?.touched">
                   Number of users must be greater than zero.
                 </span>
-                </div>
-  
-                <mat-form-field appearance="fill" style="width: 300px !important;">
-                  <mat-label>Total Amount</mat-label>
-                  <input
-                    type="number"
-                    matInput
-                    formControlName="total_Amount"
-                    [(ngModel)]="total"
-                    readonly
-                    style="color: #cccccc; border: none; cursor: not-allowed;"
-                  >
-                </mat-form-field>
               </div>
-  
-              <div fxLayout="column" fxLayoutGap="20px">
-                <mat-label>Select Services</mat-label>
-                <div *ngFor="let service of pData.services">
-                  <mat-checkbox (change)="check($event.checked, service.service_Id)" [disabled]="!isSeatsAvailable()">
-                    {{ service.service_Name }} _ {{ service.service_Cost }} $
-                  </mat-checkbox>
-                </div>
-              </div>
-  
-              <div fxLayout="row">
-                <mat-form-field appearance="fill" style="width: 620px !important; height: 200px;" >
-                  <mat-label>Note</mat-label>
-                  <textarea matInput formControlName="note" [readonly]="!isSeatsAvailable()"></textarea>
-                </mat-form-field>
-              </div>
-            </div>
-            <mat-dialog-actions align="end">
-              <button mat-button mat-dialog-close (click)="clear()">Cancel</button>
-              <button *ngIf="isSeatsAvailable()" mat-button cdkFocusInitial (click)="Booking()" style="background-color: #ff5722;color: white;">Booking</button>
-            </mat-dialog-actions>
-          </form>
-        </mat-tab>
-  
-        <mat-tab label="Volunteer" >
-
-          <mat-dialog-content *ngIf="!isVolunteerAvailable">
-            <div class="alert-box">
-              <p>
-                We get max number of volunteer .Search for other trip!
-              </p>
-            </div>
-          </mat-dialog-content>
-
-          <form [formGroup]="volanteerForm">
-            <h3>Volunteer</h3>
-            
-            <div fxLayout="row" fxLayoutGap="20px">
-              <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;" >
-                <mat-label>Email</mat-label>
-                <input type="text" matInput formControlName="email" >
-              </mat-form-field>
-
               <mat-form-field appearance="fill" style="width: 300px !important;">
-                <mat-label>Phone Namber</mat-label>
-                <input type="text" matInput formControlName="phone_Number"  >
+                <mat-label>Total Amount</mat-label>
+                <input type="number" matInput formControlName="total_Amount" [(ngModel)]="total" readonly
+                  style="color: #cccccc; border: none; cursor: not-allowed;">
               </mat-form-field>
             </div>
-
-            <div fxLayout="row" fxLayoutGap="20px">
-              <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;">
-                <mat-label>Emergency Contant</mat-label>
-                <input type="text" matInput formControlName="emergency_Contact"  >
-              </mat-form-field>
-
-              <mat-form-field appearance="fill" style="width: 300px !important;">
-                <mat-label>Experience (if any)</mat-label>
-                <input type="text" matInput formControlName="experience"  >
-              </mat-form-field>
+            <div fxLayout="column" fxLayoutGap="20px">
+              <mat-label>Select Services</mat-label>
+              <div *ngFor="let service of pData.services">
+                <mat-checkbox (change)="check($event.checked, service.service_Id)" [disabled]="!isSeatsAvailable()">
+                  {{ service.service_Name }} _ {{ service.service_Cost }} $
+                </mat-checkbox>
+              </div>
             </div>
-
-            <div fxLayout="row">
-              <mat-form-field style="width: 620px !important;">
-                <mat-label>Volunteer Role</mat-label>
-                <mat-select formControlName="volunteer_Role_Id">
-                  <mat-option type="number" *ngFor="let role of volunteerRolesWithVolunteers" [value]="role.volunteer_Role_Id"  >
-                    {{role.role_Name}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-
             <div fxLayout="row">
               <mat-form-field appearance="fill" style="width: 620px !important; height: 200px;">
                 <mat-label>Note</mat-label>
-                <textarea matInput formControlName="notes" ></textarea>
+                <textarea matInput formControlName="note" [readonly]="!isSeatsAvailable()"></textarea>
               </mat-form-field>
             </div>
-
-             <mat-dialog-actions align="end">
-              <button mat-button mat-dialog-close (click)="clear()">Cancel</button>
-              <button mat-button  cdkFocusInitial (click)="volunteerBooking()" *ngIf="isVolunteerAvailable" style="background-color: #ff5722;color: white;">Send</button>
-            </mat-dialog-actions>
-          </form>
-        </mat-tab>
-  
-      </mat-tab-group>
-    </mat-dialog-content>
-  
- 
-  </ng-template>
+          </div>
+          <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close (click)="clear()">Cancel</button>
+            <button *ngIf="isSeatsAvailable()" mat-button cdkFocusInitial (click)="Booking()"
+              style="background-color: #ff5722;color: white;">Booking</button>
+          </mat-dialog-actions>
+        </form>
+      </mat-tab>
+      <mat-tab label="Volunteer">
+        <mat-dialog-content *ngIf="!isVolunteerAvailable">
+          <div class="alert-box">
+            <p>
+              We get max number of volunteer .Search for other trip!
+            </p>
+          </div>
+        </mat-dialog-content>
+        <form [formGroup]="volanteerForm">
+          <h3>Volunteer</h3>
+          <div fxLayout="row" fxLayoutGap="20px">
+            <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;">
+              <mat-label>Email</mat-label>
+              <input type="text" matInput formControlName="email">
+            </mat-form-field>
+            <mat-form-field appearance="fill" style="width: 300px !important;">
+              <mat-label>Phone Namber</mat-label>
+              <input type="text" matInput formControlName="phone_Number">
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutGap="20px">
+            <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;">
+              <mat-label>Emergency Contant</mat-label>
+              <input type="text" matInput formControlName="emergency_Contact">
+            </mat-form-field>
+            <mat-form-field appearance="fill" style="width: 300px !important;">
+              <mat-label>Experience (if any)</mat-label>
+              <input type="text" matInput formControlName="experience">
+            </mat-form-field>
+          </div>
+          <div fxLayout="row">
+            <mat-form-field style="width: 620px !important;">
+              <mat-label>Volunteer Role</mat-label>
+              <mat-select formControlName="volunteer_Role_Id">
+                <mat-option type="number" *ngFor="let role of volunteerRolesWithVolunteers"
+                  [value]="role.volunteer_Role_Id">
+                  {{role.role_Name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row">
+            <mat-form-field appearance="fill" style="width: 620px !important; height: 200px;">
+              <mat-label>Note</mat-label>
+              <textarea matInput formControlName="notes"></textarea>
+            </mat-form-field>
+          </div>
+          <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close (click)="clear()">Cancel</button>
+            <button mat-button cdkFocusInitial (click)="volunteerBooking()" *ngIf="isVolunteerAvailable"
+              style="background-color: #ff5722;color: white;">Send</button>
+          </mat-dialog-actions>
+        </form>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-dialog-content>
+</ng-template>
