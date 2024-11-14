@@ -30,11 +30,9 @@ td{
 .input-container {
   display: flex;
   gap: 10px;
-  /* Space between each input group */
   margin-bottom: 15px;
 }
 
-/* Wrapper for each label-input pair */
 .input-wrapper {
   display: flex;
   flex-direction: column;
@@ -43,7 +41,6 @@ td{
 
 .form-control {
   width: 150px;
-  /* Consistent width for all inputs */
   padding: 5px;
   border-radius: 8px;
   border: 1px solid #ddd;
@@ -60,67 +57,44 @@ label {
 
 .map-container i {
   font-size: 24px;
-  /* Adjust the size */
   color: #3f51b5;
-  /* Choose a color that fits your design */
   margin-right: 10px;
-  /* Space between icon and input */
 }
 
-/* Outer border for the table */
 .table-light-bordered {
   border: 1px solid #dcdcdc;
-  /* Light gray border around the entire table */
   border-collapse: collapse;
-  /* Ensures that borders collapse correctly */
   width: 100%;
-  /* Optional: makes the table stretch across the container */
   background-color: #fafafa;
-  /* Very light gray background for the table */
 }
 
-/* Styling for table cells, no internal borders */
 .table-light-bordered th,
 .table-light-bordered td {
   padding: 8px 12px;
-  /* Optional: adjust padding for better spacing */
   text-align: center;
   border: none;
-  /* Remove borders between columns */
 }
 
-/* Header styling */
 .table-light-bordered th {
   text-align: center;
-  /* Center-aligns the header text */
   background-color: white;
-  /* White background for the header */
   color: black;
-  /* Ensures header text is black */
   padding: 16px 12px;
-  /* Increases the height of the header */
   font-weight: bold;
-  /* Optional: makes the header text bold */
 }
 
-/* Row hover effect */
 .table-light-bordered tbody tr:hover {
   background-color: #f1f1f1;
-  /* Light gray background on hover */
   transition: background-color 0.3s ease;
-  /* Smooth transition effect */
 }
 
-/* No borders on individual table rows or columns */
 .table-light-bordered tbody tr {
   background-color: white;
-  /* Ensures rows have a white background */
 }
 
 .table-light-bordered tbody td:first-child,
 .table-light-bordered tbody th:first-child {
   border-left: none;
-  /* Optional: remove border on the left-most column */
 }
 
 th {
@@ -133,7 +107,70 @@ table {
   text-align: center;
 }
 
-/*# sourceMappingURL=maps/style.css.map */
 table td+td {
   border-left: 1px solid #d5d5d5;
 }
+
+.page-body-wrapper{
+  background-color: #2E2E2E;
+}
+
+
+
+
+.row {
+  width: 110%;
+}
+
+
+.d-flex.justify-content-between.align-items-center {
+  margin-bottom: 10px;
+}
+
+.card-title {
+  color: black;
+}
+
+
+
+.input-wrapper {
+  margin-bottom: 10px;
+}
+
+label {
+  color: black;
+}
+
+.table-responsive.table-scrollable {
+  overflow-x: auto;
+  max-height: 400px;
+}
+
+.table.table-light {
+  background-color: white;
+}
+
+th, td {
+  color: black;
+}
+
+.description-col {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.trash{
+  color: rgb(247, 88, 88) !important;}
+  
+  .pencil-square{
+  color: rgb(92, 92, 245) !important;
+  }
+.person{
+  color: rgb(92, 245, 120) !important;}
+
+  .plus{
+    color: rgb(0,193,83) !important; 
+    font-size: 30px !important;
+  }

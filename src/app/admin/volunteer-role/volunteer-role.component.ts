@@ -36,13 +36,11 @@ export class VolunteerRoleComponent implements OnInit{
 
 
   openDeleteDialog(id:number){
-    //open ng-template (callDeleteDailog) 
   const dialogRef=  this.dialog.open(this.DeleteDailog).afterClosed().subscribe((result)=>{
     if(result!=undefined){
       if(result=='yes')
         this.admin.DeleteVolunteerRole(id);
-      else if(result=='no')
-        console.log('Thank you ');
+      
         
     }
   })
@@ -56,7 +54,6 @@ export class VolunteerRoleComponent implements OnInit{
   pData:any={}; 
   openEditDailog(obj:any){
     this.pData=obj; 
-    console.log(this.pData);
     this.VolunteerRole2.controls['volunteer_Role_Id'].setValue(this.pData.volunteer_Role_Id)
     this.dialog.open(this.EditDailog)
   }

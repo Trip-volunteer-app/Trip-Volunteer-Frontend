@@ -1,16 +1,14 @@
 import { Component, OnInit,ViewChild,TemplateRef} from '@angular/core';
 import { AdminService } from 'src/app/Services/admin.service';
 import {MatDialog} from '@angular/material/dialog';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-// src/app/models/trip.model.ts
 export interface TripDetails {
   tripId: number;
   destination: string;
   startDate: string;
   endDate: string;
-  details: string; // Add other relevant properties based on your API response
+  details: string; 
 }
 
 @Component({

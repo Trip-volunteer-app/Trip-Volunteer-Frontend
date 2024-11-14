@@ -37,9 +37,7 @@ export class VolunteerComponent implements OnInit {
     this.dialog.open(this.DeleteDailog).afterClosed().subscribe((result) => {
       if (result === 'yes') {
         this.admin.DeleteVolunteer(id);
-      } else if (result === 'no') {
-        console.log('Operation cancelled');
-      }
+      } 
     });
   }
 
@@ -63,7 +61,6 @@ export class VolunteerComponent implements OnInit {
 
   openEditDailog(obj: any) {
     this.pData = obj;
-    console.log("PData",this.pData);
     
     this.Volunteer.controls['volunteer_Id'].setValue(this.pData.volunteer_Id);
     this.Volunteer.controls['login_Id'].setValue(this.pData.login_Id);
@@ -104,7 +101,6 @@ export class VolunteerComponent implements OnInit {
               text: 'There was an error updating the volunteer status. Please try again.',
               confirmButtonText: 'OK'
             });
-            console.log('Error:', err.message); // Log error message in English
           }
         );
       } else {
@@ -155,7 +151,6 @@ export class VolunteerComponent implements OnInit {
             text: 'There was an error updating the volunteer status. Please try again.',
             confirmButtonText: 'OK'
           });
-          console.log('Error:', err.message); // Log error message in English
           this.admin.getAllVolunteer();    
 
         }          
@@ -188,24 +183,20 @@ export class VolunteerComponent implements OnInit {
           volunteersToReject.forEach(volunteer => {
             this.admin.UpdateVolunteerStatus({ ...volunteer, status: 'Rejected' }).subscribe(
               response => {
-                console.log(`The status of volunteer ${volunteer.volunteer_Id} has been updated to Rejected.`);
                 this.sendEmailNotification(volunteer.volunteer_Id,volunteer.email, 'Rejected');
   
                 // Refresh volunteer list after update
                 this.admin.getAllVolunteer();
               },
               err => {
-                console.log(`Error updating status of volunteer ${volunteer.volunteer_Id}: ${err.message}`);
               }
             );
           });
         } else {
-          console.log(`No pending volunteers found for trip ID ${tripId}.`);
           this.admin.getAllVolunteer();
         }
       },
       err => {
-        console.log('Error fetching volunteers:', err.message);
       }
     );
   }
@@ -221,42 +212,23 @@ export class VolunteerComponent implements OnInit {
     };
 
     this.admin.sendEmail(emailData).subscribe(response => {
-      console.log("Status email sent successfully", response);
     }, error => {
-      console.error("Error sending status email", error);
     });
   }
 
   sendTripDetails(tripId: number) {
     this.admin.getTripDetails(tripId).subscribe(tripDetails => {
-      console.log("Trip details received:", tripDetails); // Log to inspect the data structure
-  
       const userEmail = this.pData.email;
-  
-      // const emailData = {
-      //   email: userEmail,
-      //   tripDetails: tripDetails?.details || JSON.stringify(tripDetails) // Send as a string if details is missing
-      // };
-  
       const emailData = {
         email: userEmail,
         tripDetails: `Trip Name: ${tripDetails.trip_Name}, Start Date: ${tripDetails.start_Date},End Date: ${tripDetails.end_Date},Description: ${tripDetails.description}, Location: ${tripDetails.destination_Location}`
       };
 
-      
       this.admin.sendTripDetailsEmail(emailData).subscribe(response => {
-        console.log("Trip details email sent successfully", response);
       }, error => {
-        console.error("Error sending trip details email", error);
       });
     }, error => {
-      console.error("Error fetching trip details", error);
     });
   }
-  
 
-  // disableField(event: Event) {
-  //   const inputField = event.target as HTMLInputElement;
-  //   inputField.disabled = true;
-  // }
 }

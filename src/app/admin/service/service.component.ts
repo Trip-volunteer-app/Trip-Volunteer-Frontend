@@ -37,13 +37,11 @@ export class ServiceComponent implements OnInit{
 
 
   openDeleteDialog(id:number){
-    //open ng-template (callDeleteDailog) 
   const dialogRef=  this.dialog.open(this.DeleteDailog).afterClosed().subscribe((result)=>{
     if(result!=undefined){
       if(result=='yes')
         this.admin.DeleteServices(id);
-      else if(result=='no')
-        console.log('Thank you ');
+     
         
     }
   })
@@ -58,7 +56,6 @@ export class ServiceComponent implements OnInit{
   pData:any={}; 
   openEditDailog(obj:any){
     this.pData=obj; 
-    console.log(this.pData);
     this.service2.controls['service_Id'].setValue(this.pData.service_Id)
     this.dialog.open(this.EditDailog)
   }

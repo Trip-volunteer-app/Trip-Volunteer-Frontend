@@ -5,7 +5,6 @@ import { AuthService } from 'src/app/Services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
 import {  Router } from '@angular/router';
-// import {SocialAuthService,GoogleLoginProvider,SocialUser} from '@abacritt/angularx-social-login';
 declare var grecaptcha: any;
 
 @Component({
@@ -16,11 +15,10 @@ declare var grecaptcha: any;
 
 export class LoginComponent implements OnInit {
 
-  private recaptchaSiteKey = '6LfZuXwqAAAAALrLkIWcx2WT5nKuaU0-59aQhjfV'; // Your reCAPTCHA site key
+  private recaptchaSiteKey = '6LfZuXwqAAAAALrLkIWcx2WT5nKuaU0-59aQhjfV'; 
 
   loginForm!: FormGroup;
 
-  // socialUser!: SocialUser;
 
   isLoggedin?: boolean;
 
@@ -40,9 +38,6 @@ export class LoginComponent implements OnInit {
   Email: FormControl = new FormControl('');
   Password: FormControl = new FormControl('');
 
-  // Email: FormControl = new FormControl('', [Validators.required, Validators.email]);
-  // Password: FormControl = new FormControl('', [Validators.required, Validators.minLength(8)]);
-
   constructor(
     public dialog: MatDialog,
     public auth: AuthService,
@@ -51,28 +46,18 @@ export class LoginComponent implements OnInit {
     private rout:Router,
     private formBuilder: FormBuilder,
     private renderer: Renderer2
-    // private socialAuthService: SocialAuthService
   ) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({email: ['', Validators.required],password: ['', Validators.required],});
     if (typeof grecaptcha !== 'undefined') {
-      // Render the reCAPTCHA if it hasn’t been rendered yet
       setTimeout(() => {
         grecaptcha.render('recaptcha', {
           'sitekey': '6LfZuXwqAAAAALrLkIWcx2WT5nKuaU0-59aQhjfV'
         });
       }, 0);
     }
-      // this.socialAuthService.authState.subscribe((user) => {
 
-    //   this.socialUser = user;
-
-    //   this.isLoggedin = user != null;
-
-    //   console.log(this.socialUser);
-
-    // });
 
 
     const storedEmail = localStorage.getItem('email');
@@ -128,8 +113,8 @@ export class LoginComponent implements OnInit {
 
   submitVerificationCode() {
     if (this.verificationCode === this.generatedCode) {
-      this.showVerificationDialog = false; // Hide verification dialog
-      this.showNewPasswordDialog = true; // Show new password dialog
+      this.showVerificationDialog = false; 
+      this.showNewPasswordDialog = true; 
     } else {
       alert("Invalid verification code. Please try again.");
     }
@@ -161,8 +146,8 @@ export class LoginComponent implements OnInit {
   }
 
 onRecaptchaVerified(response: string): void {
-  this.recaptchaResponse = response; // Set the reCAPTCHA response when verified
-  this.login(); // Call login once reCAPTCHA is verified
+  this.recaptchaResponse = response; 
+  this.login(); 
 }
 
   
@@ -191,17 +176,6 @@ onRecaptchaVerified(response: string): void {
   }
 
 
-  loginWithGoogle(): void {
-
-    // this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
-
-  }
-
-  logOut(): void {
-
-    // this.socialAuthService.signOut();
-
-  }
   loadRecaptcha(): void {
     if (document.getElementById('recaptcha-script')) return;
 

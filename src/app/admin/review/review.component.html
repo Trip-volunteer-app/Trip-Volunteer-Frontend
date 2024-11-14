@@ -1,25 +1,25 @@
 <div class="adminStyles">
-  <div class="container-scroller" style="background-color: #2E2E2E;max-height: 100vh; max-height: 100vw;">
+  <div class="container-scroller" >
     <app-header></app-header>
-    <div class="container-fluid page-body-wrapper" style="background-color: #2E2E2E;max-height: 100vh; overflow-y: auto; overflow-x: hidden;">
+    <div class="container-fluid page-body-wrapper" >
       <div class="main-panel">
-        <div class="content-wrapper" style="max-height: 100vh; overflow-y: auto; overflow-x: auto;">
+        <div class="content-wrapper" >
           <div class="row">
             <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title" style="color: black;">Review Table</h4>
+                  <h4 class="card-title"  >Review Table</h4>
                   <br><br>
                   <div class="table-responsive">
-                    <table class="table table-light" style="background-color: white;">
+                    <table class="table table-light" >
                       <thead>
                         <tr>
-                          <th style="color: black;"><b>Trip Name </b> </th>
-                          <th style="color: black;"><b>User Name</b> </th>
-                          <th style="color: black;"><b>Feedback</b> </th>
-                          <th style="color: black;"><b>Rate</b> </th>
-                          <th style="color: black;"> <b>Create Date</b> </th>
-                          <th style="color: black;"> <b>Operations</b> </th>
+                          <th  ><b>Trip Name </b> </th>
+                          <th  ><b>User Name</b> </th>
+                          <th  ><b>Feedback</b> </th>
+                          <th  ><b>Rate</b> </th>
+                          <th  > <b>Create Date</b> </th>
+                          <th  > <b>Operations</b> </th>
                         </tr>
                       </thead>
                       <tbody>
@@ -28,12 +28,12 @@
                           <td>{{obj.first_Name}} {{obj.last_Name}}</td>
                           <td class="description-col" matTooltip="{{ obj.feedback }}">{{obj.feedback}}</td>
                           <td>{{obj.rate}}</td>
-                          <td>{{obj.create_At}}</td>
+                          <td>{{obj.create_At | date}}</td>
                           <td>
-                            <button (click)="openDeleteDialog(obj.review_Id)"
-                              style="border: none; background-color: white;">
+                            <button (click)="openDeleteDialog(obj.review_Id)" class="trash">
+                              
                               <i class="bi bi-trash-fill"
-                                style="color: red; font-size: 20px; background-color: white;"></i>
+                                ></i>
 
                             </button>
                           </td>

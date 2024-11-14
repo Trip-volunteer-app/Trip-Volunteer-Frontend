@@ -9,20 +9,20 @@
             <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title report-title" style="color: black;">Service Table</h4>
-                  <button mat-button (click)="openCreateDialog()">
+                  <h4 class="card-title report-title"  >Service Table</h4>
+                  <button mat-button (click)="openCreateDialog()" class="plus">
                     <i class="bi bi-plus-circle-fill fs-1"
-                      style="color: rgb(0,193,83); font-size: 30px; margin-left: 900px;"></i>
+                     ></i>
                   </button>
                   <br><br>
                   <div class="table-responsive">
                     <table class="table custom-table">
                       <thead>
                         <tr>
-                          <th style="color: black;"><b>#</b></th>
-                          <th style="color: black;"><b>Service Name</b></th>
-                          <th style="color: black;"><b>Service Cost</b></th>
-                          <th style="color: black;"><b>Operations</b></th>
+                          <th  ><b>#</b></th>
+                          <th  ><b>Service Name</b></th>
+                          <th  ><b>Service Cost</b></th>
+                          <th  ><b>Operations</b></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -31,11 +31,11 @@
                           <td>{{obj.service_Name}}</td>
                           <td>{{obj.service_Cost}}</td>
                           <td>
-                            <button (click)="openEditDailog(obj)" style="border: none;">
-                              <i class="bi bi-pencil-square" style="color: blue; font-size: 20px;"></i>
+                            <button (click)="openEditDailog(obj)" style="border: none;" class="pencil">
+                              <i class="bi bi-pencil-square" ></i>
                             </button>
-                            <button (click)="openDeleteDialog(obj.service_Id)" style="border: none;">
-                              <i class="bi bi-trash-fill" style="color: red; font-size: 20px;"></i>
+                            <button (click)="openDeleteDialog(obj.service_Id)" style="border: none;" class="trash">
+                              <i class="bi bi-trash-fill" ></i>
 
                             </button>
                           </td>

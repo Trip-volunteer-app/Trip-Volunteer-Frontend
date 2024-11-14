@@ -1,9 +1,9 @@
 <div class="adminStyles">
-<div class="container-scroller bg-dark" style="background-color: #F9F9F9;">
+<div class="container-scroller bg-dark" >
   <app-header></app-header>
   <div class="container-fluid page-body-wrapper" >
     <div class="main-panel">
-      <div class="content-wrapper" style="background-color: #2E2E2E;">
+      <div class="content-wrapper" >
         <div class="container rounded profile-container mt-5 mb-5">
           <div class="row">
             <!-- Profile Sidebar -->
@@ -20,7 +20,7 @@
 
 
                   <div class="mt-4">
-                    <button class="btn w-100 mb-3" style="border-color: #f15d30; color: #f15d30;"
+                    <button class="btn w-100 mb-3 passButton" 
                       (click)="togglePasswordForm()">
                       <i class="fa fa-key me-2"></i>Change Password
                     </button>
@@ -138,7 +138,6 @@
                       </div>
                     </div>
 
-                    <!-- Button Actions -->
                     <div class="d-flex justify-content-end">
                       <button type="button" class="btn btn-outline-secondary me-2" mat-dialog-close>Cancel</button>
                       <button type="submit" class="btn btn-custom-primary" mat-dialog-close (click)="saveProfile()"

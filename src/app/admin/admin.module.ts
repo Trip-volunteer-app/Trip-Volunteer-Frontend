@@ -35,10 +35,6 @@ import { ContactUsMessagesComponent } from './contact-us-messages/contact-us-mes
 import { NgChartsModule } from 'ng2-charts';
 
 
-// import { TripFilterPipe } from '../trip-filter.pipe';
-
-
-
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -63,8 +59,11 @@ import { NgChartsModule } from 'ng2-charts';
     ManagehomepageComponent,        
     UsersComponent,
     ProfileComponent,  
-
-    ManageTestimonialComponent, ViewUsersForTripsComponent, ManageTripServicesComponent, ManageRolesComponent, ContactUsMessagesComponent
+    ManageTestimonialComponent, 
+    ViewUsersForTripsComponent, 
+    ManageTripServicesComponent, 
+    ManageRolesComponent, 
+    ContactUsMessagesComponent
 
   ],
   imports: [
