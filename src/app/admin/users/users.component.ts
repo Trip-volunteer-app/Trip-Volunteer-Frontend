@@ -1,7 +1,6 @@
 import { Component, OnInit,ViewChild,TemplateRef } from '@angular/core';
 import { AdminService } from 'src/app/Services/admin.service';
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
-import { FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
 
 
 @Component({

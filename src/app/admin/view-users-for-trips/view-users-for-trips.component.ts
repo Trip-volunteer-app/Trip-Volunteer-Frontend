@@ -22,12 +22,10 @@ ngOnInit(): void {
   
   this.route.paramMap.subscribe(params => {
     this.trip_Id = +params.get('trip_Id')!;
-    console.log("trip_Id:", this.trip_Id);
     if (this.trip_Id) {
       this.admin.GetTripById(this.trip_Id);
     }
   });
-  console.log('befor call admin',this.trip_Id)
   this.admin.GetVolunteerUserInfoByTripId1(this.trip_Id);
   this.admin.GetUserPaymentsForTrip1(this.trip_Id);
 }

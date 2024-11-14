@@ -49,7 +49,7 @@
       <header>Login
         <a routerLink="/home" class="close-button">x</a>
       </header>
-      <form (ngSubmit)="onSubmit()">
+      <form (ngSubmit)="onSubmit()" style="min-height: 460px;">
         <div class="field input-field">
           <input type="email" placeholder="Email" [(ngModel)]="email" name="email" [formControl]="Email">
           <span class="text-danger" *ngIf="Email.hasError('email')">Please enter a valid email address</span>
@@ -86,18 +86,7 @@
         <span>Don't have an account? <a routerLink="/security/register" class="link">Signup</a></span>
       </div>
     </div>
-    <div class="line"></div>
-    <div class="media-options">
-      <a href="#" class="field facebook">
-        <i class='bx bxl-facebook facebook-icon'></i>
-        <span>Login with Facebook</span>
-      </a>
-    </div>
-    <div class="media-options">
-      <a href="#" class="field google">
-        <img src="../../../assets/Auth/images/google.png" alt="" class="google-img">
-        <span>Login with Google</span>
-      </a>
-    </div>
+
+   
   </div>
 </section>

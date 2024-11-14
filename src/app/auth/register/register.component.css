@@ -1,4 +1,3 @@
-/* Google Fonts - Poppins */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 @import url('https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css');
 
@@ -18,7 +17,7 @@ body {
 }
 
 .container {
-    max-height: 100%;  
+    max-height: 100%; 
     max-width: 100%;
     width: 100%;
     display: flex;
@@ -54,8 +53,8 @@ body {
 
   .field-group {
     display: flex;
-    gap: 20px; /* Adjust the gap between input fields */
-    align-items: center; /* Vertically center align label and input */
+    gap: 20px; 
+    align-items: center; 
   }
   
   .field-group .input-field {
@@ -63,22 +62,21 @@ body {
   }
   
   .input-label {
-    min-width: 100px; /* Adjust this width as needed */
+    min-width: 100px; 
     margin-right: 10px;
   }
   
   .image-field-group {
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* Align the label and input next to each other */
-    gap: 10px; /* Adjust space between the label and the input */
+    justify-content: flex-start; 
+    gap: 10px;
   }
   
   .input-field {
-    width: 100%; /* Ensure input fields take full width in their container */
+    width: 100%; 
   }
   
- /* Style the custom label */
 #file-name {
     position: absolute;
     top: 50%;
@@ -88,16 +86,15 @@ body {
     pointer-events: none;
   }
   
-  /* Hide the default "No file chosen" text */
   .field input[type="file"] {
     opacity: 0;
     position: absolute;
     top: 0;
     left: 0;
     display: block;
-    width: 100%; /* Ensure input field takes full width */
+    width: 100%; 
     height: 100%;
-    border: 1px solid #CACACA; /* Same border as other inputs */
+    border: 1px solid #CACACA;
     border-radius: 6px;
     padding: 0 15px;
     cursor: pointer;
@@ -238,94 +235,16 @@ form{
 }
 
 
-a.facebook {
-    border: 1px solid #CACACA;
-    padding: 16px 0; /* Increased vertical padding */
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    margin-left: 20px;
-    width: 100px; /* Increase the width as needed */
-    max-width: 100%;
-}
-
-a.facebook .facebook-icon {
-    height: 28px;
-    width: 28px;
-    color: #0171d3;
-    font-size: 20px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-    margin-left: 0px; /* Space between icon and content */
-    margin-right: 100px; 
-
-}
-
-.facebook-icon,
-img.google-img {
-    position: absolute;
-    top: 50%;
-    left: 15px;
-    transform: translateY(-50%);
-}
-
-
-img.google-img {
-    height: 20px;
-    width: 20px;
-    object-fit: cover;
-}
-
-
-
-
-a.google {
-    border: 1px solid #CACACA;
-    padding: 16px 0; /* Increased vertical padding */
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    margin-left: 50px;
-}
-
-
-a.google span {
-    font-weight: 200;
-    opacity: 0.6;
-    color: #232836;
-    margin-left: 5px; /* Added space between icon and text */
-}
-
-
-a.facebook, a.google {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: scale(1.1); /* Slightly increases the size of both buttons */
-}
-
-
-
 
 
 
 @media screen and (max-width: 400px) {
     .media-options {
-        flex-direction: column; /* Stack buttons vertically on smaller screens */
+        flex-direction: column; 
         gap: 10px;
     }
 
-    a.facebook,
-    a.google {
-        width: 100%; /* Ensure full width on small screens */
-    }
+  
 
     .form {
         padding: 20px 10px;

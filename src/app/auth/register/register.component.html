@@ -5,7 +5,7 @@
         <a routerLink="/home" class="close-button">x</a>
       </header>
 
-      <form [formGroup]="registerForms">
+      <form [formGroup]="registerForms" style="min-height: 460px;">
         <div class="field-group">
           <div class="field input-field">
             <input type="text" placeholder="First Name" name="FIRST_NAME" formControlName="FIRST_NAME">
@@ -94,22 +94,6 @@
       </div>
     </div>
 
-    <div class="line"></div>
-
-    <div class="field-group">
-      <div class="media-options" style="width: 250px;max-width: 100%;">
-        <a href="#" class="field facebook">
-          <i class='bx bxl-facebook facebook-icon'></i>
-          <span>Login with Facebook</span>
-        </a>
-      </div>
-
-      <div class="media-options" style="width: 250px;max-width: 100%;">
-        <a href="#" class="field google">
-          <img src="../../../assets/Auth/images/google.png" alt="" class="google-img">
-          <span>Login with Google</span>
-        </a>
-      </div>
-    </div>
+  
   </div>
 </section>
