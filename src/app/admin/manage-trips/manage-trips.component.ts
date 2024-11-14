@@ -1,8 +1,8 @@
-import { Component, OnInit,ViewChild,TemplateRef, ElementRef} from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, ElementRef } from '@angular/core';
 import { AdminService } from 'src/app/Services/admin.service';
 /// <reference types="@types/google.maps" />
 import { HttpClient } from '@angular/common/http';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -15,16 +15,16 @@ import { ChangeDetectorRef } from '@angular/core';
   templateUrl: './manage-trips.component.html',
   styleUrls: ['./manage-trips.component.css']
 })
-export class ManageTripsComponent implements OnInit{
-  @ViewChild('callCreateDailog') CreateDailog !:TemplateRef<any>;  
-  @ViewChild('callDeleteDailog') DeleteDailog !:TemplateRef<any>;  
-  @ViewChild('callEditDailog') EditDailog !:TemplateRef<any>;  
-  @ViewChild('callLocationEditDialog') EditLocationDailog !:TemplateRef<any>; 
-  @ViewChild('departureInput') departureInput!: ElementRef; // Reference to input field
+export class ManageTripsComponent implements OnInit {
+  @ViewChild('callCreateDailog') CreateDailog !: TemplateRef<any>;
+  @ViewChild('callDeleteDailog') DeleteDailog !: TemplateRef<any>;
+  @ViewChild('callEditDailog') EditDailog !: TemplateRef<any>;
+  @ViewChild('callLocationEditDialog') EditLocationDailog !: TemplateRef<any>;
+  @ViewChild('departureInput') departureInput!: ElementRef;
   @ViewChild('destinationInput') destinationInput!: ElementRef;
 
-  locationData: any ={};
-  center: google.maps.LatLngLiteral = { lat: 31.9454, lng: 35.9284 }; // Amman coordinates
+  locationData: any = {};
+  center: google.maps.LatLngLiteral = { lat: 31.9454, lng: 35.9284 };
   zoom = 10;
   departurePosition: any;
   distenationPosition: any;
@@ -33,35 +33,33 @@ export class ManageTripsComponent implements OnInit{
     destination?: google.maps.LatLngLiteral;
   } = {};
   selectedMarker: 'departure' | 'destination' = 'departure';
-  location1: any = []; // Holds the geocoding result
-  location2: any = []; 
-  tripId!: number; 
+  location1: any = [];
+  location2: any = [];
+  tripId!: number;
 
   constructor(
-    public admin:AdminService,
-    public location:LocationService,
+    public admin: AdminService,
+    public location: LocationService,
     public dialog: MatDialog,
-    private router:Router,
+    private router: Router,
     private route: ActivatedRoute,
     private http: HttpClient,
-    private cdr: ChangeDetectorRef)
-  {}
+    private cdr: ChangeDetectorRef) { }
 
   async ngOnInit(): Promise<void> {
-    
+
     this.route.paramMap.subscribe(async params => {
       this.tripId = +params.get('tripId')!;
-      console.log("TripId:", this.tripId);
       if (this.tripId) {
         this.admin.GetTripById(this.tripId);
         await this.location.GetLocationByTripId(this.tripId);
         this.departurePosition = this.location.locationByTripID.departure_Location;
-        this.distenationPosition= this.location.locationByTripID.destination_Location;
+        this.distenationPosition = this.location.locationByTripID.destination_Location;
         this.markerPositions.departure = {
           lat: this.location.locationByTripID.departure_Latitude,
           lng: this.location.locationByTripID.departure_Longitude
         };
-        
+
         this.markerPositions.destination = {
           lat: this.location.locationByTripID.destination_Latitude,
           lng: this.location.locationByTripID.destination_Longitude
@@ -69,46 +67,44 @@ export class ManageTripsComponent implements OnInit{
       }
     });
   }
-  back(){
+  back() {
     this.router.navigate(['admin/TripsInformation']);
 
   }
- 
-  openImages(tripId:number){
+
+  openImages(tripId: number) {
     this.router.navigate(['admin/ManageImages/', tripId]);
 
   }
 
-  openDeleteDialog(id:number){
-    console.log(id)
-  const dialogRef=  this.dialog.open(this.DeleteDailog).afterClosed().subscribe((result)=>{
-    if(result != undefined){
-      if(result == 'yes')
-        this.admin.DeleteTrip(id);
-      else if(result == 'no')
-        console.log('Thank you ');
-        
-    }
-  })
+  openDeleteDialog(id: number) {
+    const dialogRef = this.dialog.open(this.DeleteDailog).afterClosed().subscribe((result) => {
+      if (result != undefined) {
+        if (result == 'yes')
+          this.admin.DeleteTrip(id);
+        else if (result == 'no')
+          console.log('Thank you ');
+      }
+    })
   }
 
-  UpdateTrips:FormGroup = new FormGroup({
-    trip_Id:new FormControl('',Validators.required),
-    trip_Name:new FormControl('',Validators.required),
-    trip_Price:new FormControl('',Validators.required),
-    start_Date:new FormControl('',Validators.required),
-    end_Date:new FormControl('',Validators.required),
-    max_Number_Of_Users:new FormControl('',Validators.required),
-    max_Number_Of_Volunteers:new FormControl('',Validators.required),
-    description:new FormControl('',Validators.required),
-    category_Id:new FormControl('',Validators.required),
-    trip_Location_Id:new FormControl('',Validators.required)
+  UpdateTrips: FormGroup = new FormGroup({
+    trip_Id: new FormControl('', Validators.required),
+    trip_Name: new FormControl('', Validators.required),
+    trip_Price: new FormControl('', Validators.required),
+    start_Date: new FormControl('', Validators.required),
+    end_Date: new FormControl('', Validators.required),
+    max_Number_Of_Users: new FormControl('', Validators.required),
+    max_Number_Of_Volunteers: new FormControl('', Validators.required),
+    description: new FormControl('', Validators.required),
+    category_Id: new FormControl('', Validators.required),
+    trip_Location_Id: new FormControl('', Validators.required)
   })
 
-  pData:any={};
+  pData: any = {};
 
-  openEditDailog(obj:any){
-    this.pData=obj; 
+  openEditDailog(obj: any) {
+    this.pData = obj;
     this.UpdateTrips.controls['trip_Id'].setValue(this.pData.trip_Id)
     this.UpdateTrips.controls['category_Id'].setValue(this.pData.category_Id)
     this.UpdateTrips.controls['trip_Location_Id'].setValue(this.pData.trip_Location_Id);
@@ -121,9 +117,7 @@ export class ManageTripsComponent implements OnInit{
     this.dialog.open(this.EditDailog);
   }
 
-  save2(){
-    console.log(this.UpdateTrips.value);
-
+  save2() {
     this.admin.UpdateTrip(this.UpdateTrips.value)
   }
 
@@ -137,13 +131,13 @@ export class ManageTripsComponent implements OnInit{
     destination_Longitude: new FormControl('', Validators.required),
   });
 
-  openlocationEditDailog(obj:any){
-    this.pData=obj; 
+  openlocationEditDailog(obj: any) {
+    this.pData = obj;
     this.editLocationFormGroup.controls['location_Id'].setValue(this.pData.location_Id)
     this.dialog.open(this.EditLocationDailog)
 
   }
-  
+
   async addMarker(event: google.maps.MapMouseEvent): Promise<void> {
     if (event.latLng) {
       const position = event.latLng.toJSON();
@@ -152,16 +146,12 @@ export class ManageTripsComponent implements OnInit{
           this.markerPositions.departure = position;
           const locationInfo = await this.location.getLocationInfo(position.lat, position.lng);
           this.departurePosition = this.location.locationdetails;
-          console.log('Departure location:', this.departurePosition);
         } else if (this.selectedMarker === 'destination') {
           this.markerPositions.destination = position;
           const locationInfo = await this.location.getLocationInfo(position.lat, position.lng);
           this.distenationPosition = this.location.locationdetails;
-          console.log('Destination location set');
-          console.log(this.markerPositions)
         }
         this.updateFormGroup();
-        console.log(`${this.selectedMarker} location set:`, position);
       } catch (error) {
         console.error('Error setting marker location:', error);
       }
@@ -181,7 +171,7 @@ export class ManageTripsComponent implements OnInit{
       });
     }
   }
-  
+
   getGeocodeInfo(address: string, type: 'departure' | 'destination') {
     this.http
       .get(`https://localhost:7004/api/Location_Api/get-geocode-info?Address=${address}`)
@@ -195,11 +185,9 @@ export class ManageTripsComponent implements OnInit{
           if (type === 'departure') {
             this.markerPositions.departure = location;
             this.departurePosition = address;
-            console.log('Updated departure marker:', location);
           } else if (type === 'destination') {
             this.markerPositions.destination = location;
             this.distenationPosition = address;
-            console.log('Updated destination marker:', location);
           }
         },
         (err) => {
@@ -209,24 +197,21 @@ export class ManageTripsComponent implements OnInit{
   }
   onDepartureInputChange(departure: string) {
     if (departure) {
-      this.getGeocodeInfo(departure, 'departure'); // Call the API with the current input value
+      this.getGeocodeInfo(departure, 'departure');
     }
   }
   onDestinationInputChange(destination: string) {
     if (destination) {
-      this.getGeocodeInfo(destination, 'destination'); // Call the API with the current input value
+      this.getGeocodeInfo(destination, 'destination');
     }
   }
-  updateLocation(){
-    console.log('formformformformformform',this.editLocationFormGroup.value)
+  updateLocation() {
     this.location.UpdateAbout(this.editLocationFormGroup.value);
   }
-  openServices(tripId:number){
+  openServices(tripId: number) {
     this.router.navigate(['admin/ManageServices/', tripId]);
   }
-  openRoles(tripId:number){
+  openRoles(tripId: number) {
     this.router.navigate(['admin/ManageRoles/', tripId]);
   }
-  
 }
-

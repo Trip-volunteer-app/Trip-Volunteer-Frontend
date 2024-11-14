@@ -1,0 +1,4 @@
+.col-md-6 {
+    flex: 0 0 70%; /* Increase the width to 70% */
+    max-width: 45%;
+}

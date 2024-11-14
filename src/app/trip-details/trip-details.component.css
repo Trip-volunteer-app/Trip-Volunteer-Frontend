@@ -357,3 +357,6 @@ table td, table th {
   color: #666;
   font-size: 0.9rem;
 }
+.number-of-users{
+  color:red;
+}

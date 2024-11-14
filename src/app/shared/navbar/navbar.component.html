@@ -13,52 +13,106 @@
                     <a routerLink="/home" routerLinkActive="active" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a routerLink="/Trips" routerLinkActive="active" class="nav-link">Trips</a>
-                </li>
-                <li class="nav-item">
                     <a routerLink="/Aboutus" routerLinkActive="active" class="nav-link">About</a>
                 </li>
+                <li class="nav-item">
+                    <a routerLink="/Trips" routerLinkActive="active" class="nav-link">Trips</a>
+                </li>      
                 <li class="nav-item">
                     <a routerLink="/contactus" routerLinkActive="active" class="nav-link">Contact</a>
                 </li>
                 
-                <li class="nav-item dropdown" *ngIf="isLoggedIn" >
-                  <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
-                      <div class="navbar-profile">
-                          <img class="img-xs rounded-circle" [src]="this.admin.UserInfo.image_Path ? '../../../assets/images/' + this.admin.UserInfo.image_Path : '../../../assets/default-profile.png'" alt="Profile Image" width="100" height="100">
-                          <p class="mb-0 d-none d-sm-block navbar-profile-name">{{this.admin.UserInfo.first_Name}} {{this.admin.UserInfo.last_Name}}</p>
-                          <i class="mdi mdi-menu-down d-none d-sm-block"></i>
-                      </div>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
-                      <h6 class="p-3 mb-0" style="font-size: 20px;">Profile</h6>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item preview-item">
-                          <div class="preview-thumbnail">
-                              <i class="mdi mdi-settings text-success"></i>
-                          </div>
-                          <div class="preview-item-content">
-                              <p class="preview-subject mb-1" (click)="userProfile()">Settings</p>
-                          </div>
-                      </a>
+              
 
-                      <a class="dropdown-item preview-item" (click)="UserTrips()">
-                      <div class="dropdown-divider"></div>
-                      <p class="p-3 mb-0 ">Your Trips</p>
-                      </a>
+<!-- User with RoleID = 2 -->
+<li class="nav-item dropdown" *ngIf="isLoggedIn && roleID === '2'">
+    <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
+        <div class="navbar-profile">
+            <img class="img-xs rounded-circle" [src]="this.admin.UserInfo.image_Path ? '../../../assets/images/' + this.admin.UserInfo.image_Path : '../../../assets/default-profile.png'" alt="Profile Image" width="100" height="100">
+            <p class="mb-0 d-none d-sm-block navbar-profile-name">{{this.admin.UserInfo.first_Name}} {{this.admin.UserInfo.last_Name}}</p>
+            <i class="mdi mdi-menu-down d-none d-sm-block"></i>
+        </div>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
+        <h6 class="p-3 mb-0" style="font-size: 20px;">Profile</h6>
+        <div class="dropdown-divider"></div>
 
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item preview-item" (click)="logout()">
-                          <div class="preview-thumbnail">
-                              <i class="mdi mdi-logout text-danger"></i>
-                          </div>
-                          <div class="preview-item-content">
-                              <p class="preview-subject mb-1">Log out</p>
-                          </div>
-                      </a>
-                      
-                  </div>
-              </li>
+        <!-- Settings Option -->
+        <a class="dropdown-item preview-item" (click)="userProfile()">
+            <div class="preview-thumbnail">
+                <i class="mdi mdi-settings text-success"></i>
+            </div>
+            <div class="preview-item-content">
+                <p class="preview-subject mb-1">Settings</p>
+            </div>
+        </a>
+
+        <div class="dropdown-divider"></div>
+
+        <!-- Your Trips Option -->
+        <a class="dropdown-item preview-item" (click)="UserTrips()">
+            <div class="preview-thumbnail">
+                <i class="mdi mdi-airplane text-primary"></i>
+            </div>
+            <div class="preview-item-content">
+                <p class="preview-subject mb-1">Your Trips</p>
+            </div>
+        </a>
+
+        <div class="dropdown-divider"></div>
+
+        <!-- Log out Option -->
+        <a class="dropdown-item preview-item" (click)="logout()">
+            <div class="preview-thumbnail">
+                <i class="mdi mdi-logout text-danger"></i>
+            </div>
+            <div class="preview-item-content">
+                <p class="preview-subject mb-1">Log out</p>
+            </div>
+        </a>
+    </div>
+</li>
+
+<!-- User with RoleID = 1 -->
+<li class="nav-item dropdown" *ngIf="isLoggedIn && roleID === '1'">
+    <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
+        <div class="navbar-profile">
+            <img class="img-xs rounded-circle" [src]="this.admin.UserInfo.image_Path ? '../../../assets/images/' + this.admin.UserInfo.image_Path : '../../../assets/default-profile.png'" alt="Profile Image" width="100" height="100">
+            <p class="mb-0 d-none d-sm-block navbar-profile-name">{{this.admin.UserInfo.first_Name}} {{this.admin.UserInfo.last_Name}}</p>
+            <i class="mdi mdi-menu-down d-none d-sm-block"></i>
+        </div>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
+        <h6 class="p-3 mb-0" style="font-size: 20px;" (click)="AdminProfile()">Admin Profile</h6>
+        <div class="dropdown-divider"></div>
+
+        <!-- Admin Dashboard Option -->
+        <a class="dropdown-item preview-item" routerLink="../admin/dashboard">
+            <div class="preview-thumbnail">
+                <i class="mdi mdi-view-dashboard text-info"></i>
+            </div>
+            <div class="preview-item-content">
+                <p class="preview-subject mb-1">Dashboard</p>
+            </div>
+        </a>
+
+        <div class="dropdown-divider"></div>
+
+        <!-- Log out Option -->
+        <a class="dropdown-item preview-item" (click)="logout()">
+            <div class="preview-thumbnail">
+                <i class="mdi mdi-logout text-danger"></i>
+            </div>
+            <div class="preview-item-content">
+                <p class="preview-subject mb-1">Log out</p>
+            </div>
+        </a>
+    </div>
+</li>
+
+
+
+
              
               <li class="nav-item" *ngIf="!isLoggedIn">
                   <a class="nav-link" routerLink="/security/login">Login</a>

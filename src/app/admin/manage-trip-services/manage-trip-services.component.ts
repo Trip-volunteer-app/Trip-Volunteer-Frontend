@@ -9,7 +9,6 @@ import { ActivatedRoute } from '@angular/router';
 import { LocationService } from 'src/app/Services/location.service';
 import { ChangeDetectorRef } from '@angular/core';
 
-
 @Component({
   selector: 'app-manage-trip-services',
   templateUrl: './manage-trip-services.component.html',
@@ -53,7 +52,6 @@ export class ManageTripServicesComponent implements OnInit {
       );
       this.totalPages = Math.ceil(this.servicesNotInTrip.length / this.itemsPerPage);
       this.updatePaginatedServices();
-      console.log("TripId:", this.tripId);
     });
   }
 
@@ -93,7 +91,6 @@ export class ManageTripServicesComponent implements OnInit {
       this.servicesNotInTrip = this.admin.sortedServices.filter((service: any) =>
         !this.admin.tripServices.some((tripService: any) => tripService.service_Id === service.service_Id)
       );
-      console.log('Updated Services List:', this.admin.sortedServices);
       const newService: any = this.admin.sortedServices.find((service: any) =>
         !this.previousServices.some((prevService: any) => prevService.service_Id === service.service_Id)
       );
@@ -102,14 +99,12 @@ export class ManageTripServicesComponent implements OnInit {
         this.ServicesFormGroup.patchValue({
           selectedServices: [...currentSelectedServices, newService.service_Id]
         });
-        console.log('Updated selected services:', this.ServicesFormGroup.value.selectedServices);
         this.updateSelectedServicesDetails();
       }
       this.cdr.detectChanges();
       this.updatePaginatedServices();
       this.cancelAddService();
     } catch (error) {
-      console.error('Error adding service:', error);
     }
   }
 
@@ -122,8 +117,6 @@ export class ManageTripServicesComponent implements OnInit {
   onServiceChange(isChecked: boolean, serviceId: number) {
     const selectedServices = this.ServicesFormGroup.get('selectedServices') as FormControl;
     const currentSelection = selectedServices.value as number[];
-    console.log('currentSelectioncurrentSelection', currentSelection)
-    console.log(selectedServices.value)
     if (isChecked) {
       if (!currentSelection.includes(serviceId)) {
         selectedServices.setValue([...currentSelection, serviceId]);
@@ -132,7 +125,6 @@ export class ManageTripServicesComponent implements OnInit {
       selectedServices.setValue(currentSelection.filter(id => id !== serviceId));
     }
     this.updateSelectedServicesDetails();
-    console.log('selectedServices', selectedServices.value)
   }
 
   isServiceSelected(serviceId: number): boolean {
@@ -161,20 +153,10 @@ export class ManageTripServicesComponent implements OnInit {
 
   updateSelectedServicesDetails() {
     const selectedServiceIds = this.ServicesFormGroup.value.selectedServices || [];
-    console.log('selectedServiceIdsselectedServiceIdsselectedServiceIds', selectedServiceIds)
     this.selectedServicesDetails = this.admin.sortedServices.filter((service: any) =>
       selectedServiceIds.includes(service.service_Id)
     );
-    console.log('selectedServicesDetails', this.selectedServicesDetails)
-
   }
-
-  // // Modify the onServiceChange function to update details after selection
-  // onServiceChange(isChecked: boolean, serviceId: number) {
-  //   // existing onServiceChange logic...
-
-  //   this.updateSelectedServicesDetails(); // Update the selected services details after change
-  // }
 
   pData: any;
   openEditDialog(obj: any) {
@@ -186,7 +168,6 @@ export class ManageTripServicesComponent implements OnInit {
     this.updateService();
   }
   updateAllTripsServices() {
-    console.log('this.UpdateServicesFormGroup.value', this.UpdateServicesFormGroup.value)
     this.admin.updateServices(this.UpdateServicesFormGroup.value);
 
   }
@@ -200,10 +181,8 @@ export class ManageTripServicesComponent implements OnInit {
         service_Name: this.UpdateServicesFormGroup.controls['service_Name'].value,
         service_Cost: this.UpdateServicesFormGroup.controls['service_Cost'].value
       }
-      console.log('updateServiceDataupdateServiceData', updateServiceData)
       await this.admin.CreateServiceForTrip(updateServiceData);
       await this.admin.getAllServices();
-      console.log('Updated Services List:', this.admin.sortedServices);
       const newService: any = this.admin.sortedServices.find((service: any) =>
         !this.previousServices.some((prevService: any) => prevService.service_Id === service.service_Id)
       );
@@ -212,12 +191,10 @@ export class ManageTripServicesComponent implements OnInit {
         this.ServicesFormGroup.patchValue({
           selectedServices: [...currentSelectedServices, newService.service_Id]
         });
-        console.log('Updated selected services:', this.ServicesFormGroup.value.selectedServices);
       }
       this.cdr.detectChanges();
       this.updatePaginatedServices();
     } catch (error) {
-      console.error('Error adding service:', error);
     }
   }
   async Save() {

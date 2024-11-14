@@ -32,6 +32,8 @@ export class AdminService {
 
 
   CreateCategories(body: any) {
+
+    body.image = this.display_Image;
     this.http.post('https://localhost:7004/api/categories/CREATEcategories', body).subscribe((resp) => {
       console.log('the Categories created');
       Swal.fire({
@@ -301,7 +303,7 @@ export class AdminService {
     }
   }
 
-  
+
   async CreateTripVRoleForVRolesList(body: any): Promise<void> {
     try {
       console.log('Final Body:', body);
@@ -369,7 +371,7 @@ export class AdminService {
   }
 
   UpdateVolunteerStatus(volunteer: any): Observable<any> {
-    return this.http.put('https://localhost:7004/api/Volunteers/UpdateVolunteerStatus', volunteer); 
+    return this.http.put('https://localhost:7004/api/Volunteers/UpdateVolunteerStatus', volunteer);
   }
   updateVolunteer(volunteer: any): Observable<any> {
     return this.http.put('https://localhost:7004/api/Volunteers/UpdateVolunteer', volunteer);  // Ensure this returns an observable
@@ -1098,46 +1100,46 @@ export class AdminService {
   }
 
 
-    AllContactU: any = [];
-    GetAllContactU() {
-      this.http.get('https://localhost:7004/api/ContactU').subscribe(result => {
-        this.AllContactU = result;
-        console.log('Result',result);
-        
-      }, err => {        
-        console.log('error in print Result');
-        console.log(err.message);
-      })
-    }
+  AllContactU: any = [];
+  GetAllContactU() {
+    this.http.get('https://localhost:7004/api/ContactU').subscribe(result => {
+      this.AllContactU = result;
+      console.log('Result', result);
 
-    FiveContactU: any = [];
-    GetFiveContactU() {
-      this.http.get('https://localhost:7004/api/ContactU').subscribe(result => {
-        if (Array.isArray(result)) {
-          this.FiveContactU = result.slice(0, 3);
-        } else {
-          console.error('Expected an array but received:', result);
-        }
-        console.log('Result',result);
-        
-      }, err => {        
-        console.log('error in print Result');
-        console.log(err.message);
-      })
-    }
+    }, err => {
+      console.log('error in print Result');
+      console.log(err.message);
+    })
+  }
+
+  FiveContactU: any = [];
+  GetFiveContactU() {
+    this.http.get('https://localhost:7004/api/ContactU').subscribe(result => {
+      if (Array.isArray(result)) {
+        this.FiveContactU = result.slice(0, 3);
+      } else {
+        console.error('Expected an array but received:', result);
+      }
+      console.log('Result', result);
+
+    }, err => {
+      console.log('error in print Result');
+      console.log(err.message);
+    })
+  }
 
 
-    SYSMonthlyRevenue: any = [];
-    GetSYSMonthlyRevenue() {
-      this.http.get('https://localhost:7004/api/MonthlyReport/GetSYSMonthlyRevenue').subscribe(result => {
-        this.SYSMonthlyRevenue = result;
-        console.log('Result of SYSMonthlyRevenue',result);
-        
-      }, err => {        
-        console.log('error in print SYSMonthlyRevenue');
-        console.log(err.message);
-      })
-    }
+  SYSMonthlyRevenue: any = [];
+  GetSYSMonthlyRevenue() {
+    this.http.get('https://localhost:7004/api/MonthlyReport/GetSYSMonthlyRevenue').subscribe(result => {
+      this.SYSMonthlyRevenue = result;
+      console.log('Result of SYSMonthlyRevenue', result);
+
+    }, err => {
+      console.log('error in print SYSMonthlyRevenue');
+      console.log(err.message);
+    })
+  }
 
 
 
@@ -1195,14 +1197,70 @@ export class AdminService {
       console.error('Error fetching selected element:', error);
     }
   }
-    testemonyCounts: any ={}
-    async GetTestimonyStatusCounts(): Promise<void> {
-      try {
-        const res = await this.http.get(`https://localhost:7004/api/Testimonial/GetTestimonyStatusCounts`).toPromise();
-        this.testemonyCounts = res;
-        console.log('testemonyCounts', this.testemonyCounts);
-      } catch (error) {
-        console.error('Error fetching selected element:', error);
-      }
+  testemonyCounts: any = {}
+  async GetTestimonyStatusCounts(): Promise<void> {
+    try {
+      const res = await this.http.get(`https://localhost:7004/api/Testimonial/GetTestimonyStatusCounts`).toPromise();
+      this.testemonyCounts = res;
+      console.log('testemonyCounts', this.testemonyCounts);
+    } catch (error) {
+      console.error('Error fetching selected element:', error);
     }
+  }
+  totalUsersPerCategory: any = {}
+  async GetTotalUsersPerCategory(): Promise<void> {
+    try {
+      const res = await this.http.get(`https://localhost:7004/api/categories/GetTotalUsersPerCategory`).toPromise();
+      this.totalUsersPerCategory = res;
+      console.log('totalUsersPerCategory', this.totalUsersPerCategory);
+    } catch (error) {
+      console.error('Error fetching selected element:', error);
+    }
+  }
+
+  averageRatingPerCategory: any = {}
+  async GetAverageRatingPerCategory(): Promise<void> {
+    try {
+      const res = await this.http.get(`https://localhost:7004/api/categories/GetAverageRatingPerCategory`).toPromise();
+      this.averageRatingPerCategory = res;
+      console.log('averageRatingPerCategory', this.averageRatingPerCategory);
+    } catch (error) {
+      console.error('Error fetching selected element:', error);
+    }
+  }
+  netRevenuePerCategory: any = {}
+  async GetNetRevenuePerCategory(): Promise<void> {
+    try {
+      const res = await this.http.get(`https://localhost:7004/api/categories/GetNetRevenuePerCategory`).toPromise();
+      this.netRevenuePerCategory = res;
+      console.log('netRevenuePerCategory', this.netRevenuePerCategory);
+    } catch (error) {
+      console.error('Error fetching selected element:', error);
+    }
+  }
+  PaidBookingPercentage: any = 0
+  async CalculatePaidBookingPercentage(): Promise<void> {
+    try {
+      const res = await this.http.get(`https://localhost:7004/api/UserLogin/CalculatePaidBookingPercentage`).toPromise();
+      this.PaidBookingPercentage = res;
+
+      console.log('PaidBookingPercentage', res);
+    } catch (error) {
+      console.error('Error fetching selected element:', error);
+    }
+  }
+
+
+
+  display_Image: any;
+  uploadAttachment(file: FormData) {
+    this.http.post('https://localhost:7004/api/categories/uploadImage', file).subscribe((resp: any) => {
+      //object course table 
+
+      this.display_Image = resp.imagename;
+    }, err => {
+      console.log('Error');
+
+    })
+  }
 }

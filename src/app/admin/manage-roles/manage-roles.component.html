@@ -1,138 +1,139 @@
-<div class="container-scroller" style="background-color: #2E2E2E; max-height: 100vh; max-height: 100vw;">
-    <!-- partial:../../partials/_sidebar.html -->
-    <app-header></app-header>
-    <!-- partial -->
-    <div class="container-fluid page-body-wrapper" style="background-color: #2E2E2E;max-height: 100vh; overflow-y: auto; overflow-x: hidden;">
-        <!-- partial:../../partials/_navbar.html -->
 
-        <!-- partial -->
-        <div class="main-panel">
-            <div class="content-wrapper" style="max-height: 100vh; overflow-y: auto; overflow-x: auto;">
+<div class="adminStyles">
+    <div class="container-scroller" style="background-color: #2E2E2E; max-height: 100vh; max-height: 100vw;">
+        <app-header></app-header>
+        <div class="container-fluid page-body-wrapper" style="background-color: #2E2E2E;max-height: 100vh; overflow-y: auto; overflow-x: hidden;">
+            <div class="main-panel">
+                <div class="content-wrapper" style="max-height: 100vh; overflow-y: auto; overflow-x: auto;">
 
-                <div class="row">
+                    <div class="row">
 
-
-                    <div class="col-lg-12 grid-margin stretc h-card">
-                        <div class="card">
-                            <div class="card-body">
-                                <form [formGroup]="RolesFormGroup">
-                                    <div class="add-service-section">
-                                        <button mat-raised-button color="accent" (click)="toggleAddRole()"
-                                            matTooltip="Click to add a new service" aria-label="Add New Service">
-                                            + Add A New Role
-                                        </button>
-                                    </div>
-
-                                    <div *ngIf="showAddRoleForm" class="new-service-form" [formGroup]="roleFormGroup">
-                                        <h3>Add New Role</h3>
-
-                                        <mat-form-field appearance="outline" class="form-field form-field1">
-                                            <mat-label>Role Name</mat-label>
-                                            <input matInput formControlName="role_Name"
-                                                placeholder="Enter service name">
-                                        </mat-form-field>
-                                        <mat-form-field appearance="outline" class="form-field form-field1">
-                                            <mat-label>Number Of Volunteers</mat-label>
-                                            <input matInput formControlName="number_Of_Volunteers"
-                                                placeholder="Enter service name">
-                                        </mat-form-field>
-                                        <div class="add-service-actions">
-                                            <button mat-stroked-button class="cancel-button"
-                                                (click)="cancelAddRole()">Cancel</button>
-                                            <button mat-stroked-button class="clear-button" (click)="addRole()">Add
-                                                Role</button>
+                        <div class="col-lg-12 grid-margin stretc h-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form [formGroup]="RolesFormGroup">
+                                        <div class="add-service-section">
+                                            <button mat-raised-button color="accent" (click)="toggleAddRole()"
+                                                matTooltip="Click to add a new service" aria-label="Add New Service">
+                                                + Add A New Role
+                                            </button>
                                         </div>
-                                    </div>
-                                    <div class="hint-text">Add a new role or choose from the list.</div>
 
-                                    <mat-divider></mat-divider>
-                                    <h2 class="services-title">Choose Roles</h2>
+                                        <div *ngIf="showAddRoleForm" class="new-service-form"
+                                            [formGroup]="roleFormGroup">
+                                            <h3>Add New Role</h3>
 
-                                    <div class="service-list">
-                                        <div class="service-item" *ngFor="let Role of paginatedRoles">
-                                            <mat-checkbox [checked]="isVolunteerRoleSelected(Role.volunteer_Role_Id)"
-                                                (change)="onVolunteerRoleChange($event.checked, Role.volunteer_Role_Id)">
-                                                <span class="service-name">{{ Role.role_Name }}</span>
-</mat-checkbox>
-                                        </div>
-                                    </div>
-
-                                    <div class="pagination-controls">
-                                        <button mat-icon-button (click)="previousPage()" [disabled]="currentPage === 1">
-                                            <mat-icon>arrow_back</mat-icon>
-                                        </button>
-                                        <span class="pagination-text">Page {{ currentPage }} of {{ totalPages }}</span>
-                                        <button mat-icon-button (click)="nextPage()"
-                                            [disabled]="currentPage === totalPages">
-                                            <mat-icon>arrow_forward</mat-icon>
-                                        </button>
-                                    </div>
-
-                                </form>
-                                <div class="selected-Items-Container">
-                                    <div class="selected-services-list">
-                                        <h2 class="services-title">Original Trip Volunteer Roles</h2>
-
-                                        <div class="scrollable-services">
-                                            <div *ngIf="admin.tripVolunteers; else noRolesSelected">
-                                                <div class="selected-service"
-                                                    *ngFor="let selectedRole of admin.tripVolunteers">
-                                                    <span class="service-name">{{ selectedRole.role_Name }}</span>
-                                                    <span class="service-cost">
-                                                        {{ selectedRole.number_Of_Volunteers }}
-                                                        <mat-icon class="volunteer-icon">person</mat-icon>
-                                                    </span> <mat-icon class="edit-icon"
-                                                        (click)="openEditDialog(selectedRole.trip_Volunteerroles_Id)">edit</mat-icon>
-                                                    <mat-icon class="delete-icon"
-                                                        (click)="openDeleteDialog(selectedRole.volunteer_Role_Id)">clear</mat-icon>
-
-                                                </div>
+                                            <mat-form-field appearance="outline" class="form-field form-field1">
+                                                <mat-label>Role Name</mat-label>
+                                                <input matInput formControlName="role_Name"
+                                                    placeholder="Enter service name">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" class="form-field form-field1">
+                                                <mat-label>Number Of Volunteers</mat-label>
+                                                <input matInput formControlName="number_Of_Volunteers"
+                                                    placeholder="Enter service name">
+                                            </mat-form-field>
+                                            <div class="add-service-actions">
+                                                <button mat-stroked-button class="cancel-button"
+                                                    (click)="cancelAddRole()">Cancel</button>
+                                                <button mat-stroked-button class="clear-button" (click)="addRole()">Add
+                                                    Role</button>
                                             </div>
-
-                                            <ng-template #noRolesSelected>
-                                                <p class="no-services-text">No roles selected.</p>
-                                            </ng-template>
                                         </div>
-                                    </div>
+                                        <div class="hint-text">Add a new role or choose from the list.</div>
 
-                                    <div class="selected-services-list">
-                                        <h2 class="services-title">Newly Selected Services</h2>
-                                        <div class="scrollable-services">
-                                            <div *ngIf="selectedRolesDetails.length > 0; else noRolesSelected">
-                                                <div class="selected-service"
-                                                    *ngFor="let selectedRoles of roleInfo">
-                                                    <span class="service-name">{{ selectedRoles.volunteer_Role_Name }}</span>
-                                                    <span class="service-cost">
-                                                        {{ selectedRoles.number_Of_Volunteers }}
-                                                        <mat-icon class="volunteer-icon">person</mat-icon>
-                                                    </span>
-                                                </div>
+                                        <mat-divider></mat-divider>
+                                        <h2 class="services-title">Choose Roles</h2>
+
+                                        <div class="service-list">
+                                            <div class="service-item" *ngFor="let Role of paginatedRoles">
+                                                <mat-checkbox
+                                                    [checked]="isVolunteerRoleSelected(Role.volunteer_Role_Id)"
+                                                    (change)="onVolunteerRoleChange($event.checked, Role.volunteer_Role_Id)">
+                                                    <span class="service-name">{{ Role.role_Name }}</span>
+                                                </mat-checkbox>
                                             </div>
+                                        </div>
 
-                                            <ng-template #noRolesSelected>
-                                                <p class="no-services-text">No roles selected.</p>
-                                            </ng-template>
+                                        <div class="pagination-controls">
+                                            <button mat-icon-button (click)="previousPage()"
+                                                [disabled]="currentPage === 1">
+                                                <mat-icon>arrow_back</mat-icon>
+                                            </button>
+                                            <span class="pagination-text">Page {{ currentPage }} of {{ totalPages
+                                                }}</span>
+                                            <button mat-icon-button (click)="nextPage()"
+                                                [disabled]="currentPage === totalPages">
+                                                <mat-icon>arrow_forward</mat-icon>
+                                            </button>
+                                        </div>
+
+                                    </form>
+                                    <div class="selected-Items-Container">
+                                        <div class="selected-services-list">
+                                            <h2 class="services-title">Original Trip Volunteer Roles</h2>
+
+                                            <div class="scrollable-services">
+                                                <div *ngIf="admin.tripVolunteers; else noRolesSelected">
+                                                    <div class="selected-service"
+                                                        *ngFor="let selectedRole of admin.tripVolunteers">
+                                                        <span class="service-name">{{ selectedRole.role_Name }}</span>
+                                                        <span class="service-cost">
+                                                            {{ selectedRole.number_Of_Volunteers }}
+                                                            <mat-icon class="volunteer-icon">person</mat-icon>
+                                                        </span> <mat-icon class="edit-icon"
+                                                            (click)="openEditDialog(selectedRole.trip_Volunteerroles_Id)">edit</mat-icon>
+                                                        <mat-icon class="delete-icon"
+                                                            (click)="openDeleteDialog(selectedRole.volunteer_Role_Id)">clear</mat-icon>
+
+                                                    </div>
+                                                </div>
+
+                                                <ng-template #noRolesSelected>
+                                                    <p class="no-services-text">No roles selected.</p>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+
+                                        <div class="selected-services-list">
+                                            <h2 class="services-title">Newly Selected Services</h2>
+                                            <div class="scrollable-services">
+                                                <div *ngIf="selectedRolesDetails.length > 0; else noRolesSelected">
+                                                    <div class="selected-service"
+                                                        *ngFor="let selectedRoles of roleInfo">
+                                                        <span class="service-name">{{ selectedRoles.volunteer_Role_Name
+                                                            }}</span>
+                                                        <span class="service-cost">
+                                                            {{ selectedRoles.number_Of_Volunteers }}
+                                                            <mat-icon class="volunteer-icon">person</mat-icon>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <ng-template #noRolesSelected>
+                                                    <p class="no-services-text">No roles selected.</p>
+                                                </ng-template>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="scrollable-services-container"
-                                    style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                    <div class="add-butoon-section">
-                                        <button mat-raised-button color="warn" (click)="return()"
-                                            matTooltip="Click to go back" aria-label="Back">
-                                            All Trips
-                                        </button>
-                                    </div>
-                                    <div class="add-butoon-section">
+                                    <div class="scrollable-services-container">
+                                        <div class="add-butoon-section">
+                                            <button mat-raised-button color="warn" (click)="return()"
+                                                matTooltip="Click to go back" aria-label="Back">
+                                                All Trips
+                                            </button>
+                                        </div>
+                                        <div class="add-butoon-section">
 
-                                        <button mat-raised-button color="accent" (click)="back(tripId)"
-                                            matTooltip="Click to view all trips" aria-label="All Trips">
-                                            Back
-                                        </button>
-                                        <button mat-raised-button color="primary" (click)="Save()"
-                                            matTooltip="Click to save changes" aria-label="Save">
-                                            Save
-                                        </button>
+                                            <button mat-raised-button color="accent" (click)="back(tripId)"
+                                                matTooltip="Click to view all trips" aria-label="All Trips">
+                                                Back
+                                            </button>
+                                            <button mat-raised-button color="primary" (click)="Save()"
+                                                matTooltip="Click to save changes" aria-label="Save">
+                                                Save
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -142,65 +143,61 @@
             </div>
         </div>
     </div>
-</div>
 
+    <ng-template #callUpdateDialog>
+        <mat-dialog-content class="mat-typography">
+            <h3>Edit Role</h3>
+            <form [formGroup]="UpdateRolesFormGroup" class="edit-role">
 
+                <div>
+                    <mat-form-field appearance="fill" class="full-width">
+                        <mat-label>Number Of Volunteers</mat-label>
+                        <input type="number" matInput placeholder="Number Of Volunteers"
+                            formControlName="number_Of_Volunteers" [(ngModel)]="pData.number_Of_Volunteers">
+                        <mat-error
+                            *ngIf="UpdateRolesFormGroup.get('number_Of_Volunteers')?.invalid && UpdateRolesFormGroup.get('number_Of_Volunteers')?.touched">
+                            Please add the required number of volunteers.
+                        </mat-error>
+                    </mat-form-field>
 
-<ng-template #callUpdateDialog>
-    <mat-dialog-content class="mat-typography">
-        <h3>Edit Role</h3>
-        <form [formGroup]="UpdateRolesFormGroup" style="padding: 30px;">
+                </div>
+            </form>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close (click)="updateAllTripsRoles()">Update</button>
+            <button mat-button mat-dialog-close>Cancel</button>
 
-            <div>
-                <mat-form-field appearance="fill" class="full-width">
-                    <mat-label>Number Of Volunteers</mat-label>
-                    <input type="number" matInput placeholder="Number Of Volunteers"
-                        formControlName="number_Of_Volunteers" [(ngModel)]="pData.number_Of_Volunteers">
-                    <mat-error
-                        *ngIf="UpdateRolesFormGroup.get('number_Of_Volunteers')?.invalid && UpdateRolesFormGroup.get('number_Of_Volunteers')?.touched">
-                        Please add the required number of volunteers.
-                    </mat-error>
-                </mat-form-field>
+        </mat-dialog-actions>
+    </ng-template>
 
-            </div>
-        </form>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close (click)="updateAllTripsRoles()">Update</button>
-        <button mat-button mat-dialog-close>Cancel</button>
-
-    </mat-dialog-actions>
-</ng-template>
-
-<ng-template #callDeleteDialog>
-    <h1 mat-dialog-title>Delete Role</h1>
-    <div mat-dialog-content>Are you sure you went to delete this Volunteer Role ?</div>
-    <div mat-dialog-actions>
-        <button mat-button mat-dialog-close="yes">Yes</button>
-        <button mat-button mat-dialog-close="no">No</button>
-    </div>
-</ng-template>
-
-
-
-<ng-template #callNumberDialog>
-    <mat-dialog-content class="mat-typography">
-      <h3>Number of volunteers</h3>
-      <form [formGroup]="RolesNumberFormGroup" style="padding: 30px;">
-        <div>
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Number of volunteers</mat-label>
-            <input type="text" matInput placeholder="Title" formControlName="number_Of_Volunteers">
-            <mat-error
-              *ngIf="RolesFormGroup.get('number_Of_Volunteers')?.invalid && RolesFormGroup.get('number_Of_Volunteers')?.touched">
-              Please enter a positive number.
-            </mat-error>
-          </mat-form-field>
+    <ng-template #callDeleteDialog>
+        <h1 mat-dialog-title>Delete Role</h1>
+        <div mat-dialog-content>Are you sure you went to delete this Volunteer Role ?</div>
+        <div mat-dialog-actions>
+            <button mat-button mat-dialog-close="yes">Yes</button>
+            <button mat-button mat-dialog-close="no">No</button>
         </div>
-      </form>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-      <button mat-button mat-dialog-close>Cancel</button>
-      <button mat-button mat-dialog-close cdkFocusInitial (click)="save2()">Save</button>
-    </mat-dialog-actions>
-  </ng-template>
+    </ng-template>
+
+    <ng-template #callNumberDialog>
+        <mat-dialog-content class="mat-typography">
+            <h3>Number of volunteers</h3>
+            <form [formGroup]="RolesNumberFormGroup" class="edit-role">
+                <div>
+                    <mat-form-field appearance="fill" class="full-width">
+                        <mat-label>Number of volunteers</mat-label>
+                        <input type="text" matInput placeholder="Title" formControlName="number_Of_Volunteers">
+                        <mat-error
+                            *ngIf="RolesFormGroup.get('number_Of_Volunteers')?.invalid && RolesFormGroup.get('number_Of_Volunteers')?.touched">
+                            Please enter a positive number.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </form>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close>Cancel</button>
+            <button mat-button mat-dialog-close cdkFocusInitial (click)="save2()">Save</button>
+        </mat-dialog-actions>
+    </ng-template>
+</div>

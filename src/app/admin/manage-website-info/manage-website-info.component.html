@@ -1,4 +1,6 @@
-<div class="container-scroller" style="max-height: 100vh; max-height: 100vw;">
+
+<div class="adminStyles">
+    <div class="container-scroller" style="max-height: 100vh; max-height: 100vw;">
         <app-header></app-header>
         <div class="container-fluid page-body-wrapper" style="background-color: #2E2E2E;max-height: 100vh; overflow-y: auto; overflow-x: hidden;">
             <div class="main-panel">
@@ -8,9 +10,10 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title" style="color: black;">Contact us page elements</h4>
-                                    <button  (click)="openCreateDialog()" style="color: rgb(100, 250, 100); margin-left: 900px  ;font-size: 30px !important; background-color: white; border: none;">
+                                    <button (click)="openCreateDialog()"
+                                        style="color: rgb(100, 250, 100); margin-left: 900px  ;font-size: 30px !important; background-color: white; border: none;">
                                         <i class="bi bi-plus-circle-fill fs-1"></i>
-                                    </button> 
+                                    </button>
                                     <br><br>
                                     <div class="table-responsive">
                                         <table class="table table-light" style="background: white;">
@@ -41,11 +44,15 @@
                                                         </mat-radio-group>
                                                     </td>
                                                     <td>
-                                                        <button (click)="openEditDialog(obj)" style="background-color: white; border: none;" 
-                                                                ><i class="bi bi-pencil-square" style="color: blue; border: none; font-size: 20px;" ></i></button>
-                                                            <button (click)="openDeleteDialog(obj.contactus_Elements_Id)" style="background-color: white; border: none;"
-                                                               ><i class="bi bi-trash-fill" style="color: red; border: none; font-size: 20px;" ></i>
-                                                            </button>
+                                                        <button (click)="openEditDialog(obj)"
+                                                            style="background-color: white; border: none;"><i
+                                                                class="bi bi-pencil-square"
+                                                                style="color: blue; border: none; font-size: 20px;"></i></button>
+                                                        <button (click)="openDeleteDialog(obj.contactus_Elements_Id)"
+                                                            style="background-color: white; border: none;"><i
+                                                                class="bi bi-trash-fill"
+                                                                style="color: red; border: none; font-size: 20px;"></i>
+                                                        </button>
 
                                                         <!-- <button (click)="openEditDialog(obj)"
                                                             class="btn btn-primary">Edit</button>
@@ -67,113 +74,123 @@
 
 
 
-<!-- create -->
-<ng-template #callCreateDialog>
-    <mat-dialog-content class="mat-typography">
-        <h3>Create Website Information</h3>
-        <form [formGroup]="CreateWebsiteInfo" style="padding: 30px;">
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Email</mat-label>
-                <input matInput placeholder="Email" formControlName="email">
-                <mat-error *ngIf="UpdateWebsiteInfo.get('email')?.hasError('required')">Email is required</mat-error>
-                <mat-error *ngIf="UpdateWebsiteInfo.get('email')?.hasError('email')">Invalid email format</mat-error>
-            </mat-form-field>
+    <!-- create -->
+    <ng-template #callCreateDialog>
+        <mat-dialog-content class="mat-typography">
+            <h3>Create Website Information</h3>
+            <form [formGroup]="CreateWebsiteInfo" style="padding: 30px;">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Email</mat-label>
+                    <input matInput placeholder="Email" formControlName="email">
+                    <mat-error *ngIf="UpdateWebsiteInfo.get('email')?.hasError('required')">Email is
+                        required</mat-error>
+                    <mat-error *ngIf="UpdateWebsiteInfo.get('email')?.hasError('email')">Invalid email
+                        format</mat-error>
+                </mat-form-field>
 
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Phone Number</mat-label>
-                <input matInput placeholder="Phone Number" formControlName="phone_Number">
-                <mat-error *ngIf="UpdateWebsiteInfo.get('phone_Number')?.hasError('required')">Phone Number is
-                    required</mat-error>
-                <mat-error *ngIf="UpdateWebsiteInfo.get('phone_Number')?.hasError('pattern')">Invalid phone
-                    number</mat-error>
-            </mat-form-field>
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Phone Number</mat-label>
+                    <input matInput placeholder="Phone Number" formControlName="phone_Number">
+                    <mat-error *ngIf="UpdateWebsiteInfo.get('phone_Number')?.hasError('required')">Phone Number is
+                        required</mat-error>
+                    <mat-error *ngIf="UpdateWebsiteInfo.get('phone_Number')?.hasError('pattern')">Invalid phone
+                        number</mat-error>
+                </mat-form-field>
 
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Address</mat-label>
-                <input matInput placeholder="Address" formControlName="adress">
-                <mat-error *ngIf="UpdateWebsiteInfo.get('adress')?.hasError('required')">Address is required</mat-error>
-            </mat-form-field>
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Address</mat-label>
+                    <input matInput placeholder="Address" formControlName="adress">
+                    <mat-error *ngIf="UpdateWebsiteInfo.get('adress')?.hasError('required')">Address is
+                        required</mat-error>
+                </mat-form-field>
 
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Website Link</mat-label>
-                <input matInput placeholder="Website Link" formControlName="website_Link">
-            </mat-form-field>
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Website Link</mat-label>
+                    <input matInput placeholder="Website Link" formControlName="website_Link">
+                </mat-form-field>
 
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Open Time</mat-label>
-                <input matInput placeholder="Open Time" formControlName="open_Time">
-            </mat-form-field>
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Open Time</mat-label>
+                    <input matInput placeholder="Open Time" formControlName="open_Time">
+                </mat-form-field>
 
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Closing Time</mat-label>
-                <input matInput placeholder="Closing Time" formControlName="closing_Time">
-            </mat-form-field>
-        </form>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close>Cancel</button>
-        <button mat-button mat-dialog-close cdkFocusInitial (click)="save()">Create</button>
-    </mat-dialog-actions>
-</ng-template>
-
-
-<!-- Delete website info -->
-<ng-template #callDeleteDialog>
-    <h1 mat-dialog-title>Delete Item</h1>
-    <div mat-dialog-content>Are you sure you went to delete this item ?</div>
-    <div mat-dialog-actions>
-        <button mat-button mat-dialog-close="yes">Yes</button>
-        <button mat-button mat-dialog-close="no">No</button>
-    </div>
-</ng-template>
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Closing Time</mat-label>
+                    <input matInput placeholder="Closing Time" formControlName="closing_Time">
+                </mat-form-field>
+            </form>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close>Cancel</button>
+            <button mat-button mat-dialog-close cdkFocusInitial (click)="save()">Create</button>
+        </mat-dialog-actions>
+    </ng-template>
 
 
-<!-- update -->
-<ng-template #callUpdateDialog>
-    <mat-dialog-content class="mat-typography">
-        <h3>Edit Website Information</h3>
-        <form [formGroup]="UpdateWebsiteInfo" style="padding: 30px;">
+    <!-- Delete website info -->
+    <ng-template #callDeleteDialog>
+        <h1 mat-dialog-title>Delete Item</h1>
+        <div mat-dialog-content>Are you sure you went to delete this item ?</div>
+        <div mat-dialog-actions>
+            <button mat-button mat-dialog-close="yes">Yes</button>
+            <button mat-button mat-dialog-close="no">No</button>
+        </div>
+    </ng-template>
 
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Email</mat-label>
-                <input matInput placeholder="Email" formControlName="email"  [(ngModel)]="pData.email">
-                <mat-error *ngIf="UpdateWebsiteInfo.get('email')?.hasError('required')">Email is required</mat-error>
-                <mat-error *ngIf="UpdateWebsiteInfo.get('email')?.hasError('email')">Invalid email format</mat-error>
-            </mat-form-field>
 
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Phone Number</mat-label>
-                <input matInput placeholder="Phone Number" formControlName="phone_Number" [(ngModel)]="pData.phone_Number">
-                <mat-error *ngIf="UpdateWebsiteInfo.get('phone_Number')?.hasError('required')">Phone Number is
-                    required</mat-error>
-                <mat-error *ngIf="UpdateWebsiteInfo.get('phone_Number')?.hasError('pattern')">Invalid phone
-                    number</mat-error>
-            </mat-form-field>
+    <!-- update -->
+    <ng-template #callUpdateDialog>
+        <mat-dialog-content class="mat-typography">
+            <h3>Edit Website Information</h3>
+            <form [formGroup]="UpdateWebsiteInfo" style="padding: 30px;">
 
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Address</mat-label>
-                <input matInput placeholder="Address" formControlName="adress" [(ngModel)]="pData.adress">
-                <mat-error *ngIf="UpdateWebsiteInfo.get('adress')?.hasError('required')">Address is required</mat-error>
-            </mat-form-field>
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Email</mat-label>
+                    <input matInput placeholder="Email" formControlName="email" [(ngModel)]="pData.email">
+                    <mat-error *ngIf="UpdateWebsiteInfo.get('email')?.hasError('required')">Email is
+                        required</mat-error>
+                    <mat-error *ngIf="UpdateWebsiteInfo.get('email')?.hasError('email')">Invalid email
+                        format</mat-error>
+                </mat-form-field>
 
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Website Link</mat-label>
-                <input matInput placeholder="Website Link" formControlName="website_Link" [(ngModel)]="pData.website_Link">
-            </mat-form-field>
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Phone Number</mat-label>
+                    <input matInput placeholder="Phone Number" formControlName="phone_Number"
+                        [(ngModel)]="pData.phone_Number">
+                    <mat-error *ngIf="UpdateWebsiteInfo.get('phone_Number')?.hasError('required')">Phone Number is
+                        required</mat-error>
+                    <mat-error *ngIf="UpdateWebsiteInfo.get('phone_Number')?.hasError('pattern')">Invalid phone
+                        number</mat-error>
+                </mat-form-field>
 
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Open Time</mat-label>
-                <input matInput placeholder="Open Time" formControlName="open_Time" [(ngModel)]="pData.open_Time">
-            </mat-form-field>
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Address</mat-label>
+                    <input matInput placeholder="Address" formControlName="adress" [(ngModel)]="pData.adress">
+                    <mat-error *ngIf="UpdateWebsiteInfo.get('adress')?.hasError('required')">Address is
+                        required</mat-error>
+                </mat-form-field>
 
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Closing Time</mat-label>
-                <input matInput placeholder="Closing Time" formControlName="closing_Time" [(ngModel)]="pData.closing_Time">
-            </mat-form-field>
-        </form>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close>Cancel</button>
-        <button mat-button mat-dialog-close cdkFocusInitial (click)="save2()">Save</button>
-    </mat-dialog-actions>
-</ng-template>
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Website Link</mat-label>
+                    <input matInput placeholder="Website Link" formControlName="website_Link"
+                        [(ngModel)]="pData.website_Link">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Open Time</mat-label>
+                    <input matInput placeholder="Open Time" formControlName="open_Time" [(ngModel)]="pData.open_Time">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Closing Time</mat-label>
+                    <input matInput placeholder="Closing Time" formControlName="closing_Time"
+                        [(ngModel)]="pData.closing_Time">
+                </mat-form-field>
+            </form>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close>Cancel</button>
+            <button mat-button mat-dialog-close cdkFocusInitial (click)="save2()">Save</button>
+        </mat-dialog-actions>
+    </ng-template>
+</div>

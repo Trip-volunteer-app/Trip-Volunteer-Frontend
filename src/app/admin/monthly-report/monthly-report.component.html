@@ -1,94 +1,99 @@
-<div class="container-scroller" style="max-height: 100vh; max-height: 100vw;">
-    <app-header></app-header>
-    <div class="container-fluid page-body-wrapper" style="max-height: 100vh; overflow-y: auto; overflow-x: hidden;">
-        <div class="main-panel">
-            <div class="content-wrapper" style="max-height: 100vh; overflow-y: auto; overflow-x: auto;">
-                <div class="row">
-                    <div class="col-lg-12 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title report-title">Monthly Report</h4>
-                                <br><br>
-                                <div class="table-responsive">
+<div class="adminStyles">
+    <div class="container-scroller" style="max-height: 100vh; max-height: 100vw;">
+        <app-header></app-header>
+        <div class="container-fluid page-body-wrapper" style="max-height: 100vh; overflow-y: auto; overflow-x: hidden;">
+            <div class="main-panel">
+                <div class="content-wrapper" style="max-height: 100vh; overflow-y: auto; overflow-x: auto;">
+                    <div class="row">
+                        <div class="col-lg-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title report-title">Monthly Report</h4>
+                                    <br><br>
+                                    <div class="table-responsive">
+                                        <div class="report-container">
+                                            <div class="dropdown-group">
+                                                <div class="dropdown">
+                                                    <label for="yearDropdown">Select Year</label>
+                                                    <select id="yearDropdown" [(ngModel)]="selectedYear"
+                                                        (ngModelChange)="onYearMonthChange()" class="styled-select">
+                                                        <option *ngFor="let year of years" [value]="year">{{ year }}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="dropdown">
+                                                    <label for="monthDropdown">Select Month</label>
+                                                    <select id="monthDropdown" [(ngModel)]="selectedMonth"
+                                                        (ngModelChange)="onYearMonthChange()" class="styled-select">
+                                                        <option *ngFor="let month of months" [value]="month">{{ month }}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="table-responsive"
+                                                *ngIf="admin.monthlyReport && admin.monthlyReport.length > 0">
+                                                <table class="table custom-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="color: black;"><b>Year</b></th>
+                                                            <th style="color: black;"><b>Month</b></th>
+                                                            <th style="color: black;"><b>TOTAL COST</b></th>
+                                                            <th style="color: black;"><b>TOTAL REVENUE</b></th>
+                                                            <th style="color: black;"><b>NET REVENUE</b></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>{{ selectedYear }}</td>
+                                                            <td>{{ selectedMonth }}</td>
+                                                            <td>{{
+                                                                admin.monthlyReport[0].total_revenue | currency }}</td>
+                                                            <td>{{ admin.monthlyReport[0].cost | currency
+                                                                }}</td>
+                                                            <td>{{
+                                                                admin.monthlyReport[0].monthly_revenue | currency }}
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
 
-                                    <div class="report-container">
-                                        <div class="dropdown-group">
-                                            <div class="dropdown">
-                                                <label for="yearDropdown">Select Year</label>
-                                                <select id="yearDropdown" [(ngModel)]="selectedYear"
-                                                    (ngModelChange)="onYearMonthChange()" class="styled-select">
-                                                    <option *ngFor="let year of years" [value]="year">{{ year }}
-                                                    </option>
-                                                </select>
                                             </div>
 
-                                            <div class="dropdown">
-                                                <label for="monthDropdown">Select Month</label>
-                                                <select id="monthDropdown" [(ngModel)]="selectedMonth"
-                                                    (ngModelChange)="onYearMonthChange()" class="styled-select">
-                                                    <option *ngFor="let month of months" [value]="month">{{ month }}
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                            <div *ngIf="admin.monthlyReport && admin.monthlyReport.length > 0; else noData"
+                                                class="chart-container">
+                                                <div id="chart" *ngIf="admin.monthlyReport[0].total_revenue !== 0">
+                                                    <canvas baseChart [datasets]="barChartData.datasets"
+                                                        [labels]="barChartLabels" [options]="barChartOptions"
+                                                        [legend]="barChartLegend"></canvas>
+                                                </div>
 
-                                        <div class="table-responsive"
-                                            *ngIf="admin.monthlyReport && admin.monthlyReport.length > 0">
-                                            <table class="table custom-table">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="color: black;"><b>Year</b></th>
-                                                        <th style="color: black;"><b>Month</b></th>
-                                                        <th style="color: black;"><b>TOTAL COST</b></th>
-                                                        <th style="color: black;"><b>TOTAL REVENUE</b></th>
-                                                        <th style="color: black;"><b>NET REVENUE</b></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>{{ selectedYear }}</td>
-                                                        <td>{{ selectedMonth }}</td>
-                                                        <td>{{
-                                                            admin.monthlyReport[0].total_revenue | currency }}</td>
-                                                        <td>{{ admin.monthlyReport[0].cost | currency
-                                                            }}</td>
-                                                        <td>{{
-                                                            admin.monthlyReport[0].monthly_revenue | currency }}</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                        <div *ngIf="admin.monthlyReport && admin.monthlyReport.length > 0; else noData"
-                                            class="chart-container">
-                                            <div id="chart" *ngIf="admin.monthlyReport[0].total_revenue !== 0">
-                                                <canvas baseChart [datasets]="barChartData.datasets"
-                                                    [labels]="barChartLabels" [options]="barChartOptions"
-                                                    [legend]="barChartLegend"></canvas>
                                             </div>
 
-                                        </div>
+                                            <ng-template #noData>
+                                                <p class="no-data">No data available for the selected month and year.
+                                                </p>
+                                            </ng-template>
 
-                                        <ng-template #noData>
-                                            <p class="no-data">No data available for the selected month and year.</p>
-                                        </ng-template>
+                                            <div class="chart-container" id="dailyRevenueChart"
+                                                *ngIf="admin.monthlyReport && admin.monthlyReport.length > 0">
+                                                <canvas baseChart [datasets]="dailyRevenueChartData.datasets"
+                                                    [labels]="dailyRevenueChartData.labels"
+                                                    [options]="dailyRevenueChartOptions" [legend]="true"
+                                                    [type]="'line'"></canvas>
 
-                                        <div class="chart-container" id="dailyRevenueChart"
-                                            *ngIf="admin.monthlyReport && admin.monthlyReport.length > 0">
-                                            <canvas baseChart [datasets]="dailyRevenueChartData.datasets"
-                                                [labels]="dailyRevenueChartData.labels"
-                                                [options]="dailyRevenueChartOptions" [legend]="true"
-                                                [type]="'line'"></canvas>
-
-                                        </div>
-                                        <div class="pdf-buttons" *ngIf="admin.monthlyReport && admin.monthlyReport.length > 0">
-                                            <button class="btn-download btn-download-pdf" (click)="generatePDF()">Download PDF</button>
-                                            <button class="btn-download btn-download-excel" (click)="exportToExcel()">Download
-                                                Excel</button>
+                                            </div>
+                                            <div class="pdf-buttons"
+                                                *ngIf="admin.monthlyReport && admin.monthlyReport.length > 0">
+                                                <button class="btn-download btn-download-pdf"
+                                                    (click)="generatePDF()">Download PDF</button>
+                                                <button class="btn-download btn-download-excel"
+                                                    (click)="exportToExcel()">Download
+                                                    Excel</button>
+                                            </div>
                                         </div>
                                     </div>
+                                    <br>
                                 </div>
-                                <br>
                             </div>
                         </div>
                     </div>

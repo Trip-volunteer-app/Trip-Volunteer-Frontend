@@ -1,40 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Corona Admin</title>
-  <!-- plugins:css -->
-
-</head>
-
-<body>
+<div class="adminStyles">
   <div class="container-scroller" style="max-height: 100vh; ">
-    <!-- partial:partials/_sidebar.html -->
-
-
     <app-header></app-header>
-
-
-    <!-- partial -->
     <div class="container-fluid page-body-wrapper" style="background-color: #2E2E2E;">
-      <!-- partial:partials/_navbar.html -->
-
-      <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper" style="max-height: 100vh; overflow-y: auto; overflow-x: hidden;">
-
           <div class="row">
             <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
-              <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
+              <div class="card dashboard-cards">
                 <div class="card-body">
                   <div class="row">
                     <div class="col-9">
                       <div class="d-flex align-items-center align-self-start">
                         <h3 class="mb-0">{{NumberOfRegisteredUsers}}</h3>
-                        <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> -->
                       </div>
                     </div>
                     <div class="col-3">
@@ -48,13 +26,12 @@
               </div>
             </div>
             <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
-              <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
+              <div class="card dashboard-cards">
                 <div class="card-body">
                   <div class="row">
                     <div class="col-9">
                       <div class="d-flex align-items-center align-self-start">
                         <h3 class="mb-0">{{NumberOfTrips}}</h3>
-                        <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+11%</p> -->
                       </div>
                     </div>
                     <div class="col-3">
@@ -68,13 +45,12 @@
               </div>
             </div>
             <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
-              <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
+              <div class="card dashboard-cards">
                 <div class="card-body">
                   <div class="row">
                     <div class="col-9">
                       <div class="d-flex align-items-center align-self-start">
                         <h3 class="mb-0">{{TotalNumberOfVolunteer}}</h3>
-                        <!-- <p class="text-danger ml-2 mb-0 font-weight-medium">-2.4%</p> -->
                       </div>
                     </div>
                     <div class="col-3">
@@ -88,13 +64,12 @@
               </div>
             </div>
             <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
-              <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
+              <div class="card dashboard-cards">
                 <div class="card-body">
                   <div class="row">
                     <div class="col-9">
                       <div class="d-flex align-items-center align-self-start">
                         <h3 class="mb-0">{{TotalNumberOfBooking}}</h3>
-                        <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> -->
                       </div>
                     </div>
                     <div class="col-3">
@@ -108,7 +83,7 @@
               </div>
             </div>
           </div>
-          <div class="row" style="background-color: white;">
+          <div class="row container-chart1">
             <div class="col-md-4 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
@@ -138,7 +113,7 @@
               </div>
             </div>
 
-            <div class="col-md-8 grid-margin stretch-card" style="background-color: white;">
+            <div class="col-md-8 grid-margin stretch-card container-chart1">
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex flex-row justify-content-between">
@@ -147,39 +122,14 @@
                   </div>
                   <div class="row">
                     <div class="col-12">
-                      <!-- Add scrollable area with inline scrollbar styles -->
-                      <div class="preview-list"
-                        style="max-height: 300px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #000 #333;">
-                        <style>
-                          .preview-list::-webkit-scrollbar {
-                            width: 8px;
-                            /* width of the scrollbar */
-                          }
-
-                          .preview-list::-webkit-scrollbar-track {
-                            background: #333;
-                            /* background of the scrollbar track */
-                          }
-
-                          .preview-list::-webkit-scrollbar-thumb {
-                            background: #000;
-                            /* color of the scrollbar thumb */
-                            border-radius: 10px;
-                            /* rounded corners for the thumb */
-                          }
-
-                          .preview-list::-webkit-scrollbar-thumb:hover {
-                            background: #555;
-                            /* color of the thumb on hover */
-                          }
-                        </style>
+                      <div class="preview-list">
                         <br>
                         <div class="preview-item-content d-sm-flex flex-grow"
                           *ngFor="let obj of admin.TripsWithMaxReservations">
                           <div class="flex-grow">
                             <h6 class="preview-subject">{{obj.trip_Name}}</h6>
                           </div>
-                          <div class="mr-auto text-sm-right pt-2 pt-sm-0" style="padding-right: 20px;">
+                          <div class="mr-auto text-sm-right pt-2 pt-sm-0 max-users">
                             <p class="text-muted">{{obj.max_Number_Of_Users}}</p>
                           </div>
                         </div>
@@ -190,24 +140,11 @@
               </div>
             </div>
           </div>
-
-
-          <!-- {
-              "selectedMonth": null,
-              "selectedYear": null,
-              "month_year": "11/2024",
-              "cost": 8155,
-              "total_revenue": 9786,
-              "monthly_revenue": 1631,
-              "day": null,
-              "revenue": null
-          } -->
-
           <div class="row" style="background-color: white;">
             <div class="col-sm-4 grid-margin">
               <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
                 <div class="card-body">
-                  <h5 class="text-muted mb-1">Revenue</h5>
+                  <h5 class="text-muted mb-1">Total Revenue</h5>
                   <div class="row">
                     <div class="col-8 col-sm-12 col-xl-8 my-auto">
                       <div class="d-flex d-sm-block d-md-flex align-items-center">
@@ -222,14 +159,16 @@
                 </div>
               </div>
             </div>
+
             <div class="col-sm-4 grid-margin">
               <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
                 <div class="card-body">
-                  <h5 class="text-muted mb-1">Sales</h5>
+                  <h5 class="text-muted mb-1">Monthly Revenue</h5>
                   <div class="row">
                     <div class="col-8 col-sm-12 col-xl-8 my-auto">
                       <div class="d-flex d-sm-block d-md-flex align-items-center">
                         <h2 class="mb-0">$ {{this.admin.SYSMonthlyRevenue.monthly_revenue}}</h2>
+
                       </div>
                       <h6 class="text-muted font-weight-normal">Since this month</h6>
                     </div>
@@ -240,14 +179,16 @@
                 </div>
               </div>
             </div>
+
             <div class="col-sm-4 grid-margin">
               <div class="card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 10px;">
                 <div class="card-body">
-                  <h5 class="text-muted mb-1">Purchase</h5>
+                  <h5 class="text-muted mb-1">Cost</h5>
                   <div class="row">
                     <div class="col-8 col-sm-12 col-xl-8 my-auto">
                       <div class="d-flex d-sm-block d-md-flex align-items-center">
                         <h2 class="mb-0">$ {{this.admin.SYSMonthlyRevenue.cost}}</h2>
+
                       </div>
                       <h6 class="text-muted font-weight-normal">Since this month</h6>
                     </div>
@@ -275,7 +216,7 @@
                       <table class="table" style="background-color: white;">
                         <thead>
                           <tr>
-                            <th> <b>User</b> </th> <!--Image + First Name + Last Name-->
+                            <th> <b>User</b> </th>
                             <th><b>Email</b></th>
                             <th><b>Address</b> </th>
                             <th> <b>Phone Number </b></th>
@@ -306,8 +247,6 @@
             </div>
           </div>
 
-
-
           <div class="row" style="background-color: white; max-width: 3000px; width: 1600px;">
             <div class="col-md-6 col-xl-4 grid-margin stretch-card">
               <div class="card">
@@ -331,208 +270,51 @@
                         </div>
                       </div>
                     </div>
-                    <!-- <div class="preview-item border-bottom">
-                        <div class="preview-thumbnail">
-                          <img src="../../../assets/Admin2/images/faces/face8.jpg" alt="image" class="rounded-circle" />
-                        </div>
-                        <div class="preview-item-content d-flex flex-grow">
-                          <div class="flex-grow">
-                            <div class="d-flex d-md-block d-xl-flex justify-content-between">
-                              <h6 class="preview-subject">Luella Mills</h6>
-                              <p class="text-muted text-small">10 Minutes Ago</p>
-                            </div>
-                            <p class="text-muted">Well, it seems to be working now.</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="preview-item border-bottom">
-                        <div class="preview-thumbnail">
-                          <img src="../../../assets/Admin2/images/faces/face9.jpg" alt="image" class="rounded-circle" />
-                        </div>
-                        <div class="preview-item-content d-flex flex-grow">
-                          <div class="flex-grow">
-                            <div class="d-flex d-md-block d-xl-flex justify-content-between">
-                              <h6 class="preview-subject">Ethel Kelly</h6>
-                              <p class="text-muted text-small">2 Hours Ago</p>
-                            </div>
-                            <p class="text-muted">Please review the tickets</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="preview-item border-bottom">
-                        <div class="preview-thumbnail">
-                          <img src="../../../assets/Admin2/images/faces/face11.jpg" alt="image" class="rounded-circle" />
-                        </div>
-                        <div class="preview-item-content d-flex flex-grow">
-                          <div class="flex-grow">
-                            <div class="d-flex d-md-block d-xl-flex justify-content-between">
-                              <h6 class="preview-subject">Herman May</h6>
-                              <p class="text-muted text-small">4 Hours Ago</p>
-                            </div>
-                            <p class="text-muted">Thanks a lot. It was easy to fix it .</p>
-                          </div>
-                        </div>
-                      </div> -->
                   </div>
                 </div>
               </div>
             </div>
-            <!-- <div class="col-md-6 col-xl-4 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="text-muted mb-1">Portfolio Slide</h4>
-                    <div class="owl-carousel owl-theme full-width owl-carousel-dash portfolio-carousel" id="owl-carousel-basic">
-                      <div class="item">
-                        <img src="../../../assets/Admin2/images/dashboard/Rectangle.jpg" alt="">
-                      </div>
-                      <div class="item">
-                        <img src="../../../assets/Admin2/images/dashboard/Img_5.jpg" alt="">
-                      </div>
-                      <div class="item">
-                        <img src="../../../assets/Admin2/images/dashboard/img_6.jpg" alt="">
-                      </div>
-                    </div>
-                    <div class="d-flex py-4">
-                      <div class="preview-list w-100">
-                        <div class="preview-item p-0">
-                          <div class="preview-thumbnail">
-                            <img src="../../../assets/Admin2/images/faces/face12.jpg" class="rounded-circle" alt="">
-                          </div>
-                          <div class="preview-item-content d-flex flex-grow">
-                            <div class="flex-grow">
-                              <div class="d-flex d-md-block d-xl-flex justify-content-between">
-                                <h6 class="preview-subject">CeeCee Bass</h6>
-                                <p class="text-muted text-small">4 Hours Ago</p>
-                              </div>
-                              <p class="text-muted">Well, it seems to be working now.</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <p class="text-muted">Well, it seems to be working now. </p>
-                    <div class="progress progress-md portfolio-progress">
-                      <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
-            <div class="col-md-12 col-xl-4 grid-margin stretch-card">
-              <div class="card">
+            <div class="col-md-4 mb-3">
+              <div class="card h-100">
+                <h4 class="text-muted mb-1 ">Percentage of users who have ever made a booking.</h4>
+
                 <div class="card-body">
-                  <h4 class="text-muted mb-1">To do list</h4>
-                  <div class="add-items d-flex">
-                    <input type="text" class="form-control todo-list-input" placeholder="enter task..">
-                    <button class="add btn btn-primary todo-list-add-btn">Add</button>
-                  </div>
-                  <div class="list-wrapper">
-                    <ul class="d-flex flex-column-reverse text-white todo-list todo-list-custom">
-                      <li>
-                        <div class="form-check form-check-primary">
-                          <label class="form-check-label">
-                            <input class="checkbox" type="checkbox"> Create invoice </label>
-                        </div>
-                        <i class="remove mdi mdi-close-box"></i>
-                      </li>
-                      <li>
-                        <div class="form-check form-check-primary">
-                          <label class="form-check-label">
-                            <input class="checkbox" type="checkbox"> Meeting with Alita </label>
-                        </div>
-                        <i class="remove mdi mdi-close-box"></i>
-                      </li>
-                      <li class="completed">
-                        <div class="form-check form-check-primary">
-                          <label class="form-check-label">
-                            <input class="checkbox" type="checkbox" checked> Prepare for presentation </label>
-                        </div>
-                        <i class="remove mdi mdi-close-box"></i>
-                      </li>
-                      <li>
-                        <div class="form-check form-check-primary">
-                          <label class="form-check-label">
-                            <input class="checkbox" type="checkbox"> Plan weekend outing </label>
-                        </div>
-                        <i class="remove mdi mdi-close-box"></i>
-                      </li>
-                      <li>
-                        <div class="form-check form-check-primary">
-                          <label class="form-check-label">
-                            <input class="checkbox" type="checkbox"> Pick up kids from school </label>
-                        </div>
-                        <i class="remove mdi mdi-close-box"></i>
-                      </li>
-                    </ul>
+                  <div class="chart-container" style="width: 100%; max-width: 800px; margin: 0px; padding:0px;">
+                    <canvas id="bookingChart" width="700" height="400"></canvas>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div class="row" style="background-color: white;">
-            <div class="col-12">
-              <div class="card">
+            <div class="col-md-4 mb-3">
+              <div class="card h-100">
+                <h4 class="text-muted mb-1 chart-text">Categories average rate.</h4>
                 <div class="card-body">
-                  <h4 class="text-muted mb-1">Visitors by Countries</h4>
-                  <div class="row">
-                    <div class="col-md-5">
-                      <div class="table-responsive">
-                        <table class="table" style="background-color: white;">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <i class="flag-icon flag-icon-us"></i>
-                              </td>
-                              <td>USA</td>
-                              <td class="text-right"> 1500 </td>
-                              <td class="text-right font-weight-medium"> 56.35% </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <i class="flag-icon flag-icon-de"></i>
-                              </td>
-                              <td>Germany</td>
-                              <td class="text-right"> 800 </td>
-                              <td class="text-right font-weight-medium"> 33.25% </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <i class="flag-icon flag-icon-au"></i>
-                              </td>
-                              <td>Australia</td>
-                              <td class="text-right"> 760 </td>
-                              <td class="text-right font-weight-medium"> 15.45% </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <i class="flag-icon flag-icon-gb"></i>
-                              </td>
-                              <td>United Kingdom</td>
-                              <td class="text-right"> 450 </td>
-                              <td class="text-right font-weight-medium"> 25.00% </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <i class="flag-icon flag-icon-ro"></i>
-                              </td>
-                              <td>Romania</td>
-                              <td class="text-right"> 620 </td>
-                              <td class="text-right font-weight-medium"> 10.25% </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <i class="flag-icon flag-icon-br"></i>
-                              </td>
-                              <td>Brasil</td>
-                              <td class="text-right"> 230 </td>
-                              <td class="text-right font-weight-medium"> 75.00% </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                    <div class="col-md-7">
-                      <div id="audience-map" class="vector-map"></div>
-                    </div>
+                  <div class="chart-container"
+                    style="width: 100%; height: 100%; max-width: 800px; margin: 0px; padding:0px;">
+                    <canvas id="rateChart" width="700" height="650"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <div class="card h-100">
+                <h4 class="text-muted mb-1 chart-text">Net revenue per category.</h4>
+                <div class="card-body">
+                  <div class="chart-container" style="width: 100%; max-width: 800px; margin: 0px; padding:0px;">
+                    <canvas id="revenueChart" width="700" height="400"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 col-xl-4 grid-margin stretch-card">
+              <div class="card h-100">
+                <h4 class="text-muted mb-1 chart-text">Number of bookings per category</h4>
+                <div class="add-items d-flex">
+                  <div style="width: 100%; max-width: 700px; margin: auto; padding-top: 20px;">
+                    <canvas id="myChart" width="700" height="400"></canvas>
                   </div>
                 </div>
               </div>
@@ -543,6 +325,4 @@
       </div>
     </div>
   </div>
-</body>
-
-</html>
+</div>

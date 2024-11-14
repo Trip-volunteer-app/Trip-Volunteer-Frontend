@@ -1,6 +1,6 @@
-import { Component, OnInit,ViewChild,TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { AdminService } from 'src/app/Services/admin.service';
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -10,16 +10,9 @@ import { FormControl, FormControlName, FormGroup, Validators } from '@angular/fo
 })
 export class ContactUsMessagesComponent implements OnInit {
 
-  constructor(public admin:AdminService,public dialog: MatDialog)
-  {}
-
+  constructor(public admin: AdminService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.admin.GetAllContactU();
   }
-
-
 }
-
-
-

@@ -4,7 +4,8 @@ import { HomeService } from 'src/app/Services/home.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
-import { ReviewFormComponent } from 'src/app/review-form/review-form.component';
+import { FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
+import { log } from 'console';
 
 @Component({
   selector: 'app-user-trips',
@@ -15,7 +16,7 @@ export class UserTripsComponent implements OnInit {
 
   @ViewChild('callDetailsBookDailog') DetailsBookDailog !: TemplateRef<any>; 
   @ViewChild('callDetailsVolunteerDailog') DetailsVolunteerDailog !: TemplateRef<any>;  
-  @ViewChild('callReviewFormDailog') callReviewFormDailog !: TemplateRef<any>;  
+  @ViewChild('callReviewFormDailog') ReviewFormDailog !: TemplateRef<any>;  
 
 
   loginId: number | null = null;
@@ -44,23 +45,16 @@ export class UserTripsComponent implements OnInit {
       console.log('Login ID:', this.loginId);
   
       if (this.loginId !== null) {
-        this.home.getUserinfoByLoginIdForReview(this.loginId).subscribe((userInfo: any) => {
-          if (userInfo.bookings && userInfo.bookings.length > 0) {
-            // Extract all booking IDs from userInfo
-            this.bookingIds = userInfo.bookings.map((booking: any) => booking.booking_Id);
-            console.log('Booking IDs:', this.bookingIds);
-  
-            // Check reviews existence for all booking IDs in a single request
-            this.checkReviewsExistence(this.bookingIds);
-          } else {
-            console.error('No bookings found for user');
-          }
-        });
+
+        this.home.getUserinfoByLoginIdForReview(this.loginId);
+
+
       } else {
         console.error('Login ID is null');
       }
     }
   }
+
  
   // New Method to Check Reviews Existence for All Booking IDs
   checkReviewsExistence(bookingIds: number[]): void {
@@ -87,12 +81,17 @@ export class UserTripsComponent implements OnInit {
     );
   }
   
-  
 
-    openDialogReview(){
-      // this.dialog.open(ReviewFormComponent)
-      this.router.navigate(['/ReviewForm']);
-    }
+
+
+  
+pData:any;
+  // openDialogReview(booking:any){
+  //   this.pData=booking;
+  //   console.log('pData',this.pData)
+  //     this.dialog.open(this.ReviewFormDailog)
+  //     // this.router.navigate(['/ReviewForm']);
+  //   }
 
 
   dialogRef!: MatDialogRef<any>;
@@ -165,4 +164,70 @@ export class UserTripsComponent implements OnInit {
   goToDetails(tripId: string) {
     this.router.navigate(['tripDetails/', tripId]);
   }
+
+  
+  Review: FormGroup = new FormGroup({
+    rate: new FormControl('', Validators.required),
+    feedback: new FormControl('', Validators.required),
+    booking_Id: new FormControl('', Validators.required),
+    trip_Id: new FormControl('', Validators.required)
+  })
+
+
+  
+  // save() {
+  //   this.Review.controls['booking_Id'].setValue(this.pData.booking_Id)
+  //   this.Review.controls['trip_Id'].setValue(this.pData.trip_Id)
+  //   console.log((this.Review.value));
+
+
+  //   const userFromStorage = localStorage.getItem("user");
+  //   const user = userFromStorage ? JSON.parse(userFromStorage) : null;
+ 
+  //   const userId = Number(user?.loginid);
+    
+  //   this.home.CreateReviews(this.Review.value,userId);
+  //   this.dialog.closeAll();
+  // }
+
+
+
+  openDialogReview(booking: any) {
+    this.pData = booking;
+    this.dialog.open(this.ReviewFormDailog);
+  }
+
+  rating: number = 0;
+  stars: number[] = [1, 2, 3, 4, 5];
+  // Review: FormGroup = new FormGroup({
+  //   rate: new FormControl('', Validators.required),
+  //   feedback: new FormControl('', Validators.required),
+  //   booking_Id: new FormControl('', Validators.required),
+  //   trip_Id: new FormControl('', Validators.required)
+  // });
+
+  setRating(star: number) {
+    this.rating = star;
+    this.Review.get('rate')?.setValue(this.rating);
+  }
+
+  save() {
+    this.Review.controls['booking_Id'].setValue(this.pData.booking_Id);
+    this.Review.controls['trip_Id'].setValue(this.pData.trip_Id);
+    console.log(this.Review.value);
+
+    const userFromStorage = localStorage.getItem("user");
+    const user = userFromStorage ? JSON.parse(userFromStorage) : null;
+    const userId = Number(user?.loginid);
+
+    this.home.CreateReviews(this.Review.value, userId);
+    this.dialog.closeAll();
+  }
 }
+
+
+
+
+
+
+

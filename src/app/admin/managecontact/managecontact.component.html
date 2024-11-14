@@ -1,4 +1,6 @@
-<div class="container-scroller" style="max-height: 100vh; max-height: 100vw;">
+
+<div class="adminStyles">
+    <div class="container-scroller" style="max-height: 100vh; max-height: 100vw;">
         <app-header></app-header>
         <div class="container-fluid page-body-wrapper" style="background-color: #2E2E2E;max-height: 100vh; overflow-y: auto; overflow-x: hidden;">
             <div class="main-panel">
@@ -8,9 +10,10 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title" style="color: black;">Contact us page elements</h4>
-                                        <button  (click)="openCreateDialog()" style="color: rgb(100, 250, 100); margin-left: 900px  ;font-size: 30px !important; background-color: white; border: none;">
-                                            <i class="bi bi-plus-circle-fill fs-1"></i>
-                                        </button>                                   
+                                    <button (click)="openCreateDialog()"
+                                        style="color: rgb(100, 250, 100); margin-left: 900px  ;font-size: 30px !important; background-color: white; border: none;">
+                                        <i class="bi bi-plus-circle-fill fs-1"></i>
+                                    </button>
                                     <br><br>
                                     <div class="table-responsive">
                                         <table class="table table-light" style="background-color: white;">
@@ -19,7 +22,8 @@
                                                     <th style="color: black;"><b>Header</b></th>
                                                     <th style="color: black;"><b>Hero Image</b></th>
                                                     <th style="color: black;"><b>Image 2</b></th>
-                                                    <th style="color: black;"><b>Select</b></th> <!-- Updated column header -->
+                                                    <th style="color: black;"><b>Select</b></th>
+                                                    <!-- Updated column header -->
                                                     <th style="color: black;"><b>Actions</b></th>
                                                 </tr>
                                             </thead>
@@ -38,10 +42,14 @@
                                                         </mat-radio-group>
                                                     </td>
                                                     <td>
-                                                        <button (click)="openEditDailog(obj)" style="background-color: white; border: none;" 
-                                                            ><i class="bi bi-pencil-square" style="color: blue; border: none; font-size: 20px;" ></i></button>
-                                                        <button (click)="openDeleteDialog(obj.contactus_Elements_Id)" style="background-color: white; border: none;"
-                                                           ><i class="bi bi-trash-fill" style="color: red; border: none; font-size: 20px;" ></i>
+                                                        <button (click)="openEditDailog(obj)"
+                                                            style="background-color: white; border: none;"><i
+                                                                class="bi bi-pencil-square"
+                                                                style="color: blue; border: none; font-size: 20px;"></i></button>
+                                                        <button (click)="openDeleteDialog(obj.contactus_Elements_Id)"
+                                                            style="background-color: white; border: none;"><i
+                                                                class="bi bi-trash-fill"
+                                                                style="color: red; border: none; font-size: 20px;"></i>
                                                         </button>
                                                     </td>
                                                 </tr>
@@ -58,74 +66,76 @@
     </div>
 
 
-<ng-template #callCreateDailog>
-    <mat-dialog-content class="mat-typography">
-        <h3>Create Contact Elements</h3>
-        <form [formGroup]="CreateContact" style="padding: 30px;">
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Header</mat-label>
-                <input type="text" matInput placeholder="Header" formControlName="header">
-            </mat-form-field>
-            <div>
-                <mat-label>Hero Image</mat-label>
+    <ng-template #callCreateDailog>
+        <mat-dialog-content class="mat-typography">
+            <h3>Create Contact Elements</h3>
+            <form [formGroup]="CreateContact" style="padding: 30px;">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Header</mat-label>
+                    <input type="text" matInput placeholder="Header" formControlName="header">
+                </mat-form-field>
+                <div>
+                    <mat-label>Hero Image</mat-label>
+                    <div></div>
+
+                    <input type="file" #file placeholder="Image 1" formControlName="hero_Img"
+                        (change)="uploadImage1(file.files)">
+                </div>
                 <div></div>
 
-                <input type="file" #file placeholder="Image 1" formControlName="hero_Img"
-                    (change)="uploadImage1(file.files)">
-            </div>
-            <div></div>
+                <div>
+                    <mat-label>Image 2</mat-label>
+                    <div></div>
+                    <input type="file" #file2 placeholder="Image 2" formControlName="image1"
+                        (change)="uploadImage2(file2.files)">
+                </div>
+            </form>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close>Cancel</button>
+            <button mat-button mat-dialog-close cdkFocusInitial (click)="save()">Create</button>
+        </mat-dialog-actions>
+    </ng-template>
 
-            <div>
-                <mat-label>Image 2</mat-label>
+
+    <!-- Delete Categories -->
+    <ng-template #callDeleteDialog>
+        <h1 mat-dialog-title>Delete Course</h1>
+        <div mat-dialog-content>Are you sure you went to delete this item ?</div>
+        <div mat-dialog-actions>
+            <button mat-button mat-dialog-close="yes">Yes</button>
+            <button mat-button mat-dialog-close="no">No</button>
+        </div>
+    </ng-template>
+
+    <!-- Edit Contactus elements -->
+    <ng-template #callUpdateDialog>
+        <mat-dialog-content class="mat-typography">
+            <h3>Create Contact Us</h3>
+            <form [formGroup]="UpdateContact" style="padding: 30px;">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Header</mat-label>
+                    <input type="text" matInput placeholder="Header" formControlName="header"
+                        [(ngModel)]="pData.header">
+                </mat-form-field>
+                <div>
+                    <mat-label>Hero Image</mat-label>
+                    <div></div>
+                    <input type="file" #file placeholder="Image 1" formControlName="hero_Img"
+                        (change)="uploadImage1(file.files)">
+                </div>
                 <div></div>
-                <input type="file" #file2 placeholder="Image 2" formControlName="image1"
-                    (change)="uploadImage2(file2.files)">
-            </div>
-        </form>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close>Cancel</button>
-        <button mat-button mat-dialog-close cdkFocusInitial (click)="save()">Create</button>
-    </mat-dialog-actions>
-</ng-template>
-
-
-<!-- Delete Categories -->
-<ng-template #callDeleteDialog>
-    <h1 mat-dialog-title>Delete Course</h1>
-    <div mat-dialog-content>Are you sure you went to delete this item ?</div>
-    <div mat-dialog-actions>
-        <button mat-button mat-dialog-close="yes">Yes</button>
-        <button mat-button mat-dialog-close="no">No</button>
-    </div>
-</ng-template>
-
-<!-- Edit Contactus elements -->
-<ng-template #callUpdateDialog>
-    <mat-dialog-content class="mat-typography">
-        <h3>Create Contact Us</h3>
-        <form [formGroup]="UpdateContact" style="padding: 30px;">
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Header</mat-label>
-                <input type="text" matInput placeholder="Header" formControlName="header" [(ngModel)]="pData.header">
-            </mat-form-field>
-            <div>
-                <mat-label>Hero Image</mat-label>
-                <div></div>
-                <input type="file" #file placeholder="Image 1" formControlName="hero_Img"
-                    (change)="uploadImage1(file.files)">
-            </div>
-            <div></div>
-            <div>
-                <mat-label>Image 2</mat-label>
-                <div></div>
-                <input type="file" #file2 placeholder="Image 2" formControlName="image1"
-                    (change)="uploadImage2(file2.files)">
-            </div>
-        </form>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close>Cancel</button>
-        <button mat-button mat-dialog-close cdkFocusInitial (click)="save2()">Edit</button>
-    </mat-dialog-actions>
-</ng-template>
+                <div>
+                    <mat-label>Image 2</mat-label>
+                    <div></div>
+                    <input type="file" #file2 placeholder="Image 2" formControlName="image1"
+                        (change)="uploadImage2(file2.files)">
+                </div>
+            </form>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close>Cancel</button>
+            <button mat-button mat-dialog-close cdkFocusInitial (click)="save2()">Edit</button>
+        </mat-dialog-actions>
+    </ng-template>
+</div>
