@@ -21,7 +21,7 @@
     <mat-dialog-content *ngIf="!isFutureTrip(home.tripDetails.start_Date)">
       <div class="alert-box">
         <p>
-          The trip has already passed.Search for other trip!
+          The trip has already passed .Please pick another trip!
         </p>
       </div>
     </mat-dialog-content>
@@ -211,7 +211,7 @@
           <mat-dialog-content *ngIf="!isSeatsAvailable()">
             <div class="alert-box">
               <p>
-                The trip seat full .Search for other trip!
+                Trip seats are full .Search for other trip!
               </p>
             </div>
           </mat-dialog-content>
@@ -223,6 +223,9 @@
               <div fxLayout="row" fxLayoutGap="20px">
                 <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;">
                   <mat-label>Number of Reservations</mat-label>
+                  <div *ngIf="BookingTrip.get('numberOfUser')?.errors?.['nonZero'] && BookingTrip.get('numberOfUser')?.touched">
+                    The number of users must be greater than zero.
+                  </div>
                   <input type="number" matInput formControlName="numberOfUser" (change)="this.updateTotalAmount();" [readonly]="!isSeatsAvailable()">
                 </mat-form-field>
   

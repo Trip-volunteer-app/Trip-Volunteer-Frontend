@@ -1,3 +1,4 @@
+<div class="adminStyles">
     <div class="container-scroller">
         <app-header></app-header>
         <div class="container-fluid page-body-wrapper">
@@ -9,9 +10,10 @@
                                 <div class="card-body">
 
                                     <h4 class="card-title" style="color: black;">About us page elements</h4>
-                                        <button  (click)="openCreateDialog()" style="color: rgb(100, 250, 100); margin-left: 900px  ;font-size: 30px !important; background-color: white; border: none;">
-                                            <i class="bi bi-plus-circle-fill fs-1"></i>
-                                        </button>   
+                                    <button (click)="openCreateDialog()"
+                                        style="color: rgb(100, 250, 100); margin-left: 900px  ;font-size: 30px !important; background-color: white; border: none;">
+                                        <i class="bi bi-plus-circle-fill fs-1"></i>
+                                    </button>
                                     <br><br>
                                     <div class="table-responsive">
                                         <mat-tab-group>
@@ -34,7 +36,7 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr *ngFor="let obj of about.AboutUsElements">
-                                                         <td
+                                                            <td
                                                                 style="position: sticky; left: 33px; background: #f0f0f0; z-index: 10;">
                                                                 <mat-radio-group [(ngModel)]="selectedElementId"
                                                                     (change)="onElementSelect(obj.aboutus_Page_Id)">
@@ -46,19 +48,25 @@
                                                                     alt="Hero Image"></td>
                                                             <td>{{ obj.title }}</td>
                                                             <td>{{ obj.header }}</td>
-                                                            <td style="position: sticky; right: 0; background: #f0f0f0; z-index: 0;">
-                                                                
-                                                                
-                                                            <button (click)="openEditDailog(obj)" style="background-color: #f0f0f0; border: none;" 
-                                                                ><i class="bi bi-pencil-square" style="color: blue; border: none; font-size: 20px;" ></i></button>
-                                                            <button (click)="openDeleteDialog(obj.contactus_Elements_Id)" style="background-color: #f0f0f0; border: none;"
-                                                               ><i class="bi bi-trash-fill" style="color: red; border: none; font-size: 20px;" ></i>
-                                                            </button>
+                                                            <td
+                                                                style="position: sticky; right: 0; background: #f0f0f0; z-index: 0;">
+
+
+                                                                <button (click)="openEditDailog(obj)"
+                                                                    style="background-color: #f0f0f0; border: none;"><i
+                                                                        class="bi bi-pencil-square"
+                                                                        style="color: blue; border: none; font-size: 20px;"></i></button>
+                                                                <button
+                                                                    (click)="openDeleteDialog(obj.contactus_Elements_Id)"
+                                                                    style="background-color: #f0f0f0; border: none;"><i
+                                                                        class="bi bi-trash-fill"
+                                                                        style="color: red; border: none; font-size: 20px;"></i>
+                                                                </button>
 
 
 
-                                                                
-                                                                
+
+
                                                                 <!-- <button (click)="openEditDailog(obj)"
                                                                     class="btn btn-primary">Edit</button>
                                                                 <button (click)="openDeleteDialog(obj.aboutus_Page_Id)"
@@ -152,13 +160,19 @@
                                                                 aria-label="Button that shows a tooltip">
                                                                 {{ obj.aboutus | slice:0:30 }}...
                                                             </td>
-                                                            <td style="position: sticky; right: 0; background: #f0f0f0;">
+                                                            <td
+                                                                style="position: sticky; right: 0; background: #f0f0f0;">
 
-                                                                <button (click)="openEditDailog(obj)" style="background-color: white; border: none;" 
-                                                                ><i class="bi bi-pencil-square" style="color: blue; border: none; font-size: 20px;" ></i></button>
-                                                            <button (click)="openDeleteDialog(obj.contactus_Elements_Id)" style="background-color: white; border: none;"
-                                                               ><i class="bi bi-trash-fill" style="color: red; border: none; font-size: 20px;" ></i>
-                                                            </button>
+                                                                <button (click)="openEditDailog(obj)"
+                                                                    style="background-color: white; border: none;"><i
+                                                                        class="bi bi-pencil-square"
+                                                                        style="color: blue; border: none; font-size: 20px;"></i></button>
+                                                                <button
+                                                                    (click)="openDeleteDialog(obj.contactus_Elements_Id)"
+                                                                    style="background-color: white; border: none;"><i
+                                                                        class="bi bi-trash-fill"
+                                                                        style="color: red; border: none; font-size: 20px;"></i>
+                                                                </button>
 
                                                                 <!-- <button (click)="openEditDailog(obj)"
                                                                     class="btn btn-primary">Edit</button>
@@ -219,14 +233,19 @@
                                                             <td>{{ obj.feedbackTitle }}</td>
                                                             <td>{{ obj.feedbackHeader }}</td>
                                                             <td><img src="../../../assets/images/{{ obj.feedback_background }}"
-                                                                alt="feedback background"></td>
+                                                                    alt="feedback background"></td>
                                                             <td
                                                                 style="position: sticky; right: 0; background: #f0f0f0;">
-                                                                <button (click)="openEditDailog(obj)" style="background-color: white; border: none;" 
-                                                                ><i class="bi bi-pencil-square" style="color: blue; border: none; font-size: 20px;" ></i></button>
-                                                            <button (click)="openDeleteDialog(obj.contactus_Elements_Id)" style="background-color: white; border: none;"
-                                                               ><i class="bi bi-trash-fill" style="color: red; border: none; font-size: 20px;" ></i>
-                                                            </button>
+                                                                <button (click)="openEditDailog(obj)"
+                                                                    style="background-color: white; border: none;"><i
+                                                                        class="bi bi-pencil-square"
+                                                                        style="color: blue; border: none; font-size: 20px;"></i></button>
+                                                                <button
+                                                                    (click)="openDeleteDialog(obj.contactus_Elements_Id)"
+                                                                    style="background-color: white; border: none;"><i
+                                                                        class="bi bi-trash-fill"
+                                                                        style="color: red; border: none; font-size: 20px;"></i>
+                                                                </button>
                                                                 <!-- <button (click)="openEditDailog(obj)"
                                                                     class="btn btn-primary">Edit</button>
                                                                 <button (click)="openDeleteDialog(obj.aboutus_Page_Id)"
@@ -249,262 +268,261 @@
     </div>
 
 
-<!-- create -->
-<ng-template #callCreateDailog>
-    <mat-dialog-content class="mat-typography">
-        <h3>Create About Us</h3>
-        <form [formGroup]="CreateAbout" style="padding: 30px;">
-            <mat-tab-group>
-                <!-- Header Tab -->
-                <mat-tab label="Header">
-                    <div class="form-section">
-                        <div class="form-row">
-                            <label for="hero_image">Hero Image</label>
-                            <input type="file" id="hero_image" #fileHero formControlName="hero_image"
-                                (change)="uploadHeroImage(fileHero.files)" />
-                        </div>
+    <!-- create -->
+    <ng-template #callCreateDailog>
+        <mat-dialog-content class="mat-typography">
+            <h3>Create About Us</h3>
+            <form [formGroup]="CreateAbout" style="padding: 30px;">
+                <mat-tab-group>
+                    <!-- Header Tab -->
+                    <mat-tab label="Header">
+                        <div class="form-section">
+                            <div class="form-row">
+                                <label for="hero_image">Hero Image</label>
+                                <input type="file" id="hero_image" #fileHero formControlName="hero_image"
+                                    (change)="uploadHeroImage(fileHero.files)" />
+                            </div>
 
-                        <mat-form-field appearance="fill" class="full-width">
-                            <mat-label>Title</mat-label>
-                            <input type="text" matInput formControlName="title" />
-                        </mat-form-field>
-
-                        <mat-form-field appearance="fill" class="full-width">
-                            <mat-label>Header</mat-label>
-                            <input type="text" matInput formControlName="header" />
-                        </mat-form-field>
-
-                        <mat-form-field appearance="fill" class="full-width">
-                            <mat-label>Text 1</mat-label>
-                            <input type="text" matInput formControlName="text1" />
-                        </mat-form-field>
-                    </div>
-                </mat-tab>
-
-                <!-- Features Tab -->
-                <mat-tab label="Features">
-                    <div class="form-section">
-                        <div class="form-row">
-                            <label for="image1">Image 1</label>
-                            <input type="file" id="image1" #file1 formControlName="image1"
-                                (change)="uploadImage1(file1.files)" />
-                        </div>
-                        <div class="form-row">
-                            <label for="image2">Image 2</label>
-                            <input type="file" id="image2" #file2 formControlName="image2"
-                                (change)="uploadImage2(file2.files)" />
-                        </div>
-                        <div class="form-row">
-                            <label for="image3">Image 3</label>
-                            <input type="file" id="image3" #file3 formControlName="image3"
-                                (change)="uploadImage3(file3.files)" />
-                        </div>
-                        <div class="form-row">
-                            <label for="image4">Image 4</label>
-                            <input type="file" id="image4" #file4 formControlName="image4"
-                                (change)="uploadImage4(file4.files)" />
-                        </div>
-                        <div class="form-field"
-                            *ngFor="let feature of ['feature1', 'feature2', 'feature3', 'feature4']">
-                            <mat-form-field appearance="fill" class="full-width">
-                                <mat-label>{{ feature | titlecase }} Header</mat-label>
-                                <input type="text" matInput [formControlName]="feature + '_header'" />
-                            </mat-form-field>
-
-                            <mat-form-field appearance="fill" class="full-width">
-                                <mat-label>{{ feature | titlecase }}</mat-label>
-                                <input type="text" matInput [formControlName]="feature" />
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </mat-tab>
-
-                <!-- Feedback & About Tab -->
-                <mat-tab label="Feedback & About">
-                    <div class="form-section">
-                        <div class="form-row">
-                            <label for="image5">Image 5</label>
-                            <input type="file" id="image5" #file5 formControlName="image5"
-                                (change)="uploadImage5(file5.files)" />
-                        </div>
-                        <div class="form-row" style="margin-left: 40px;">
-
-                            <label style="display: block;" for="image6">Image 6</label>
-
-
-                            <input type="file" id="image6" #file6 formControlName="image6"
-                                (change)="uploadImage6(file6.files)" />
-
-                        </div>
-                        <mat-form-field appearance="fill" class="full-width">
-                            <mat-label>Header 3</mat-label>
-                            <input type="text" matInput formControlName="header3" />
-                        </mat-form-field>
-
-                        <mat-form-field appearance="fill" class="full-width">
-                            <mat-label>Feedback Title</mat-label>
-                            <input type="text" matInput formControlName="feedbackTitle" />
-                        </mat-form-field>
-
-                        <mat-form-field appearance="fill" class="full-width">
-                            <mat-label>Feedback Header</mat-label>
-                            <input type="text" matInput formControlName="feedbackHeader" />
-                        </mat-form-field>
-
-                        <div class="form-row">
-                            <label for="feedback_background">Feedback Background</label>
-                            <input type="file" id="feedback_background" #file7 formControlName="feedback_background"
-                                (change)="uploadImage7(file7.files)" />
-                        </div>
-                    </div>
-                </mat-tab>
-            </mat-tab-group>
-        </form>
-    </mat-dialog-content>
-
-    <mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close>Cancel</button>
-        <button mat-button mat-dialog-close cdkFocusInitial (click)="save()">Create</button>
-    </mat-dialog-actions>
-</ng-template>
-
-
-
-
-
-
-<!-- update -->
-<ng-template #callUpdateDailog>
-    <mat-dialog-content class="mat-typography">
-        <h3>Update Element</h3>
-        <form [formGroup]="UpdateAbout" style="padding: 30px;">
-            <mat-tab-group>
-
-                <!-- Images Tab -->
-                <mat-tab label="Header">
-                    <div class="form-section">
-                        <mat-label>Hero Image</mat-label>
-                        <input type="file" #fileHero formControlName="hero_image"
-                            (change)="uploadHeroImage(fileHero.files)" />
-
-                        <div class="form-field">
                             <mat-form-field appearance="fill" class="full-width">
                                 <mat-label>Title</mat-label>
-                                <input type="text" matInput formControlName="title" [(ngModel)]="pData.title" />
+                                <input type="text" matInput formControlName="title" />
                             </mat-form-field>
-                        </div>
 
-                        <div class="form-field">
                             <mat-form-field appearance="fill" class="full-width">
                                 <mat-label>Header</mat-label>
-                                <input type="text" matInput formControlName="header" [(ngModel)]="pData.header" />
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </mat-tab>
-
-                <!-- Headers & Titles Tab -->
-                <mat-tab label="Features">
-                    <div class="form-section">
-                        <mat-label>Image 1</mat-label>
-                        <input type="file" #file1 formControlName="image1" (change)="uploadImage1(file1.files)" />
-
-                        <mat-label>Image 2</mat-label>
-                        <input type="file" #file2 formControlName="image2" (change)="uploadImage2(file2.files)" />
-
-                        <mat-label>Image 3</mat-label>
-                        <input type="file" #file3 formControlName="image3" (change)="uploadImage3(file3.files)" />
-
-                        <mat-label>Image 4</mat-label>
-                        <input type="file" #file4 formControlName="image4" (change)="uploadImage4(file4.files)" />
-
-                        <div class="form-field"
-                            *ngFor="let feature of ['feature1', 'feature2', 'feature3', 'feature4']">
-                            <mat-form-field appearance="fill" class="full-width">
-                                <mat-label>{{ feature | titlecase }} Header</mat-label>
-                                <input type="text" matInput formControlName="{{ feature }}_header"
-                                    [(ngModel)]="pData[feature + '_header']" />
+                                <input type="text" matInput formControlName="header" />
                             </mat-form-field>
 
-                            <mat-form-field appearance="fill" class="full-width">
-                                <mat-label>{{ feature | titlecase }}</mat-label>
-                                <input type="text" matInput formControlName="{{ feature }}"
-                                    [(ngModel)]="pData[feature]" />
-                            </mat-form-field>
-                        </div>
-
-                        <mat-form-field appearance="fill" class="full-width">
-                            <mat-label>Header 2</mat-label>
-                            <input type="text" matInput formControlName="header2" [(ngModel)]="pData.header2" />
-                        </mat-form-field>
-
-                        <mat-form-field appearance="fill" class="full-width">
-                            <mat-label>Title 2</mat-label>
-                            <input type="text" matInput formControlName="title2" [(ngModel)]="pData.title2" />
-                        </mat-form-field>
-
-                        <mat-form-field appearance="fill" class="full-width">
-                            <mat-label>About Us</mat-label>
-                            <textarea matInput formControlName="aboutus" [(ngModel)]="pData.aboutus"></textarea>
-                        </mat-form-field>
-                    </div>
-                </mat-tab>
-
-                <!-- Feedback Tab -->
-                <mat-tab label="Feedback & About">
-                    <div class="form-section">
-                        <mat-label>Image 5</mat-label>
-                        <input type="file" #file5 formControlName="image5" (change)="uploadImage5(file5.files)" />
-
-                        <mat-label>Image 6</mat-label>
-                        <input type="file" #file6 formControlName="image6" (change)="uploadImage6(file6.files)" />
-
-                        <mat-form-field appearance="fill" class="full-width">
-                            <mat-label>Header 3</mat-label>
-                            <input type="text" matInput formControlName="header3" [(ngModel)]="pData.header3" />
-                        </mat-form-field>
-                        <div class="form-field">
                             <mat-form-field appearance="fill" class="full-width">
                                 <mat-label>Text 1</mat-label>
-                                <input type="text" matInput formControlName="text1" [(ngModel)]="pData.text1" />
+                                <input type="text" matInput formControlName="text1" />
                             </mat-form-field>
                         </div>
-                        <mat-form-field appearance="fill" class="full-width">
-                            <mat-label>Feedback Title</mat-label>
-                            <input type="text" matInput formControlName="feedbackTitle"
-                                [(ngModel)]="pData.feedbackTitle" />
-                        </mat-form-field>
+                    </mat-tab>
 
-                        <mat-form-field appearance="fill" class="full-width">
-                            <mat-label>Feedback Header</mat-label>
-                            <input type="text" matInput formControlName="feedbackHeader"
-                                [(ngModel)]="pData.feedbackHeader" />
-                        </mat-form-field>
+                    <!-- Features Tab -->
+                    <mat-tab label="Features">
+                        <div class="form-section">
+                            <div class="form-row">
+                                <label for="image1">Image 1</label>
+                                <input type="file" id="image1" #file1 formControlName="image1"
+                                    (change)="uploadImage1(file1.files)" />
+                            </div>
+                            <div class="form-row">
+                                <label for="image2">Image 2</label>
+                                <input type="file" id="image2" #file2 formControlName="image2"
+                                    (change)="uploadImage2(file2.files)" />
+                            </div>
+                            <div class="form-row">
+                                <label for="image3">Image 3</label>
+                                <input type="file" id="image3" #file3 formControlName="image3"
+                                    (change)="uploadImage3(file3.files)" />
+                            </div>
+                            <div class="form-row">
+                                <label for="image4">Image 4</label>
+                                <input type="file" id="image4" #file4 formControlName="image4"
+                                    (change)="uploadImage4(file4.files)" />
+                            </div>
+                            <div class="form-field"
+                                *ngFor="let feature of ['feature1', 'feature2', 'feature3', 'feature4']">
+                                <mat-form-field appearance="fill" class="full-width">
+                                    <mat-label>{{ feature | titlecase }} Header</mat-label>
+                                    <input type="text" matInput [formControlName]="feature + '_header'" />
+                                </mat-form-field>
 
-                        <div class="form-row">
-                            <label for="feedback_background">Feedback Background</label>
-                            <input type="file" id="feedback_background" #file7 formControlName="feedback_background"
-                                (change)="uploadImage7(file7.files)" />
+                                <mat-form-field appearance="fill" class="full-width">
+                                    <mat-label>{{ feature | titlecase }}</mat-label>
+                                    <input type="text" matInput [formControlName]="feature" />
+                                </mat-form-field>
+                            </div>
                         </div>
-                    </div>
-                </mat-tab>
-            </mat-tab-group>
-        </form>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close>Cancel</button>
-        <button mat-button mat-dialog-close cdkFocusInitial (click)="save2()">Edit</button>
-    </mat-dialog-actions>
-</ng-template>
+                    </mat-tab>
+
+                    <!-- Feedback & About Tab -->
+                    <mat-tab label="Feedback & About">
+                        <div class="form-section">
+                            <div class="form-row">
+                                <label for="image5">Image 5</label>
+                                <input type="file" id="image5" #file5 formControlName="image5"
+                                    (change)="uploadImage5(file5.files)" />
+                            </div>
+                            <div class="form-row" style="margin-left: 40px;">
+
+                                <label style="display: block;" for="image6">Image 6</label>
+
+
+                                <input type="file" id="image6" #file6 formControlName="image6"
+                                    (change)="uploadImage6(file6.files)" />
+
+                            </div>
+                            <mat-form-field appearance="fill" class="full-width">
+                                <mat-label>Header 3</mat-label>
+                                <input type="text" matInput formControlName="header3" />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill" class="full-width">
+                                <mat-label>Feedback Title</mat-label>
+                                <input type="text" matInput formControlName="feedbackTitle" />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill" class="full-width">
+                                <mat-label>Feedback Header</mat-label>
+                                <input type="text" matInput formControlName="feedbackHeader" />
+                            </mat-form-field>
+
+                            <div class="form-row">
+                                <label for="feedback_background">Feedback Background</label>
+                                <input type="file" id="feedback_background" #file7 formControlName="feedback_background"
+                                    (change)="uploadImage7(file7.files)" />
+                            </div>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+            </form>
+        </mat-dialog-content>
+
+        <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close>Cancel</button>
+            <button mat-button mat-dialog-close cdkFocusInitial (click)="save()">Create</button>
+        </mat-dialog-actions>
+    </ng-template>
 
 
 
-<!-- Delete -->
-<ng-template #callDeleteDailog>
-    <h1 mat-dialog-title>Delete Aboutus Elements</h1>
-    <div mat-dialog-content>Are you sure you went to delete this item ?</div>
-    <div mat-dialog-actions>
-        <button mat-button mat-dialog-close="yes">Yes</button>
-        <button mat-button mat-dialog-close="no">No</button>
-    </div>
-</ng-template>
+
+
+
+    <!-- update -->
+    <ng-template #callUpdateDailog>
+        <mat-dialog-content class="mat-typography">
+            <h3>Update Element</h3>
+            <form [formGroup]="UpdateAbout" style="padding: 30px;">
+                <mat-tab-group>
+
+                    <!-- Images Tab -->
+                    <mat-tab label="Header">
+                        <div class="form-section">
+                            <mat-label>Hero Image</mat-label>
+                            <input type="file" #fileHero formControlName="hero_image"
+                                (change)="uploadHeroImage(fileHero.files)" />
+
+                            <div class="form-field">
+                                <mat-form-field appearance="fill" class="full-width">
+                                    <mat-label>Title</mat-label>
+                                    <input type="text" matInput formControlName="title" [(ngModel)]="pData.title" />
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-field">
+                                <mat-form-field appearance="fill" class="full-width">
+                                    <mat-label>Header</mat-label>
+                                    <input type="text" matInput formControlName="header" [(ngModel)]="pData.header" />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </mat-tab>
+
+                    <!-- Headers & Titles Tab -->
+                    <mat-tab label="Features">
+                        <div class="form-section">
+                            <mat-label>Image 1</mat-label>
+                            <input type="file" #file1 formControlName="image1" (change)="uploadImage1(file1.files)" />
+
+                            <mat-label>Image 2</mat-label>
+                            <input type="file" #file2 formControlName="image2" (change)="uploadImage2(file2.files)" />
+
+                            <mat-label>Image 3</mat-label>
+                            <input type="file" #file3 formControlName="image3" (change)="uploadImage3(file3.files)" />
+
+                            <mat-label>Image 4</mat-label>
+                            <input type="file" #file4 formControlName="image4" (change)="uploadImage4(file4.files)" />
+
+                            <div class="form-field"
+                                *ngFor="let feature of ['feature1', 'feature2', 'feature3', 'feature4']">
+                                <mat-form-field appearance="fill" class="full-width">
+                                    <mat-label>{{ feature | titlecase }} Header</mat-label>
+                                    <input type="text" matInput formControlName="{{ feature }}_header"
+                                        [(ngModel)]="pData[feature + '_header']" />
+                                </mat-form-field>
+
+                                <mat-form-field appearance="fill" class="full-width">
+                                    <mat-label>{{ feature | titlecase }}</mat-label>
+                                    <input type="text" matInput formControlName="{{ feature }}"
+                                        [(ngModel)]="pData[feature]" />
+                                </mat-form-field>
+                            </div>
+
+                            <mat-form-field appearance="fill" class="full-width">
+                                <mat-label>Header 2</mat-label>
+                                <input type="text" matInput formControlName="header2" [(ngModel)]="pData.header2" />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill" class="full-width">
+                                <mat-label>Title 2</mat-label>
+                                <input type="text" matInput formControlName="title2" [(ngModel)]="pData.title2" />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill" class="full-width">
+                                <mat-label>About Us</mat-label>
+                                <textarea matInput formControlName="aboutus" [(ngModel)]="pData.aboutus"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </mat-tab>
+
+                    <!-- Feedback Tab -->
+                    <mat-tab label="Feedback & About">
+                        <div class="form-section">
+                            <mat-label>Image 5</mat-label>
+                            <input type="file" #file5 formControlName="image5" (change)="uploadImage5(file5.files)" />
+
+                            <mat-label>Image 6</mat-label>
+                            <input type="file" #file6 formControlName="image6" (change)="uploadImage6(file6.files)" />
+
+                            <mat-form-field appearance="fill" class="full-width">
+                                <mat-label>Header 3</mat-label>
+                                <input type="text" matInput formControlName="header3" [(ngModel)]="pData.header3" />
+                            </mat-form-field>
+                            <div class="form-field">
+                                <mat-form-field appearance="fill" class="full-width">
+                                    <mat-label>Text 1</mat-label>
+                                    <input type="text" matInput formControlName="text1" [(ngModel)]="pData.text1" />
+                                </mat-form-field>
+                            </div>
+                            <mat-form-field appearance="fill" class="full-width">
+                                <mat-label>Feedback Title</mat-label>
+                                <input type="text" matInput formControlName="feedbackTitle"
+                                    [(ngModel)]="pData.feedbackTitle" />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill" class="full-width">
+                                <mat-label>Feedback Header</mat-label>
+                                <input type="text" matInput formControlName="feedbackHeader"
+                                    [(ngModel)]="pData.feedbackHeader" />
+                            </mat-form-field>
+
+                            <div class="form-row">
+                                <label for="feedback_background">Feedback Background</label>
+                                <input type="file" id="feedback_background" #file7 formControlName="feedback_background"
+                                    (change)="uploadImage7(file7.files)" />
+                            </div>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+            </form>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close>Cancel</button>
+            <button mat-button mat-dialog-close cdkFocusInitial (click)="save2()">Edit</button>
+        </mat-dialog-actions>
+    </ng-template>
+
+    <!-- Delete -->
+    <ng-template #callDeleteDailog>
+        <h1 mat-dialog-title>Delete Aboutus Elements</h1>
+        <div mat-dialog-content>Are you sure you went to delete this item ?</div>
+        <div mat-dialog-actions>
+            <button mat-button mat-dialog-close="yes">Yes</button>
+            <button mat-button mat-dialog-close="no">No</button>
+        </div>
+    </ng-template>
+</div>

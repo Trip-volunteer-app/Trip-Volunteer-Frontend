@@ -1,41 +1,5 @@
 <section class="container forms">
 
-  <!-- <div *ngIf="showForgotPasswordDialog" class="forgot-password-dialog">
-        <p style="color: black;"><b>Forgot Password Form</b></p>
-        <br>
-        <div class="example-container">
-            <mat-form-field>
-                <input type="email" matInput name="email" placeholder="Enter Your Email" >
-            </mat-form-field>
-        </div>
-        <div class="dialog-actions">
-            <button (click)="closeForgotPasswordDialog()">Cancel</button>
-            <button>Save</button>
-        </div>
-    </div>
- -->
-
-
-
-
-
-  <!-- <div *ngIf="showForgotPasswordDialog" class="forgot-password-dialog">
-        <p style="color: black;"><b>Forgot Password Form</b></p>
-        <br>
-        <div class="example-container">
-          <mat-form-field>
-            <input type="email" matInput name="email" [(ngModel)]="email" placeholder="Enter Your Email">
-          </mat-form-field>
-        </div>
-        <div class="dialog-actions">
-          <button (click)="closeForgotPasswordDialog()">Cancel</button>
-          <button (click)="submitForgotPassword()">Send Email</button>
-        </div>
-      </div> -->
-
-
-
-
   <!-- Forgot Password Dialog -->
   <div *ngIf="showForgotPasswordDialog" class="forgot-password-dialog">
     <p style="color: black;"><b>Forgot Password Form</b></p>
@@ -79,9 +43,6 @@
       <button (click)="resetPassword()">Reset Password</button>
     </div>
   </div>
-
-
-
 
   <div class="form login">
     <div class="form-content">
@@ -140,40 +101,3 @@
     </div>
   </div>
 </section>
-
-
-
-
-
-
-
-
-<!-- 
-
-<div class="container" style="max-width: 550px">
-  <h2 class="text-center mb-5">Angular Login with Google</h2>
-  <div *ngIf="isLoggedin === false">
-    <div>
-      <h1>*******************************************</h1>
-      <button type="button" (click)="loginWithGoogle()" class="btn btn-danger">Login with Google***************************</button>
-      <h1>*******************************************</h1>
-
-    </div>
-  </div>
-  <div *ngIf="isLoggedin === true">
-    <div class="form-group">
-      <label>First Name</label>
-      <input type="text" class="form-control" [value]="socialUser.firstName" id="firstname" readonly>
-    </div>
-    <div class="form-group">
-      <label>Last Name</label>
-      <input type="text" class="form-control" [value]="socialUser.lastName" id="lastname" readonly>
-    </div>
-    <div class="form-group">
-      <label>Email</label>
-      <input type="text" class="form-control" [value]="socialUser.email" id="email" readonly>
-    </div>
-    <button type="button" (click)="logOut()" class="btn btn-primary">Log Out</button>
-  </div>
-</div>
- -->

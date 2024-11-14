@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/Services/admin.service';
 import { ChartOptions, ChartData, ChartType } from 'chart.js';
-
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Chart } from 'chart.js';
+
+
 
 
 @Component({
@@ -184,7 +186,8 @@ export class DashboardComponent implements OnInit {
     const labels = this.admin.averageRatingPerCategory.map((item: any) => {
       const categoryName = item.category_Name || 'Unknown';
       return categoryName.split(' ')[0]; // Take the first part before the space
-    });    console.log('444444444445555555555',chartData)
+    });
+        console.log('444444444445555555555',chartData)
     this.renderChartaverageRatingPerCategory(chartData, labels);
   }
 
@@ -235,13 +238,13 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/ManageTestimonial']);
   }
   async fetchDataAndRenderChartNetRevenue() {
-    await this.admin.GetNetRevenuePerCategory()
+    await this.admin.GetNetRevenuePerCategory();
     const chartData = this.admin.netRevenuePerCategory.map((item: any) => item.net_revenue || 0);
     const labels = this.admin.netRevenuePerCategory.map((item: any) => item.category_Name || 'Unknown');
-    console.log('revenuechart',chartData)
+    console.log('revenuechart', chartData);
     this.renderChartNetRevenue(chartData, labels);
   }
-
+  
   renderChartNetRevenue(chartData: number[], labels: string[]) {
     new Chart('revenueChart', {
       type: 'pie',
@@ -277,11 +280,25 @@ export class DashboardComponent implements OnInit {
         responsive: true,
         plugins: {
           legend: {
-            position: 'top'
+            position: 'top',
+            labels: {
+              font: {
+                size: 10 // Adjust font size for the legend
+              },
+              boxWidth: 10 // Adjust the size of the colored box
+            }
+          },
+          // Only add data labels for this specific chart
+          datalabels: {
+            display: true, // Enable data labels only for this chart
+            color: '#000',
+            font: {
+              size: 12 // Adjust font size for the numbers on chart slices
+            },
+            formatter: (value) => value // Display the value on each chart slice
           }
         }
       }
     });
   }
 }
-

@@ -1,23 +1,22 @@
-<!-- partial:partials/_sidebar.html -->
-
 <nav class="sidebar sidebar-offcanvas">
   <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
     <a class="sidebar-brand brand-logo" href="#"><img src="../../../assets/Admin2/images/logo.svg" alt="logo" /></a>
     <a class="sidebar-brand brand-logo-mini" href="#"><img src="../../../assets/Admin2/images/logo-mini.svg"
         alt="logo" /></a>
   </div>
-
   <ul class="nav" [ngClass]="{'collapse': !menu, 'show': menu}">
     <li class="nav-item profile">
       <div class="profile-desc">
         <div class="profile-pic">
           <div class="count-indicator">
-
-            <img class="img-xs rounded-circle " [src]="this.admin.UserInfo.image_Path ? '../../../../assets/images/' + this.admin.UserInfo.image_Path : '../../../../assets/default-profile.png'" alt="">
+            <img class="img-xs rounded-circle "
+              [src]="this.admin.UserInfo.image_Path ? '../../../../assets/images/' + this.admin.UserInfo.image_Path : '../../../../assets/default-profile.png'"
+              alt="">
             <span class="count bg-success"></span>
           </div>
           <div class="profile-name">
-            <h5 class="mb-0 font-weight-normal" style="color: white;">{{this.admin.UserInfo.first_Name}} {{this.admin.UserInfo.last_Name}}</h5>
+            <h5 class="mb-0 font-weight-normal gold-member">{{this.admin.UserInfo.first_Name}}
+              {{this.admin.UserInfo.last_Name}}</h5>
             <span>Gold Member</span>
           </div>
         </div>
@@ -47,8 +46,6 @@
         <span class="menu-title">Dashboard</span>
       </a>
     </li>
-
-
     <li class="nav-item menu-items">
       <a class="nav-link" (click)="isCollaps = !isCollaps">
         <span class="menu-icon">
@@ -84,8 +81,6 @@
           <li class="nav-item"> <a class="nav-link" routerLink="/admin/AllUsers">Users</a></li>
           <li class="nav-item"> <a class="nav-link" routerLink="/admin/ManageTestimonial">Testimonial</a></li>
           <li class="nav-item"> <a class="nav-link" routerLink="/admin/ContactUsMessages">ContactUs Messages</a></li>
-          
-
         </ul>
       </div>
     </li>
@@ -105,13 +100,11 @@
           <li class="nav-item"> <a class="nav-link" routerLink="/admin/ManageAbout">Aboutus elements</a></li>
           <li class="nav-item"> <a class="nav-link" routerLink="/admin/ManageWebsiteInfo">Website information
               elements</a></li>
-
         </ul>
       </div>
     </li>
   </ul>
 </nav>
-
 
 <nav class="navbar p-0 fixed-top d-flex flex-row">
   <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
@@ -119,7 +112,6 @@
         alt="logo" /></a>
   </div>
   <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
-
     <button class="navbar-toggler navbar-toggler align-self-center" type="button" (click)="menu = !menu">
       <span class="mdi mdi-menu"></span>
     </button>
@@ -242,7 +234,6 @@
             </div>
           </a>
           <div class="dropdown-divider"></div>
-
           <a class="dropdown-item preview-item">
             <div class="preview-thumbnail">
               <div class="preview-icon bg-dark rounded-circle">
@@ -250,7 +241,6 @@
               </div>
             </div>
             <div class="preview-item-content">
-
               <p class="preview-subject mb-1">Settings</p>
               <p class="text-muted ellipsis mb-0"> Update dashboard </p>
             </div>
@@ -274,16 +264,17 @@
       <li class="nav-item dropdown">
         <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
           <div class="navbar-profile">
-
-            <img class="img-xs rounded-circle" [src]="this.admin.UserInfo.image_Path ? '../../../../assets/images/' + this.admin.UserInfo.image_Path : '../../../../assets/default-profile.png'" alt="">
-            <p class="mb-0 d-none d-sm-block navbar-profile-name">{{this.admin.UserInfo.first_Name}} {{this.admin.UserInfo.last_Name}} </p>
+            <img class="img-xs rounded-circle"
+              [src]="this.admin.UserInfo.image_Path ? '../../../../assets/images/' + this.admin.UserInfo.image_Path : '../../../../assets/default-profile.png'"
+              alt="">
+            <p class="mb-0 d-none d-sm-block navbar-profile-name">{{this.admin.UserInfo.first_Name}}
+              {{this.admin.UserInfo.last_Name}} </p>
             <i class="mdi mdi-menu-down d-none d-sm-block"></i>
           </div>
         </a>
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
           <h6 class="p-3 mb-0">Profile</h6>
           <div class="dropdown-divider"></div>
-
           <a class="dropdown-item preview-item" routerLink="/admin/AdminProfile">
             <div class="preview-thumbnail">
               <div class="preview-icon bg-dark rounded-circle">

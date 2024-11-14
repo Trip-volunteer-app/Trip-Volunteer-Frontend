@@ -1,103 +1,96 @@
-    <div class="container-scroller">
-      <app-header></app-header>
-      <div class="container-fluid page-body-wrapper">
-        <div class="main-panel">
-          <div class="content-wrapper">         
-            <div class="row">       
-              <div class="col-lg-12 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title report-title" style="color: black;">Images Table</h4>
-                    <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 10px;">
-                      <button mat-button (click)="openCreateDialog(tripId)" style=" color: rgb(0,193,83); font-size: 30px !important; margin-left: 900px;" >
-                        <i class="bi bi-plus-circle-fill fs-1"></i>
-                      </button>
-                    </div>
-                    <div class="table-responsive">
-                      <table class="table table-light" >
-                        <thead>
-                          <tr>
-                            <th style="text-align: left;"> Image Name </th>
-                            <th style="text-align: right;"> Operations </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let obj of admin.TripImage">
-                            <td style="text-align: left;"> <img class="trip-image" src="../../../assets/images/{{obj.image_Name}}" alt="trip image" style="width: 100px; height: 100px; object-fit: cover;"> </td>
-                            <td style="text-align: right;"> 
-                                <button mat-button (click)="openEditDailog(obj)" style="color: blue; font-size: 20px !important;" ><i class="bi bi-pencil-square"></i></button>
-                                <button mat-button (click)="openDeleteDialog(obj.trip_Image_Id)" style="color: red; font-size: 20px !important;"><i class="bi bi-trash-fill"></i></button> 
-                            </td>                          
-                          </tr>                                                 
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="btn2">
-                    <button (click)="return()" mat-button >All Trips</button>
-                    <button (click)="back(tripId)" mat-button >Back</button>
-                    </div>
+<div class="adminStyles">
+  <div class="container-scroller">
+    <app-header></app-header>
+    <div class="container-fluid page-body-wrapper">
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title report-title" style="color: black;">Images Table</h4>
+                  <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 10px;">
+                    <button mat-button (click)="openCreateDialog(tripId)"
+                      style=" color: rgb(0,193,83); font-size: 30px !important; margin-left: 900px;">
+                      <i class="bi bi-plus-circle-fill fs-1"></i>
+                    </button>
                   </div>
-                </div>         
-              </div>    
+                  <div class="table-responsive">
+                    <table class="table table-light">
+                      <thead>
+                        <tr>
+                          <th style="text-align: left;"> Image Name </th>
+                          <th style="text-align: right;"> Operations </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let obj of admin.TripImage">
+                          <td style="text-align: left;"> <img class="trip-image"
+                              src="../../../assets/images/{{obj.image_Name}}" alt="trip image"
+                              style="width: 100px; height: 100px; object-fit: cover;"> </td>
+                          <td style="text-align: right;">
+                            <button mat-button (click)="openEditDailog(obj)"
+                              style="color: blue; font-size: 20px !important;"><i
+                                class="bi bi-pencil-square"></i></button>
+                            <button mat-button (click)="openDeleteDialog(obj.trip_Image_Id)"
+                              style="color: red; font-size: 20px !important;"><i class="bi bi-trash-fill"></i></button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="btn2">
+                    <button (click)="return()" mat-button>All Trips</button>
+                    <button (click)="back(tripId)" mat-button>Back</button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-
-
-
-
-<!-- Create Images -->
-<ng-template #callCreateDailog>
-<mat-dialog-content class="mat-typography" #CreateImages>
-  <h1>Create Images</h1>
-  <form [formGroup]="TripImage">
-    <div class="example-container">
-       
-          <input type="file" #file  formControlName="image_Name" (change)="uploadImage(file.files)">
-          
-      </div>
-</form>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="save()">Create</button>
-</mat-dialog-actions>
-</ng-template>
-
-
-
-
-
-
-<!-- Delete Images -->
-<ng-template #callDeleteDailog>
-    <h1 mat-dialog-title>Delete Images</h1>
-  <div mat-dialog-content>Are you sure you went to delete this item ?</div>
-  <div mat-dialog-actions>
-      <button mat-button mat-dialog-close="yes">Yes</button>
-    <button mat-button mat-dialog-close="no">No</button>
   </div>
-</ng-template>
 
+  <!-- Create Images -->
+  <ng-template #callCreateDailog>
+    <mat-dialog-content class="mat-typography" #CreateImages>
+      <h1>Create Images</h1>
+      <form [formGroup]="TripImage">
+        <div class="example-container">
+          <input type="file" #file formControlName="image_Name" (change)="uploadImage(file.files)">
+        </div>
+      </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="save()">Create</button>
+    </mat-dialog-actions>
+  </ng-template>
 
-
-
-<!-- Edit Images -->
-<ng-template #callEditDailog>
+  <!-- Delete Images -->
+  <ng-template #callDeleteDailog>
+    <h1 mat-dialog-title>Delete Images</h1>
+    <div mat-dialog-content>Are you sure you went to delete this item ?</div>
+    <div mat-dialog-actions>
+      <button mat-button mat-dialog-close="yes">Yes</button>
+      <button mat-button mat-dialog-close="no">No</button>
+    </div>
+  </ng-template>
+  <!-- Edit Images -->
+  <ng-template #callEditDailog>
     <h2 mat-dialog-title>Update Images</h2>
     <mat-dialog-content class="mat-typography">
-    <form [formGroup]="UpdateImage">
-    
+      <form [formGroup]="UpdateImage">
+
         <div class="example-container">
-              <input type="file" #file  formControlName="image_Name" (change)="uploadImage(file.files)">
-          </div>     
-    </form>
+          <input type="file" #file formControlName="image_Name" (change)="uploadImage(file.files)">
+        </div>
+      </form>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button mat-button mat-dialog-close>Cancel</button>
       <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="save2()">Save</button>
     </mat-dialog-actions>
   </ng-template>
+</div>

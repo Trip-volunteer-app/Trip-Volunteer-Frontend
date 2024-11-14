@@ -2,7 +2,7 @@ import { Component,OnInit,AfterViewInit,ChangeDetectorRef,Input,ViewChild,Templa
 import { StyleService } from '../Services/style.service';
 import { HomeService } from '../Services/home.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import {FormGroup,FormControl,Validators,FormBuilder} from '@angular/forms';
+import { FormBuilder, FormControl, Validators, AbstractControl, ValidationErrors, ValidatorFn, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 
@@ -171,10 +171,18 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
   BookingTrip: FormGroup = new FormGroup({
     trip_Id: new FormControl('', Validators.required),
     login_Id: new FormControl('', Validators.required),
-    total_Amount: new FormControl('', Validators.required),
-    numberOfUser: new FormControl(1, Validators.required),
+    total_Amount: new FormControl(''),
+    numberOfUser: new FormControl(1, [Validators.required, this.nonZeroValidator()]),
     note: new FormControl(''),
   });
+
+  nonZeroValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      return value > 0 ? null : { nonZero: true }; // Return an error if value is zero
+    };
+  }
+
 
   volanteerForm: FormGroup = new FormGroup({
     login_Id: new FormControl('', Validators.required),
