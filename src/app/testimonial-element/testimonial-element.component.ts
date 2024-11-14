@@ -23,6 +23,7 @@ export class TestimonialElementComponent implements OnInit , AfterViewInit {
     this.styleService.applyFullHeight(); // Apply full height initially
     this.home.GetSelectedAboutus();
     this.home.GetAcceptedTestimonies();
+    console.log("testi",this.home.Testimonial)
   }
 
   ngAfterViewInit(): void {
@@ -40,31 +41,42 @@ export class TestimonialElementComponent implements OnInit , AfterViewInit {
 
 
   isTokenPresent(): boolean {
-    return !!localStorage.getItem('token'); // Returns true if the token exists, false otherwise
+    return !!localStorage.getItem('token'); 
 }
   openTestimonialDialog(){
     this.dialog.open(TestimonalComponent);
   }
 
- 
+  activeTestimonial: number = 0;
+  get visibleTestimonials() {
+    const testimonials = this.home.Testimonial;
+    const prev = (this.activeTestimonial + testimonials.length - 1) % testimonials.length;
+    const next = (this.activeTestimonial + 1) % testimonials.length;
+    
+    return [
+      testimonials[prev],  
+      testimonials[this.activeTestimonial],  
+      testimonials[next]    
+    ];
+  }
 
   scrollLeft() {
-    this.carouselTestimony.nativeElement.scrollBy({
-      left: -100, // Adjust scroll distance as needed
-      behavior: 'smooth'
-    });
+    this.activeTestimonial = (this.activeTestimonial + this.home.Testimonial.length - 1) % this.home.Testimonial.length;
   }
 
   scrollRight() {
-    this.carouselTestimony.nativeElement.scrollBy({
-      left: 100, // Adjust scroll distance as needed
-      behavior: 'smooth'
-    });
+    this.activeTestimonial = (this.activeTestimonial + 1) % this.home.Testimonial.length;
   }
 
-  getStarsArray(rating: number): number[] {
-    return Array(rating).fill(0); // Creates an array of `rating` length
+ 
+
+  getStarsArray(rating: number): string[] {
+    const fullStars = rating; 
+    const emptyStars = 5 - fullStars; 
+  
+    return [...Array(fullStars).fill('full'), ...Array(emptyStars).fill('empty')];
   }
+  
 }
 
 
