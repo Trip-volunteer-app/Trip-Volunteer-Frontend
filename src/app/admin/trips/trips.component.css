@@ -20394,14 +20394,29 @@ color: #3f51b5; /* Choose a color that fits your design */
 margin-right: 10px; /* Space between icon and input */
 }
 
+/* container-scroller{
+  background-color: #2E2E2E !important;
+  max-height: 100vh !important;
+  overflow-y: hidden !important;
 
+}
+ container-fluid page-body-wrapper{
+  max-height: 100vh !important;
+   overflow-y: auto !important;
+    overflow-x: hidden !important;
+} 
+content-wrapper{
+  max-height: 100vh !important;
+   overflow-y: auto !important;
+    overflow-x: auto !important;
+} */
 
 .table-scrollable {
   height: 65vh;          
 }
 
 .description-col {
-  max-width: 150px;     
+  max-width: 250px;     
   white-space: nowrap;    
   overflow: hidden;       
 }
@@ -20409,6 +20424,10 @@ margin-right: 10px; /* Space between icon and input */
   display: flex;
   gap: 5px; 
 }
+td{
+  padding-right: 10px;
+}
+
 
 .action-button {
   color: inherit;

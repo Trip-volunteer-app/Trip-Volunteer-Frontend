@@ -20631,7 +20631,9 @@
     transition: width 0.25s ease, background 0.25s ease;
     -webkit-transition: width 0.25s ease, background 0.25s ease;
     -moz-transition: width 0.25s ease, background 0.25s ease;
-    -ms-transition: width 0.25s ease, background 0.25s ease; }
+    -ms-transition: width 0.25s ease, background 0.25s ease;
+    
+   }
     .sidebar .sidebar-brand-wrapper {
       transition: width 0.25s ease, background 0.25s ease;
       -webkit-transition: width 0.25s ease, background 0.25s ease;
@@ -20639,7 +20641,10 @@
       -ms-transition: width 0.25s ease, background 0.25s ease;
       background: var(--admin-background-color);
       width: 244px;
-      height: 70px; }
+      height: 70px;
+     }
+
+
       @media (max-width: 991px) {
         .sidebar .sidebar-brand-wrapper {
           width: 55px; } }

@@ -1,16 +1,16 @@
-   <div class="container-scroller">
+   <div class="container-scroller" style="background-color: #2E2E2E; max-height: 100vh; max-height: 100vw;">
       <app-header></app-header>
-      <div class="container-fluid page-body-wrapper">
+      <div class="container-fluid page-body-wrapper" style="background-color: #2E2E2E;max-height: 100vh; overflow-y: auto; overflow-x: hidden;">
         <div class="main-panel">
-          <div class="content-wrapper">
+          <div class="content-wrapper"style="max-height: 100vh; overflow-y: auto; overflow-x: auto;">
             <div class="row">
               <div class="col-lg-12 grid-margin stretch-card">
-                <div class="card">
+                <div class="card" style="width: 100%; overflow: hidden;" >
                   <div class="card-body">
                     <h4 class="card-title" style="color: black;">Volunteer Table</h4>
                     <br><br>                 
                    
-                    <div class="table-responsive">
+                    <div class="table-responsive" >
                       <div class="row no-gutters">
                        
                             <input type="text" class="form-control" placeholder="First Name" [(ngModel)]="first_Name" hidden>
@@ -43,7 +43,7 @@
                       
                       <br><br>
 
-                      <table class="table table-light" style="background-color: white;">
+                      <table class="table table-light" style="background-color: white; overflow-y: auto; overflow-x: auto;">
                         <thead>
                           <tr>
                             <th class="description-col"  style=" color: black;"> <b>Trip Name</b> </th>

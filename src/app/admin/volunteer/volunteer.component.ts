@@ -79,67 +79,144 @@ export class VolunteerComponent implements OnInit {
     this.dialog.open(this.EditDailog);
   }
 
-   save2(numberVolunteer:number) {
+  save2(numberVolunteer: number) {
     const updatedVolunteer = this.Volunteer.value;
-
-    if(numberVolunteer > 0){
-      
-    this.admin.UpdateVolunteerStatus(updatedVolunteer).subscribe(
-      response => {
-        
-        const status = updatedVolunteer.status;
-        
-        Swal.fire({
-          icon: 'success',
-          title: 'Status Updated',
-          text: 'The volunteer status has been successfully updated.',
-          confirmButtonText: 'OK'
-        });
-
-         this.admin.getAllVolunteer();
-         
-        if (status === 'Accepted' || status === 'Rejected') {
-          this.sendEmailNotification(updatedVolunteer.volunteer_Id, status);
   
-          if (status === 'Accepted') {
-            this.sendTripDetails(updatedVolunteer.trip_Id);
-            this.admin.updateNumberOfVolunteer(updatedVolunteer);
+    // Check if the volunteer's status is "Accepted"
+    if (updatedVolunteer.status === 'Accepted') {
+      if (numberVolunteer > 0) {
+        this.admin.UpdateVolunteerStatus(updatedVolunteer).subscribe(
+          response => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Status Updated',
+              text: 'The volunteer status has been successfully updated.',
+              confirmButtonText: 'OK'
+            });
+  
+            // If the volunteer status is "Accepted"
+            this.handleAcceptedStatus(updatedVolunteer);
+          },
+          err => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Update Failed',
+              text: 'There was an error updating the volunteer status. Please try again.',
+              confirmButtonText: 'OK'
+            });
+            console.log('Error:', err.message); // Log error message in English
           }
+        );
+      } else {
+        // If numberVolunteer is 0, update all volunteers with the same trip_Id to "Rejected"
+        Swal.fire({
+          icon: 'warning',
+          title: 'Max Volunteers Reached',
+          text: 'The maximum number of volunteers has been reached. Would you like to reject additional volunteers?',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, Reject Others',
+          cancelButtonText: 'No, Keep as is'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // If admin clicks "Yes", reject all volunteers with the same trip_Id
+            this.rejectAllVolunteers(updatedVolunteer.trip_Id);
+            this.admin.getAllVolunteer();    
+
+            Swal.fire({
+              icon: 'info',
+              title: 'Volunteers Rejected',
+              text: 'All additional volunteers for this trip have been rejected.',
+              confirmButtonText: 'OK'
+            });
+            this.admin.getAllVolunteer();    
+
+          } this.admin.getAllVolunteer();
+        });
+      }
+    } else {
+      this.admin.UpdateVolunteerStatus(updatedVolunteer).subscribe(
+        response => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Status Updated',
+            text: 'The volunteer status has been successfully updated.',
+            confirmButtonText: 'OK'
+          });
+
+          if (updatedVolunteer.status === 'Rejected') {
+            this.sendEmailNotification(updatedVolunteer.volunteer_Id,updatedVolunteer.email, updatedVolunteer.status);
+          }    
+          this.admin.getAllVolunteer();    
+        },
+        err => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Update Failed',
+            text: 'There was an error updating the volunteer status. Please try again.',
+            confirmButtonText: 'OK'
+          });
+          console.log('Error:', err.message); // Log error message in English
+          this.admin.getAllVolunteer();    
+
+        }          
+
+      );    
+    }
+  
+  }
+  
+  handleAcceptedStatus(updatedVolunteer: any) {
+    this.sendEmailNotification(updatedVolunteer.volunteer_Id,updatedVolunteer.email, 'Accepted');
+    this.sendTripDetails(updatedVolunteer.trip_Id);
+    this.admin.updateNumberOfVolunteer(updatedVolunteer);
+    this.admin.getAllVolunteer();    
+
+  }
+  
+  rejectAllVolunteers(tripId: number) {
+    // Use getAllVolunteers to fetch all volunteers
+    this.admin.getAllVolunteers().subscribe(
+      volunteers => {
+        // Filter volunteers by trip_Id and status 'Pending'
+        const volunteersToReject = volunteers.filter(
+          volunteer => volunteer.trip_Id === tripId && volunteer.status.toLowerCase() === 'pending'
+        );
+  
+        // Check if there are any volunteers to reject
+        if (volunteersToReject.length > 0) {
+          // Update the status of all filtered volunteers to "Rejected"
+          volunteersToReject.forEach(volunteer => {
+            this.admin.UpdateVolunteerStatus({ ...volunteer, status: 'Rejected' }).subscribe(
+              response => {
+                console.log(`The status of volunteer ${volunteer.volunteer_Id} has been updated to Rejected.`);
+                this.sendEmailNotification(volunteer.volunteer_Id,volunteer.email, 'Rejected');
+  
+                // Refresh volunteer list after update
+                this.admin.getAllVolunteer();
+              },
+              err => {
+                console.log(`Error updating status of volunteer ${volunteer.volunteer_Id}: ${err.message}`);
+              }
+            );
+          });
+        } else {
+          console.log(`No pending volunteers found for trip ID ${tripId}.`);
+          this.admin.getAllVolunteer();
         }
       },
       err => {
-        // Show error alert
-        Swal.fire({
-          icon: 'error',
-          title: 'Update Failed',
-          text: 'There was an error updating the volunteer status. Please try again.',
-          confirmButtonText: 'OK'
-        });
-        this.admin.getAllVolunteer();
-
-        // Log error
-        console.log(err.message);
+        console.log('Error fetching volunteers:', err.message);
       }
     );
-  }else{
-    Swal.fire({
-      icon: 'warning',
-      title: 'Full',
-      text: 'You accepted max number of volunteer for this volanteer role in this trip',
-      confirmButtonText: 'OK'
-    });
-    this.admin.getAllVolunteer();
-
-  }
-
   }
   
+  
+  
 
-  sendEmailNotification(volunteerId: number, status: string) {
-    const userEmail = this.pData.email;
+  sendEmailNotification(volunteerId: number, email: string, status: string) {
 
     const emailData = {
-      email: userEmail,
+      email: email,
       status: status
     };
 

@@ -341,7 +341,10 @@ export class AdminService {
     })
   }
 
-
+  getAllVolunteers() {
+    return this.http.get<any[]>('https://localhost:7004/api/Volunteers/GetAllVolunteers');
+  }
+  
   DeleteVolunteer(id: number) {
     this.http.delete('https://localhost:7004/api/Volunteers/DeleteVolunteer/' + id).subscribe(resp => {
       Swal.fire({

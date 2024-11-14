@@ -602,8 +602,8 @@ CreateTestimonial(body: any) {
   }
 
   getTopRatedTrips() {
-    this.http.get('https://localhost:7004/api/Trips/GetTopRatedTrips').subscribe(res => {
-      this.topRatedTrips = res;
+    this.http.get<any[]>('https://localhost:7004/api/Trips/GetTopRatedTrips').subscribe(res => {
+      this.topRatedTrips = res.slice(0, 6);
       console.log(this.topRatedTrips);
     }, err => {
       console.log(err.message);

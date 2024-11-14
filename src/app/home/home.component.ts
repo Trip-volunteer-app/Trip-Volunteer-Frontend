@@ -59,7 +59,6 @@ export class HomeComponent implements OnInit , AfterViewInit {
     const end = new Date(endDate);
     const differenceInTime = end.getTime() - start.getTime();
     const differenceInDays = differenceInTime / (1000 * 3600 * 24);
-    console.log('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk', differenceInDays);
     return differenceInDays;
   }
   showDetails(tripId:number){
