@@ -172,6 +172,12 @@ export class ProfileComponent implements OnInit {
     localStorage.clear();
     this.router.navigate(['security/login']);
   }
+
+
+  openDashBoard(){
+    this.router.navigate(['admin/dashboard']);
+
+  }
 }
 
 

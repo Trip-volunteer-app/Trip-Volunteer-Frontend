@@ -16,6 +16,11 @@ export class HomeService {
   selectedHome: any = {};
   topRatedTrips: any = [];
 
+  loginId: number | null = null;
+  bookingIds: number[] = [];  // Store all the booking IDs as an array
+  reviewExists: boolean[] = [];  // Track if review exists for each booking ID
+  reviewMessages: string[] = [];  // Store review messages for each booking
+
 
 
   GetAllAboutUsElements() {
@@ -621,11 +626,48 @@ CreateTestimonial(body: any) {
   // })}
   // In home.service.ts
 getUserinfoByLoginIdForReview(loginId: number) {
-  return this.http.get(`https://localhost:7004/api/UserLogin/GetUserinfoByLoginIdForReview/${loginId}`);  // Returns an Observable
+  return this.http.get(`https://localhost:7004/api/UserLogin/GetUserinfoByLoginIdForReview/${loginId}`).subscribe((userInfo: any) => {
+    if (userInfo.bookings && userInfo.bookings.length > 0) {
+      // Extract all booking IDs from userInfo
+      this.bookingIds = userInfo.bookings.map((booking: any) => booking.booking_Id);
+      console.log('Booking IDs:', this.bookingIds);
+
+      // Check reviews existence for all booking IDs in a single request
+      this.checkReviewsExistence(this.bookingIds);
+    } else {
+      console.error('No bookings found for user');
+    }
+  });
+
 }
 
+checkReviewsExistence(bookingIds: number[]): void {
+  bookingIds.forEach((bookingId, index) => {
+    this.http.get(`https://localhost:7004/api/Review/GetreviewByBookingID/${bookingId}`).subscribe(
+      (result: any) => {
+        console.log(`API Response for Booking ID ${bookingId}:`, result);
+ 
+        // Check if review data exists based on the presence of a review ID or content
+        if (result && Object.keys(result).length > 0) {
+          this.reviewExists[index] = true;
+          this.reviewMessages[index] = 'Review already exists';
+        } else {
+          this.reviewExists[index] = false;
+          this.reviewMessages[index] = 'Review not yet submitted. You can submit now.';
+        }
+        
+        
+      },
+      (err: any) => {
+        console.error(`Error checking review existence for Booking ID ${bookingId}:`, err.message);
+        this.reviewExists[index] = false;
+        this.reviewMessages[index] = 'Error checking review existence';
+      }
+    );
+  });
+}
 
-CreateReviews(body: any) {
+CreateReviews(body: any,loginid:number) {
   this.http.post("https://localhost:7004/api/Review/CreateReview", body).subscribe(
     (res) => {
 
@@ -637,7 +679,9 @@ CreateReviews(body: any) {
         confirmButtonColor: '#3085d6',
         confirmButtonText: 'OK'
       });
-    },
+      
+      this.checkReviewsExistence(this.bookingIds);
+       },
     (err) => {
       console.log(err.message);
 
@@ -651,6 +695,32 @@ CreateReviews(body: any) {
       });
     }
   );
+}
+
+
+
+
+
+
+GetCategoryWithImageAndTrips:any;
+GetAllCategoryWithImageAndTrips() {
+  this.http.get('https://localhost:7004/api/categories/GetCategoryWithImageAndTrips').subscribe(res => {
+    this.GetCategoryWithImageAndTrips = res;
+    console.log(this.GetCategoryWithImageAndTrips);
+  }, err => {
+    console.log(err.message);
+  })
+}
+
+
+AllTeam:any;
+GetAllTeam() {
+  this.http.get('https://localhost:7004/api/ContactusElement/GetAllTeam').subscribe(res => {
+    this.AllTeam = res;
+    console.log('All Team',this.AllTeam);
+  }, err => {
+    console.log(err.message);
+  })
 }
 
 }

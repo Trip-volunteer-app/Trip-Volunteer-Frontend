@@ -5,6 +5,7 @@ import { StyleService } from '../Services/style.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { AdminService } from '../Services/admin.service';
 import { ToastrService } from 'ngx-toastr';
+import { HomeService } from '../Services/home.service';
 
 @Component({
   selector: 'app-contact',
@@ -49,7 +50,8 @@ export class ContactComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef,
     private sanitizer: DomSanitizer,
     public admin: AdminService,
-    public toast : ToastrService
+    public toast : ToastrService,
+    public home:HomeService
   ) { }
 
   ngOnInit(): void {
@@ -57,6 +59,7 @@ export class ContactComponent implements OnInit, AfterViewInit {
     this.contact.GetSelectedElement();
     this.contact.GetSelectedWebsiteInfo();
     this.styleService.applyFullHeight(); // Apply full height initially
+    this.home.GetAllTeam();
   }
 
   ngAfterViewInit(): void {
@@ -70,6 +73,7 @@ export class ContactComponent implements OnInit, AfterViewInit {
     this.styleService.initMagnificPopup();
     this.styleService.initDatePickers();
     this.cdr.detectChanges(); // Detect changes after initializations
+    
   }
 
   sanitizeInput(input: string): SafeHtml {

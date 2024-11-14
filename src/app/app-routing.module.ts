@@ -15,60 +15,76 @@ import { PaymentComponent } from './payment/payment.component';
 import { TestimonalComponent } from './testimonal/testimonal.component';
 import { TestimonialElementComponent } from './testimonial-element/testimonial-element.component';
 import { ReviewComponent } from './admin/review/review.component';
-import { ReviewFormComponent } from './review-form/review-form.component';
 
 const routes: Routes = [
   {
     path: "contactus",
     component: ContactComponent
-  }, {
+  },
+  
+  {
     path: "home",
     component: HomeComponent
-  }, { 
+  },
+  
+  { 
     path: '',
      redirectTo: 'home',
       pathMatch: 'full' 
-  }, {
+  }, 
+  
+  {
     path: 'Aboutus',
     component: AboutusComponent
-  }, {
+  },
+  
+  {
     path: 'security',
     loadChildren: () => AuthModule
-  }, {
+  }, 
+  
+  {
     path: 'Trips',
     component: TripsComponent
-  }, {
+  }, 
+  
+  {
     path: 'admin',
     loadChildren: () => AdminModule,
-    // canActivate:[authorizationGuard]
+    canActivate:[authorizationGuard]
   },
+
   {
     path:"tripDetails/:tripId",
     component:TripDetailsComponent
   },
+
   {
     path:"userProfile",
-    component:UserProfileComponent
+    component:UserProfileComponent,
+    canActivate:[authorizationGuard]
 
   },
+
   {
     path:"UserTrips",
-    component:UserTripsComponent
-  },{
+    component:UserTripsComponent,
+    canActivate:[authorizationGuard]
+  },
+  
+  {
     path:"payment/:id",
-    component:PaymentComponent
+    component:PaymentComponent,
+    canActivate:[authorizationGuard]
   },
   {
     path:"Testimonial",
     component:TestimonalComponent
   },
+
   {
     path:"TestimonialElement",
     component:TestimonialElementComponent
-  },
-  {
-    path:"ReviewForm",
-    component:ReviewFormComponent
   }
 
 ];
