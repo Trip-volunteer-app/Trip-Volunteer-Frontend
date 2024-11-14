@@ -30703,6 +30703,14 @@ div.tagsinput span.tag a {
     border-radius: 50%;
     background-color: white;
     position: absolute;
+  }
+  .page-body-wrapper {
+    min-height: 100vh;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    padding-left: 0;
     left: 0;
   }
 
@@ -30801,4 +30809,22 @@ div.tagsinput span.tag a {
 
 .gold-member {
   color: white;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: #1F1F1F; /* Dark background for scrollbar track */
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #444; /* Darker thumb for scrollbar */
+  border-radius: 10px;
+  border: 2px solid #1F1F1F; /* Matches track color for a recessed look */
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Slightly lighter on hover for visibility */
 }

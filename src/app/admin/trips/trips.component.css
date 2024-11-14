@@ -1,5 +1,8 @@
 .table-scrollable {
-  height: 65vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  height: 100%;
+  width: 100%;
 }
 
 .description-col {
@@ -12,6 +15,10 @@
   display: flex;
   gap: 5px;
 }
+td{
+  padding-right: 10px;
+}
+
 
 .action-button {
   color: inherit;
