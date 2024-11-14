@@ -37,6 +37,7 @@
               "src/assets/Admin2/vendors/flag-icon-css/css/flag-icon.min.css",
               "src/assets/Admin2/vendors/owl-carousel-2/owl.carousel.min.css",
               "src/assets/Admin2/vendors/owl-carousel-2/owl.theme.default.min.css",
+              "src/assets/Admin/adminStyles.scss",
               "src/assets/Home/css/style.css",
               "src/assets/Home/css/flaticon.css",
               "src/assets/Home/css/jquery.timepicker.css",
@@ -45,7 +46,6 @@
               "src/assets/Home/css/owl.theme.default.min.css",
               "src/assets/Home/css/owl.carousel.min.css",
               "src/assets/Home/css/animate.css",
-              "src/assets/Admin/adminStyles.scss",
               "src/styles.css"
             ],
             "scripts": [
