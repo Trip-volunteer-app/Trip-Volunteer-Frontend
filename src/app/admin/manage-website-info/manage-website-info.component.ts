@@ -9,7 +9,7 @@ import { ContactusService } from 'src/app/Services/contactus.service';
   styleUrls: ['./manage-website-info.component.css']
 })
 export class ManageWebsiteInfoComponent implements OnInit {
-  selectedElementId: number | null = null; // Initialize selected element ID
+  selectedElementId: number | null = null;
 
   @ViewChild('callDeleteDialog') deleteDialog !: TemplateRef<any>;
   @ViewChild('callCreateDialog') createDialog !: TemplateRef<any>;
@@ -25,9 +25,7 @@ export class ManageWebsiteInfoComponent implements OnInit {
     await this.contact.GetSelectedWebsiteInfo();
     if (this.contact.selectedWebsiteInfo) {
       this.selectedElementId = this.contact.selectedWebsiteInfo.website_Id;
-      console.log(this.selectedElementId);
     } else {
-      console.error('No selected element found');
     }
   }
 
@@ -46,18 +44,14 @@ export class ManageWebsiteInfoComponent implements OnInit {
 
   save() {
     this.contact.createWebsiteInfo(this.CreateWebsiteInfo.value)
-    console.log(this.CreateWebsiteInfo.value);
   }
 
   openDeleteDialog(id: number) {
-    console.log(id);
     const dailogRef = this.dialog.open(this.deleteDialog).afterClosed().subscribe((res) => {
       if (res != undefined) {
-        console.log(res)
         if (res == 'yes')
           this.contact.deleteWebsiteInfo(id);
-      } else if (res == 'no')
-        console.log('Thank you');
+      }
     }
     );
   }

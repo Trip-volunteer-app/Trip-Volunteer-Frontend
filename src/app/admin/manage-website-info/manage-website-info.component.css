@@ -105,3 +105,25 @@
   flex-grow: 1;
   margin-left: 10px;
 }
+
+.edit-button {
+  background-color: white;
+  border: none;
+}
+
+.i-edit {
+  color: blue;
+  border: none;
+  font-size: 20px;
+}
+
+.delete-button {
+  background-color: white;
+  border: none;
+}
+
+.i-delete {
+  color: red;
+  border: none;
+  font-size: 20px;
+}
