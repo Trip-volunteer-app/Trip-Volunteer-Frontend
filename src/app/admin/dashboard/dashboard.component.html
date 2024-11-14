@@ -269,14 +269,13 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-12 col-xl-4 grid-margin stretch-card">
-              <div class="card">
+            <div class="col-md-4 mb-3">
+              <div class="card h-100">
+                <h4 class="text-muted mb-1 ">Percentage of users who have ever made a booking.</h4>
+
                 <div class="card-body">
-                  <h4 class="text-muted mb-1">Number of bookings per category</h4>
-                  <div class="add-items d-flex">
-                    <div style="width: 100%; max-width: 700px; margin: auto; padding-top: 20px;">
-                      <canvas id="myChart" width="700" height="400"></canvas>
-                    </div>
+                  <div class="chart-container" style="width: 100%; max-width: 800px; margin: 0px; padding:0px;">
+                    <canvas id="bookingChart" width="700" height="400"></canvas>
                   </div>
                 </div>
               </div>
@@ -285,10 +284,11 @@
           <div class="row" style="background-color: white;">
             <div class="col-md-4 mb-3">
               <div class="card h-100">
+                <h4 class="text-muted mb-1 chart-text">Categories average rate.</h4>
                 <div class="card-body">
                   <div class="chart-container"
                     style="width: 100%; height: 100%; max-width: 800px; margin: 0px; padding:0px;">
-                    <canvas id="rateChart" width="700" height="600"></canvas>
+                    <canvas id="rateChart" width="700" height="650"></canvas>
                   </div>
                 </div>
               </div>
@@ -296,6 +296,7 @@
 
             <div class="col-md-4 mb-3">
               <div class="card h-100">
+                <h4 class="text-muted mb-1 chart-text">Net revenue per category.</h4>
                 <div class="card-body">
                   <div class="chart-container" style="width: 100%; max-width: 800px; margin: 0px; padding:0px;">
                     <canvas id="revenueChart" width="700" height="400"></canvas>
@@ -303,20 +304,20 @@
                 </div>
               </div>
             </div>
-
-            <div class="col-md-4 mb-3">
+            <div class="col-md-12 col-xl-4 grid-margin stretch-card">
               <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="text-muted mb-3">Categories Net Revenue</h5>
-                  <div class="chart-container" style="width: 100%; max-width: 700px; margin: auto;">
-                    <canvas id="revenueChart2" width="700" height="400"></canvas>
+                  <h4 class="text-muted mb-1 chart-text">Number of bookings per category</h4>
+                  <div class="add-items d-flex">
+                    <div style="width: 100%; max-width: 700px; margin: auto; padding-top: 20px;">
+                      <canvas id="myChart" width="700" height="400"></canvas>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>

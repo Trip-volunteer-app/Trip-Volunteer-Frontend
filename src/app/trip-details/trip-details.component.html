@@ -220,18 +220,29 @@
             <h3 style="margin-top: 20px;">Booking Trip</h3>
             <div class="example-container" fxLayout="column" fxLayoutGap="20px">
               
-              <div fxLayout="row" fxLayoutGap="20px">
+              <div style="display: flex; flex-direction: row;" fxLayoutGap="20px">
+                <div style="display: flex; flex-direction: column;">
                 <mat-form-field appearance="fill" style="margin-right: 20px; width: 300px !important;">
                   <mat-label>Number of Reservations</mat-label>
-                  <div *ngIf="BookingTrip.get('numberOfUser')?.errors?.['nonZero'] && BookingTrip.get('numberOfUser')?.touched">
-                    The number of users must be greater than zero.
-                  </div>
                   <input type="number" matInput formControlName="numberOfUser" (change)="this.updateTotalAmount();" [readonly]="!isSeatsAvailable()">
+
+
                 </mat-form-field>
+                <span class="number-of-users" style="color: red; font-size: 12px;" *ngIf="BookingTrip.get('numberOfUser')?.errors?.['nonZero'] && BookingTrip.get('numberOfUser')?.touched">
+                  Number of users must be greater than zero.
+                </span>
+                </div>
   
                 <mat-form-field appearance="fill" style="width: 300px !important;">
                   <mat-label>Total Amount</mat-label>
-                  <input type="number" matInput formControlName="total_Amount" [(ngModel)]="total" readonly>
+                  <input
+                    type="number"
+                    matInput
+                    formControlName="total_Amount"
+                    [(ngModel)]="total"
+                    readonly
+                    style="color: #cccccc; border: none; cursor: not-allowed;"
+                  >
                 </mat-form-field>
               </div>
   

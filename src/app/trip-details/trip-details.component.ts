@@ -1,4 +1,4 @@
-import { Component,OnInit,AfterViewInit,ChangeDetectorRef,Input,ViewChild,TemplateRef,} from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef, Input, ViewChild, TemplateRef, } from '@angular/core';
 import { StyleService } from '../Services/style.service';
 import { HomeService } from '../Services/home.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -20,7 +20,7 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder
-  ) {}
+  ) { }
   @ViewChild('callBookingDailog') BookingDailog!: TemplateRef<any>;
   @ViewChild('callAuthDailog') AuthDailog!: TemplateRef<any>;
 
@@ -30,35 +30,35 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
 
   async ngOnInit() {
     this.styleService.applyFullHeight();
-    
+
     // Fetch tripId from route parameters
     this.route.paramMap.subscribe(params => {
-        this.tripId = +params.get('tripId')!;
-        console.log("TripId:", this.tripId);
+      this.tripId = +params.get('tripId')!;
+      console.log("TripId:", this.tripId);
 
-        if (this.tripId) {
-            // Fetch trip details based on tripId
-            this.home.getTripById(this.tripId).subscribe(async tripDetails => {
-                this.home.tripDetails = tripDetails; // assuming you set the trip details here
-                console.log("tripDetails",tripDetails);
-                
-                // Fetch related data only if trip details are valid
-                if (this.home.tripDetails.category_Id) {
-                    await this.home.GetReviewByCategoryId(this.home.tripDetails.category_Id);
-                    console.log("review",this.home.review);
-                    
-                   await this.home.GetSimilarTrips(this.home.tripDetails.category_Id);
-                    console.log("similarTrip",this.home.similarTrip);
+      if (this.tripId) {
+        // Fetch trip details based on tripId
+        this.home.getTripById(this.tripId).subscribe(async tripDetails => {
+          this.home.tripDetails = tripDetails; // assuming you set the trip details here
+          console.log("tripDetails", tripDetails);
 
-                }
-            });
+          // Fetch related data only if trip details are valid
+          if (this.home.tripDetails.category_Id) {
+            await this.home.GetReviewByCategoryId(this.home.tripDetails.category_Id);
+            console.log("review", this.home.review);
 
-            // Other dependent calls
-            this.home.GetTripVolunteers(this.tripId);
-            this.home.GetVolunteerRoleByTripId(this.tripId);
-        } else {
-            console.log('Invalid tripId, skipping fetch calls');
-        }
+            await this.home.GetSimilarTrips(this.home.tripDetails.category_Id);
+            console.log("similarTrip", this.home.similarTrip);
+
+          }
+        });
+
+        // Other dependent calls
+        this.home.GetTripVolunteers(this.tripId);
+        this.home.GetVolunteerRoleByTripId(this.tripId);
+      } else {
+        console.log('Invalid tripId, skipping fetch calls');
+      }
     });
 
     // Get user details from local storage
@@ -68,13 +68,13 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
 
     // Fetch booking and volunteer information for the trip
     if (this.tripId && this.userId) {
-        this.home.GetBookingByTripId(this.tripId, this.userId);
-        this.home.GetVolunteerByTripId(this.tripId, this.userId);
+      this.home.GetBookingByTripId(this.tripId, this.userId);
+      this.home.GetVolunteerByTripId(this.tripId, this.userId);
     }
-    
+
     console.log("BookingByTripId:", this.home.BookingByTripId);
     console.log("VolunteerByTripId:", this.home.VolunteerByTripId);
-}
+  }
 
 
   isFutureTrip(startDate: string): boolean {
@@ -216,7 +216,7 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
   }
 
 
- async updateVolunteerFormState() {
+  async updateVolunteerFormState() {
     const isVolunteerFormVisible = await this.isVolunteerRole();
 
     if (!isVolunteerFormVisible) {
@@ -229,13 +229,13 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
   async isVolunteerRole(): Promise<boolean> {
     try {
       const roles: any[] = await this.home.GetRoleByTripId(this.tripId).toPromise();
-  
+
       this.totalVolunteers = roles.reduce(
         (sum, role) => sum + (role.number_Of_Volunteers || 0),
         0
       );
       console.log('Total number of volunteers:', this.totalVolunteers);
-  
+
       this.isVolunteerAvailable = this.totalVolunteers > 0;
       return this.isVolunteerAvailable;  // Return true or false based on the availability
     } catch (err) {
@@ -243,7 +243,7 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
       return false;  // Return false if there is an error
     }
   }
-  
+
 
   async openBookingDailog(obj: any) {
     if (this.user != null) {
@@ -255,21 +255,21 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
           'volunteerRolesWithVolunteers',
           this.volunteerRolesWithVolunteers
         );
-       
+
       });
       const userFromStorage = localStorage.getItem('user');
       this.user = userFromStorage ? JSON.parse(userFromStorage) : null;
 
       this.userId = Number(this.user.loginid);
-     
-      if(!this.isSeatsAvailable()){
-      this.initializeForm();
-      this.updateFormState();
+
+      if (!this.isSeatsAvailable()) {
+        this.initializeForm();
+        this.updateFormState();
       }
       const isVolunteerFormVisible = await this.isVolunteerRole();
-      if(!isVolunteerFormVisible){
-      this.initializeVolunteerForm();
-      this.updateVolunteerFormState();
+      if (!isVolunteerFormVisible) {
+        this.initializeVolunteerForm();
+        this.updateVolunteerFormState();
       }
 
       this.pData = obj;
@@ -354,177 +354,161 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
   selectedService: number[] = [];
   bookingreq: any;
   Booking() {
-    if (this.BookingTrip.valid) {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: 'Do you want to proceed with the booking?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, book it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-          // Check if there's an existing reservation or volunteer request
-          if (this.home.BookingByTripId == null) {
-            if (this.home.VolunteerByTripId == null) {
-              const maxUser = this.BookingTrip.controls['numberOfUser'].value;
-              if (this.home.tripDetails.max_Number_Of_Users >= maxUser) {
-                // No existing booking or volunteer request, proceed to create booking
-                this.bookingreq = {
-                  ...this.BookingTrip.value,
-                  ArrayParam: this.selectedService,
-                };
-                this.home.CreateBooking(this.bookingreq);
-                this.dialogRef.close();
-              } else {
-                Swal.fire({
-                  icon: 'error',
-                  title: 'Not enough seats',
-                  text: 'Sorry, there are not enough available seats for this booking. Please adjust the number of users or choose another trip.',
-                });
-              }
-            } else if (
-              this.home.VolunteerByTripId !== null &&
-              this.home.VolunteerByTripId.status?.toLowerCase() === 'pending'
-            ) {
-              // Volunteer request is pending, confirm with the user before proceeding
-              Swal.fire({
-                title: 'You have a pending volunteer request for this trip!',
-                text: 'If you proceed with the booking, your volunteer request will be canceled. Do you want to continue?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, book!',
-              }).then((volunteerResult) => {
-                if (volunteerResult.isConfirmed) {
-                  const maxUser =
-                    this.BookingTrip.controls['numberOfUser'].value;
-                  if (this.home.tripDetails.max_Number_Of_Users >= maxUser) {
-                    // Cancel volunteer request and proceed with booking
-                    this.home.DeleteVolanteerReq(
-                      this.home.VolunteerByTripId.volunteer_Id
-                    );
+    if (this.home.BookingByTripId == null) {
+      if (this.home.VolunteerByTripId == null ||
+        (this.home.VolunteerByTripId !== null &&
+          this.home.VolunteerByTripId.status?.toLowerCase() === 'rejected')) {
 
-                    this.bookingreq = {
-                      ...this.BookingTrip.value,
-                      ArrayParam: this.selectedService,
-                    };
-                    this.home.CreateBooking(this.bookingreq);
-                    this.dialogRef.close();
-                  }
-                } else {
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Not enough seats',
-                    text: 'Sorry, there are not enough available seats for this booking. Please adjust the number of users or choose another trip.',
-                  });
-                }
-              });
+        Swal.fire({
+          title: 'Are you sure?',
+          text: 'Do you want to proceed with the booking?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, book it!',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            const maxUser = this.BookingTrip.controls['numberOfUser'].value;
+            if (this.home.tripDetails.max_Number_Of_Users >= maxUser) {
+              this.bookingreq = {
+                ...this.BookingTrip.value,
+                ArrayParam: this.selectedService,
+              };
+              this.home.CreateBooking(this.bookingreq);
+              this.dialogRef.close();
             } else {
-              // Volunteer status is not 'pending'
               Swal.fire({
-                icon: 'warning',
-                title: 'You already have a volunteer reservation for this trip',
-                text: 'Please check your reservations.',
+                icon: 'error',
+                title: 'Not enough seats',
+                text: 'Sorry, there are not enough available seats for this trip. Please adjust the number of users or choose another trip.',
               });
             }
           } else {
-            // User already has a booking on this trip
-            Swal.fire({
-              icon: 'warning',
-              title: 'You already have a booking for this trip',
-              text: 'Please check your reservations.',
-            });
+            this.dialogRef.close();
           }
-        
-        }
+        });
+      } else if (this.home.VolunteerByTripId !== null &&
+        this.home.VolunteerByTripId.status?.toLowerCase() === 'pending') {
+        Swal.fire({
+          title: 'You have a pending volunteer request for this trip!',
+          text: 'If you proceed with the booking, your volunteer request will be canceled. Do you want to continue?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, book!',
+        }).then((volunteerResult) => {
+          if (volunteerResult.isConfirmed) {
+            const maxUser = this.BookingTrip.controls['numberOfUser'].value;
+            if (this.home.tripDetails.max_Number_Of_Users >= maxUser) {
+              this.home.DeleteVolanteerReq(this.home.VolunteerByTripId.volunteer_Id);
+
+              this.bookingreq = {
+                ...this.BookingTrip.value,
+                ArrayParam: this.selectedService,
+              };
+              this.home.CreateBooking(this.bookingreq);
+              this.dialogRef.close();
+            }
+          } else {
+            this.dialogRef.close();
+          }
+        });
+      } else {
+        // Volunteer status is not 'pending'
+        Swal.fire({
+          icon: 'warning',
+          title: 'You already have a volunteer reservation for this trip',
+          text: 'Please check your reservations.',
+        });
       }
-    );
-  } else {
-    // Form validation failed
-    Swal.fire({
-      icon: 'warning',
-      title: 'Incomplete Form',
-      text: 'Please complete all required fields in the booking form.',
-    });
+    } else {
+      // User already has a booking on this trip
+      Swal.fire({
+        icon: 'warning',
+        title: 'You already have a booking for this trip',
+        text: 'Please check your reservations.',
+      });
+    }
+
   }
-}
+
 
   volunteerBooking() {
-    if(this.volanteerForm.valid){
-    Swal.fire({
-      title: 'Are you sure?',
-      text: 'Do you want to proceed with the booking?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, book it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        if (this.volanteerForm.valid) {
-          if (this.home.VolunteerByTripId == null) {
-            if (this.home.BookingByTripId == null) {
-              // No existing booking or volunteer request, proceed to create booking
-              this.home.BookingVolunteer(this.volanteerForm.value);
-              this.dialogRef.close();
-            } else if (
-              this.home.BookingByTripId !== null &&
-              this.home.BookingByTripId.payment_Status.toLowerCase() ==
+    if (this.volanteerForm.valid) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'Do you want to proceed with the booking?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, book it!',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          if (this.volanteerForm.valid) {
+            if (this.home.VolunteerByTripId == null) {
+              if (this.home.BookingByTripId == null) {
+                // No existing booking or volunteer request, proceed to create booking
+                this.home.BookingVolunteer(this.volanteerForm.value);
+                this.dialogRef.close();
+              } else if (
+                this.home.BookingByTripId !== null &&
+                this.home.BookingByTripId.payment_Status.toLowerCase() ==
                 'not paid'
-            ) {
-              // Volunteer request is pending, confirm with the user before proceeding
-              Swal.fire({
-                title: 'You have a reservation not paid for this trip!',
-                text: 'If you proceed with the booking volunteer request, your reservation will be canceled. Do you want to continue?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, book!',
-              }).then((volunteerResult) => {
-                if (volunteerResult.isConfirmed) {
-                  this.home.Deletebooking(this.home.BookingByTripId.booking_Id);
-                  // User confirmed to proceed with booking, override volunteer request
-                  this.home.BookingVolunteer(this.volanteerForm.value);
-                  this.dialogRef.close();
-                }else{
-                  this.dialogRef.close();
-                }
-              });
+              ) {
+                // Volunteer request is pending, confirm with the user before proceeding
+                Swal.fire({
+                  title: 'You have a reservation not paid for this trip!',
+                  text: 'If you proceed with the booking volunteer request, your reservation will be canceled. Do you want to continue?',
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Yes, book!',
+                }).then((volunteerResult) => {
+                  if (volunteerResult.isConfirmed) {
+                    this.home.Deletebooking(this.home.BookingByTripId.booking_Id);
+                    // User confirmed to proceed with booking, override volunteer request
+                    this.home.BookingVolunteer(this.volanteerForm.value);
+                    this.dialogRef.close();
+                  } else {
+                    this.dialogRef.close();
+                  }
+                });
+              } else {
+                Swal.fire({
+                  icon: 'warning',
+                  title: 'You already have a reservation for this trip',
+                  text: 'Please check your reservations.',
+                });
+              }
             } else {
+              // User already has a booking on this trip
               Swal.fire({
                 icon: 'warning',
-                title: 'You already have a reservation for this trip',
+                title:
+                  'You already have a reservation as volanteer for this trip',
                 text: 'Please check your reservations.',
               });
             }
-          } else {
-            // User already has a booking on this trip
-            Swal.fire({
-              icon: 'warning',
-              title:
-                'You already have a reservation as volanteer for this trip',
-              text: 'Please check your reservations.',
-            });
           }
         }
-      }
-    
-    }) }else {
+
+      })
+    } else {
       Swal.fire({
         icon: 'warning',
         title: 'Incomplete Form',
         text: 'Please complete all required fields in the volunteer form.',
       });
     };
-  
+
   }
 
   goToTripDetails(tripId: number) {
-    this.router.navigate(['tripDetails/',tripId]);
+    this.router.navigate(['tripDetails/', tripId]);
     // Implement the logic to navigate to the trip details
   }
 }

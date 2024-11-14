@@ -85,7 +85,7 @@ td:nth-child(2) {
   padding: 10px;
 }
 
-.container-chart1{
+.container-chart1 {
   background-color: white;
 }
 
@@ -113,9 +113,18 @@ td:nth-child(2) {
   background: #555;
 }
 
-.max-users{
+.max-users {
   padding-right: 20px;
 }
-.category-charts{
-  width: 100%; max-width: 800px; margin: 0px; padding:0px;
+
+.category-charts {
+  width: 100%;
+  max-width: 800px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.chart-text {
+  text-align: center;
+  margin-top: 30px;
 }
