@@ -41,15 +41,12 @@
                                                             <td>{{ obj.title }}</td>
                                                             <td>{{ obj.header }}</td>
                                                             <td class="action-button">
-                                                                <button (click)="openEditDailog(obj)"
-                                                                    style="background-color: #f0f0f0; border: none;"><i
-                                                                        class="bi bi-pencil-square"
-                                                                        style="color: blue; border: none; font-size: 20px;"></i></button>
-                                                                <button
-                                                                    (click)="openDeleteDialog(obj.contactus_Elements_Id)"
-                                                                    style="background-color: #f0f0f0; border: none;"><i
-                                                                        class="bi bi-trash-fill"
-                                                                        style="color: red; border: none; font-size: 20px;"></i>
+                                                                <button class="edit-button"
+                                                                    (click)="openEditDailog(obj)"><i
+                                                                        class="bi bi-pencil-square i-update-button"></i></button>
+                                                                <button class="delete-button"
+                                                                    (click)="openDeleteDialog(obj.contactus_Elements_Id)"><i
+                                                                        class="bi bi-trash-fill i-delete-button"></i>
                                                                 </button>
                                                             </td>
                                                         </tr>
@@ -79,18 +76,15 @@
                                                             <th>Header 2</th>
                                                             <th>Title 2</th>
                                                             <th>About Us</th>
-                                                            <th
-                                                                style="position: sticky; right: 0; top: 0; background: #f0f0f0;">
+                                                            <th class="th-actions-tab">
                                                                 Actions</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr *ngFor="let obj of about.AboutUsElements">
-                                                            <td
-                                                                style="position: sticky; left: 0; background: #f0f0f0; z-index: 10;">
+                                                            <td class="about-id-td">
                                                                 {{ obj.aboutus_Page_Id }}</td>
-                                                            <td
-                                                                style="position: sticky; left: 33px; background: #f0f0f0; z-index: 10;">
+                                                            <td class="about-page-td">
                                                                 <mat-radio-group [(ngModel)]="selectedElementId"
                                                                     (change)="onElementSelect(obj.aboutus_Page_Id)">
                                                                     <mat-radio-button
@@ -136,18 +130,13 @@
                                                                 aria-label="Button that shows a tooltip">
                                                                 {{ obj.aboutus | slice:0:30 }}...
                                                             </td>
-                                                            <td
-                                                                style="position: sticky; right: 0; background: #f0f0f0;">
+                                                            <td class="td2-dialog">
 
-                                                                <button (click)="openEditDailog(obj)"
-                                                                    style="background-color: white; border: none;"><i
-                                                                        class="bi bi-pencil-square"
-                                                                        style="color: blue; border: none; font-size: 20px;"></i></button>
+                                                                <button (click)="openEditDailog(obj)" class="edit-button"><i
+                                                                        class="bi bi-pencil-square i-edit"></i></button>
                                                                 <button
-                                                                    (click)="openDeleteDialog(obj.contactus_Elements_Id)"
-                                                                    style="background-color: white; border: none;"><i
-                                                                        class="bi bi-trash-fill"
-                                                                        style="color: red; border: none; font-size: 20px;"></i>
+                                                                    (click)="openDeleteDialog(obj.contactus_Elements_Id)" class="delete-button"><i
+                                                                        class="bi bi-trash-fill i-delete"></i>
                                                                 </button>
                                                             </td>
                                                         </tr>
@@ -159,12 +148,8 @@
                                                     class="table table-white table-hover table-bordered table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th
-                                                                style="position: sticky; left: 0; background: #f0f0f0; z-index: 10;">
-                                                                #</th>
-                                                            <th
-                                                                style="position: sticky; left: 33px; background: #f0f0f0; z-index: 10;">
-                                                                Select</th>
+                                                            <th class="about-id-td">#</th>
+                                                            <th class="about-page-td">Select</th>
                                                             <th>Image 5</th>
                                                             <th>Image 6</th>
                                                             <th>Header 3</th>
@@ -172,18 +157,14 @@
                                                             <th>Feedback Title</th>
                                                             <th>Feedback Header</th>
                                                             <th>Feedback Background</th>
-                                                            <th
-                                                                style="position: sticky; right: 0; background: #f0f0f0;">
+                                                            <th class="actions2">
                                                                 Actions</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr *ngFor="let obj of about.AboutUsElements">
-                                                            <td
-                                                                style="position: sticky; left: 0; background: #f0f0f0; z-index: 10;">
-                                                                {{ obj.aboutus_Page_Id }}</td>
-                                                            <td
-                                                                style="position: sticky; left: 33px; background: #f0f0f0; z-index: 10;">
+                                                            <td class="about-id-td">{{ obj.aboutus_Page_Id }}</td>
+                                                            <td class="about-page-td">
                                                                 <mat-radio-group [(ngModel)]="selectedElementId"
                                                                     (change)="onElementSelect(obj.aboutus_Page_Id)">
                                                                     <mat-radio-button
@@ -204,17 +185,14 @@
                                                             <td>{{ obj.feedbackHeader }}</td>
                                                             <td><img src="../../../assets/images/{{ obj.feedback_background }}"
                                                                     alt="feedback background"></td>
-                                                            <td
-                                                                style="position: sticky; right: 0; background: #f0f0f0;">
+                                                            <td class="td2-dialog">
                                                                 <button (click)="openEditDailog(obj)"
-                                                                    style="background-color: white; border: none;"><i
-                                                                        class="bi bi-pencil-square"
-                                                                        style="color: blue; border: none; font-size: 20px;"></i></button>
+                                                                    class="edit-button"><i
+                                                                        class="bi bi-pencil-square i-edit"></i></button>
                                                                 <button
                                                                     (click)="openDeleteDialog(obj.contactus_Elements_Id)"
-                                                                    style="background-color: white; border: none;"><i
-                                                                        class="bi bi-trash-fill"
-                                                                        style="color: red; border: none; font-size: 20px;"></i>
+                                                                    class="delete-button"><i
+                                                                        class="bi bi-trash-fill i-delete"></i>
                                                                 </button>
                                                             </td>
                                                         </tr>
@@ -237,7 +215,7 @@
     <ng-template #callCreateDailog>
         <mat-dialog-content class="mat-typography">
             <h3>Create About Us</h3>
-            <form [formGroup]="CreateAbout" style="padding: 30px;">
+            <form [formGroup]="CreateAbout" class="form-group-about">
                 <mat-tab-group>
                     <mat-tab label="Header">
                         <div class="form-section">
@@ -307,8 +285,8 @@
                                 <input type="file" id="image5" #file5 formControlName="image5"
                                     (change)="uploadImage5(file5.files)" />
                             </div>
-                            <div class="form-row" style="margin-left: 40px;">
-                                <label style="display: block;" for="image6">Image 6</label>
+                            <div class="form-row">
+                                <label class="labet-about" for="image6">Image 6</label>
                                 <input type="file" id="image6" #file6 formControlName="image6"
                                     (change)="uploadImage6(file6.files)" />
                             </div>
@@ -344,7 +322,7 @@
     <ng-template #callUpdateDailog>
         <mat-dialog-content class="mat-typography">
             <h3>Update Element</h3>
-            <form [formGroup]="UpdateAbout" style="padding: 30px;">
+            <form [formGroup]="UpdateAbout" class="form-group-about">
                 <mat-tab-group>
                     <!-- Images Tab -->
                     <mat-tab label="Header">

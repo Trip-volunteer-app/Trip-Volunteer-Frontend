@@ -1,0 +1,47 @@
+.page-body-wrapper {
+    background-color: #2E2E2E;
+}
+
+.stretch-card {
+    max-height: 100vh;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.form-group-contact {
+    padding: 30px;
+}
+
+.create-button-contact {
+    color: rgb(100, 250, 100);
+    margin-left: 900px;
+    font-size: 30px !important;
+    background-color: white;
+    border: none;
+}
+
+.table {
+    background-color: white;
+}
+
+.edit-button {
+    background-color: white;
+    border: none;
+}
+
+.i-edit {
+    color: blue;
+    border: none;
+    font-size: 20px;
+}
+
+.delete-button {
+    background-color: white;
+    border: none;
+}
+
+.i-delete {
+    color: red;
+    border: none;
+    font-size: 20px;
+}

@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ManageaboutComponent } from './manageabout.component';
 
 describe('ManageaboutComponent', () => {

@@ -1,33 +1,30 @@
 <div class="adminStyles">
-    <div class="container-scroller" style="max-height: 100vh; max-height: 100vw;">
+    <div class="container-scroller">
         <app-header></app-header>
-        <div class="container-fluid page-body-wrapper" style="background-color: #2E2E2E;max-height: 100vh; overflow-y: auto; overflow-x: hidden;">
+        <div class="container-fluid page-body-wrapper">
             <div class="main-panel">
-                <div class="content-wrapper" style="max-height: 100vh; overflow-y: auto; overflow-x: hidden;">
+                <div class="content-wrapper">
                     <div class="row" >
                         <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-center"
-                                        style="margin-bottom: 10px;">
-                                        <h4 class="card-title" style="color: black;">Home page elements</h4>
-                                        <button mat-button (click)="openCreateDialog()"
-                                            style="color: rgb(0,193,83); font-size: 30px !important;">
+                                    <div class="d-flex justify-content-between align-items-center cont">
+                                        <h4 class="card-title">Home page elements</h4>
+                                        <button mat-button class="create-button" (click)="openCreateDialog()">
                                             <i class="bi bi-plus-circle-fill fs-1"></i>
                                         </button>
                                     </div>
                                     <div class="table-responsive">
-                                        <table class="table table-light table-hover table-bordered table-stripped"
-                                            style="background-color: white; ">
+                                        <table class="table table-light table-hover table-bordered table-stripped">
                                             <thead>
                                                 <tr>
-                                                    <th style="color: black;"><b>Hero Image</b></th>
-                                                    <th style="color: black;"><b>Logo Image</b></th>
-                                                    <th style="color: black;"><b>Header</b></th>
-                                                    <th style="color: black;"><b>Title</b></th>
-                                                    <th style="color: black;"><b>Text 1</b></th>
-                                                    <th style="color: black;"><b>Select</b></th>
-                                                    <th style="color: black;"><b>Actions</b></th>
+                                                    <th class="home-th"><b>Hero Image</b></th>
+                                                    <th class="home-th"><b>Logo Image</b></th>
+                                                    <th class="home-th"><b>Header</b></th>
+                                                    <th class="home-th"><b>Title</b></th>
+                                                    <th class="home-th"><b>Text 1</b></th>
+                                                    <th class="home-th"><b>Select</b></th>
+                                                    <th class="home-th"><b>Actions</b></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -49,14 +46,12 @@
                                                     <td>
                                                         <div class="buttons">
                                                             <button mat-button color="primary"
-                                                                (click)="openEditDialog(obj)" class="action-button"
-                                                                matTooltip="manage this trip"
-                                                                style="color: rgb(92, 92, 245) !important;"><i
+                                                                (click)="openEditDialog(obj)" class="action-button edit-action"
+                                                                matTooltip="manage this trip"><i
                                                                     class="bi bi-pencil-square"></i></button>
                                                             <button mat-button
                                                                 (click)="openDeleteDialog(obj.home_Page_Id)"
-                                                                matTooltip="Delete this trip" class="action-button"
-                                                                style="color: rgb(247, 88, 88) !important;"><i
+                                                                matTooltip="Delete this trip" class="action-button delete-action"><i
                                                                     class="bi bi-trash-fill"></i>
                                                             </button>
                                                         </div>
@@ -79,7 +74,7 @@
     <ng-template #callCreateDialog>
         <mat-dialog-content class="mat-typography">
             <h3>Create Home Elements</h3>
-            <form [formGroup]="CreateHomeElements" style="padding: 30px;">
+            <form [formGroup]="CreateHomeElements" class="create-form">
                 <div>
                     <mat-card class="image-upload-card">
                         <div class="image-upload-header">
@@ -165,7 +160,7 @@
     <ng-template #callUpdateDialog>
         <mat-dialog-content class="mat-typography">
             <h3>Update Element</h3>
-            <form [formGroup]="UpdateHomeElements" style="padding: 30px;">
+            <form [formGroup]="UpdateHomeElements" class="create-form">
                 <div>
                     <mat-card class="image-upload-card">
                         <div class="image-upload-header">
