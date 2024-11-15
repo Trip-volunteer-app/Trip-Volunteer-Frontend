@@ -3,6 +3,7 @@
     <map-marker 
       *ngFor="let marker of markers" 
       [position]="marker.position"
+      [title]="marker.tripName"
       (mapClick)="showDetails(marker.tripId, marker.position)">
     </map-marker>
     
