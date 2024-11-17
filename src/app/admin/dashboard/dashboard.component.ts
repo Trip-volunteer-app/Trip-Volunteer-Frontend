@@ -33,6 +33,7 @@ export class DashboardComponent implements OnInit {
     this.fetchDataAndRenderChartaverageRatingPerCategory();
     this.admin.CalculatePaidBookingPercentage();
     this.admin.GetTestimonyStatusCounts();
+    this.admin.GetAllTripsWithMaxReservations();
     this.admin.NumberOfRegisteredUsers().subscribe(
       (resp: number) => {
         this.NumberOfRegisteredUsers = resp;

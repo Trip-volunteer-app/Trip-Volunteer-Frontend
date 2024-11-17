@@ -120,6 +120,14 @@
       </a>
     </li>
     <li class="nav-item menu-items">
+      <a class="nav-link" routerLink="/admin/ManageVolunteer">
+        <span class="menu-icon">
+          <i class="mdi mdi-speedometer"></i>
+        </span>
+        <span class="menu-title">All Volunteers</span>
+      </a>
+    </li>
+    <li class="nav-item menu-items">
       <a class="nav-link" (click)="isCollapsed = !isCollapsed">
         <span class="menu-icon">
           <i class="mdi mdi-table-large"></i>
@@ -131,7 +139,6 @@
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" routerLink="/admin/ManageCategories">Categories</a></li>
           <li class="nav-item"> <a class="nav-link" routerLink="/admin/ManageServices">Service</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="/admin/ManageVolunteer">Volunteers</a></li>
           <li class="nav-item"> <a class="nav-link" routerLink="/admin/ManageVolunteerRole">Volunteer Roles</a></li>
         </ul>
       </div>

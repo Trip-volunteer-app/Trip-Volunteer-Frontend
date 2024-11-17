@@ -49,7 +49,7 @@ export const authorizationGuard: CanActivateFn = (route, state) => {
               {
                 let user:any = localStorage.getItem('user');
                 user = JSON.parse(user);
-                if(user.Roleid=='2')
+                if(user.Roleid=='2' )
                   return true;           
                 else 
                 {
@@ -63,7 +63,7 @@ export const authorizationGuard: CanActivateFn = (route, state) => {
                 {
                   let user:any = localStorage.getItem('user');
                   user = JSON.parse(user);
-                  if(user.Roleid=='2')
+                  if(user.Roleid=='2' || user.Roleid=='1')
                     return true;           
                   else 
                   {
