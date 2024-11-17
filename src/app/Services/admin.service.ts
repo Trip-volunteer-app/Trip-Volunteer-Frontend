@@ -637,6 +637,7 @@ export class AdminService {
   GetAllTripsWithMaxReservations() {
     this.http.get('https://localhost:7004/api/Trips/TripsWithMaxReservations').subscribe(result => {
       this.TripsWithMaxReservations = result;
+      console.log('TripsWithMaxReservations',result);
     }, err => {
     })
   }
