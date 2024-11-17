@@ -9,6 +9,11 @@ import { LocationService } from '../../Services/location.service';
 import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import Swal from 'sweetalert2';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastrService } from 'ngx-toastr';
+
+
 
 
 @Component({
@@ -21,6 +26,8 @@ export class CreateTripComponent implements OnInit {
   @ViewChild('departureInput') departureInput!: ElementRef;
   @ViewChild('destinationInput') destinationInput!: ElementRef;
   @ViewChild('callNumberDialog') numbersDialog !: TemplateRef<any>;
+  @ViewChild(MatStepper) stepper!: MatStepper;
+
 
 
   currentPage: number = 1;
@@ -67,7 +74,9 @@ export class CreateTripComponent implements OnInit {
     public location: LocationService,
     private http: HttpClient,
     public dialog: MatDialog,
-    private cdr: ChangeDetectorRef) { }
+    private cdr: ChangeDetectorRef,
+    private snackBar: MatSnackBar,
+  public toastr:ToastrService) { }
 
 
   async ngOnInit(): Promise<void> {
@@ -98,10 +107,10 @@ export class CreateTripComponent implements OnInit {
   });
 
   serviceFormGroup: FormGroup = new FormGroup({
-    service_Name: new FormControl('', Validators.required,),
+    service_Name: new FormControl('', Validators.required),
     service_Cost: new FormControl('', [Validators.required, Validators.min(0)])
   });
-
+  
   locationFormGroup: FormGroup = new FormGroup({
     departure_Location: new FormControl('', Validators.required),
     destination_Location: new FormControl('', Validators.required),
@@ -288,9 +297,11 @@ export class CreateTripComponent implements OnInit {
       }
     }
   }
+
   isServiceSelected(serviceId: number): boolean {
-    return (this.ServicesFormGroup.get('selectedServices')?.value as number[]).includes(serviceId);
-  }
+  const selectedServices = this.ServicesFormGroup.get('selectedServices')?.value;
+  return Array.isArray(selectedServices) && selectedServices.includes(serviceId);
+}
 
   nextPage(): void {
     if (this.currentPage < this.totalPages) {
@@ -327,22 +338,45 @@ export class CreateTripComponent implements OnInit {
   async addService() {
     try {
       this.previousServices = [...this.admin.sortedServices];
-      await this.admin.CreateService(this.serviceFormGroup.value);
-      await this.admin.getAllServices();
-      const newService: any = this.admin.sortedServices.find((service: any) =>
-        !this.previousServices.some((prevService: any) => prevService.service_Id === service.service_Id)
-      );
-      if (newService) {
-        this.totalTripPrice = this.totalTripPrice + newService.service_Cost;
-        const currentSelectedServices = this.ServicesFormGroup.value.selectedServices || [];
-        this.ServicesFormGroup.patchValue({
-          selectedServices: [...currentSelectedServices, newService.service_Id]
-        });
-      }
-      this.cdr.detectChanges();
-      this.updatePaginatedServices();
-      this.cancelAddService();
-    } catch (error) { }
+      if (this.serviceFormGroup.valid){
+      const result = await Swal.fire({
+        title: 'Add a new service?',
+        text: 'Are you sure you want to add a new service?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, add it!',
+      });
+
+      // If the user confirmed, proceed with the service creation
+      if (result.isConfirmed) {
+        await this.admin.CreateService(this.serviceFormGroup.value);
+        await this.admin.getAllServices();
+        const newService: any = this.admin.sortedServices.find((service: any) =>
+          !this.previousServices.some((prevService: any) => prevService.service_Id === service.service_Id)
+        );
+        if (newService) {
+          this.totalTripPrice = this.totalTripPrice + newService.service_Cost;
+          const currentSelectedServices = this.ServicesFormGroup.value.selectedServices || [];
+          this.ServicesFormGroup.patchValue({
+            selectedServices: [...currentSelectedServices, newService.service_Id]
+          });
+        }else{
+          this.toastr.error('error creating service');
+
+        }
+        this.cdr.detectChanges();
+        this.updatePaginatedServices();
+        this.cancelAddService();
+        this.toastr.success('Service created successfully');
+
+      
+      }}
+
+    } catch (error) {
+      this.toastr.error('error creating service');
+     }
   }
 
   clearImage(): void {
@@ -405,7 +439,8 @@ export class CreateTripComponent implements OnInit {
   }
 
   isVolunteerRolelected(VolunteerRoleId: number): boolean {
-    return (this.RolesFormGroup.get('selectedRoles')?.value as number[]).includes(VolunteerRoleId);
+    const selectedRoles = this.RolesFormGroup.get('selectedRoles')?.value as number[];  // Get value as array
+    return selectedRoles && Array.isArray(selectedRoles) && selectedRoles.includes(VolunteerRoleId);
   }
 
   nextVolunteerPage(): void {
@@ -499,5 +534,14 @@ export class CreateTripComponent implements OnInit {
     this.RolesNumberFormGroup.reset();
     this.roleInfo.push(roleWithDetails);
     this.maxNumberOfVolunteers = this.roleEntries.reduce((total, entry) => total + Number(entry.number_Of_Volunteers), 0);
+  }
+  resetStepper() {
+    this.stepper.reset();
+    this.stepper.selectedIndex = 0;
+    this.ServicesFormGroup.reset();
+    this.totalTripPrice=0;
+    this.roleInfo.length = 0;
+    this.stepper._getIndicatorType(0);
+    this.locationFormGroup.reset();
   }
 }
