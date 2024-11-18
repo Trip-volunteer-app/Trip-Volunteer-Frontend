@@ -1,59 +1,79 @@
 <app-navbar></app-navbar>
-<section class="hero-wrap hero-wrap-2 "
-  style="background-image: url('assets/Home/images/chero12.jpeg');height: 300px; background-size: cover; background-position: center;">
-  <div class="overlay" style="height: 300px;"></div>
-  <div class="container" style="height: 300px;">
-    <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
-      <div class="col-md-9 ftco-animate pb-5 text-center">
-        <p class="breadcrumbs">
-          <span class="mr-2" style="color: #f15d30 !important;">Payment <i class="fa fa-chevron-right"></i></span>
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-<div class="payment-card">
-  <h2>Payment Details</h2>
-
-  <div class="previous-cards" *ngIf="this.home.userCard.length > 0; else noCardsTemplate">
-    <h3>Your Saved Cards</h3>
-    <div class="card-container" *ngFor="let obj of this.home.userCard; let i = index">
-      <div class="card visa-card">
-        <input type="radio" name="saved-card" [(ngModel)]="selectedCardIndex" [value]="obj.card_Id"
-          (change)="onCardSelect(obj)" />
-        <div class="card-details">
-          <img src="../../assets/Home/images/Visa-Logo-2006.png" alt="Visa" class="card-logo" />
-          <div class="card-number">**** **** ****{{obj.card_Number.slice(-4)}}</div>
-          <div class="expiry-date">Exp: {{obj.expiry_Date}}</div>
+<section class="hero-wrap hero-wrap-2 " style="background-image: url('assets/Home/images/chero12.jpeg');height: 300px; background-size: cover; background-position: center;">
+    <div class="overlay" style="height: 300px;"></div>
+    <div class="container" style="height: 300px;">
+      <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
+        <div class="col-md-9 ftco-animate pb-5 text-center" >
+          <p class="breadcrumbs">
+            <span class="mr-2" style="color: #f15d30 !important;">Payment <i
+                  class="fa fa-chevron-right"></i></span>
+          </p>
         </div>
       </div>
     </div>
+  </section>
+  <div class="payment-card">
+    <h2>Payment Details</h2>
+    
+    <div class="previous-cards" *ngIf="this.home.userCard.length > 0; else noCardsTemplate">
+      <h3>Your Saved Cards</h3>
+      <div class="card-container" *ngFor="let obj of this.home.userCard; let i = index">
+        <div class="card visa-card">
+          <input 
+            type="radio" 
+            name="saved-card" 
+            [(ngModel)]="selectedCardIndex" 
+            [value]="obj.card_Id"
+            (change)="onCardSelect(obj)"
+          />
+          <div class="card-details">
+            <img src="../../assets/Home/images/Visa-Logo-2006.png" alt="Visa" class="card-logo" />
+            <div class="card-number">**** **** ****{{obj.card_Number.slice(-4)}}</div>
+            <div class="expiry-date">Exp: {{obj.expiry_Date}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Fallback template if no saved cards are available -->
+    <ng-template #noCardsTemplate>
+      <p>No saved cards available. Please add a new card.</p>
+    </ng-template>
+  
+    <form class="payment-form" [formGroup]="paymentForm">
+      <h3>Add a New Card</h3>
+      <label for="total_amount">Total Amount</label>
+      <input type="number" formControlName="total_amount" [(ngModel)]="this.home.BookingPayment.total_Amount" readonly />
+    
+
+      <label for="card-number">Card Number</label>
+      <input type="text" formControlName="card_number" placeholder="**** **** **** ****" maxlength="16" required />
+      <span *ngIf="paymentForm.get('card_number')?.touched && paymentForm.get('card_number')?.invalid" class="error-alert">
+        Card number is required.
+      </span>
+  
+      <label for="expiry-date">Expiry Date</label>
+      <input type="text" formControlName="expiry_date" placeholder="MM/YY" maxlength="5" required />
+      <span *ngIf="paymentForm.get('expiry_date')?.touched && paymentForm.get('expiry_date')?.invalid" class="error-alert">
+        Expiry date is required.
+      </span>
+  
+      <label for="cvv">CVV</label>
+      <input type="password" formControlName="cvv" placeholder="CVV" maxlength="3" required />
+      <span *ngIf="paymentForm.get('cvv')?.touched && paymentForm.get('cvv')?.invalid" class="error-alert">
+        cvv is required.
+      </span>
+  
+      <label for="cardholder-name">Cardholder Name</label>
+      <input type="text"formControlName="cardholder_name" placeholder="Name on Card" required />
+      <span *ngIf="paymentForm.get('cardholder_name')?.touched && paymentForm.get('cardholder_name')?.invalid" class="error-alert">
+        Cardholder Name is required.
+      </span>
+  
+      <button type="submit" class="submit-btn" [disabled]="!paymentForm.valid" (click)="openSaveDialog()"> Pay Now</button>
+    </form>
   </div>
 
-  <ng-template #noCardsTemplate>
-    <p>No saved cards available. Please add a new card.</p>
-  </ng-template>
-
-  <form class="payment-form" [formGroup]="paymentForm">
-    <h3>Add a New Card</h3>
-    <label for="total_amount">Total Amount</label>
-    <input type="number" formControlName="total_amount" [(ngModel)]="this.home.BookingPayment.total_Amount" readonly />
-
-    <label for="card-number">Card Number</label>
-    <input type="text" formControlName="card_number" placeholder="**** **** **** ****" maxlength="19" required />
-
-    <label for="expiry-date">Expiry Date</label>
-    <input type="text" formControlName="expiry_date" placeholder="MM/YY" maxlength="10" required />
-
-    <label for="cvv">CVV</label>
-    <input type="password" formControlName="cvv" placeholder="CVV" maxlength="3" required />
-
-    <label for="cardholder-name">Cardholder Name</label>
-    <input type="text" formControlName="cardholder_name" placeholder="Name on Card" required />
-
-    <button type="submit" class="submit-btn" (click)="openSaveDialog()"> Pay Now</button>
-  </form>
-</div>
 <ng-template #callSaveDailog>
   <h1 mat-dialog-title>Save Visa Card</h1>
   <div mat-dialog-content>Do you want to save the Visa Card?</div>
@@ -65,29 +85,39 @@
 
 <ng-template #callpayDailog style="width: 500PX !important;">
   <div class="payment-dialog">
-    <form class="payment-form" [formGroup]="cardForm">
-      <label for="total_amount">Total Amount</label>
-      <input class="total-amount-inactive" type="number" formControlName="total_amount"
-        [(ngModel)]="this.home.BookingPayment.total_Amount" readonly />
+  <form class="payment-form" [formGroup]="cardForm">
+    <label for="total_amount">Total Amount</label>
+    <input class="total-amount-inactive"
+      type="number"
+      formControlName="total_amount"
+      [(ngModel)]="this.home.BookingPayment.total_Amount"
+      readonly
+    />
+    
+    <label for="card-number">Card Number</label>
+    <input type="text" formControlName="card_number"  maxlength="19" [(ngModel)]="this.pData.card_Number" readonly  />
 
-      <label for="card-number">Card Number</label>
-      <input type="text" formControlName="card_number" maxlength="19" [(ngModel)]="this.pData.card_Number" readonly />
+    <label for="expiry-date">Expiry Date</label>
+    <input type="text" formControlName="expiry_date"  maxlength="10" [(ngModel)]="this.pData.expiry_Date" readonly  />
 
-      <label for="expiry-date">Expiry Date</label>
-      <input type="text" formControlName="expiry_date" maxlength="10" [(ngModel)]="this.pData.expiry_Date" readonly />
+    <label for="cvv">CVV</label>
+    <input type="password" formControlName="cvv" placeholder="CVV" maxlength="3" required />
+    <span *ngIf="cardForm.get('cvv')?.invalid" class="error-alert">
+      cvv is required.
+    </span>
 
-      <label for="cvv">CVV</label>
-      <input type="password" formControlName="cvv" placeholder="CVV" maxlength="3" required />
+    <label for="cardholder-name">Cardholder Name</label>
+    <input type="text"formControlName="cardholder_name" [(ngModel)]="this.pData.cardholder_Name" readonly  />
 
-      <label for="cardholder-name">Cardholder Name</label>
-      <input type="text" formControlName="cardholder_name" [(ngModel)]="this.pData.cardholder_Name" readonly />
+<div mat-dialog-actions>
+  <button class="btn" mat-button mat-dialog-close="yes" [disabled]="!cardForm.valid" (click)="onConfirm()">Pay Now!</button>
+  <button class="btn2" mat-button mat-dialog-close="no" (click)="onCancel()">No</button>
+</div>
 
-      <div mat-dialog-actions>
-        <button class="btn" mat-button mat-dialog-close="yes" (click)="onConfirm()">Pay Now!</button>
-        <button class="btn2" mat-button mat-dialog-close="no" (click)="onCancel()">No</button>
-      </div>
-
-    </form>
+  </form>
   </div>
 </ng-template>
 <app-footer></app-footer>
+
+
+
