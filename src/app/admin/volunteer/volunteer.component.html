@@ -10,7 +10,7 @@
                 <div class="card-body">
                   <h4 class="card-title"  >Volunteer Table</h4>
                   <br><br>
-                  <div class="table-responsive">
+                  <div>
                     <div class="row no-gutters">
                       <input type="text" class="form-control" placeholder="First Name" [(ngModel)]="first_Name" hidden>
                       <input type="text" class="form-control" placeholder="Last Name" [(ngModel)]="last_Name" hidden>
@@ -42,7 +42,7 @@
 
                     <br><br>
 
-                    <table class="table table-light" style="background-color: white;">
+                    <table class="table table-light table-responsive" style="background-color: white;">
                       <thead>
                         <tr>
                           <th class="description-col"  > <b>Trip Name</b> </th>
@@ -60,15 +60,15 @@
                       <tbody>
                         <tr
                           *ngFor="let obj of admin.Volunteer | tripVolunteerFilter : first_Name: last_Name : trip_Name: role_Name">
-                          <th class="description-col" matTooltip="{{ obj.trip_Name }}"> {{obj.trip_Name}}</th>
-                          <th> {{obj.role_Name}}</th>
-                          <th class="description-col" matTooltip="{{ obj.email }}"> {{obj.email}} </th>
-                          <th> {{obj.phone_Number}} </th>
-                          <th> {{obj.emergency_Contact}} </th>
-                          <th class="description-col" matTooltip="{{ obj.experience }}"> {{obj.experience}} </th>
-                          <th class="description-col" matTooltip="{{ obj.notes }}"> {{obj.notes}}</th>
-                          <th> {{obj.date_Applied |date}}</th>
-                          <th> {{obj.status}}</th>
+                          <td class="description-col" matTooltip="{{ obj.trip_Name }}"> {{obj.trip_Name}}</td>
+                          <td> {{obj.role_Name}}</td>
+                          <td class="description-col" matTooltip="{{ obj.email }}"> {{obj.email}} </td>
+                          <td> {{obj.phone_Number}} </td>
+                          <td> {{obj.emergency_Contact}} </td>
+                          <td class="description-col" matTooltip="{{ obj.experience }}"> {{obj.experience}} </td>
+                          <td class="description-col" matTooltip="{{ obj.notes }}"> {{obj.notes}}</td>
+                          <td> {{obj.date_Applied |date}}</td>
+                          <td> {{obj.status}}</td>
                           <td>
                             <button mat-button color="primary" (click)="openEditDailog(obj)" class="action-button"
                               *ngIf="obj.status.toLowerCase() =='pending'" matTooltip="update statues"

@@ -16,9 +16,7 @@ import { UserTripsComponent } from './UserProfile/user-trips/user-trips.componen
 import { PaymentComponent } from './payment/payment.component';
 import { TestimonalComponent } from './testimonal/testimonal.component';
 import { TestimonialElementComponent } from './testimonial-element/testimonial-element.component';
-// import { TripFilterPipe } from './trip-filter.pipe';
 import { FormsModule } from '@angular/forms';
-// import { TripVolunteerFilterPipe } from './trip-volunteer-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -33,10 +31,6 @@ import { FormsModule } from '@angular/forms';
     PaymentComponent,
     TestimonalComponent,
     TestimonialElementComponent
-    
-    // TripVolunteerFilterPipe
-    
-  
   ],
 
   imports: [
@@ -45,7 +39,6 @@ import { FormsModule } from '@angular/forms';
     SharedModule,
     BrowserAnimationsModule ,
     FormsModule
-    // SocialLoginModule
   ],
   
   providers: [{

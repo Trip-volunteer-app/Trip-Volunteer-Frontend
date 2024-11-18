@@ -115,7 +115,7 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
 
     const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
     this.isFavorite = favorites.some(
-      (favorite: any) => favorite.bookingId === this.home.tripDetails.bookingId
+      (favorite: any) => favorite.tripId === this.tripId
     );
   }
 
@@ -124,19 +124,12 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
   toggleFavorite() {
     const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
     const index = favorites.findIndex(
-      (favorite: any) => favorite.bookingId === this.home.tripDetails.bookingId
+      (favorite: any) => favorite.tripId === this.tripId
     );
 
     if (index > -1) {
       favorites.splice(index, 1);
       this.isFavorite = false;
-      Swal.fire({
-        icon: 'success',
-        title: 'Delete Faviroute Trip',
-        text: 'The Delete Faviroute Trip from your profile has been successfully.',
-        showConfirmButton: false,
-        timer: 2000
-      });
     } else {
       favorites.push({
         tripId: this.home.tripDetails.trip_Id,
@@ -147,13 +140,7 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
         location: this.home.tripDetails.destination_Location,
       });
       this.isFavorite = true;
-      Swal.fire({
-        icon: 'success',
-        title: 'Add Faviroute Trip',
-        text: 'The Add Faviroute Trip to your profile has been successfully.',
-        showConfirmButton: false,
-        timer: 2000
-      });
+    
     }
     localStorage.setItem('favorites', JSON.stringify(favorites));
   }
@@ -265,7 +252,7 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
       this.user = userFromStorage ? JSON.parse(userFromStorage) : null;
 
       this.userId = Number(this.user.loginid);
-
+      console.log('this.userId', this.userId)
       if (!this.isSeatsAvailable()) {
         this.initializeForm();
         this.updateFormState();
@@ -297,6 +284,9 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
         disableClose: true,
       });
     }
+    this.home.GetBookingByTripId(this.tripId, this.userId);
+    this.home.GetVolunteerByTripId(this.tripId, this.userId);
+
   }
 
   check(isChecked: boolean, id: number) {
@@ -373,6 +363,8 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
                 title: 'Not enough seats',
                 text: 'Sorry, there are not enough available seats for this trip. Please adjust the number of users or choose another trip.',
               });
+              this.dialogRef.close();
+
             }
           } else {
             this.dialogRef.close();
@@ -400,8 +392,17 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
               };
               this.home.CreateBooking(this.bookingreq);
               this.dialogRef.close();
+            }else{
+              Swal.fire({
+                icon: 'error',
+                title: 'Not enough seats',
+                text: 'Sorry, there are not enough available seats for this trip. Please adjust the number of users or choose another trip.',
+              });
+              this.dialogRef.close();
+
             }
           } else {
+           
             this.dialogRef.close();
           }
         });

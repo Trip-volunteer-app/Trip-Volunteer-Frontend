@@ -25976,9 +25976,10 @@
     .jsgrid .jsgrid-table th img,
     .table td img,
     .jsgrid .jsgrid-table td img {
-        width: 10%;
+        width: auto;
         height: 30px;
         border-radius: 100%;
+        max-height: 60px;
     }
 
     .table th .badge,
@@ -29650,7 +29651,6 @@
 
     .content-wrapper {
         max-height: 100vh;
-        overflow-y: auto;
         background: #F9F9F9;
         padding: 1.875rem 1.75rem;
         width: 100%;

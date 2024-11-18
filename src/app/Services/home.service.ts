@@ -266,11 +266,14 @@ export class HomeService {
   //All Booking by trip id
   BookingByTripId: any;
   GetBookingByTripId(TripId: number, LoginId: number) {
+    console.log(TripId,LoginId)
     const params = new HttpParams()
       .set('TripId', TripId.toString())
       .set('LoginId', LoginId.toString());
     this.http.get("https://localhost:7004/api/Booking/GetBookingByTripId", { params }).subscribe(res => {
       this.BookingByTripId = res;
+      console.log('BookingByTripId', this.BookingByTripId)
+
     }, err => {
     })
   }
@@ -431,14 +434,22 @@ export class HomeService {
   }
 
   UpdateSelectedHomeElement(id: number) {
+    console.log('id', id)
     const params = new HttpParams().set('id', id.toString());
     this.http.put(
       'https://localhost:7004/api/HomePageElements/UpdateHomeSelectStatus',
       {},
       { params }
-    )
-  }
+    ).subscribe(
+      (response: any) => {
+        console.log('update selected');
+      },
+      (err) => {
+        console.log('error');
 
+      }
+    );
+  }
   //Testimonial
   Testimonial: any = [];
   GetAcceptedTestimonies() {

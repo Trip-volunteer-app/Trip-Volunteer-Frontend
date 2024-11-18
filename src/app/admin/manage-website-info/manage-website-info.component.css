@@ -1,74 +1,56 @@
-.table-white {
+.adminStyles .table-responsive {
+  display: block;
   width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  height: 400px;
+  max-width: 1000px;
+}
+
+.content-wrapper {
+  max-height: 100vh;
+  overflow-y: none;
+  background: #F9F9F9;
+  padding: 1.875rem 1.75rem;
+  width: 100%;
+  flex-grow: 1;
+}
+
+.table {
+  width: 100%;
+  color: var(--admin-background-color);
+  background-color: var(--admin-background-color-under-card);
   border-collapse: collapse;
-  table-layout: auto;
-  max-height: 500px;
-  overflow-y: auto;
-  background-color: #ffffff;
-  border: none;
-}
-
-.table-white thead th {
-  position: sticky;
-  top: 0;
-  background-color: #f0f0f0;
-  color: #333;
-  font-weight: bold;
-  z-index: 2;
-  padding: 12px 8px;
-  border-bottom: 2px solid #ddd;
-  border-left: 2px solid #d6d6d6;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
-  border-right: none;
 }
 
-.table-white thead th:first-child,
-.table-white tbody td:first-child {
-  border-left: none;
+.table th {
+  background-color: #f3f4f6;
+  color: #333 !important;
+  padding: 12px;
+  font-weight: 600;
+  border: 1px solid #ddd !important;
+  text-align: left;
 }
 
-.table-white td {
-  word-wrap: break-word;
-  white-space: normal;
-  vertical-align: middle;
-  padding: 5px 5px;
-  text-align: center;
-  border-bottom: 1px solid #e0e0e0;
-  border-right: 1px solid #e0e0e0;
+.table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
 }
 
-.table-white tbody tr:nth-child(odd) {
+.table tbody tr:hover {
   background-color: #f9f9f9;
 }
 
-.table-white tbody tr:nth-child(even) {
-  background-color: #ffffff;
+.card {
+  background-color: var(--admin-card-background-color);
 }
 
-.table-white tbody tr:hover {
-  background-color: rgba(200, 200, 200, 0.3);
-  transition: background-color 0.3s;
-}
-
-.table-white img {
-  max-width: 250px;
-  height: auto;
-  border-radius: 0px;
-  margin: 0 auto;
-  display: block;
-}
-
-@media (max-width: 768px) {
-
-  .table-white td,
-  .table-white th {
-    font-size: 12px;
-    padding: 8px;
-  }
-
-  .table-white img {
-    max-width: 100px;
-  }
+.buttons-container {
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .form-section {
@@ -126,4 +108,12 @@
   color: red;
   border: none;
   font-size: 20px;
+}
+
+.create-button {
+  color: rgb(100, 250, 100);
+  margin-left: 900px;
+  font-size: 30px !important;
+  background-color: white;
+  border: none;
 }

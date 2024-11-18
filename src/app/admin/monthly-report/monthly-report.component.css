@@ -43,7 +43,7 @@
   margin: 0 auto;
   padding: 0px;
   font-family: Arial, sans-serif;
-  color: #333;
+  color: #F9F9F9;
 }
 
 .dropdown-group {
@@ -140,11 +140,10 @@ h3 {
   margin-left: 10px;
 }
 
-
-
-
-
 th, td {
   color: black;
 }
 
+.page-body-wrapper{
+  background-color: #F9F9F9;
+}
