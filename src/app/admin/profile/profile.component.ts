@@ -106,7 +106,6 @@ export class ProfileComponent implements OnInit {
     confirmPassword: new FormControl('', Validators.required)
   }, { validators: this.passwordsMatchValidator });
   
-  // Custom validator to check if newPassword and confirmPassword match
   passwordsMatchValidator(control: AbstractControl): ValidationErrors | null {
     const newPassword = control.get('newPassword')?.value;
     const confirmPassword = control.get('confirmPassword')?.value;

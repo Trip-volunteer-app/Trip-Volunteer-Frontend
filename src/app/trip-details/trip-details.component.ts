@@ -7,6 +7,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatTabGroup } from '@angular/material/tabs';
 import { TripPriceService } from '../Services/trip-price.service';
 import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-trip-details',
@@ -129,6 +130,13 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
     if (index > -1) {
       favorites.splice(index, 1);
       this.isFavorite = false;
+      Swal.fire({
+        icon: 'success',
+        title: 'Delete Faviroute Trip',
+        text: 'The Delete Faviroute Trip from your profile has been successfully.',
+        showConfirmButton: false,
+        timer: 2000
+      });
     } else {
       favorites.push({
         tripId: this.home.tripDetails.trip_Id,
@@ -139,6 +147,13 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
         location: this.home.tripDetails.destination_Location,
       });
       this.isFavorite = true;
+      Swal.fire({
+        icon: 'success',
+        title: 'Add Faviroute Trip',
+        text: 'The Add Faviroute Trip to your profile has been successfully.',
+        showConfirmButton: false,
+        timer: 2000
+      });
     }
     localStorage.setItem('favorites', JSON.stringify(favorites));
   }

@@ -16,15 +16,13 @@ export class VolunteerComponent implements OnInit {
   constructor(public admin: AdminService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.admin.getAllVolunteer();    
-    
+    this.admin.getAllVolunteer();
     this.Volunteer.controls['experience'].disable();
     this.Volunteer.controls['phone_Number'].disable();
     this.Volunteer.controls['notes'].disable();
     this.Volunteer.controls['emergency_Contact'].disable();
     this.Volunteer.controls['date_Applied'].disable();
     this.Volunteer.controls['email'].disable();
-
 
   }
 
@@ -45,7 +43,7 @@ export class VolunteerComponent implements OnInit {
 
   Volunteer: FormGroup = new FormGroup({
     volunteer_Id: new FormControl(),
-    login_Id: new FormControl('', Validators.required ),
+    login_Id: new FormControl('', Validators.required),
     trip_Id: new FormControl('', Validators.required),
     volunteer_Role_Id: new FormControl('', Validators.required),
     experience: new FormControl('', Validators.required),
@@ -57,14 +55,14 @@ export class VolunteerComponent implements OnInit {
     email: new FormControl('', Validators.required),
   });
 
-  
+
   pData: any = {};
   statusList: string[] = ['Accepted', 'Rejected'];
 
   openEditDailog(obj: any) {
     this.pData = obj;
-    console.log("PData",this.pData);
-    
+    console.log("PData", this.pData);
+
     this.Volunteer.controls['volunteer_Id'].setValue(this.pData.volunteer_Id);
     this.Volunteer.controls['login_Id'].setValue(this.pData.login_Id);
     this.Volunteer.controls['trip_Id'].setValue(this.pData.trip_Id);
@@ -81,8 +79,7 @@ export class VolunteerComponent implements OnInit {
 
   save2(numberVolunteer: number) {
     const updatedVolunteer = this.Volunteer.value;
-  
-    // Check if the volunteer's status is "Accepted"
+
     if (updatedVolunteer.status === 'Accepted') {
       if (numberVolunteer > 0) {
         this.admin.UpdateVolunteerStatus(updatedVolunteer).subscribe(
@@ -93,8 +90,7 @@ export class VolunteerComponent implements OnInit {
               text: 'The volunteer status has been successfully updated.',
               confirmButtonText: 'OK'
             });
-  
-            // If the volunteer status is "Accepted"
+
             this.handleAcceptedStatus(updatedVolunteer);
           },
           err => {
@@ -104,11 +100,10 @@ export class VolunteerComponent implements OnInit {
               text: 'There was an error updating the volunteer status. Please try again.',
               confirmButtonText: 'OK'
             });
-            console.log('Error:', err.message); // Log error message in English
+            console.log('Error:', err.message);
           }
         );
       } else {
-        // If numberVolunteer is 0, update all volunteers with the same trip_Id to "Rejected"
         Swal.fire({
           icon: 'warning',
           title: 'Max Volunteers Reached',
@@ -118,9 +113,8 @@ export class VolunteerComponent implements OnInit {
           cancelButtonText: 'No, Keep as is'
         }).then((result) => {
           if (result.isConfirmed) {
-            // If admin clicks "Yes", reject all volunteers with the same trip_Id
-            this.rejectAllVolunteers(updatedVolunteer.trip_Id);
-            this.admin.getAllVolunteer();    
+            this.rejectAllVolunteers(updatedVolunteer.trip_Id, updatedVolunteer.volunteer_Role_Id);
+            this.admin.getAllVolunteer();
 
             Swal.fire({
               icon: 'info',
@@ -128,7 +122,7 @@ export class VolunteerComponent implements OnInit {
               text: 'All additional volunteers for this trip have been rejected.',
               confirmButtonText: 'OK'
             });
-            this.admin.getAllVolunteer();    
+            this.admin.getAllVolunteer();
 
           } this.admin.getAllVolunteer();
         });
@@ -144,9 +138,9 @@ export class VolunteerComponent implements OnInit {
           });
 
           if (updatedVolunteer.status === 'Rejected') {
-            this.sendEmailNotification(updatedVolunteer.volunteer_Id,updatedVolunteer.email, updatedVolunteer.status);
-          }    
-          this.admin.getAllVolunteer();    
+            this.sendEmailNotification(updatedVolunteer.volunteer_Id, updatedVolunteer.email, updatedVolunteer.status);
+          }
+          this.admin.getAllVolunteer();
         },
         err => {
           Swal.fire({
@@ -155,43 +149,36 @@ export class VolunteerComponent implements OnInit {
             text: 'There was an error updating the volunteer status. Please try again.',
             confirmButtonText: 'OK'
           });
-          console.log('Error:', err.message); // Log error message in English
-          this.admin.getAllVolunteer();    
-
-        }          
-
-      );    
+          console.log('Error:', err.message);
+          this.admin.getAllVolunteer();
+        }
+      );
     }
-  
   }
-  
+
   handleAcceptedStatus(updatedVolunteer: any) {
-    this.sendEmailNotification(updatedVolunteer.volunteer_Id,updatedVolunteer.email, 'Accepted');
+    this.sendEmailNotification(updatedVolunteer.volunteer_Id, updatedVolunteer.email, 'Accepted');
     this.sendTripDetails(updatedVolunteer.trip_Id);
     this.admin.updateNumberOfVolunteer(updatedVolunteer);
-    this.admin.getAllVolunteer();    
+    this.admin.getAllVolunteer();
 
   }
-  
-  rejectAllVolunteers(tripId: number) {
-    // Use getAllVolunteers to fetch all volunteers
+
+  rejectAllVolunteers(tripId: number, volunteerRoleId: number) {
     this.admin.getAllVolunteers().subscribe(
       volunteers => {
-        // Filter volunteers by trip_Id and status 'Pending'
         const volunteersToReject = volunteers.filter(
-          volunteer => volunteer.trip_Id === tripId && volunteer.status.toLowerCase() === 'pending'
+
+          volunteer => volunteer.trip_Id === tripId && volunteer.volunteer_Role_Id === volunteerRoleId && volunteer.status.toLowerCase() === 'pending'
         );
-  
-        // Check if there are any volunteers to reject
+
         if (volunteersToReject.length > 0) {
-          // Update the status of all filtered volunteers to "Rejected"
           volunteersToReject.forEach(volunteer => {
             this.admin.UpdateVolunteerStatus({ ...volunteer, status: 'Rejected' }).subscribe(
               response => {
                 console.log(`The status of volunteer ${volunteer.volunteer_Id} has been updated to Rejected.`);
-                this.sendEmailNotification(volunteer.volunteer_Id,volunteer.email, 'Rejected');
-  
-                // Refresh volunteer list after update
+                this.sendEmailNotification(volunteer.volunteer_Id, volunteer.email, 'Rejected');
+
                 this.admin.getAllVolunteer();
               },
               err => {
@@ -209,9 +196,6 @@ export class VolunteerComponent implements OnInit {
       }
     );
   }
-  
-  
-  
 
   sendEmailNotification(volunteerId: number, email: string, status: string) {
 
@@ -229,21 +213,15 @@ export class VolunteerComponent implements OnInit {
 
   sendTripDetails(tripId: number) {
     this.admin.getTripDetails(tripId).subscribe(tripDetails => {
-      console.log("Trip details received:", tripDetails); // Log to inspect the data structure
-  
+      console.log("Trip details received:", tripDetails);
+
       const userEmail = this.pData.email;
-  
-      // const emailData = {
-      //   email: userEmail,
-      //   tripDetails: tripDetails?.details || JSON.stringify(tripDetails) // Send as a string if details is missing
-      // };
-  
       const emailData = {
         email: userEmail,
         tripDetails: `Trip Name: ${tripDetails.trip_Name}, Start Date: ${tripDetails.start_Date},End Date: ${tripDetails.end_Date},Description: ${tripDetails.description}, Location: ${tripDetails.destination_Location}`
       };
 
-      
+
       this.admin.sendTripDetailsEmail(emailData).subscribe(response => {
         console.log("Trip details email sent successfully", response);
       }, error => {
@@ -253,10 +231,5 @@ export class VolunteerComponent implements OnInit {
       console.error("Error fetching trip details", error);
     });
   }
-  
 
-  // disableField(event: Event) {
-  //   const inputField = event.target as HTMLInputElement;
-  //   inputField.disabled = true;
-  // }
 }

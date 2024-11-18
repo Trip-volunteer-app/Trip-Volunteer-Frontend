@@ -1,22 +1,22 @@
-/* General Styles */
 body {
   font-family: Arial, sans-serif;
   color: black;
 }
 
-/* Card Title */
 .report-title {
   color: black;
   font-weight: bold;
 }
 
 
-/* Mat-Form Field Styling */
 .example-container mat-form-field {
   width: 100%;
 }
 
-/* Responsive Design */
+.page-body-wrapper{
+  background-color: #2E2E2E;
+}
+
 @media (max-width: 768px) {
   .btn {
     padding: 8px 10px;
