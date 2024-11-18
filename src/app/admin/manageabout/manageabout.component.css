@@ -118,7 +118,7 @@
   color: rgb(100, 250, 100);
   margin-left: 900px;
   font-size: 30px !important;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0);
   border: none;
 }
 
@@ -227,7 +227,7 @@
   position: sticky; right: 0; background: #f0f0f0;
 }
 .edit-button {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0);
   border: none;
 }
 
@@ -238,7 +238,7 @@
 }
 
 .delete-button {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0);
   border: none;
 }
 
@@ -258,4 +258,8 @@
 
 .labet-about{
   display: block;
+}
+
+.about-img{
+  height: 5px !important;
 }

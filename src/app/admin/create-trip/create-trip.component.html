@@ -1,4 +1,3 @@
-
 <div class="adminStyles">
   <div class="container-scroller">
 
@@ -18,10 +17,8 @@
                       </mat-radio-button>
                     </div>
                   </mat-radio-group>
-                  <div class="button-container">
-                    <button mat-button matStepperNext [disabled]="firstFormGroup.invalid" class="next-button">
-                      Next
-                    </button>
+                  <div class="stepper-buttons">
+                    <button mat-raised-button color="primary" matStepperNext>Next</button>
                   </div>
                 </form>
               </mat-step>
@@ -32,7 +29,7 @@
                   <div>
                     <mat-card class="image-upload-card">
                       <div class="image-upload-header">
-                        <mat-label>Logo Image</mat-label>
+                        <mat-label>Trip Image</mat-label>
                         <button mat-icon-button (click)="clearImage()" *ngIf="ImagePreview">
                           <mat-icon>close</mat-icon>
                         </button>
@@ -46,9 +43,9 @@
                     </mat-card>
                   </div>
                 </form>
-                <div>
+                <div class="stepper-buttons">
                   <button mat-button matStepperPrevious>Back</button>
-                  <button mat-button matStepperNext [disabled]="!TripImage.valid">Next</button>
+                  <button mat-raised-button color="primary" matStepperNext>Next</button>
                 </div>
               </mat-step>
 
@@ -82,33 +79,27 @@
                         </mat-error>
                       </mat-form-field>
                     </div>
-
                     <div fxFlex="50">
-                      <mat-form-field appearance="fill" class="full-width">
-                        <mat-label>Start Date</mat-label>
-                        <input matInput formControlName="Start_Date" type="date" required>
-                        <mat-error
-                          *ngIf="secondFormGroup.get('Start_Date')?.invalid && secondFormGroup.get('Start_Date')?.touched">
-                          Start Date is required.
-                        </mat-error>
-                      </mat-form-field>
+                      <div fxLayout="row" fxLayoutGap="16px" class="date-fields-container">
+                        <mat-form-field appearance="fill" class="full-width date-field">
+                          <mat-label>Start Date</mat-label>
+                          <input matInput [matDatepicker]="startPicker" formControlName="Start_Date" required [value]="secondFormGroup.get('Start_Date')?.value | date: 'yyyy-MM-dd'">
+                          <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                          <mat-datepicker #startPicker panelClass="small-datepicker"></mat-datepicker>
+                        </mat-form-field>
 
-                      <mat-form-field appearance="fill" class="full-width">
-                        <mat-label>End Date</mat-label>
-                        <input matInput formControlName="End_Date" type="date" required>
-                        <mat-error
-                          *ngIf="secondFormGroup.get('End_Date')?.invalid && secondFormGroup.get('End_Date')?.touched">
-                          End Date is required.
-                        </mat-error>
-                      </mat-form-field>
-
-
+                        <mat-form-field appearance="fill" class="full-width date-field">
+                          <mat-label>End Date</mat-label>
+                          <input matInput [matDatepicker]="endPicker" formControlName="End_Date" required [value]="secondFormGroup.get('End_Date')?.value | date: 'yyyy-MM-dd'">
+                          <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                          <mat-datepicker #endPicker panelClass="small-datepicker"></mat-datepicker>
+                        </mat-form-field>
+                      </div>
                     </div>
                   </div>
-
-                  <div>
+                  <div class="stepper-buttons">
                     <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext [disabled]="!secondFormGroup.valid">Next</button>
+                    <button mat-raised-button color="primary" matStepperNext>Next</button>
                   </div>
                 </form>
               </mat-step>
@@ -126,15 +117,24 @@
 
                   <div *ngIf="showAddServiceForm" class="new-service-form" [formGroup]="serviceFormGroup">
                     <h3>Add New Service</h3>
-
                     <mat-form-field appearance="outline" class="form-field form-field1">
                       <mat-label>Service Name</mat-label>
-                      <input matInput formControlName="service_Name" placeholder="Enter service name">
+                      <input matInput formControlName="service_Name" placeholder="Enter service name" required>
+                      <mat-error *ngIf="serviceFormGroup.get('service_Name')?.hasError('required')">
+                        Service Name is required
+                      </mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="form-field form-field1">
                       <mat-label>Service Cost</mat-label>
-                      <input matInput formControlName="service_Cost" placeholder="Enter service cost" type="number">
+                      <input matInput formControlName="service_Cost" placeholder="Enter service cost" type="number"
+                        required>
+                      <mat-error *ngIf="serviceFormGroup.get('service_Cost')?.hasError('required')">
+                        Service Cost is required
+                      </mat-error>
+                      <mat-error *ngIf="serviceFormGroup.get('service_Cost')?.hasError('min')">
+                        Service Cost cannot be negative
+                      </mat-error>
                     </mat-form-field>
 
                     <div class="add-service-actions">
@@ -151,7 +151,7 @@
                   <div class="service-list">
                     <div class="service-item" *ngFor="let service of paginatedServices">
                       <mat-checkbox [checked]="isServiceSelected(service.service_Id)"
-                        (change)="onServiceChange($event.checked, service.service_Id)">
+                        (change)="onServiceChange($event.checked, service)">
                         <span class="service-name">{{ service.service_Name }}</span>
                         <span class="service-cost"> {{ service.service_Cost | currency }}</span>
                       </mat-checkbox>
@@ -167,10 +167,45 @@
                       <mat-icon>arrow_forward</mat-icon>
                     </button>
                   </div>
-                  <div class="total-trip-price">
-                    <strong>Total Trip Price:</strong> {{ totalTripPrice | currency }}
-                  </div>
+                  <div class="selected-Items-Container">
+                    <div class="selected-Items-Container">
+                      <!-- Optional Services List -->
+                      <div class="selected-services-list">
+                        <h2 class="services-title">Optional Services</h2>
+                        <div class="scrollable-services">
+                          <div *ngIf="optionalServicesList?.length; else noOptionalServices">
+                            <div class="selected-service" *ngFor="let service of optionalServicesList">
+                              <span class="service-name">{{ service.service_Name }}</span>
+                              <span class="service-cost">{{ service.service_Cost | currency }}</span>
+                            </div>
+                          </div>
+                          <ng-template #noOptionalServices>
+                            <p class="no-services-text">No optional services selected.</p>
+                          </ng-template>
+                        </div>
+                      </div>
 
+                      <!-- Non-Optional Services List -->
+                      <div class="selected-services-list">
+                        <h2 class="services-title">Non-Optional Services</h2>
+                        <div class="scrollable-services">
+                          <div *ngIf="nonOptionalServicesList?.length; else noNonOptionalServices">
+                            <div class="selected-service" *ngFor="let service of nonOptionalServicesList">
+                              <span class="service-name">{{ service.service_Name }}</span>
+                              <span class="service-cost">{{ service.service_Cost | currency }}</span>
+                            </div>
+                          </div>
+                          <ng-template #noNonOptionalServices>
+                            <p class="no-services-text">No non-optional services selected.</p>
+                          </ng-template>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="total-trip-price">
+                    <strong>Total trip cost:</strong> {{ totalTripPrice | currency }}
+                  </div>
                   <div class="stepper-buttons">
                     <button mat-button matStepperPrevious>Back</button>
                     <button mat-raised-button color="primary" matStepperNext>Next</button>
@@ -303,19 +338,12 @@
                   </google-map>
 
                   <div *ngIf="markerPositions.departure" class="marker-details">
-                    <p><strong>Departure:</strong> {{ markerPositions.departure.lat }}, {{ markerPositions.departure.lng
-                      }}</p>
-                  </div>
-
-                  <div *ngIf="markerPositions.destination" class="marker-details">
-                    <p><strong>Destination:</strong> {{ markerPositions.destination.lat }}, {{
-                      markerPositions.destination.lng }}</p>
                   </div>
                 </div>
 
-                <div class="navigation-buttons">
+                <div class="stepper-buttons">
                   <button mat-button matStepperPrevious>Back</button>
-                  <button mat-button matStepperNext [disabled]="!secondFormGroup.valid"
+                  <button mat-raised-button color="primary" matStepperNext [disabled]="!secondFormGroup.valid"
                     (click)="onSubmit()">Create</button>
                 </div>
               </mat-step>
@@ -324,17 +352,13 @@
                 <ng-template matStepLabel>Done</ng-template>
                 <p>You are now done.Trip Created</p>
                 <div>
-                  <button mat-button (click)="stepper.reset()">Reset</button>
+                  <button mat-button (click)="resetStepper()">Reset</button>
                 </div>
               </mat-step>
             </mat-stepper>
           </div>
           <div class="btn2">
-            <button mat-button (click)="back()" class ="back-button">Back</button>
-          </div>
-          <div *ngFor="let entry of roleEntries">
-            <p>Role ID: {{ entry.volunteer_Role_Id }}</p>
-            <p>Number of Volunteers: {{ entry.number_Of_Volunteers }}</p>
+            <button mat-button (click)="back()" class="back-button">Back</button>
           </div>
         </div>
       </div>
@@ -361,4 +385,18 @@
       <button mat-button mat-dialog-close cdkFocusInitial (click)="save2()">Save</button>
     </mat-dialog-actions>
   </ng-template>
+
+  <ng-template #callOptionalDialog>
+    <mat-dialog-content class="mat-typography">
+      <h3>Is this service optional?</h3>
+      <form [formGroup]="optionalServiceFormGroup" style="padding: 30px;">
+        <mat-checkbox formControlName="is_Optional" (change)="onCheckboxChange($event)">Mark as optional</mat-checkbox>
+      </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button mat-dialog-close cdkFocusInitial (click)="saveOptionalService()">Save</button>
+    </mat-dialog-actions>
+  </ng-template>
+
 </div>

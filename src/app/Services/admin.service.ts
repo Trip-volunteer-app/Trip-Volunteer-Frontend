@@ -261,8 +261,11 @@ export class AdminService {
     }
   }
 
-  UpdateTrip_vrole_NumberOfVolunteers(body: any) {
-    this.http.put('https://localhost:7004/api/TripVolunteerrole/UpdateTrip_vrole_NumberOfVolunteers', body)
+  async UpdateTrip_vrole_NumberOfVolunteers(body: any): Promise<void> {
+    try {
+      await this.http.put('https://localhost:7004/api/TripVolunteerrole/UpdateTrip_vrole_NumberOfVolunteers', body).toPromise();
+    } catch (error) {
+    }
   }
 
   async CreateVolunteerRoleForTrip(body: any): Promise<void> {

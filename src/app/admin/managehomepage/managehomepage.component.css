@@ -53,23 +53,65 @@ body {
   color: black;
 }
 
-.create-button {
-  color: rgb(0, 193, 83);
+
+.create-button-contact {
+  color: rgba(100, 250, 100, 0);
+  margin-left: 900px;
   font-size: 30px !important;
+  background-color: white;
+  border: none;
 }
+
+.edit-button {
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+}
+
+.i-edit {
+  color: blue;
+  border: none;
+  font-size: 20px;
+}
+
+.delete-button {
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+}
+
+.i-delete {
+  color: red;
+  border: none;
+  font-size: 20px;
+}
+
 
 .table {
-  background-color: white;
+  width: 100%;
+  color: var(--admin-background-color);
+  background-color: var(--admin-background-color-under-card);
+  border-collapse: collapse;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
-.edit-action {
-  color: rgb(92, 92, 245) !important;
+.table th {
+  background-color: #f3f4f6;
+  color: #333 !important;
+  padding: 12px;
+  font-weight: 600;
+  border: 1px solid #ddd !important;
+  text-align: left;
 }
 
-.delete-action {
-  color: rgb(247, 88, 88) !important;
+.table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
 }
 
-.create-form {
-  padding: 30px;
+.table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+.card {
+  background-color: var(--admin-card-background-color);
 }

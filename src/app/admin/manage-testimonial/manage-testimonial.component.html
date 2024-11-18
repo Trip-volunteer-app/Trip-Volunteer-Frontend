@@ -11,7 +11,7 @@
                   <h4 class="card-title report-title t-header">Testimonial Table</h4>
                   <br><br>
                   <div class="table-responsive">
-                    <table class="custom-table">
+                    <table class="custom-table table">
                       <thead>
                         <tr>
                           <th class="t-header"><b>case</b></th>
@@ -29,7 +29,8 @@
                           <td> {{ obj.feedback }} </td>
                           <td> {{ obj.rating }} </td>
                           <td> {{ obj.create_At }} </td>
-                          <td>
+                          <div>
+                          <td class ="buttons-container">
                             <button (click)="openDeleteDialog(obj.testimonial_Id)" class="no-border">
                               <i class="bi bi-trash-fill trash-button"></i>
                             </button>
@@ -37,6 +38,7 @@
                               <i class="bi bi-pencil-square edit-testimony-button"></i>
                             </button>
                           </td>
+                          </div>
                         </tr>
                       </tbody>
                     </table>

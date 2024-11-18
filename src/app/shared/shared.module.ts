@@ -27,8 +27,12 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { TripFilterPipe } from '../trip-filter.pipe';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { TripVolunteerFilterPipe } from '../trip-volunteer-filter.pipe';
-
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserModule } from '@angular/platform-browser';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -85,7 +89,11 @@ import { TripVolunteerFilterPipe } from '../trip-volunteer-filter.pipe';
     MatExpansionModule,
     MatPaginatorModule,
     TripFilterPipe,
-    TripVolunteerFilterPipe
+    TripVolunteerFilterPipe,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSnackBarModule,
+    MatStepperModule
       ]
 })
 export class SharedModule { }

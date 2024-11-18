@@ -42,7 +42,7 @@
                                         <div class="service-list">
                                             <div class="service-item" *ngFor="let service of paginatedServices">
                                                 <mat-checkbox [checked]="isServiceSelected(service.service_Id)"
-                                                    (change)="onServiceChange($event.checked, service.service_Id)">
+                                                    (change)="onServiceChange($event.checked, service)">
                                                     <span class="service-name">{{ service.service_Name }}</span>
                                                     <span class="service-cost"> {{ service.service_Cost | currency
                                                         }}</span>
@@ -71,6 +71,9 @@
                                                         *ngFor="let selectedService of admin.tripServices">
                                                         <span class="service-name">{{ selectedService.service_Name
                                                             }}</span>
+                                                                        <span class="service-optional">
+                                                                            {{ selectedService.is_Optional === 1 ? 'Optional' : 'Not Optional' }}
+                                                                        </span>
                                                         <span class="service-cost">{{ selectedService.service_Cost |
                                                             currency }}</span>
                                                         <mat-icon class="edit-icon"
@@ -85,14 +88,13 @@
                                         <div class="selected-services-list">
                                             <h2 class="services-title">Newly Selected Services</h2>
                                             <div class="scrollable-services">
-                                                <div
-                                                    *ngIf="selectedServicesDetails.length > 0; else noServicesSelected">
-                                                    <div class="selected-service"
-                                                        *ngFor="let selectedService of selectedServicesDetails">
-                                                        <span class="service-name">{{ selectedService.service_Name
-                                                            }}</span>
-                                                        <span class="service-cost">{{ selectedService.service_Cost |
-                                                            currency }}</span>
+                                                <div *ngIf="selectedServicesDetails.length > 0; else noServicesSelected">
+                                                    <div class="selected-service" *ngFor="let selectedService of optionalServices">
+                                                        <span class="service-name">{{ selectedService.service_Name }}</span>
+                                                        <span class="service-status">
+                                                            {{ selectedService.is_Optional === 1 ? 'Optional' : 'Not optional' }}
+                                                        </span>
+                                                        <span class="service-cost">{{ selectedService.service_Cost | currency }}</span>
                                                     </div>
                                                 </div>
                                                 <ng-template #noServicesSelected>
@@ -100,6 +102,7 @@
                                                 </ng-template>
                                             </div>
                                         </div>
+                                        
                                     </div>
                                     <div class="scrollable-services-container">
                                         <div class="add-butoon-section">
@@ -162,4 +165,17 @@
             <button mat-button mat-dialog-close cdkFocusInitial (click)="updateService()">Update Current</button>
         </mat-dialog-actions>
     </ng-template>
+
+    <ng-template #callOptionalDialog>
+        <mat-dialog-content class="mat-typography">
+          <h3>Is this service optional?</h3>
+          <form [formGroup]="optionalServiceFormGroup" style="padding: 30px;">
+            <mat-checkbox formControlName="is_Optional" (change)="onCheckboxChange($event)">Mark as optional</mat-checkbox>
+          </form>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+          <button mat-button mat-dialog-close>Cancel</button>
+          <button mat-button mat-dialog-close cdkFocusInitial (click)="saveOptionalService()">Save</button>
+        </mat-dialog-actions>
+      </ng-template>
 </div>

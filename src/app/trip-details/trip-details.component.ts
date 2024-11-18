@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, Validators, AbstractControl, ValidationErrors, ValidatorFn, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatTabGroup } from '@angular/material/tabs';
-
+import { TripPriceService } from '../Services/trip-price.service';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 
@@ -22,7 +22,9 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
     public home: HomeService,
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public tripsWithPrice: TripPriceService,
+
   ) { }
   @ViewChild('callBookingDailog') BookingDailog!: TemplateRef<any>;
   @ViewChild('callAuthDailog') AuthDailog!: TemplateRef<any>;
@@ -31,17 +33,22 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
   tripId!: number;
   total: number = 0;
   volunteerRolesWithVolunteers: any[] = [];
+  tripPrice: number=0;
 
   async ngOnInit() {
     this.styleService.applyFullHeight();
 
     this.route.paramMap.subscribe(params => {
       this.tripId = +params.get('tripId')!;
-
+      this.home.getTripByIdWithOptionalServices(this.tripId)
       if (this.tripId) {
         this.home.getTripById(this.tripId).subscribe(async tripDetails => {
           this.home.tripDetails = tripDetails;
-
+          await this.tripsWithPrice.calculateTripPriceForASingleTrip(tripDetails);
+          console.log('tripDetailsWithCalculatedPrice', this.tripsWithPrice.tripDetailsWithCalculatedPrice)
+          this.tripPrice= this.tripsWithPrice.tripDetailsWithCalculatedPrice.trip_Price;
+          this.total=this.tripPrice;
+          console.log( this.tripPrice)
           if (this.home.tripDetails.category_Id) {
             await this.home.GetReviewByCategoryId(this.home.tripDetails.category_Id);
 
@@ -78,7 +85,7 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
       trip_Id: new FormControl('', Validators.required),
       login_Id: new FormControl('', Validators.required),
       numberOfUser: [{ value: '', disabled: !this.isSeatsAvailable() }],
-      total_Amount: [{ value: '', disabled: !this.isSeatsAvailable() }],
+      total_Amount: [{ value: this.tripPrice, disabled: !this.isSeatsAvailable() }],
       note: [{ value: '', disabled: !this.isSeatsAvailable() }],
     });
   }
@@ -307,7 +314,7 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
   }
 
   updateTotalAmount() {
-    const tripCost = this.pData.trip_Price;
+    const tripCost = this.tripPrice;
     const numberOfUsers = this.BookingTrip.controls['numberOfUser'].value;
 
     const selectedServiceCosts = this.selectedService.reduce(
@@ -320,8 +327,8 @@ export class TripDetailsComponent implements OnInit, AfterViewInit {
       },
       0
     );
-    const totalAmount = (tripCost + selectedServiceCosts) * numberOfUsers;
-
+    const totalAmount = (this.tripPrice + selectedServiceCosts) * numberOfUsers;
+    console.log('totalAmount', totalAmount)
     this.BookingTrip.controls['total_Amount'].setValue(totalAmount);
   }
   goLogin() {

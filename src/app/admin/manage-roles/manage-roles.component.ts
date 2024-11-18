@@ -118,7 +118,6 @@ export class ManageRolesComponent implements OnInit {
       await this.updatePaginatedRoles();
       this.cancelAddRole();
     } catch (error) {
-      console.error('Error adding role:', error);
     }
     this.calculateMaxNumberOfVolunteers();
   }
@@ -188,7 +187,7 @@ export class ManageRolesComponent implements OnInit {
   pData: any;
   openEditDialog(obj: any) {
     this.pData = obj;
-    this.UpdateRolesFormGroup.controls['trip_Volunteerroles_Id'].setValue(this.pData)
+    this.UpdateRolesFormGroup.controls['trip_Volunteerroles_Id'].setValue(this.pData.trip_Volunteerroles_Id)
     this.dialog.open(this.updateDialog)
   }
 
@@ -197,7 +196,7 @@ export class ManageRolesComponent implements OnInit {
   }
 
   async updateAllTripsRoles() {
-    this.admin.UpdateTrip_vrole_NumberOfVolunteers(this.UpdateRolesFormGroup.value);
+    await this.admin.UpdateTrip_vrole_NumberOfVolunteers(this.UpdateRolesFormGroup.value);
     await this.admin.GetVolunteerRoleByTripID(this.tripId)
     this.calculateMaxNumberOfVolunteers();
   }
@@ -226,7 +225,6 @@ export class ManageRolesComponent implements OnInit {
       this.cdr.detectChanges();
       this.updatePaginatedRoles();
     } catch (error) {
-      console.error('Error adding service:', error);
     }
     await this.admin.GetVolunteerRoleByTripID(this.tripId)
     this.calculateMaxNumberOfVolunteers();
@@ -265,8 +263,7 @@ export class ManageRolesComponent implements OnInit {
           this.admin.DeleteTripVolunteerRoleForATrip(id, this.tripId);
         await this.admin.GetVolunteerRoleByTripID(this.tripId)
         this.calculateMaxNumberOfVolunteers();
-      } else if (res == 'no')
-        console.log('Thank you');
+      } 
     }
     );
     await this.admin.GetVolunteerRoleByTripID(this.tripId)
@@ -292,7 +289,7 @@ export class ManageRolesComponent implements OnInit {
 
   async save2() {
     const roleData = {
-      volunteer_Role_Id: this.RolesNumberFormGroup.get('volunteer_Role_Id')?.value,
+      volunteer_Role_Id: this.RolesNumberFormGroup.get('trip_Volunteerroles_Id')?.value,
       number_Of_Volunteers: this.RolesNumberFormGroup.get('number_Of_Volunteers')?.value
     };
     this.roleEntries.push(roleData);

@@ -45,17 +45,37 @@ export class HomeService {
   Trips: any = [];
   tripDetails: any;
 
-  getALLTrips() {
-    this.http.get("https://localhost:7004/api/Trips/GetAllTripInformation/").subscribe(res => {
+  async getALLTrips(): Promise<void> {
+    try {
+      const res = await this.http.get("https://localhost:7004/api/Trips/GetAllTripInformation/").toPromise();
       this.Trips = res;
-    }, err => {
-    })
+    } catch (error) {
+    }
   }
+
+  tripswithoutOptionalServices: any
+  async getALLTripsWithoutOptionalServices(): Promise<void> {
+    try {
+      const res = await this.http.get("https://localhost:7004/api/Trips/GETALLTRIPINFORMATIONWITHOUTOPTIONALSERVICES/").toPromise();
+      this.tripswithoutOptionalServices = res;
+    } catch (error) {
+    }
+  }
+
 
   getTripById(id: number): Observable<any> {
     const params = new HttpParams().set('id', id.toString());
 
     return this.http.get("https://localhost:7004/api/Trips/GetAllTripInformationById", { params });
+  }
+
+  tripDetailsWithOptionalServices: any;
+  async getTripByIdWithOptionalServices(id: number): Promise<void> {
+    try {
+      const res = await this.http.get(`https://localhost:7004/api/Trips/GetAllTripInformationByIdWithOptionalServices/${id}`).toPromise();
+      this.tripDetailsWithOptionalServices = res;
+    } catch (error) {
+    }
   }
 
   GetTripVolunteer: any = [];
@@ -158,7 +178,6 @@ export class HomeService {
       const totalAmount = bookingResponse?.total_Amount || 'Not Available';
       const receiverEmail = localStorage.getItem('email');
       if (!receiverEmail) {
-        console.error('User email not found in local storage');
         return;
       }
 
@@ -329,11 +348,12 @@ export class HomeService {
   }
 
   bookingServices: any;
-  GetBookingServiceByBookingId(id: number) {
-    this.http.get('https://localhost:7004/api/BookingServices/GetBookingServiceByBookingId/' + id).subscribe(result => {
-      this.bookingServices = result;
-    }, err => {
-    })
+  async GetBookingServiceByBookingId(id: number): Promise<void> {
+    try {
+      const res = await this.http.get('https://localhost:7004/api/BookingServices/GetBookingServiceByBookingId/' + id).toPromise();
+      this.bookingServices = res;
+    } catch (error) {
+    }
   }
 
   CreateHomePageElements(body: any) {

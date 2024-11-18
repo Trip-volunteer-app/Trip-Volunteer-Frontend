@@ -16,11 +16,11 @@
 </section>
 <mat-card class="image-slider-container">
   <div class="example-button-row">
-    <button mat-raised-button *ngIf="isFutureTrip(home.tripDetails.start_Date)"
-      (click)="openBookingDailog(home.tripDetails)"
+    <button mat-raised-button *ngIf="isFutureTrip(tripsWithPrice.tripDetailsWithCalculatedPrice.start_Date)"
+      (click)="openBookingDailog(home.tripDetailsWithOptionalServices)"
       style="background-color: #ff5722; color: white;">Reserve/Volunteer</button>
 
-    <mat-dialog-content *ngIf="!isFutureTrip(home.tripDetails.start_Date)">
+    <mat-dialog-content *ngIf="!isFutureTrip(tripsWithPrice.tripDetailsWithCalculatedPrice.start_Date)">
       <div class="alert-box">
         <p>
           The trip has already passed .Please pick another trip!
@@ -36,12 +36,12 @@
 
   <mat-card-content>
     <div class="slider">
-      <div class="slide" *ngFor="let image of home.tripDetails.images; let i = index"
+      <div class="slide" *ngFor="let image of tripsWithPrice.tripDetailsWithCalculatedPrice.images; let i = index"
         [class.active]="i === currentSlide">
         <img src="../../assets/images/{{image.image_Name}}" alt="TripImage" />
       </div>
 
-      <div class="controls" *ngIf="home.tripDetails.images.length > 1">
+      <div class="controls" *ngIf="tripsWithPrice.tripDetailsWithCalculatedPrice.images.length > 1">
         <button mat-icon-button (click)="prevSlide()">
           &lt;
         </button>
@@ -55,31 +55,31 @@
         <mat-tab class="tab" label="Details">
           <ng-template matTabContent>
             <div class="trip-details-container">
-              <h2 class="trip-title">{{home.tripDetails.trip_Name}}</h2>
+              <h2 class="trip-title">{{tripsWithPrice.tripDetailsWithCalculatedPrice.trip_Name}}</h2>
               <p class="trip-location-duration">
                 <span class="trip-location"><i
-                    class="bi bi-geo-alt colored-icon"></i>{{home.tripDetails.destination_Location}}</span> |
+                    class="bi bi-geo-alt colored-icon"></i>{{tripsWithPrice.tripDetailsWithCalculatedPrice.destination_Location}}</span> |
                 <span class="trip-duration"><i class="bi bi-calendar colored-icon"></i>
-                  {{getDaysDifference(home.tripDetails.start_Date , home.tripDetails.end_Date)}} days</span>
+                  {{getDaysDifference(tripsWithPrice.tripDetailsWithCalculatedPrice.start_Date , tripsWithPrice.tripDetailsWithCalculatedPrice.end_Date)}} days</span>
               </p>
               <p class="trip-date">
-                <strong>From:</strong> {{home.tripDetails.start_Date |date:'mediumDate' }} &nbsp; <strong>To:</strong>
-                {{home.tripDetails.end_Date |date:'mediumDate'}}
+                <strong>From:</strong> {{tripsWithPrice.tripDetailsWithCalculatedPrice.start_Date |date:'mediumDate' }} &nbsp; <strong>To:</strong>
+                {{tripsWithPrice.tripDetailsWithCalculatedPrice.end_Date |date:'mediumDate'}}
               </p>
               <p class="trip-type">
                 <i class="bi bi-compass colored-icon"></i> Tourist Trip
               </p>
               <p class="trip-price">
-                <i class="bi bi-currency-dollar colored-icon"></i> {{home.tripDetails.trip_Price}}
+                <i class="bi bi-currency-dollar colored-icon"></i> {{tripsWithPrice.tripDetailsWithCalculatedPrice.trip_Price}}
               </p>
               <p class="trip-booking">
                 <i class="bi bi-person colored-icon"></i> Remaining
-                <strong>{{this.home.tripDetails.max_Number_Of_Users}}</strong> seats
+                <strong>{{this.tripsWithPrice.tripDetailsWithCalculatedPrice.max_Number_Of_Users}}</strong> seats
               </p>
               <div class="trip-services">
                 <p><i class="bi bi-bell colored-icon"></i> <strong>Services:</strong></p>
                 <ul>
-                  <li *ngFor="let service of home.tripDetails.services; let i = index">Service {{i + 1}} :
+                  <li *ngFor="let service of tripsWithPrice.tripDetailsWithCalculatedPrice.services; let i = index">Service {{i + 1}} :
                     {{service.service_Name}} _ {{service.service_Cost}}$</li>
                 </ul>
               </div>
@@ -121,7 +121,7 @@
                 </ng-template>
               </div>
               <p class="trip-description">
-                {{home.tripDetails.description}}
+                {{tripsWithPrice.tripDetailsWithCalculatedPrice.description}}
               </p>
             </div>
           </ng-template>

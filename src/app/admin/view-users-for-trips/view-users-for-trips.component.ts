@@ -29,8 +29,6 @@ ngOnInit(): void {
   this.admin.GetVolunteerUserInfoByTripId1(this.trip_Id);
   this.admin.GetUserPaymentsForTrip1(this.trip_Id);
 }
-
-
 }
 
 

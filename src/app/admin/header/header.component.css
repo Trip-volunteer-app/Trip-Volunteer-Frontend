@@ -29563,7 +29563,6 @@ div.tagsinput span.tag a {
 .navbar {
   font-weight: normal;
   background: var(--admin-background-color);
-  left: 244px;
   transition: left 0.25s ease;
   -webkit-transition: left 0.25s ease;
   -moz-transition: left 0.25s ease;
@@ -30150,7 +30149,7 @@ div.tagsinput span.tag a {
 .sidebar .nav .nav-item .nav-link i.menu-arrow:before {
   content: "\f140";
   font-size: inherit;
-  color: inherit;
+  color: white;
 }
 
 .sidebar .nav .nav-item .nav-link .menu-title {
@@ -30474,7 +30473,7 @@ div.tagsinput span.tag a {
   }
 
   .sidebar-offcanvas.active {
-    right: 0;
+    left: 0;
   }
 }
 
@@ -30827,4 +30826,9 @@ div.tagsinput span.tag a {
 
 .sidebar::-webkit-scrollbar-thumb:hover {
   background-color: #555; /* Slightly lighter on hover for visibility */
+}
+@media (min-width: 991px) {
+  .extraLeft {
+    left: 244px;
+  }
 }

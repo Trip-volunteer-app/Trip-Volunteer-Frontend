@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchDataAndRenderUserChart();
+    this.admin.GetAllTripsWithMaxReservations();
     this.admin.GetFiveUsersData();
     this.admin.GetFiveContactU();
     this.admin.GetSYSMonthlyRevenue();

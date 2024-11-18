@@ -4,10 +4,10 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { HomeService } from '../Services/home.service';
 import { LocationService } from '../Services/location.service';
-
 import { FormsModule } from '@angular/forms';
 import { MoveFilterDataService } from '../Services/move-filter-data.service';
 import { AdminService } from '../Services/admin.service';
+import { TripPriceService } from '../Services/trip-price.service';
 
 
 @Component({
@@ -19,24 +19,16 @@ export class TripsComponent implements OnInit, AfterViewInit {
 
   @Output() openDetails = new EventEmitter();
 
-
-
   trip_Name: string = '';
   checkInDate: Date | null = null;
   checkOutDate: Date | null = null;
   minPrice: number | null = null;
   maxPrice: number | null = null;
-
-
-
   first_Name: string = '';
   last_Name: string = '';
   role_Name: string = '';
-
   tripData: any = {};
-
   activeTab: string = 'trip';
-
 
   constructor(
     private styleService: StyleService,
@@ -47,10 +39,11 @@ export class TripsComponent implements OnInit, AfterViewInit {
     public location: LocationService,
     public home: HomeService,
     public admin: AdminService,
+    private tripsWithPrice: TripPriceService,
     private tripDataService: MoveFilterDataService
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
 
     this.activeTab = this.tripDataService.getActiveTab();
 
@@ -73,12 +66,10 @@ export class TripsComponent implements OnInit, AfterViewInit {
       this.maxPrice = params['maxPrice'] || null;
     });
     this.styleService.applyFullHeight();
-    this.Trip.getALLTrips();
-    this.location.GetAllLocationsWithTripId();
-    console.log("ddd", this.Trip.Trips)
-    console.log("Trip", this.Trip.Trips)
+    await this.Trip.getALLTripsWithoutOptionalServices();
+    console.log('getALLTripsWithoutOptionalServices', this.Trip.tripswithoutOptionalServices)
+    await this.tripsWithPrice.calculateTripPrice(this.Trip.tripswithoutOptionalServices);
     this.home.AllVolunteersWithTrips();
-    console.log("AllVolunteersWithTrip", this.home.AllVolunteersWithTrip);
 
     const userFromStorage = localStorage.getItem("user");
     const user = userFromStorage ? JSON.parse(userFromStorage) : null;
@@ -89,7 +80,6 @@ export class TripsComponent implements OnInit, AfterViewInit {
         this.checkUnpaidBookings(userDataArray);
       },
       (error) => {
-        console.error("Failed to retrieve user information", error);
       }
     );
 
@@ -126,7 +116,8 @@ export class TripsComponent implements OnInit, AfterViewInit {
 
   getPaginatedTrips() {
     const start = (this.currentPage - 1) * this.cardsPerPage;
-    return this.Trip.Trips.slice(start, start + this.cardsPerPage);
+
+    return this.tripsWithPrice.tripsWithCalculatedPrice.slice(start, start + this.cardsPerPage);
   }
 
   changePage(page: number) {

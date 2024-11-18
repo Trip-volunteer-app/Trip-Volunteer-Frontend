@@ -381,3 +381,25 @@ button[mat-raised-button][color="accent"] {
 .update-service-form{
   padding: 30px;
 }
+
+.selected-service {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+
+.service-name {
+  flex: 2;
+}
+
+.service-status {
+  flex: 1;
+  text-align: center;
+  min-width: 120px; 
+}
+
+.service-cost {
+  flex: 1;
+  text-align: right;
+}

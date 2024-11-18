@@ -14,7 +14,7 @@
     <google-map height="400px" width="400px" [center]="center" [zoom]="zoom" (mapClick)="addMarker($event)">
 
       <map-marker *ngIf="markerPositions.departure" [position]="markerPositions.departure" [label]="'Departure'"
-        [title]="'Departure Location'"></map-marker>
+        ></map-marker>
       <map-marker *ngIf="markerPositions.destination" [position]="markerPositions.destination" [label]="'Destination'"
         [title]="'Destination Location'"></map-marker>
 
