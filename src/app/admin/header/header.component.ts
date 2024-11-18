@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit {
   isCollapsed = false;
   isCollapse = false;
   isCollaps = false;
+  menu = true;
 
   constructor(private router: Router, public admin: AdminService) { }
 
@@ -26,7 +27,6 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['userProfile']);
   }
 
-  menu = true;
   toggleSidebar() {
     this.menu = !this.menu;
   }

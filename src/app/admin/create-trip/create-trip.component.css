@@ -866,3 +866,64 @@ mdc-text-field{
   color: #00796b;
 }
 
+
+.selected-services-list {
+  margin-top: 20px;
+  max-width: 500px;
+  min-width: 440px;
+}
+
+.scrollable-services {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #ffffff;
+}
+
+.selected-service {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.selected-Items-Container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.service-name {
+  display: flex;
+  flex: 1;
+  margin-right: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #767373;
+}
+
+.service-cost {
+  margin-right: 30px;
+  white-space: nowrap;
+}
+
+.edit-icon {
+  cursor: pointer;
+  color: var(--admin-button-color);
+}
+
+.service-name {
+  font-weight: 500;
+}
+
+.service-cost {
+  color: #757575;
+}
+
+.no-services-text {
+  color: #757575;
+  font-style: italic;
+}

@@ -10,7 +10,7 @@
                                 <div class="card-body">
                                     <h4 class="card-title report-title">Monthly Report</h4>
                                     <br><br>
-                                    <div class="table-responsive">
+                                    <div>
                                         <div class="report-container">
                                             <div class="dropdown-group">
                                                 <div class="dropdown">
@@ -30,16 +30,16 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="table-responsive"
+                                            <div
                                                 *ngIf="admin.monthlyReport && admin.monthlyReport.length > 0">
                                                 <table class="table custom-table">
                                                     <thead>
                                                         <tr>
-                                                            <th style="color: black;"><b>Year</b></th>
-                                                            <th style="color: black;"><b>Month</b></th>
-                                                            <th style="color: black;"><b>TOTAL COST</b></th>
-                                                            <th style="color: black;"><b>TOTAL REVENUE</b></th>
-                                                            <th style="color: black;"><b>NET REVENUE</b></th>
+                                                            <th class="t-header"><b>Year</b></th>
+                                                            <th class="t-header"><b>Month</b></th>
+                                                            <th class="t-header"><b>TOTAL COST</b></th>
+                                                            <th class="t-header"><b>TOTAL REVENUE</b></th>
+                                                            <th class="t-header"><b>NET REVENUE</b></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>

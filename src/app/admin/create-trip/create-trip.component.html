@@ -83,14 +83,14 @@
                       <div fxLayout="row" fxLayoutGap="16px" class="date-fields-container">
                         <mat-form-field appearance="fill" class="full-width date-field">
                           <mat-label>Start Date</mat-label>
-                          <input matInput [matDatepicker]="startPicker" formControlName="Start_Date" required>
+                          <input matInput [matDatepicker]="startPicker" formControlName="Start_Date" required [value]="secondFormGroup.get('Start_Date')?.value | date: 'yyyy-MM-dd'">
                           <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
                           <mat-datepicker #startPicker panelClass="small-datepicker"></mat-datepicker>
                         </mat-form-field>
 
                         <mat-form-field appearance="fill" class="full-width date-field">
                           <mat-label>End Date</mat-label>
-                          <input matInput [matDatepicker]="endPicker" formControlName="End_Date" required>
+                          <input matInput [matDatepicker]="endPicker" formControlName="End_Date" required [value]="secondFormGroup.get('End_Date')?.value | date: 'yyyy-MM-dd'">
                           <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
                           <mat-datepicker #endPicker panelClass="small-datepicker"></mat-datepicker>
                         </mat-form-field>
@@ -124,10 +124,11 @@
                         Service Name is required
                       </mat-error>
                     </mat-form-field>
-                    
+
                     <mat-form-field appearance="outline" class="form-field form-field1">
                       <mat-label>Service Cost</mat-label>
-                      <input matInput formControlName="service_Cost" placeholder="Enter service cost" type="number" required>
+                      <input matInput formControlName="service_Cost" placeholder="Enter service cost" type="number"
+                        required>
                       <mat-error *ngIf="serviceFormGroup.get('service_Cost')?.hasError('required')">
                         Service Cost is required
                       </mat-error>
@@ -150,7 +151,7 @@
                   <div class="service-list">
                     <div class="service-item" *ngFor="let service of paginatedServices">
                       <mat-checkbox [checked]="isServiceSelected(service.service_Id)"
-                        (change)="onServiceChange($event.checked, service.service_Id)">
+                        (change)="onServiceChange($event.checked, service)">
                         <span class="service-name">{{ service.service_Name }}</span>
                         <span class="service-cost"> {{ service.service_Cost | currency }}</span>
                       </mat-checkbox>
@@ -166,10 +167,45 @@
                       <mat-icon>arrow_forward</mat-icon>
                     </button>
                   </div>
+                  <div class="selected-Items-Container">
+                    <div class="selected-Items-Container">
+                      <!-- Optional Services List -->
+                      <div class="selected-services-list">
+                        <h2 class="services-title">Optional Services</h2>
+                        <div class="scrollable-services">
+                          <div *ngIf="optionalServicesList?.length; else noOptionalServices">
+                            <div class="selected-service" *ngFor="let service of optionalServicesList">
+                              <span class="service-name">{{ service.service_Name }}</span>
+                              <span class="service-cost">{{ service.service_Cost | currency }}</span>
+                            </div>
+                          </div>
+                          <ng-template #noOptionalServices>
+                            <p class="no-services-text">No optional services selected.</p>
+                          </ng-template>
+                        </div>
+                      </div>
+
+                      <!-- Non-Optional Services List -->
+                      <div class="selected-services-list">
+                        <h2 class="services-title">Non-Optional Services</h2>
+                        <div class="scrollable-services">
+                          <div *ngIf="nonOptionalServicesList?.length; else noNonOptionalServices">
+                            <div class="selected-service" *ngFor="let service of nonOptionalServicesList">
+                              <span class="service-name">{{ service.service_Name }}</span>
+                              <span class="service-cost">{{ service.service_Cost | currency }}</span>
+                            </div>
+                          </div>
+                          <ng-template #noNonOptionalServices>
+                            <p class="no-services-text">No non-optional services selected.</p>
+                          </ng-template>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
                   <div class="total-trip-price">
                     <strong>Total trip cost:</strong> {{ totalTripPrice | currency }}
                   </div>
-
                   <div class="stepper-buttons">
                     <button mat-button matStepperPrevious>Back</button>
                     <button mat-raised-button color="primary" matStepperNext>Next</button>
@@ -305,11 +341,11 @@
                   </div>
                 </div>
 
-                  <div class="stepper-buttons">
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-raised-button color="primary" matStepperNext [disabled]="!secondFormGroup.valid"
+                <div class="stepper-buttons">
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-raised-button color="primary" matStepperNext [disabled]="!secondFormGroup.valid"
                     (click)="onSubmit()">Create</button>
-                  </div>
+                </div>
               </mat-step>
 
               <mat-step>
@@ -349,4 +385,18 @@
       <button mat-button mat-dialog-close cdkFocusInitial (click)="save2()">Save</button>
     </mat-dialog-actions>
   </ng-template>
+
+  <ng-template #callOptionalDialog>
+    <mat-dialog-content class="mat-typography">
+      <h3>Is this service optional?</h3>
+      <form [formGroup]="optionalServiceFormGroup" style="padding: 30px;">
+        <mat-checkbox formControlName="is_Optional" (change)="onCheckboxChange($event)">Mark as optional</mat-checkbox>
+      </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button mat-dialog-close cdkFocusInitial (click)="saveOptionalService()">Save</button>
+    </mat-dialog-actions>
+  </ng-template>
+
 </div>

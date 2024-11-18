@@ -188,7 +188,8 @@ export class ManageRolesComponent implements OnInit {
   pData: any;
   openEditDialog(obj: any) {
     this.pData = obj;
-    this.UpdateRolesFormGroup.controls['trip_Volunteerroles_Id'].setValue(this.pData)
+    console.log(this.pData,'ppppppppppppppp')
+    this.UpdateRolesFormGroup.controls['trip_Volunteerroles_Id'].setValue(this.pData.trip_Volunteerroles_Id)
     this.dialog.open(this.updateDialog)
   }
 
@@ -197,7 +198,8 @@ export class ManageRolesComponent implements OnInit {
   }
 
   async updateAllTripsRoles() {
-    this.admin.UpdateTrip_vrole_NumberOfVolunteers(this.UpdateRolesFormGroup.value);
+    await this.admin.UpdateTrip_vrole_NumberOfVolunteers(this.UpdateRolesFormGroup.value);
+    console.log('this.UpdateRolesFormGroup.value',this.UpdateRolesFormGroup.value)
     await this.admin.GetVolunteerRoleByTripID(this.tripId)
     this.calculateMaxNumberOfVolunteers();
   }
@@ -292,9 +294,10 @@ export class ManageRolesComponent implements OnInit {
 
   async save2() {
     const roleData = {
-      volunteer_Role_Id: this.RolesNumberFormGroup.get('volunteer_Role_Id')?.value,
+      volunteer_Role_Id: this.RolesNumberFormGroup.get('trip_Volunteerroles_Id')?.value,
       number_Of_Volunteers: this.RolesNumberFormGroup.get('number_Of_Volunteers')?.value
     };
+    console.log('roleData', roleData)
     this.roleEntries.push(roleData);
     this.role = await this.admin.SortedVolunteerRoles.find((r: any) => r.volunteer_Role_Id === roleData.volunteer_Role_Id);
     const roleWithDetails = {

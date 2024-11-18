@@ -16,6 +16,7 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class ManageTripServicesComponent implements OnInit {
   @ViewChild('callUpdateDialog') updateDialog !: TemplateRef<any>;
+  @ViewChild('callOptionalDialog') optionalDialog !: TemplateRef<any>;
 
   tripId!: number;
   showAddServiceForm = false;
@@ -44,6 +45,7 @@ export class ManageTripServicesComponent implements OnInit {
       this.tripId = +params.get('tripId')!;
       await this.admin.GetServicesByTripID(this.tripId);
       await this.admin.getAllServices();
+      console.log('tripServices', this.admin.tripServices)
       this.servicesNotInTrip = this.admin.sortedServices.filter((service: any) =>
         !this.admin.tripServices.some((tripService: any) => tripService.service_Id === service.service_Id)
       );
@@ -96,6 +98,8 @@ export class ManageTripServicesComponent implements OnInit {
           selectedServices: [...currentSelectedServices, newService.service_Id]
         });
         this.updateSelectedServicesDetails();
+        this.openServiceDialog(newService);
+
       }
       this.cdr.detectChanges();
       this.updatePaginatedServices();
@@ -109,16 +113,28 @@ export class ManageTripServicesComponent implements OnInit {
     this.paginatedServices = this.servicesNotInTrip.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
-  onServiceChange(isChecked: boolean, serviceId: number) {
+  onServiceChange(isChecked: boolean, service: any) {
     const selectedServices = this.ServicesFormGroup.get('selectedServices') as FormControl;
     const currentSelection = selectedServices.value as number[];
     if (isChecked) {
-      if (!currentSelection.includes(serviceId)) {
-        selectedServices.setValue([...currentSelection, serviceId]);
+      if (!currentSelection.includes(service)) {
+        selectedServices.setValue([...currentSelection, service.service_Id]);
+        this.openServiceDialog(service);
+
       }
     } else {
-      selectedServices.setValue(currentSelection.filter(id => id !== serviceId));
+      selectedServices.setValue(currentSelection.filter(id => id !== service.service_Id));
+
     }
+    this.optionalServices = this.optionalServices.filter(
+      optionalService => optionalService.service_Id !== service.service_Id
+    );
+    const minimalOptionalServicesArray = this.optionalServices.map(Service => ({
+      service_Id: Service.service_Id,
+      is_Optional: Service.is_Optional
+    }));
+    this.minimalOptionalServices = minimalOptionalServicesArray;
+    console.log('minimalOptionalServices', this.minimalOptionalServices)
     this.updateSelectedServicesDetails();
   }
 
@@ -196,13 +212,16 @@ export class ManageTripServicesComponent implements OnInit {
 
   async Save() {
     const selectedServicesWithTripId = {
-      SelectedServices: this.ServicesFormGroup.value.selectedServices,
+      SelectedServices: this.minimalOptionalServices,
       Trip_Id: this.tripId
     }
+    console.log('selectedServicesWithTripId',selectedServicesWithTripId)
     await this.admin.CreateTripServiceForServicesList(selectedServicesWithTripId);
     this.ServicesFormGroup.patchValue({
       selectedServices: []
     });
+    this.minimalOptionalServices.length=0;
+    this.optionalServices.length=0;
     this.updateSelectedServicesDetails();
     await this.admin.getAllServices;
     await this.admin.GetServicesByTripID(this.tripId);
@@ -217,5 +236,59 @@ export class ManageTripServicesComponent implements OnInit {
 
   back(id: number) {
     this.router.navigate(['admin/ManageTrips/', id]);
+  }
+  optionalServiceFormGroup: FormGroup = new FormGroup({
+    service_Id: new FormControl('', Validators.required),
+    is_Optional: new FormControl('', [Validators.required, Validators.min(0)]),
+    service_Name: new FormControl('', Validators.required),
+    service_Cost: new FormControl('', Validators.required),
+  });
+
+  openServiceDialog(service: any) {
+    this.optionalServiceFormGroup.controls['service_Id'].setValue(service.service_Id)
+    this.optionalServiceFormGroup.controls['service_Name'].setValue(service.service_Name)
+    this.optionalServiceFormGroup.controls['service_Cost'].setValue(service.service_Cost)
+
+    this.dialog.open(this.optionalDialog)
+  }
+
+  onCheckboxChange(event: any) {
+    if (event.checked) {
+      this.optionalServiceFormGroup.controls['is_Optional'].setValue(1);
+    } else {
+      this.optionalServiceFormGroup.controls['is_Optional'].setValue(0);
+    }
+    console.log('value', this.optionalServiceFormGroup.value)
+  }
+  optionalServices: any[] = [];
+  minimalOptionalServices: any[] = [];
+  saveOptionalService() {
+    const optionalStatus = this.optionalServiceFormGroup.value;
+
+    const existingServiceIndex = this.optionalServices.findIndex(
+      (service) => service.service_Id === optionalStatus.service_Id
+    );
+
+    if (existingServiceIndex > -1) {
+      this.optionalServices[existingServiceIndex] = optionalStatus;
+    } else {
+      this.optionalServices.push(optionalStatus);
+    }
+    const minimalOptionalServicesArray = this.optionalServices.map(service => ({
+      service_Id: service.service_Id,
+      is_Optional: service.is_Optional
+    }));
+
+    console.log('Minimal Optional Services Array:', minimalOptionalServicesArray);
+
+    this.minimalOptionalServices = minimalOptionalServicesArray;
+    console.log('Updated Optional Services:', this.optionalServices);
+  }
+  get optionalServicesList() {
+    return this.optionalServices.filter(service => service.is_Optional === 1);
+  }
+
+  get nonOptionalServicesList() {
+    return this.optionalServices.filter(service => service.is_Optional === 0);
   }
 }

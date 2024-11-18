@@ -26,6 +26,8 @@ export class CreateTripComponent implements OnInit {
   @ViewChild('departureInput') departureInput!: ElementRef;
   @ViewChild('destinationInput') destinationInput!: ElementRef;
   @ViewChild('callNumberDialog') numbersDialog !: TemplateRef<any>;
+  @ViewChild('callOptionalDialog') optionalDialog !: TemplateRef<any>;
+
   @ViewChild(MatStepper) stepper!: MatStepper;
 
 
@@ -76,7 +78,7 @@ export class CreateTripComponent implements OnInit {
     public dialog: MatDialog,
     private cdr: ChangeDetectorRef,
     private snackBar: MatSnackBar,
-  public toastr:ToastrService) { }
+    public toastr: ToastrService) { }
 
 
   async ngOnInit(): Promise<void> {
@@ -110,7 +112,13 @@ export class CreateTripComponent implements OnInit {
     service_Name: new FormControl('', Validators.required),
     service_Cost: new FormControl('', [Validators.required, Validators.min(0)])
   });
-  
+  optionalServiceFormGroup: FormGroup = new FormGroup({
+    service_Id: new FormControl('', Validators.required),
+    is_Optional: new FormControl('', [Validators.required, Validators.min(0)]),
+    service_Name: new FormControl('', Validators.required),
+    service_Cost: new FormControl('', Validators.required),
+  });
+
   locationFormGroup: FormGroup = new FormGroup({
     departure_Location: new FormControl('', Validators.required),
     destination_Location: new FormControl('', Validators.required),
@@ -158,13 +166,13 @@ export class CreateTripComponent implements OnInit {
         ...this.secondFormGroup.value,
         Category_Id: this.selectedCategoryId,
         image_Name: this.TripImage.value.image_Name,
-        SelectedServices: this.ServicesFormGroup.value.selectedServices,
+        SelectedServices: this.optionalServices,
         SelectedVolunteerRoles: this.roleEntries,
         ...this.locationFormGroup.value,
         Trip_Price: this.totalTripPrice,
         Max_Number_Of_Volunteers: this.maxNumberOfVolunteers
       };
-
+      console.log('tripdata', tripData)
       this.admin.CreateTrip(tripData);
     }
   }
@@ -277,31 +285,43 @@ export class CreateTripComponent implements OnInit {
 
   totalTripPrice: number = 0;
 
-  onServiceChange(isChecked: boolean, serviceId: number) {
+  onServiceChange(isChecked: boolean, Service: any) {
     const selectedServices = this.ServicesFormGroup.get('selectedServices') as FormControl;
     const currentSelection = selectedServices.value as number[];
 
-    const selectedService = this.paginatedServices.find(service => service.service_Id === serviceId);
+    const selectedService = this.paginatedServices.find(service => service.service_Id === Service.service_Id);
 
     if (selectedService) {
       const serviceCost = selectedService.service_Cost;
 
       if (isChecked) {
-        if (!currentSelection.includes(serviceId)) {
-          selectedServices.setValue([...currentSelection, serviceId]);
+        if (!currentSelection.includes(Service.service_Id)) {
+          selectedServices.setValue([...currentSelection, Service.service_Id]);
           this.totalTripPrice += serviceCost;
+          this.openServiceDialog(Service);
         }
       } else {
-        selectedServices.setValue(currentSelection.filter(id => id !== serviceId));
+        selectedServices.setValue(currentSelection.filter(id => id !== Service.service_Id));
         this.totalTripPrice -= serviceCost;
+        this.optionalServices = this.optionalServices.filter(
+          optionalService => optionalService.service_Id !== Service.service_Id
+        );
+        const minimalOptionalServicesArray = this.optionalServices.map(service => ({
+          service_Id: service.service_Id,
+          is_Optional: service.is_Optional
+        }));
+        this.totalTripPrice = this.optionalServices
+          .filter(service => service.is_Optional === 0)
+          .reduce((total, service) => total + service.service_Cost, 0);
+        this.minimalOptionalServices = minimalOptionalServicesArray;
       }
     }
   }
 
   isServiceSelected(serviceId: number): boolean {
-  const selectedServices = this.ServicesFormGroup.get('selectedServices')?.value;
-  return Array.isArray(selectedServices) && selectedServices.includes(serviceId);
-}
+    const selectedServices = this.ServicesFormGroup.get('selectedServices')?.value;
+    return Array.isArray(selectedServices) && selectedServices.includes(serviceId);
+  }
 
   nextPage(): void {
     if (this.currentPage < this.totalPages) {
@@ -338,45 +358,51 @@ export class CreateTripComponent implements OnInit {
   async addService() {
     try {
       this.previousServices = [...this.admin.sortedServices];
-      if (this.serviceFormGroup.valid){
-      const result = await Swal.fire({
-        title: 'Add a new service?',
-        text: 'Are you sure you want to add a new service?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, add it!',
-      });
+      if (this.serviceFormGroup.valid) {
+        const result = await Swal.fire({
+          title: 'Add a new service?',
+          text: 'Are you sure you want to add a new service?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, add it!',
+        });
 
-      // If the user confirmed, proceed with the service creation
-      if (result.isConfirmed) {
-        await this.admin.CreateService(this.serviceFormGroup.value);
-        await this.admin.getAllServices();
-        const newService: any = this.admin.sortedServices.find((service: any) =>
-          !this.previousServices.some((prevService: any) => prevService.service_Id === service.service_Id)
-        );
-        if (newService) {
-          this.totalTripPrice = this.totalTripPrice + newService.service_Cost;
-          const currentSelectedServices = this.ServicesFormGroup.value.selectedServices || [];
-          this.ServicesFormGroup.patchValue({
-            selectedServices: [...currentSelectedServices, newService.service_Id]
-          });
-        }else{
-          this.toastr.error('error creating service');
+        if (result.isConfirmed) {
+          console.log('serviceFormGroup', this.serviceFormGroup.value)
+          await this.admin.CreateService(this.serviceFormGroup.value);
+          await this.admin.getAllServices();
+          const newService: any = this.admin.sortedServices.find((service: any) =>
+            !this.previousServices.some((prevService: any) => prevService.service_Id === service.service_Id)
+          );
+          console.log('newService', newService)
+          if (newService) {
+            console.log('this.totalTripPrice', this.totalTripPrice)
+
+            this.totalTripPrice = this.totalTripPrice + newService.service_Cost;
+            console.log('this.totalTripPrice', this.totalTripPrice)
+            const currentSelectedServices = this.ServicesFormGroup.value.selectedServices || [];
+            this.ServicesFormGroup.patchValue({
+              selectedServices: [...currentSelectedServices, newService.service_Id]
+            });
+            this.openServiceDialog(newService);
+          } else {
+            this.toastr.error('error creating service');
+
+          }
+          this.cdr.detectChanges();
+          this.updatePaginatedServices();
+          this.cancelAddService();
+          this.toastr.success('Service created successfully');
+
 
         }
-        this.cdr.detectChanges();
-        this.updatePaginatedServices();
-        this.cancelAddService();
-        this.toastr.success('Service created successfully');
-
-      
-      }}
+      }
 
     } catch (error) {
       this.toastr.error('error creating service');
-     }
+    }
   }
 
   clearImage(): void {
@@ -439,7 +465,7 @@ export class CreateTripComponent implements OnInit {
   }
 
   isVolunteerRolelected(VolunteerRoleId: number): boolean {
-    const selectedRoles = this.RolesFormGroup.get('selectedRoles')?.value as number[];  // Get value as array
+    const selectedRoles = this.RolesFormGroup.get('selectedRoles')?.value as number[];
     return selectedRoles && Array.isArray(selectedRoles) && selectedRoles.includes(VolunteerRoleId);
   }
 
@@ -539,9 +565,60 @@ export class CreateTripComponent implements OnInit {
     this.stepper.reset();
     this.stepper.selectedIndex = 0;
     this.ServicesFormGroup.reset();
-    this.totalTripPrice=0;
+    this.totalTripPrice = 0;
     this.roleInfo.length = 0;
     this.stepper._getIndicatorType(0);
     this.locationFormGroup.reset();
   }
+  openServiceDialog(service: any) {
+    this.optionalServiceFormGroup.controls['service_Id'].setValue(service.service_Id)
+    this.optionalServiceFormGroup.controls['service_Name'].setValue(service.service_Name)
+    this.optionalServiceFormGroup.controls['service_Cost'].setValue(service.service_Cost)
+
+    this.dialog.open(this.optionalDialog)
+  }
+
+  onCheckboxChange(event: any) {
+    if (event.checked) {
+      this.optionalServiceFormGroup.controls['is_Optional'].setValue(1);
+    } else {
+      this.optionalServiceFormGroup.controls['is_Optional'].setValue(0);
+    }
+    console.log('value', this.optionalServiceFormGroup.value)
+  }
+  optionalServices: any[] = [];
+  minimalOptionalServices: any[] = [];
+  saveOptionalService() {
+    const optionalStatus = this.optionalServiceFormGroup.value;
+
+    const existingServiceIndex = this.optionalServices.findIndex(
+      (service) => service.service_Id === optionalStatus.service_Id
+    );
+
+    if (existingServiceIndex > -1) {
+      this.optionalServices[existingServiceIndex] = optionalStatus;
+    } else {
+      this.optionalServices.push(optionalStatus);
+    }
+    const minimalOptionalServicesArray = this.optionalServices.map(service => ({
+      service_Id: service.service_Id,
+      is_Optional: service.is_Optional
+    }));
+
+    console.log('Minimal Optional Services Array:', minimalOptionalServicesArray);
+
+    this.minimalOptionalServices = minimalOptionalServicesArray;
+    console.log('Updated Optional Services:', this.optionalServices);
+    this.totalTripPrice = this.optionalServices
+    .filter(service => service.is_Optional === 0)
+    .reduce((total, service) => total + service.service_Cost, 0);
+  }
+  get optionalServicesList() {
+    return this.optionalServices.filter(service => service.is_Optional === 1);
+  }
+
+  get nonOptionalServicesList() {
+    return this.optionalServices.filter(service => service.is_Optional === 0);
+  }
+
 }
