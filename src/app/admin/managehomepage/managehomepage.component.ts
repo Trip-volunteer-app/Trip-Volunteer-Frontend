@@ -61,6 +61,7 @@ export class ManagehomepageComponent implements OnInit {
 
   onElementSelect(id: number) {
     this.selectedElementId = id;
+    console.log('this.selectedElementId',this.selectedElementId)
     this.home.UpdateSelectedHomeElement(id);
   }
 

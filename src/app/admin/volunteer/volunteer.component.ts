@@ -35,7 +35,7 @@ export class VolunteerComponent implements OnInit {
     this.dialog.open(this.DeleteDailog).afterClosed().subscribe((result) => {
       if (result === 'yes') {
         this.admin.DeleteVolunteer(id);
-      } 
+      }
     });
   }
 
@@ -144,11 +144,11 @@ export class VolunteerComponent implements OnInit {
             text: 'There was an error updating the volunteer status. Please try again.',
             confirmButtonText: 'OK'
           });
-          this.admin.getAllVolunteer();    
+          this.admin.getAllVolunteer();
 
-        }          
+        }
 
-      );    
+      );
     }
   }
 
@@ -208,7 +208,6 @@ export class VolunteerComponent implements OnInit {
         email: userEmail,
         tripDetails: `Trip Name: ${tripDetails.trip_Name}, Start Date: ${tripDetails.start_Date},End Date: ${tripDetails.end_Date},Description: ${tripDetails.description}, Location: ${tripDetails.destination_Location}`
       };
-
       this.admin.sendTripDetailsEmail(emailData).subscribe(response => {
       }, error => {
       });

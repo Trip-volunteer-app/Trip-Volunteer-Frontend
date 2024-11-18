@@ -68,7 +68,8 @@ export class TripsComponent implements OnInit, AfterViewInit {
     this.styleService.applyFullHeight();
     await this.Trip.getALLTripsWithoutOptionalServices();
     console.log('getALLTripsWithoutOptionalServices', this.Trip.tripswithoutOptionalServices)
-    await this.tripsWithPrice.calculateTripPrice(this.Trip.tripswithoutOptionalServices);
+    const hadeel =await this.tripsWithPrice.calculateTripPrice(this.Trip.tripswithoutOptionalServices);
+    console.log('op', hadeel)
     this.home.AllVolunteersWithTrips();
 
     const userFromStorage = localStorage.getItem("user");
@@ -111,7 +112,7 @@ export class TripsComponent implements OnInit, AfterViewInit {
   cardsPerPage: number = 12;
 
   get totalPages(): number {
-    return Math.ceil(this.Trip.Trips.length / this.cardsPerPage);
+    return Math.ceil(this.tripsWithPrice.tripsWithCalculatedPrice.length / this.cardsPerPage);
   }
 
   getPaginatedTrips() {

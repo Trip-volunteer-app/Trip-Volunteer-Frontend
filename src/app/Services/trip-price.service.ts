@@ -17,6 +17,7 @@ export class TripPriceService {
       );
       return { ...trip, trip_Price: totalServiceCost };
     });
+    console.log('Trips with calculated prices:', this.tripsWithCalculatedPrice);
   }
   tripDetailsWithCalculatedPrice: any;
   async calculateTripPriceForASingleTrip(trip: any): Promise <number>{
@@ -27,6 +28,6 @@ export class TripPriceService {
     this.tripDetailsWithCalculatedPrice=trip;
     return totalServiceCost;
   }
-  
+
 
 }

@@ -10,28 +10,28 @@
                 <div class="card-body">
                   <h4 class="card-title" style="color: black;">Users Table</h4>
                   <br><br>
-                  <div class="table-responsive">
-                    <table class="table table-light" style="background-color: white;">
+                  <div class="table-responsive table">
+                    <table class="table table-light">
                       <thead>
                         <tr>
-                          <th style="color: black;"><b>First Name</b></th>
-                          <th style="color: black;"><b>Last Name</b></th>
-                          <th style="color: black;"><b>EMAIL</b></th>
-                          <th style="color: black;"><b>Image</b></th>
-                          <th style="color: black;"><b>Addres</b></th>
-                          <th style="color: black;"><b>Phone Number</b></th>
-                          <th style="color: black;"><b>Birth Date </b></th>
-                          <th style="color: black;"><b>Date Register</b></th>
+                          <th class="t-header">Image</th>
+                          <th  class="t-header">First Name</th>
+                          <th class="t-header">Last Name</th>
+                          <th class="t-header">EMAIL</th>
+                          <th class="t-header">Addres</th>
+                          <th class="t-header">Phone Number</th>
+                          <th class="t-header">Birth Date </th>
+                          <th class="t-header">Date Register</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr *ngFor="let obj of admin.AllUsers">
+                          <img style="margin-left :15px" class="img-xs rounded-circle"
+                          [src]="obj.image_Path ? '../../../../assets/images/' + obj.image_Path : '../../../assets/default-profile.png'"
+                          alt="image not found">
                           <td>{{obj.first_Name}}</td>
                           <td>{{obj.last_Name}}</td>
                           <td>{{obj.email}}</td>
-                          <img class="img-xs rounded-circle"
-                            [src]="obj.image_Path ? '../../../../assets/images/' + obj.image_Path : '../../../assets/default-profile.png'"
-                            alt="image not found">
                           <td>{{obj.address}}</td>
                           <td>{{obj.phone_Number}}</td>
                           <td>{{obj.birth_Date | date}}</td>

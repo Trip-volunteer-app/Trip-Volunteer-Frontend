@@ -115,7 +115,7 @@
 }
 
 .create-button {
-  color: rgb(100, 250, 100);
+  color: rgb(0,193,83) !important;
   margin-left: 900px;
   font-size: 30px !important;
   background-color: rgba(255, 255, 255, 0);
@@ -263,3 +263,5 @@
 .about-img{
   height: 5px !important;
 }
+.image-about{
+  max-height: 60px;}

@@ -8,8 +8,9 @@
                         <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
+                                    <h4 class="card-title t-header">Home page elements</h4>
                                     <div class="d-flex justify-content-between align-items-center cont">
-                                        <h4 class="card-title">Home page elements</h4>
+
                                         <button mat-button class="create-button" (click)="openCreateDialog()">
                                             <i class="bi bi-plus-circle-fill fs-1"></i>
                                         </button>
@@ -29,9 +30,9 @@
                                             </thead>
                                             <tbody>
                                                 <tr *ngFor="let obj of home.homePageElements">
-                                                    <td><img src="../../../assets/images/{{ obj.hero_Image }}"
+                                                    <td class="image-home"><img class="image-home" src="../../../assets/images/{{ obj.hero_Image }}"
                                                             alt="Hero"></td>
-                                                    <td><img src="../../../assets/images/{{ obj.logo_Image }}"
+                                                    <td class="image-home"><img class="image-home" src="../../../assets/images/{{ obj.logo_Image }}"
                                                             alt="Image 1"></td>
                                                     <td>{{ obj.header }}</td>
                                                     <td>{{ obj.title }}</td>
