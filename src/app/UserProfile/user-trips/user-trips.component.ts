@@ -4,6 +4,7 @@ import { HomeService } from 'src/app/Services/home.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
+import { TripPriceService } from 'src/app/Services/trip-price.service';
 
 @Component({
   selector: 'app-user-trips',
@@ -12,15 +13,15 @@ import { FormControl, FormControlName, FormGroup, Validators } from '@angular/fo
 })
 export class UserTripsComponent implements OnInit {
 
-  @ViewChild('callDetailsBookDailog') DetailsBookDailog !: TemplateRef<any>; 
-  @ViewChild('callDetailsVolunteerDailog') DetailsVolunteerDailog !: TemplateRef<any>;  
-  @ViewChild('callReviewFormDailog') ReviewFormDailog !: TemplateRef<any>;  
+  @ViewChild('callDetailsBookDailog') DetailsBookDailog !: TemplateRef<any>;
+  @ViewChild('callDetailsVolunteerDailog') DetailsVolunteerDailog !: TemplateRef<any>;
+  @ViewChild('callReviewFormDailog') ReviewFormDailog !: TemplateRef<any>;
   loginId: number | null = null;
   bookingIds: number[] = [];
   reviewExists: boolean[] = [];
   reviewMessages: string[] = [];
 
-  constructor(public home: HomeService, private router: Router, public dialog: MatDialog,private http: HttpClient) {}
+  constructor(public home: HomeService, private router: Router, public dialog: MatDialog, private http: HttpClient, public tripPrice: TripPriceService) { }
 
   async ngOnInit() {
     const userFromStorage = localStorage.getItem("user");
@@ -39,11 +40,11 @@ export class UserTripsComponent implements OnInit {
     }
   }
 
- 
+
   checkReviewsExistence(bookingIds: number[]): void {
     this.http.get(`https://localhost:7004/api/Review/GetreviewByBookingID/${bookingIds[0]}`).subscribe(
       (result: any) => {
-          this.bookingIds.forEach((bookingId, index) => {
+        this.bookingIds.forEach((bookingId, index) => {
           const reviewData = result.find((review: any) => review.booking_Id === bookingId);
           if (reviewData && reviewData.exists === true) {
             this.reviewExists[index] = true;
@@ -59,16 +60,46 @@ export class UserTripsComponent implements OnInit {
       }
     );
   }
-  
-pData:any;
+
+  pData: any;
   dialogRef!: MatDialogRef<any>;
   selectedBooking: any;
   selectedVolunteer: any;
+  tripData: any;
+  bookingServices:any;
+  combinedServices:any;
 
   async openDetailsBookDialog(booking: any) {
     this.selectedBooking = booking;
+    console.log('selected',this.selectedBooking)
     this.loadFavorites();
     await this.home.GetBookingServiceByBookingId(this.selectedBooking.booking_Id);
+    this.bookingServices=this.home.bookingServices;
+    console.log('bookingServices', this.bookingServices)
+    await this.home.getTripById(this.selectedBooking.booking_Id)
+
+    this.home.getTripById(booking.trip_Id).subscribe(async result => {
+      this.tripData = result;
+      console.log('Trip Data:', this.tripData);
+
+     this.combinedServices = [
+      ...this.tripData.services.map((service: any) => ({
+        service_Name: service.service_Name,
+        service_Cost: service.service_Cost
+      })),
+      ...this.bookingServices.map((service:any) => ({
+        service_Name: service.service_Name,
+        service_Cost: service.service_Cost
+      }))
+    ];
+    await this.tripPrice.calculateTripPriceForASingleTrip(this.tripData);
+    console.log('before',this.selectedBooking.trip_Price);
+
+    this.selectedBooking.trip_Price=this.tripData.trip_Price;
+    console.log(this.combinedServices);
+    console.log('after',this.selectedBooking.trip_Price);
+
+  });
     await this.dialog.open(this.DetailsBookDailog);
   }
 
@@ -98,7 +129,7 @@ pData:any;
   }
 
   goPayment(id: number) {
-    this.router.navigate(['payment', id]); 
+    this.router.navigate(['payment', id]);
   }
 
   favorites: any[] = [];
