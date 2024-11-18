@@ -45,21 +45,19 @@ export class HomeService {
   Trips: any = [];
   tripDetails: any;
 
-  async getALLTrips(): Promise<void>{
+  async getALLTrips(): Promise<void> {
     try {
       const res = await this.http.get("https://localhost:7004/api/Trips/GetAllTripInformation/").toPromise();
       this.Trips = res;
-      console.log('trip details', this.Trips)
     } catch (error) {
     }
   }
 
-  tripswithoutOptionalServices:any
-  async getALLTripsWithoutOptionalServices(): Promise<void>{
+  tripswithoutOptionalServices: any
+  async getALLTripsWithoutOptionalServices(): Promise<void> {
     try {
       const res = await this.http.get("https://localhost:7004/api/Trips/GETALLTRIPINFORMATIONWITHOUTOPTIONALSERVICES/").toPromise();
       this.tripswithoutOptionalServices = res;
-      console.log('trip details', this.tripswithoutOptionalServices)
     } catch (error) {
     }
   }
@@ -72,11 +70,10 @@ export class HomeService {
   }
 
   tripDetailsWithOptionalServices: any;
-  async getTripByIdWithOptionalServices(id: number): Promise<void>{
+  async getTripByIdWithOptionalServices(id: number): Promise<void> {
     try {
       const res = await this.http.get(`https://localhost:7004/api/Trips/GetAllTripInformationByIdWithOptionalServices/${id}`).toPromise();
       this.tripDetailsWithOptionalServices = res;
-      console.log('tripDetailsWithOptionalServices', this.tripDetailsWithOptionalServices)
     } catch (error) {
     }
   }
@@ -181,7 +178,6 @@ export class HomeService {
       const totalAmount = bookingResponse?.total_Amount || 'Not Available';
       const receiverEmail = localStorage.getItem('email');
       if (!receiverEmail) {
-        console.error('User email not found in local storage');
         return;
       }
 
@@ -343,7 +339,6 @@ export class HomeService {
   GetUserinfoByLoginId(id: number) {
     this.http.get('https://localhost:7004/api/UserLogin/GetUserinfoByLoginId/' + id).subscribe(result => {
       this.UserInformation = result;
-      console.log('UserInformation',this.UserInformation);
     }, err => {
     })
   }
@@ -353,11 +348,10 @@ export class HomeService {
   }
 
   bookingServices: any;
-  async GetBookingServiceByBookingId(id: number): Promise<void>{
-    try{
-    const res = await this.http.get('https://localhost:7004/api/BookingServices/GetBookingServiceByBookingId/' + id).toPromise();
+  async GetBookingServiceByBookingId(id: number): Promise<void> {
+    try {
+      const res = await this.http.get('https://localhost:7004/api/BookingServices/GetBookingServiceByBookingId/' + id).toPromise();
       this.bookingServices = res;
-      console.log('this.bookingServices', this.bookingServices)
     } catch (error) {
     }
   }

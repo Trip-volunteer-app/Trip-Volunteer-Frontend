@@ -45,7 +45,6 @@ export class ManageTripServicesComponent implements OnInit {
       this.tripId = +params.get('tripId')!;
       await this.admin.GetServicesByTripID(this.tripId);
       await this.admin.getAllServices();
-      console.log('tripServices', this.admin.tripServices)
       this.servicesNotInTrip = this.admin.sortedServices.filter((service: any) =>
         !this.admin.tripServices.some((tripService: any) => tripService.service_Id === service.service_Id)
       );
@@ -134,7 +133,6 @@ export class ManageTripServicesComponent implements OnInit {
       is_Optional: Service.is_Optional
     }));
     this.minimalOptionalServices = minimalOptionalServicesArray;
-    console.log('minimalOptionalServices', this.minimalOptionalServices)
     this.updateSelectedServicesDetails();
   }
 
@@ -215,7 +213,6 @@ export class ManageTripServicesComponent implements OnInit {
       SelectedServices: this.minimalOptionalServices,
       Trip_Id: this.tripId
     }
-    console.log('selectedServicesWithTripId',selectedServicesWithTripId)
     await this.admin.CreateTripServiceForServicesList(selectedServicesWithTripId);
     this.ServicesFormGroup.patchValue({
       selectedServices: []
@@ -258,7 +255,6 @@ export class ManageTripServicesComponent implements OnInit {
     } else {
       this.optionalServiceFormGroup.controls['is_Optional'].setValue(0);
     }
-    console.log('value', this.optionalServiceFormGroup.value)
   }
   optionalServices: any[] = [];
   minimalOptionalServices: any[] = [];
@@ -279,10 +275,8 @@ export class ManageTripServicesComponent implements OnInit {
       is_Optional: service.is_Optional
     }));
 
-    console.log('Minimal Optional Services Array:', minimalOptionalServicesArray);
 
     this.minimalOptionalServices = minimalOptionalServicesArray;
-    console.log('Updated Optional Services:', this.optionalServices);
   }
   get optionalServicesList() {
     return this.optionalServices.filter(service => service.is_Optional === 1);

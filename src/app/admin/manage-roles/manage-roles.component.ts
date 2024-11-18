@@ -118,7 +118,6 @@ export class ManageRolesComponent implements OnInit {
       await this.updatePaginatedRoles();
       this.cancelAddRole();
     } catch (error) {
-      console.error('Error adding role:', error);
     }
     this.calculateMaxNumberOfVolunteers();
   }
@@ -188,7 +187,6 @@ export class ManageRolesComponent implements OnInit {
   pData: any;
   openEditDialog(obj: any) {
     this.pData = obj;
-    console.log(this.pData,'ppppppppppppppp')
     this.UpdateRolesFormGroup.controls['trip_Volunteerroles_Id'].setValue(this.pData.trip_Volunteerroles_Id)
     this.dialog.open(this.updateDialog)
   }
@@ -199,7 +197,6 @@ export class ManageRolesComponent implements OnInit {
 
   async updateAllTripsRoles() {
     await this.admin.UpdateTrip_vrole_NumberOfVolunteers(this.UpdateRolesFormGroup.value);
-    console.log('this.UpdateRolesFormGroup.value',this.UpdateRolesFormGroup.value)
     await this.admin.GetVolunteerRoleByTripID(this.tripId)
     this.calculateMaxNumberOfVolunteers();
   }
@@ -228,7 +225,6 @@ export class ManageRolesComponent implements OnInit {
       this.cdr.detectChanges();
       this.updatePaginatedRoles();
     } catch (error) {
-      console.error('Error adding service:', error);
     }
     await this.admin.GetVolunteerRoleByTripID(this.tripId)
     this.calculateMaxNumberOfVolunteers();
@@ -267,8 +263,7 @@ export class ManageRolesComponent implements OnInit {
           this.admin.DeleteTripVolunteerRoleForATrip(id, this.tripId);
         await this.admin.GetVolunteerRoleByTripID(this.tripId)
         this.calculateMaxNumberOfVolunteers();
-      } else if (res == 'no')
-        console.log('Thank you');
+      } 
     }
     );
     await this.admin.GetVolunteerRoleByTripID(this.tripId)
@@ -297,7 +292,6 @@ export class ManageRolesComponent implements OnInit {
       volunteer_Role_Id: this.RolesNumberFormGroup.get('trip_Volunteerroles_Id')?.value,
       number_Of_Volunteers: this.RolesNumberFormGroup.get('number_Of_Volunteers')?.value
     };
-    console.log('roleData', roleData)
     this.roleEntries.push(roleData);
     this.role = await this.admin.SortedVolunteerRoles.find((r: any) => r.volunteer_Role_Id === roleData.volunteer_Role_Id);
     const roleWithDetails = {

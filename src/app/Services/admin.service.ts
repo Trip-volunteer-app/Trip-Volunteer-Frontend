@@ -261,12 +261,11 @@ export class AdminService {
     }
   }
 
-  async UpdateTrip_vrole_NumberOfVolunteers(body: any): Promise<void>{
+  async UpdateTrip_vrole_NumberOfVolunteers(body: any): Promise<void> {
     try {
-    console.log(body,'body')
-    await this.http.put('https://localhost:7004/api/TripVolunteerrole/UpdateTrip_vrole_NumberOfVolunteers', body).toPromise();
-  } catch (error) {
-  }
+      await this.http.put('https://localhost:7004/api/TripVolunteerrole/UpdateTrip_vrole_NumberOfVolunteers', body).toPromise();
+    } catch (error) {
+    }
   }
 
   async CreateVolunteerRoleForTrip(body: any): Promise<void> {
@@ -855,7 +854,6 @@ export class AdminService {
   GetServicesByTripID(trip_Id: number) {
     this.http.get(`https://localhost:7004/api/serviceTripe/GetServiceByTripID/${trip_Id}`).subscribe(result => {
       this.tripServices = result;
-      console.log('this.tripServices ', this.tripServices )
     }, err => {
     })
   }
