@@ -208,7 +208,7 @@ export class VolunteerComponent implements OnInit {
         email: userEmail,
         tripDetails: `Trip Name: ${tripDetails.trip_Name}, Start Date: ${tripDetails.start_Date},End Date: ${tripDetails.end_Date},Description: ${tripDetails.description}, Location: ${tripDetails.destination_Location}`
       };
-y
+
       this.admin.sendTripDetailsEmail(emailData).subscribe(response => {
       }, error => {
       });
