@@ -1,4 +1,3 @@
-console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
 (function($) {
 
 	"use strict";
